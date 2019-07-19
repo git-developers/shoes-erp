@@ -33,9 +33,9 @@
 {% macro title(content) %}
 
     {% if content is empty %}
-        {% set content = application_name ~ ' • Gestiona tus recursos on-line'|raw %}
+        {% set content = application_name ~ ' • Gestión de recursos on-line'|raw %}
     {% else %}
-        {% set content = content ~ ' • Gestiona tus recursos on-line'|raw %}
+        {% set content = content ~ ' • Gestión de recursos on-line'|raw %}
     {% endif %}
 
     <title>{{ content }}</title>

@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation\Type as TypeJMS;
 class Profile
 {
 
-    const SUPER_ADMIN = 'Super Administrator Tianos';
+    const SUPER_ADMIN = 'Super Administrator';
     const GUEST = 'Guest (invitado)';
 
     const PDV_ADMIN = 'PDV Administrator';

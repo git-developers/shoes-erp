@@ -34,9 +34,9 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new User();
         $entity->setDni('12345688');
         $entity->setPassword('123');
-        $entity->setName('Alfredo');
-        $entity->setLastName('Bringas');
-        $entity->setEmail('abringas@' . $this->applicationUrl);
+        $entity->setName('Carlos');
+        $entity->setLastName('Carlos');
+        $entity->setEmail('carlos@' . $this->applicationUrl);
         $entity->setProfile($profileSuperAdmin);
         $manager->persist($entity);
         $this->addReference('user-1', $entity);

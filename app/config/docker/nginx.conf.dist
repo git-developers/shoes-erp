@@ -1,7 +1,7 @@
 server {
     listen 80;
-    root /manguitos/web/;
-    server_name manguitos.com;
+    root /shoes-erp/web/;
+    server_name shoes-erp.com;
 
     location / {
         try_files $uri /app_dev.php$is_args$args;
@@ -16,7 +16,7 @@ server {
     }
 
     keepalive_timeout 10;
-    error_log /var/log/nginx/manguitos_error.log;
-    access_log /var/log/nginx/manguitos_access.log;
+    error_log /var/log/nginx/shoes_erp_error.log;
+    access_log /var/log/nginx/shoes_erp_access.log;
 }
 

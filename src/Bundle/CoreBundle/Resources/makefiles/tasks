@@ -1,8 +1,8 @@
 NOW := $(shell /bin/date "+%Y-%m-%d . %H:%M:%S")
 AUTHOR_EMAIL := "josetue@outlook.com"
 AUTHOR_NAME := "Tianos"
-HOST_PROJECT := manguitos.com
-DATABASE_NAME := manguitos_db
+HOST_PROJECT := shoes-erp.com
+DATABASE_NAME := shoes_erp_db
 REMOTE_NAME := github
 BRANCH_NAME := master
 

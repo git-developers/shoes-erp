@@ -107,17 +107,17 @@ db_load:
 
 log_nginx:
 ifeq ($(clean), 1)
-	> /var/log/nginx/manguitos_error.log
+	> /var/log/nginx/shoes_erp_error.log
 	@echo = se borro el log con exito!;
 	@echo -;
 else
-	tail -n $(n) /var/log/nginx/manguitos_error.log
+	tail -n $(n) /var/log/nginx/shoes_erp_error.log
 endif
 
 nginx:
 	@echo ---;
 	@echo ===========se copiara la configuracion del NGINX===========;
-	cp /manguitos/app/config/docker/nginx.conf.dist /etc/nginx/sites-enabled/manguitos-nginx
+	cp /shoes-erp/app/config/docker/nginx.conf.dist /etc/nginx/sites-enabled/shoes-erp-nginx
 	@echo ---;
 	@echo ===========validando el sintax de la configuracion del NGINX===========;
 	nginx -t
@@ -129,14 +129,14 @@ nginx:
 hosts:
 	@echo ---;
 	@echo ===========se copiara la configuracion del HOSTS===========;
-	cp /manguitos/app/config/docker/hosts.dist /etc/hosts
+	cp /shoes-erp/app/config/docker/hosts.dist /etc/hosts
 	@echo ---;
 
 ssh:
 	@echo ---;
 	@echo ===========se copiara el KEY SSH===========;
 	mkdir -p ~/.ssh/
-	cp /manguitos/app/config/docker/tianos-ssh ~/.ssh/tianos-ssh
+	cp /shoes-erp/app/config/docker/tianos-ssh ~/.ssh/tianos-ssh
 	@echo ---;
 
 restart_services:

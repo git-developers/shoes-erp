@@ -11,13 +11,14 @@
 
 
 
-A Symfony project created on July, 2019.
+* ERP For Shoe Production and Sales.
+* A certified ERP solution for shoe and footwear companies.
 
 
 COLOR 
 =====
 
-* ORANGE: #ff9d01
+* ORANGE: #F4B228
 * BLACK: #343434 
 
 

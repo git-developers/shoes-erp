@@ -1,0 +1,141 @@
+Bundle\SessionBundle\Entity\Session:
+    type: entity
+    table: session
+    repositoryClass: Bundle\SessionBundle\Doctrine\ORM\SessionRepository
+#    uniqueConstraints:
+#        UNIQ_D044D5D4A76ED395:
+#            columns:
+#                - user_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        token:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        isActive:
+            type: boolean
+            nullable: false
+            column: is_active
+    manyToOne:
+        user:
+            targetEntity: Bundle\UserBundle\Entity\User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/yaml-mapping.html
+
+Bundle\SessionBundle\Entity\Session:
+    type: entity
+#    type: mappedSuperclass
+#    mappedSuperclass: Component\CRUDDUMMY\Model\CRUDDUMMY
+    table: session
+    repositoryClass: Bundle\SessionBundle\Doctrine\ORM\SessionRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        code:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: false
+            length: 150
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+#        image:
+#            type: string
+#            nullable: true
+#            length: 45
+#            options:
+#                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+#            gedmo:
+#                timestampable:
+#                    on: create
+        userCreate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        userUpdate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_update
+        isActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: is_active
+    lifecycleCallbacks: {  }
+#    lifecycleCallbacks:
+#        prePersist: [ doStuffOnPrePersist, doOtherStuffOnPrePersistToo ]
+#        postPersist: [ doStuffOnPostPersist ]

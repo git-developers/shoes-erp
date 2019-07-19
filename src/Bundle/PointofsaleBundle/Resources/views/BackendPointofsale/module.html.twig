@@ -1,0 +1,133 @@
+{% extends "ThemesBundle:Adminlte/TemplateSuper:1_template.html.twig" %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {#{% stylesheets#}
+        {#filter='cssrewrite'#}
+        {#'@GridBundle/Resources/public/common/css/switch.css'#}
+    {#%}#}
+    {#<link rel="stylesheet" href="{{ asset_url }}" />#}
+    {#{% endstylesheets %}#}
+
+    <style>
+
+    </style>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style>
+        input[type=checkbox] {
+            height: 20px;
+            width: 20px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#{% javascripts#}
+        {#'@GridBundle/Resources/public/common/js/formEdit.js'#}
+    {#%}#}
+    {#<script type="text/javascript" src="{{ asset_url }}"></script>#}
+    {#{% endjavascripts %}#}
+
+    <script type="text/javascript">
+
+        $(function() {
+
+        });
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-{{ vars.icon }}"></i> {{ vars.title|raw }}
+            <small>grid</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> Home
+                </a>
+            </li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                {{ include('PointofsaleBundle:BackendPointofsale:sidebar-left.html.twig') }}
+            </div>
+
+            <div class="col-md-9" style="padding-left: 0">
+
+                <div class="box box-{{ vars.box_class }}">
+
+                    <div class="box-body">
+                        <div class="row">
+
+                            {{ form_start(form) }}
+
+                            <div class="col-md-12 text-right" style="margin-bottom: 10px">
+                                {{ form_widget(form.submit) }}
+                            </div>
+
+                            {% block choice_widget %}
+
+                                {% for child in form.module.children %}
+                                    <div class="col-md-6">
+                                        <div class="info-box bg-green">
+                                            <span class="info-box-icon">
+                                                <i class="fa fa-cubes"></i>
+                                            </span>
+
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">
+                                                    {% if child.vars.value in moduleIds %}
+                                                        {{ form_widget(child, { 'attr': {'checked': 'checked'}}) }}
+                                                    {% else %}
+                                                        {{ form_widget(child, { 'attr': {'class': ''}}) }}
+                                                    {% endif %}
+                                                </span>
+                                                <span class="info-box-number">
+                                                    {{ form_label(child, null, { 'label_attr': {'class':'control-label'} }) }}
+                                                </span>
+                                                <div class="progress">
+                                                    <div class="progress-bar" style="width: 70%"></div>
+                                                </div>
+                                                <span class="progress-description"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            {% endblock choice_widget %}
+
+                            {{ form_widget(form) }}
+                            {{ form_end(form) }}
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {#{{ include('GridBundle:Modal:create.html.twig') }}#}
+
+{% endblock %}

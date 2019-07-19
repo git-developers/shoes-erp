@@ -1,0 +1,47 @@
+frontend_user_index:
+    path: /
+    methods: [GET]
+    defaults:
+        slug: null
+        _controller: tianos.frontend.controller.user:indexAction
+        _tianos:
+
+frontend_user_add_friend:
+    path: /add-friend/{username}
+    methods: [PUT]
+    defaults:
+        slug: null
+        _controller: tianos.frontend.controller.user:addFriendAction
+        _tianos:
+            action: edit
+#            template: UserBundle:FrontendUser/Profile:index.html.twig
+            vars:
+                body_css: tianos-file-watch
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.friends
+                method: findOneByUsername
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: user
+
+frontend_user_remove_friend:
+    path: /remove-friend/{username}
+    methods: [PUT]
+    defaults:
+        slug: null
+        _controller: tianos.frontend.controller.user:removeFriendAction
+        _tianos:
+            action: edit
+#            template: UserBundle:FrontendUser/Profile:index.html.twig
+            vars:
+                body_css: tianos-file-watch
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.friends
+                method: findOneByUsername
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: user

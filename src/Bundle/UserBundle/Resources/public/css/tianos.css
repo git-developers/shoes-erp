@@ -1,0 +1,15 @@
+@keyframes example {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.terms-and-conditions{
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: unset;
+    padding-right: 10px;
+}
+
+.terms-and-conditions > p.paragraph{
+    text-align:justify;
+}

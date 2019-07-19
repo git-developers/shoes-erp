@@ -1,0 +1,11 @@
+api_default:
+    resource: '@ApiBundle/Resources/config/routing/default.yml'
+    prefix: /
+
+api_category:
+    resource: '@CategoryBundle/Resources/config/routing/api.yml'
+    prefix: /category
+
+api_user:
+    resource: '@UserBundle/Resources/config/routing/api.yml'
+    prefix: /user

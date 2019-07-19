@@ -1,0 +1,7 @@
+[webservers]
+tianos.grupocazaperu.com
+
+[all:vars]
+ansible_connection=ssh
+ansible_user=grupoca7
+

@@ -1,0 +1,41 @@
+{% macro javascript_sdk() %}
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8&appId={{ application_fb_app_id }}";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+{% endmacro %}
+
+{% macro flash_message_success() %}
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="flashbag flashbag-success">
+            <a class="pull-right" href="#" rel="tooltip" data-toggle="tooltip" data-placement="left" title="cerrar">×</a>
+            <i class="fa fa-fw fa-check"></i> {{ flash_message }}
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro flash_message_warning() %}
+    {% for flash_message in app.session.flashBag.get('warning') %}
+        <div class="flashbag flashbag-warning">
+            <a class="pull-right" href="#" rel="tooltip" data-toggle="tooltip" data-placement="left" title="cerrar">×</a>
+            <i class="fa fa-fw fa-warning"></i> {{ flash_message }}
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro flash_message_error() %}
+    {% for flash_message in app.session.flashBag.get('error') %}
+        <div class="flashbag flashbag-error">
+            <a class="pull-right" href="#" rel="tooltip" data-toggle="tooltip" data-placement="left" title="cerrar">×</a>
+            <i class="fa fa-fw fa-times-circle-o"></i> {{ flash_message }}
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+

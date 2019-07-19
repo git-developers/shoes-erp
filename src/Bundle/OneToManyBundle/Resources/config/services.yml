@@ -1,0 +1,48 @@
+services:
+
+    tianos.one_to_many:
+        class: Bundle\OneToManyBundle\Services\OneToMany\OneToMany
+        arguments: [ "@router", "@request_stack" ]
+        tags:
+            - { name: tianos.one_to_many, alias: tianos.one_to_many }
+
+
+
+
+#    TWIG EXTENSION
+    tianos.registry.onetomany_field:
+        class: Component\Registry\ServiceRegistry
+        arguments: [ Component\OneToMany\FieldTypes\FieldTypeInterface, "grid field" ]
+
+    tianos.form_registry.onetomany_filter:
+        class: Bundle\OneToManyBundle\Form\Registry\FormTypeRegistry
+        public: false
+
+    tianos.expression_language:
+        class: Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage
+        public: false
+
+    tianos.onetomany_options_parser:
+        class: Bundle\ResourceBundle\OneToMany\Parser\OptionsParser
+        arguments: [ "@service_container", "@tianos.expression_language", "@property_accessor" ]
+        public: false
+
+    tianos.custom_onetomany_renderer.twig.inner:
+        class: Bundle\OneToManyBundle\Renderer\TwigOneToManyRenderer
+        arguments: [ "@twig", "@tianos.registry.onetomany_field", "@form.factory", "@tianos.form_registry.onetomany_filter", SyliusOneToManyBundle::_grid.html.twig ]
+        public: false
+
+    tianos.custom_onetomany_renderer.twig:
+        class: Bundle\ResourceBundle\OneToMany\Renderer\TwigOneToManyRenderer
+        arguments: [ "@tianos.custom_onetomany_renderer.twig.inner", "@twig", "@tianos.onetomany_options_parser" ]
+
+    tianos.templating.helper.onetomany:
+        class: Bundle\OneToManyBundle\Templating\Helper\OneToManyHelper
+        arguments: [ "@tianos.custom_onetomany_renderer.twig" ]
+
+    twig.extension.one_to_many:
+        class: Bundle\OneToManyBundle\Twig\OneToManyExtension
+        arguments: ['@tianos.templating.helper.onetomany']
+        public: false
+        tags:
+         - { name: twig.extension }

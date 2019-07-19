@@ -1,0 +1,23 @@
+frontend_default_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.default:indexAction
+        _tianos:
+            template: FrontendBundle:Default:index.html.twig
+            vars:
+                body_css: frontend-default
+
+frontend_default_contact_us_facebook:
+    path: /contact-us-facebook
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.default:contactUsFacebookAction
+        _tianos:
+
+frontend_default_contact_us_twitter:
+    path: /contact-us-twitter
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.default:contactUsTwitterAction
+        _tianos:

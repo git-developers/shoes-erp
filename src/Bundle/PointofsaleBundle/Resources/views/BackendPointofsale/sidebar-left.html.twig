@@ -1,0 +1,80 @@
+<div class="box box-{{ vars.box_class }} box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title">Informaci&oacute;n de PDV</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+
+        <ul class="nav nav-pills nav-stacked">
+            <li>
+                <a href="#">
+                    <span class="badge bg-blue">{{ pdv.id }}</span> {{ pdv.name }}
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <strong>Creado:</strong> {{ pdv.createdAt|date("Y-m-d H:i") }}
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <strong>Login Link:</strong>
+                </a>
+                <div class="row">
+                    <div class="col-md-10">
+                        <p class="text-muted">
+                            <input
+                                value="{{ url('backend_security_pdv_login', {slug: pdv.slug}) }}"
+                                class="form-control copy-to-clipboard-text"
+                                readonly>
+                        </p>
+                    </div>
+
+                    <div class="col-md-1">
+                        <i
+                            class="fa fa-lg fa-fw fa-copy x-hand copy-to-clipboard"
+                            data-toggle="tooltip"
+                            data-original-title="Click para copiar"></i>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<div class="box box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title">Seleccionar Criterios</h3>
+        <div class="box-tools">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="box-body no-padding">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="{% if app.request.get('_route') in 'backend_super_pointofsale_add_user_index' %}active{% endif %}">
+                <a href="{{ path('backend_super_pointofsale_add_user_index', {id: pdv.id}) }}">
+                    <i class="fa fa-user"></i> Agregar usuarios
+                </a>
+            </li>
+            <li class="{% if app.request.get('_route') in 'backend_pointofsale_module' %}active{% endif %}">
+                <a href="{{ path('backend_pointofsale_module', {id: pdv.id}) }}">
+                    <i class="fa fa-cubes"></i> Agregar modulos
+                </a>
+            </li>
+            <li class="{% if app.request.get('_route') in 'backend_super_pointofsale_pdv_child_index' %}active{% endif %}">
+                <a href="{{ path('backend_super_pointofsale_pdv_child_index', {id: pdv.id}) }}">
+                    <i class="fa fa-map-marker"></i> Agregar sucursales PDV
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

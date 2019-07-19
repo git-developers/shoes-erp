@@ -1,0 +1,40 @@
+api_user_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.api.controller.user:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_product
+#            template: ProductBundle:Product:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_product_catalog
+                icon: cube
+            form:
+                type: Bundle\UserBundle\Form\Type\UserType
+            repository:
+                service: tianos.repository.user
+                method: findAll
+                arguments: [$productId]
+
+api_user_login:
+    path: /login
+    methods: [GET, POST]
+    defaults:
+        _controller: tianos.api.controller.user:loginAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_product
+#            template: ProductBundle:Product:index.html.twig
+            vars:
+                icon: cube
+                subheader: sylius.ui.manage_your_product_catalog
+                serialize_group_name: login
+            form:
+                type: Bundle\UserBundle\Form\Type\UserType
+            repository:
+                service: tianos.repository.user
+                method: login
+                arguments: [$productId]

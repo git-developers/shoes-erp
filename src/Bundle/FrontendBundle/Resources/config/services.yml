@@ -1,0 +1,19 @@
+services:
+
+    tianos.frontend.controller.default:
+        class: Bundle\FrontendBundle\Controller\DefaultController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.frontend.controller.default, alias: tianos.frontend.controller.default }
+
+    tianos.frontend.controller.generate.thumbnail:
+        class: Bundle\FrontendBundle\Controller\GenerateThumbnailController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.frontend.controller.generate.thumbnail, alias: tianos.frontend.controller.generate.thumbnail }
+
+    tianos.frontend.controller.google.files:
+        class: Bundle\FrontendBundle\Controller\GoogleFilesController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.frontend.controller.google.files, alias: tianos.frontend.controller.google.files }

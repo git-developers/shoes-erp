@@ -1,0 +1,193 @@
+#http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/yaml-mapping.html
+
+Bundle\UserBundle\Entity\User:
+    type: entity
+    table: user
+    repositoryClass: Bundle\UserBundle\Doctrine\ORM\UserRepository
+    indexes:
+        FK_8D93D649CCFA12B8:
+            columns:
+                - profile_id
+    uniqueConstraints:
+        email_UNIQUE:
+            columns:
+                - email
+        username_UNIQUE:
+            columns:
+                - username
+#        dni_UNIQUE:
+#            columns:
+#                - dni
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        slug:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        deviceCode:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: device_code
+        name:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+        lastName:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: last_name
+        headline:
+            type: string
+            nullable: true
+            length: 144
+            options:
+                fixed: false
+            column: headline
+        aboutMe:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: about_me
+        dob:
+            type: date
+            nullable: true
+        address:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        phone:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        image:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        userCreate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        userUpdate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_update
+        lastAccess:
+            type: datetime
+            nullable: true
+            column: last_access
+        resetPasswordHash:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+            column: reset_password_hash
+        resetPasswordDate:
+            type: datetime
+            nullable: true
+            column: reset_password_date
+        isActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: is_active
+#        username:
+#            type: string
+#            nullable: false
+#            length: 45
+#            options:
+#                fixed: false
+#        password:
+#            type: string
+#            nullable: true
+#            length: 100
+#            options:
+#                fixed: false
+#        salt:
+#            type: string
+#            nullable: true
+#            length: 45
+#            options:
+#                fixed: false
+#        dni:
+#            type: string
+#            nullable: true
+#            length: 8
+#            options:
+#                fixed: false
+#        email:
+#            type: string
+#            nullable: false
+#            length: 255
+#            options:
+#                fixed: false
+    manyToOne:
+        profile:
+            targetEntity: Bundle\ProfileBundle\Entity\Profile
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                profile_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        pointOfSaleActive:
+            targetEntity: Bundle\PointofsaleBundle\Entity\Pointofsale
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                point_of_sale_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        pointOfSale:
+            targetEntity: Bundle\PointofsaleBundle\Entity\Pointofsale
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: user
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

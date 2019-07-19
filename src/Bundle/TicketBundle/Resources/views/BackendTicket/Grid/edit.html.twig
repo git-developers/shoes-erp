@@ -1,0 +1,349 @@
+{% extends "ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig" %}
+
+{% import "TreeBundle::Macro/tree_ticket.html.twig" as macro %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        filter='cssrewrite'
+        '@TicketBundle/Resources/public/css/default.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    {% stylesheets
+        '@TreeBundle/Resources/public/css/tree.css'
+        '@CoreBundle/Resources/public/css/tree.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <style>
+
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@TicketBundle/Resources/public/js/formClient.js'
+        '@TicketBundle/Resources/public/js/formEmployee.js'
+        '@TicketBundle/Resources/public/js/formServices.js'
+        '@TicketBundle/Resources/public/js/formTicket.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            $('body.{{ vars.body_css }}').formClient({
+                modalId: 'modal-create-client',
+                formName: 'form-create-client',
+                route: '{{ path('backend_ticket_add_client') }}'
+            });
+
+            $('body.{{ vars.body_css }}').formEmployee({
+                modalId: 'modal-create-employee',
+                formName: 'form-create-employee',
+                route: '{{ path('backend_ticket_add_employee') }}'
+            });
+
+            $('body.{{ vars.body_css }}').formServices({
+                modalId: 'modal-create-services',
+                routeIncrement: '{{ path('backend_ticket_increment_services') }}',
+                routeDecrement: '{{ path('backend_ticket_decrement_services') }}',
+                routeRemoveAll: '{{ path('backend_ticket_remove_all_services') }}'
+            });
+
+            $('body.{{ vars.body_css }}').formTicket({
+                formName: 'form-ticket',
+                route: '{{ path('backend_ticket_create') }}',
+                routeRedirect: '{{ path('backend_ticket_index') }}'
+            });
+
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-ticket"></i> Editar Ticket
+            <small>service</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> Home
+                </a>
+            </li>
+            <li class="active">
+                Dashboard
+            </li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-md-7" style="padding-right: 0px">
+
+                <div class="box box-success" style="margin-bottom: 15px">
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">
+                                    <i class="fa fa-fw fa-sitemap"></i> Categorías
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">
+                                    <i class="fa fa-fw fa-file-text-o"></i> Servicios
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-body"> {#no-padding#}
+
+                        {#SERVICIOS#}
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="{{ tree.main_div }} box-body">
+                                    <ul id="{{ tree.main_ul }}">
+                                        {% if objectsTree is not empty %}
+                                            {{ macro.tree(
+                                                objectsTree,
+                                                tree,
+                                                -1,
+                                                'TreeBundle::Template/li_ticket.html.twig',
+                                                'backend_services_index'
+                                            ) }}
+                                        {% else %}
+                                            <p>No hay items que mostrar</p>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+
+                                <table class="table table-bordered service table-services table-scroll">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">nombre</th>
+                                        <th class="text-center">
+                                            <i class="fa fa-fw fa-money"></i> precio
+                                        </th>
+                                        <th class="text-center">accion</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="tr-service">
+                                        <td colspan="3">
+                                            Seleccione una categoría.
+                                        </td>
+                                    </tr>
+                                    {% for service in servicesObjs %}
+                                        <tr class="tr-service tr-service-{{ service.category.id }}" style="display: none">
+                                            <td class="text-center">
+                                                {{ service.id }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ service.name }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ service.price }}
+                                            </td>
+                                            <td>
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-success btn-xs increment-services"
+                                                    data-id-service="{{ service.id }}">
+                                                    <i class="fa fa-fw fa-plus-circle"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {#SERVICIOS#}
+
+                    </div>
+                </div>
+
+                {#CLIENT#}
+                <div class="box box-success" style="margin-bottom: 15px">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-user"></i> Cliente
+                        </h4>
+                        <div class="box-tools pull-right">
+                            <span
+                                class="badge bg-green x-hand add-client"
+                                data-toggle="modal"
+                                data-target="#modal-create-client">
+                                <i class="fa fa-plus"></i> Agregar
+                            </span>
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive"> {#no-padding#}
+
+                        <table class="table table-condensed table-striped box-table-client">
+                            <thead>
+                            <tr>
+                                <th style="width: 30px"></th>
+                                <th style="width: 30px"></th>
+                                <th class="text-left">Nombre</th>
+                                <th class="text-center">miembro</th>
+                                <th class="text-right"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5">
+                                        Seleccione un cliente.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                {#CLIENT#}
+
+
+                {#EMPLOYEE#}
+                <div class="box box-success" style="margin-bottom: 15px">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-user"></i> Empleado
+                        </h4>
+                        <div class="box-tools pull-right">
+                            <span
+                                    class="badge bg-green x-hand add-employee"
+                                    data-toggle="modal"
+                                    data-target="#modal-create-employee">
+                                <i class="fa fa-plus"></i> Agregar
+                            </span>
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive"> {#no-padding#}
+
+                        <table class="table table-condensed table-striped box-table-employee">
+                            <thead>
+                            <tr>
+                                <th style="width: 30px"></th>
+                                <th style="width: 30px"></th>
+                                <th class="text-left">Nombre</th>
+                                <th class="text-center">miembro</th>
+                                <th class="text-right"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5">
+                                        Seleccione un empleado.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                {#EMPLOYEE#}
+
+            </div>
+
+            <div class="col-md-5">
+
+                <div class="box box-primary">
+
+                    {# COMPROBANTE #}
+                    <form name="form-ticket">
+
+                        <div class="box-header with-border">
+                            <h4 class="box-title">
+                                <i class="fa fa-fw fa-file-o"></i> Comprobante
+                            </h4>
+                            <div class="box-tools pull-right">
+                                <span
+                                    class="badge bg-red x-hand remove-all-services"
+                                    data-toggle="tooltip"
+                                    data-original-title="Eliminar todo">
+                                    <i class="fa fa-minus-circle"></i> Eliminar
+                                </span>
+                            </div>
+                        </div>
+                        <div class="box-body box-table-services">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Fecha</label>
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            name="ticket[dateTicket]"
+                                            value="{{ entity.dateTicket }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Nombre</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="ticket[name]"
+                                            placeholder="Nombre del ticket"
+                                            value="{{ entity.name }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="services">
+                                {{ include('TicketBundle:BackendTicket/Grid/Box:table_service.html.twig') }}
+                            </div>
+
+                        </div>
+
+                        <div class="box-footer text-center">
+                            <button type="submit" class="btn btn-primary">
+                                Guardar
+                            </button>
+                        </div>
+
+                    </form>
+                    {# COMPROBANTE #}
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+    {{ include('TicketBundle:BackendTicket/Modal/Client:create.html.twig') }}
+    {{ include('TicketBundle:BackendTicket/Modal/Employee:create.html.twig') }}
+
+{% endblock %}

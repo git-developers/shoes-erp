@@ -1,0 +1,42 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host: 127.0.0.1
+    database_port: ~
+    database_name: manguitos_db
+    database_user: root
+    database_password: root
+
+    # You should uncomment this if you want to use pdo_sqlite
+    #database_path: '%kernel.project_dir%/var/data/data.sqlite'
+
+    mailer_transport: gmail
+    mailer_encryption: ssl
+    mailer_auth_mode: login
+    mailer_host: smtp.gmail.com
+    mailer_user: no-reply@manguitos.com
+    mailer_password: ~
+
+    # A secret key that's used to generate certain security-related tokens
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+    application_theme_color: '#FF9C00'
+    application_version: 2.4.1
+    application_url: manguitos.com
+    application_via: manguitos
+    application_url_canonical: http://manguitos.com
+    application_skin: 'skin-yellow'
+    application_name: 'Manguitos'
+    application_name_html: '<b>Man</b>guitos'
+    application_fb_app_id: 'xxxxxxxxxx'
+    application_fb_app_secret: 'xxxxxxxxxx'
+    application_google_api_key: 'xxxxxxxxxxx'
+    application_google_plus: 'https://plus.google.com/u/0/xxxxx'
+    application_facebook: 'https://www.facebook.com/manguitos'
+    application_twitter: 'https://twitter.com/manguitos'
+    application_description: 'xxxxxxxxxxxxxxxx'
+
+    google_site_verification: 'xxxxxxxx-igLVFNLk'
+    sylius.resource.settings: 5555
+    sylius.model.admin_user.class: 6666

@@ -1,0 +1,5 @@
+table.no-padding thead tr th,
+table.no-padding tfoot tr td
+{
+    padding: 0px !important;
+}

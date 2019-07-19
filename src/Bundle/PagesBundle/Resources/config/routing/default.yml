@@ -1,0 +1,7 @@
+pages_default_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.pages.controller.default:indexAction
+        _tianos:
+            template: PagesBundle:Default:index.html.twig

@@ -1,0 +1,7 @@
+pages_default:
+    resource: '@PagesBundle/Resources/config/routing/default.yml'
+    prefix: /
+
+pages_privacypolicy:
+    resource: '@PagesBundle/Resources/config/routing/privacy-policy.yml'
+    prefix: /privacy-policy

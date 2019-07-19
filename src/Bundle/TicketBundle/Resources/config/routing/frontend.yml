@@ -1,0 +1,19 @@
+frontend_ticket_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.ticket:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_ticket
+            template: TicketBundle:Ticket:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_ticket_catalog
+                icon: cube
+            form:
+                type: Bundle\TicketBundle\Form\Type\TicketType
+            repository:
+                service: tianos.repository.ticket
+                method: findAll
+                arguments: [$ticketId]

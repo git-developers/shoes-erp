@@ -1,0 +1,19 @@
+frontend_pointofsale_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.pointofsale:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_pointofsale
+            template: PointofsaleBundle:Pointofsale:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_pointofsale_catalog
+                icon: cube
+            form:
+                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
+            repository:
+                service: tianos.repository.pointofsale
+                method: findAll
+                arguments: [$pointofsaleId]

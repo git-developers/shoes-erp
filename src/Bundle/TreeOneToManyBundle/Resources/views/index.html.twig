@@ -1,0 +1,290 @@
+{% extends "ThemesBundle:Adminlte:1_template.html.twig" %}
+
+{% import "TreeOneToManyBundle::Macro/tree.html.twig" as macro %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        filter='cssrewrite'
+        '@CoreBundle/Resources/public/css/tree.css'
+        '@TreeOneToManyBundle/Resources/public/css/tree.css'
+        '@TreeOneToManyBundle/Resources/public/plugins/datatables/dataTables.bootstrap.css'
+        '@TreeOneToManyBundle/Resources/public/plugins/datatables/extensions/Editor/css/editor.dataTables.min.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <style>
+        input[type=checkbox] {
+            height: 16px;
+            width: 16px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@TreeOneToManyBundle/Resources/public/js/boxInfo.js'
+        '@TreeOneToManyBundle/Resources/public/js/boxLeftSearch.js'
+        '@TreeOneToManyBundle/Resources/public/js/boxRightSearch.js'
+        '@TreeOneToManyBundle/Resources/public/js/boxRightSelectItem.js'
+        '@TreeOneToManyBundle/Resources/public/js/boxLeftSelectItem.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+
+    <script type="application/javascript">
+
+        $(function() {
+
+            $(document).on({
+                mouseenter: function(){
+                    $(this).find('div.tools').toggle();
+                    $(this).toggleClass('bg-gray');
+                },
+                mouseleave: function(){
+                    $(this).find('div.tools').toggle();
+                    $(this).toggleClass('bg-gray');
+                },
+            }, 'span.{{ boxLeft.tree.li_span }}');
+
+            $('div#{{ boxLeft.id }}').boxLeftSearch({
+                boxId: '{{ boxLeft.id }}',
+                searchInputName: '{{ boxLeft.search_input_name }}',
+                routeSearch: '{{ path(boxLeft.route_search) }}',
+            });
+
+            $('div#{{ boxRight.id }}').boxRightSearch({
+                boxLeftId: '{{ boxLeft.id }}',
+                boxRightId: '{{ boxRight.id }}',
+                searchInputName: '{{ boxRight.search_input_name }}',
+                routeSearch: '{{ path(boxRight.route_search) }}',
+            });
+
+            $('div#{{ boxRight.id }}').boxRightSelectItem({
+                {#formName: '{{ box.form_name }}',#}
+                {#box_separator: '{{ box.box_separator }}',#}
+                boxLeftId: '{{ boxLeft.id }}',
+                boxRightId: '{{ boxRight.id }}',
+                boxLeftLiInputName: '{{ boxLeft.li_input_name }}',
+                liClass: '{{ boxRight.li_class }}',
+                routeSelectItem: '{{ path(boxRight.route_select_item) }}',
+                {#box_li_class: '{{ boxRight.box_li_class }}',#}
+                {#box_value_hidden: '{{ boxRight.box_value_hidden }}',#}
+
+                {#action: {#}
+                    {#create:'{{ box.action_create }}',#}
+                    {#delete:'{{ box.action_delete }}'#}
+                {#},#}
+            });
+
+            $('div#{{ boxLeft.id }}').boxLeftSelectItem({
+                {#form_name: '{{ box.form_name }}',#}
+                boxLeftId: '{{ boxLeft.id }}',
+                boxRightId: '{{ boxRight.id }}',
+                liClass: '{{ boxLeft.li_class }}',
+                {#box_li_id: '{{ boxLeft.box_li_id }}',#}
+                {#box_li_class: '{{ boxLeft.box_li_class }}',#}
+                routeSelectItem: '{{ path(boxLeft.route_select_item) }}',
+            });
+
+            $('body.{{ vars.body_css }}').boxInfo({
+                modalInfoId: '{{ modal.info_id }}',
+                routeInfo: '{{ path(box.route_info) }}',
+            });
+
+        });
+
+
+        {#
+        $('input[name=search-user]').keyup(function() {
+            var q = $(this).val();
+            var object = $('#list-user span.text');
+            loop(object, q);
+        });
+
+        function loop(object, q) {
+
+            var globalTimeout = null;
+            var count = 0;
+
+            if(globalTimeout != null){
+                clearTimeout(globalTimeout);
+            }
+
+            globalTimeout = setTimeout(function() {
+
+                object.each(function(key, val){
+
+                    // If the list item does not contain the text phrase fade it out
+                    if ($(this).text().search(new RegExp(q, 'i')) < 0) {
+                        $(this).parent().hide();
+//                        $(this).parent().hide();
+                    // Show the list item if the phrase matches and increase the count by 1
+                    } else {
+//                        $(this).parent().show();
+                        $(this).parent().show();
+                        count++;
+                    }
+
+                    if(key > 5){
+                        $(this).parent().hide();
+                    }
+//                    console.log(key);
+
+                });
+            }, 200);
+        }
+        #}
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-{{ box.icon }}"></i> Asociación: {{ box.title|raw }}
+            <small>lista</small>
+        </h1>
+        <ol class="breadcrumb">
+            {#<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>#}
+            {#<li class="active">Dashboard</li>#}
+
+            <li>
+                <button
+                        class="btn btn-info btn-xs modal-info"
+                        alt="Info"
+                        title="Info"
+                        data-toggle="modal"
+                        data-target="#modal-info">
+                    <i class="fa fa-fw fa-info-circle"></i> info
+                </button>
+            </li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <form name="{{ box.form_name }}">
+            <div class="row">
+
+                {#LEFT#}
+                <div id="{{ boxLeft.id }}" class="col-md-6">
+                    <div class="box box-{{ boxLeft.class }}">
+                        <div class="box-header ui-sortable-handle">
+
+                            <i class="fa fa-fw fa-{{ boxLeft.icon|trim }}"></i>
+                            <h3 class="box-title">
+                                {{ boxLeft.title|trim }}
+                            </h3>
+
+                            <div class="box-tools pull-right">
+                                <div class="row">
+                                    <div class="col-md-offset-6 col-md-6">
+                                        <div class="input-group">
+                                            <input name="{{ boxLeft.search_input_name }}" type="search" class="form-control" maxlength="50">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-fw fa-search"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {#<ul class="pagination pagination-sm inline">#}
+                                {#<li><a href="#">«</a></li>#}
+                                {#<li><a href="#">1</a></li>#}
+                                {#</ul>#}
+                            </div>
+                        </div>
+                        <div class="box-body">
+
+                            <div class="callout callout-info">
+                                <p>
+                                    <i class="fa fa-fw fa-info"></i> Seleccione un item.
+                                </p>
+                            </div>
+
+                            <div class="{{ boxLeft.tree.main_div }} box-body">
+
+                                <ul id="{{ boxLeft.tree.main_ul }}">
+                                    {% if objectsLeft is not empty %}
+                                        {{ macro.tree(objectsLeft, boxLeft, modal, -1) }}
+                                    {% else %}
+                                        <p>No hay items que mostrar</p>
+                                    {% endif %}
+                                </ul>
+
+                            </div>
+                        </div>
+                        {#<div class="box-footer clearfix no-border">#}
+                        {#<button type="button" class="btn btn-default pull-right">#}
+                        {#<i class="fa fa-plus"></i> Add item#}
+                        {#</button>#}
+                        {#</div>#}
+                    </div>
+                </div>
+                {#LEFT#}
+
+
+                {#RIGHT#}
+                <div id="{{ boxRight.id }}" class="col-md-6">
+                    <div class="box box-{{ boxRight.class }}">
+                        <div class="box-header ui-sortable-handle">
+
+                            <i class="fa fa-fw fa-{{ boxRight.icon|trim }}"></i>
+                            <h3 class="box-title">
+                                {{ boxRight.title|trim }}
+                                &nbsp;
+                                <i class="fa fa-1x fa-refresh fa-spin" style="display: none"></i>
+                            </h3>
+
+                            <div class="box-tools pull-right">
+                                <div class="row">
+                                    <div class="col-md-offset-6 col-md-6">
+                                        <div class="input-group">
+                                            <input name="{{ boxRight.search_input_name }}" type="search" class="form-control" maxlength="50">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-fw fa-search"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {#<ul class="pagination pagination-sm inline">#}
+                                {#<li><a href="#">«</a></li>#}
+                                {#<li><a href="#">1</a></li>#}
+                                {#</ul>#}
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <ul class="todo-list ui-sortable">
+                                {{ include('TreeOneToManyBundle:Li:box_right.html.twig') }}
+                                {#{{ include('CoreBundle:BoxOneToMany:Li/boxRight.html.twig', {isAssigned:false,}) }}#}
+                            </ul>
+                        </div>
+                        {#<div class="box-footer clearfix no-border">#}
+                        {#<button type="button" class="btn btn-default pull-right">#}
+                        {#<i class="fa fa-plus"></i> Add item#}
+                        {#</button>#}
+                        {#</div>#}
+                    </div>
+                </div>
+                {#RIGHT#}
+
+
+            </div>
+        </form>
+    </section>
+
+    {{ include('TreeOneToManyBundle:Modal:info.html.twig') }}
+
+{% endblock %}

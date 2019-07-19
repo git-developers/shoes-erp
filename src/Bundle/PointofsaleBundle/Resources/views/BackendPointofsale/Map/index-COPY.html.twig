@@ -1,0 +1,98 @@
+{% extends "ThemesBundle:Adminlte:1_template.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        #map {
+            height: 1000px;
+            width: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>#}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ application_google_api_key }}"></script>
+
+    <script>
+        var geocoder;
+        var map;
+        var directionsDisplay;
+        var directionsService = new google.maps.DirectionsService();
+        var locations = [
+            ['Plaza San Martin', -12.0516854,-77.0345036, 2],
+            ['Jiron de la unio - Replay', -12.0489735,-77.0336614, 4],
+            ['Jiron de la Union - Mac Donalds', -12.0480705,-77.0326247, 5],
+            ['Jiron de la Union - Ucayali', -12.0470601,-77.0320176, 1],
+            ['Jiron de la Union - Plaza de Armas', -12.0460135,-77.0305169, 3]
+        ];
+
+        function initialize() {
+            directionsDisplay = new google.maps.DirectionsRenderer();
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: new google.maps.LatLng(-12.054293,-77.0294639),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            directionsDisplay.setMap(map);
+            var infowindow = new google.maps.InfoWindow();
+
+            var marker, i;
+            var request = {
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            /*FOR - START*/
+            for (i = 0; i < locations.length; i++) {
+
+                console.dir(locations[i]);
+
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                });
+
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
+
+                if (i == 0) request.origin = marker.getPosition();
+                else if (i == locations.length - 1) request.destination = marker.getPosition();
+                else {
+                    if (!request.waypoints) request.waypoints = [];
+                    request.waypoints.push({
+                        location: marker.getPosition(),
+                        stopover: true
+                    });
+                }
+            }
+            /*FOR - END*/
+
+            directionsService.route(request, function(result, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(result);
+                }
+            });
+        }
+
+        google.maps.event.addDomListener(window, "load", initialize);
+    </script>
+
+
+{% endblock %}
+
+{% block content %}
+
+    <div id="map"></div>
+
+{% endblock %}
+

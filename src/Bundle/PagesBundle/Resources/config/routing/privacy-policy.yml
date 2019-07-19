@@ -1,0 +1,7 @@
+pages_privacypolicy_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.pages.controller.privacy.policy:indexAction
+        _tianos:
+            template: PagesBundle:PrivacyPolicy:index.html.twig

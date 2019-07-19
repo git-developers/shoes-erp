@@ -1,0 +1,8 @@
+suites:
+    main:
+        namespace: Bundle\TreeOneToManyBundle
+        psr4_prefix: Bundle\TreeOneToManyBundle
+        src_path: .
+
+extensions:
+    Akeneo\SkipExampleExtension: ~

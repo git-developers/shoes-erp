@@ -1,0 +1,40 @@
+#app:
+#    resource: '@AppBundle/Controller/'
+#    type: annotation
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+frontend:
+    resource: "@FrontendBundle/Resources/config/routing.yml"
+    prefix:   /
+    #type:     annotation
+
+core:
+    resource: "@CoreBundle/Resources/config/routing.yml"
+    prefix:   /core
+    #type:     annotation
+
+backend_pdv:
+    resource: "@BackendBundle/Resources/config/routing_pdv.yml"
+    prefix:   /backend
+    #type:     annotation
+
+backend_super:
+    resource: "@BackendBundle/Resources/config/routing_super.yml"
+    prefix:   /backend-super
+    #type:     annotation
+
+api:
+    resource: "@ApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+    #type:     annotation
+
+#backend_security_pdv:
+#    resource: "@UserBundle/Resources/config/routing/security_pdv.yml"
+#    prefix:   /login
+#    type:     annotation
+
+#security:
+#    resource: "@TianosSecurityBundle/Resources/config/routing.yml"
+#    prefix:   /security

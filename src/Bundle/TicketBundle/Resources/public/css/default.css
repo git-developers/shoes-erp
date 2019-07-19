@@ -1,0 +1,81 @@
+input[type=radio]{
+    height: 17px;
+    width: 17px;
+}
+input[type=checkbox]{
+    height: 17px;
+    width: 17px;
+}
+
+
+/**
+    TABLE SCROLL
+ */
+.table-scroll tbody {
+    display: inline-block;
+    overflow-y:scroll;
+}
+
+.table-scroll thead, .table-scroll tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table-scroll thead {
+    width: calc( 100% - 12px )
+}
+/**
+    TABLE SCROLL
+ */
+
+
+
+
+.table-client tbody,
+.table-employee tbody
+{
+    height: 300px;
+}
+
+.table-services tbody
+{
+    height: 300px;
+}
+
+.table-client tbody tr td:nth-child(1),
+.table-client thead tr th:nth-child(1),
+.table-employee tbody tr td:nth-child(1),
+.table-employee thead tr th:nth-child(1),
+.table-services tbody tr td:nth-child(1),
+.table-services thead tr th:nth-child(1)
+{
+    width: 30px;
+}
+
+.table-client tbody tr td:nth-child(2),
+.table-client thead tr th:nth-child(2),
+.table-client tbody tr td:nth-child(3),
+.table-client thead tr th:nth-child(3),
+.table-employee tbody tr td:nth-child(2),
+.table-employee thead tr th:nth-child(2),
+.table-employee tbody tr td:nth-child(3),
+.table-employee thead tr th:nth-child(3)
+{
+    width: 60px;
+}
+
+.table-client tbody tr td:nth-child(5),
+.table-client thead tr th:nth-child(5),
+.table-employee tbody tr td:nth-child(5),
+.table-employee thead tr th:nth-child(5)
+{
+    width: 120px;
+}
+
+.table-services tbody tr td:nth-child(4),
+.table-services thead tr th:nth-child(4)
+{
+    width: 50px;
+}
+

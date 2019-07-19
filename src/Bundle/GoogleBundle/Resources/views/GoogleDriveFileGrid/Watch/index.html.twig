@@ -1,0 +1,279 @@
+{% extends "ThemesBundle:Adminlte:1_template.html.twig" %}
+
+{% import "ThemesBundle::Adminlte/Macro/html.html.twig" as html %}
+{% import "ThemesBundle::Adminlte/Macro/head.html.twig" as head %}
+{% import "ThemesBundle::Adminlte/Macro/meta.html.twig" as meta %}
+{% import "ThemesBundle::Adminlte/Macro/bi3d.html.twig" as bi3d %}
+{% import "ThemesBundle::Adminlte/Macro/twitter.html.twig" as twitter %}
+{% import "ThemesBundle::Adminlte/Macro/open_graph.html.twig" as og %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block facebookSdk %}
+    {{ html.facebook_sdk }}
+{% endblock %}
+
+{% block seo %}
+    {% block head %}
+
+        {#para copiar en otras paginas#}
+        {{ head.title(entity.fileName) }}
+    {% endblock %}
+
+    {% block twitter %}
+        {{ twitter.card() }}
+
+        {#para copiar en otras paginas#}
+        {{ twitter.title(entity.fileName) }}
+        {{ twitter.description(entity.description) }}
+        {{ twitter.image(entity.hasThumbnail ? app.request.getSchemeAndHttpHost() ~ asset('google-drive-images/' ~ entity.fileId ~ '-w400.jpg') : '') }}
+    {% endblock %}
+
+    {% block open_graph %}
+        {{ og.default() }}
+        {{ og.url() }}
+
+        {#para copiar en otras paginas#}
+        {{ og.title(entity.fileName) }}
+        {{ og.description(entity.description) }}
+        {{ og.image(entity.hasThumbnail ? app.request.getSchemeAndHttpHost() ~ asset('google-drive-images/' ~ entity.fileId ~ '-w400.jpg') : '') }}
+    {% endblock %}
+
+    {% block bi3d %}
+        {#para copiar en otras paginas#}
+        {{ bi3d.art_id(entity.slug) }}
+        {#{{ bi3d.section() }}#}
+        {{ bi3d.art_title(entity.fileName) }}
+        {{ bi3d.pub_date(entity.createdAt) }}
+    {% endblock %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        filter='cssrewrite'
+        'bundles/google/css/google.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <style>
+        body.{{ vars.body_css }} #section-watch .box-sidebar{
+            padding-left: 0;
+        }
+
+        body.{{ vars.body_css }} #modal-download blockquote small{
+            color: white !important;
+        }
+
+        .carousel-inner .active.left {
+            left: -25%;
+        }
+
+        .carousel-inner .next {
+            left:  25%;
+        }
+
+        .carousel-control.left, .carousel-control.right {
+            background-image:none;
+        }
+        .btn-whatsapp {
+            color: #fff;
+            background-color: #25d366;
+            border-color: rgba(0,0,0,0.2);
+        }
+        .tag {
+            margin-right: 5px;
+        }
+
+        .box-body > a > .image-container {
+            min-height:300px;
+            max-height:300px;
+            overflow:hidden;
+        }
+        .box-body > a > .image-container-relevance {
+            min-height:160px;
+            max-height:160px;
+            overflow:hidden;
+        }
+        .box-body > a > .image-container > img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .description-height {
+            height: 62px;
+            overflow:hidden;
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="application/javascript">
+
+        $('#carousel-example-generic').carousel({
+            interval: 2000
+        });
+
+        $('.carousel .item').each(function(){
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            for (var i=0;i<2;i++) {
+                next=next.next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+
+                next.children(':first-child').clone().appendTo($(this));
+            }
+        });
+
+        $('.btn-social').click(function(event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: '{{ path('backend_google_drive_grid_share_count') }}',
+                type: 'POST',
+                cache: true,
+                data: {
+                    fileId: '{{ entity.id }}'
+                },
+                beforeSend:function () {
+
+                },
+                success:function (response) {
+
+                },
+                error:function(){
+
+                }
+            });
+        });
+
+        $('#share-qr').click(function() {
+            $.ajax({
+                url: '{{ path('backend_google_drive_grid_qr') }}',
+                type: 'POST',
+                cache: true,
+                data: {
+                    link: '{{ url('backend_google_drive_grid_watch', {slug:entity.slug}) }}'
+                },
+                beforeSend:function () {
+                    $('#modal-qr').modal({show: true});
+                },
+                success:function (response) {
+                    $('#modal-qr .modal-body').html(response);
+                },
+                error:function(){
+                    $('#modal-qr .modal-body').html('error. reintentar');
+                    $('#modal-qr').modal({show: true});
+                }
+            });
+        });
+
+        $('.thumbs-up, .thumbs-down').click(function() {
+
+            var vote = $(this).data('vote');
+
+            $.ajax({
+                url: '{{ path('backend_google_drive_vote_like_dislike') }}',
+                type: 'POST',
+                cache: true,
+                data: {
+                    googleDriveId: '{{ entity.id }}',
+                    vote: vote
+                },
+                beforeSend:function () {
+
+                    $('.thumbs-up').removeClass('btn-success');
+                    $('.thumbs-down').removeClass('btn-danger');
+
+                    if (vote) {
+                        $('.thumbs-up').addClass('btn-success');
+                    } else {
+                        $('.thumbs-down').addClass('btn-danger');
+                    }
+
+                },
+                success:function (response) {
+
+                },
+                error:function(){
+
+                }
+            });
+        });
+
+        $('button.show-more').click(function () {
+
+            // if($(".description").hasClass('description-height')) {
+            //     $(this).html('<i class="fa fa-chevron-circle-up"></i> mostrar menos');
+            // } else {
+            //     $(this).html('<i class="fa fa-chevron-circle-down"></i> mostrar mas');
+            // }
+
+            $(".description").toggleClass('description-height');
+        });
+
+        // $('.thumbs-up').hover(function () {
+        //     $(this).toggleClass("btn-success");
+        // });
+        //
+        // $('.thumbs-down').hover(function () {
+        //     $(this).toggleClass("btn-danger");
+        // });
+
+        $(window).load(function() {
+            $('#relevance').load('{{ path('backend_google_drive_grid_relevance') }}', {
+                id: '{{ entity.id }}',
+                fileName: '{{ entity.fileName|tianos_base64_encode }}'
+            });
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section id="section-watch" class="content">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="box box-widget"> {#box-solid box-widget#}
+                    {{ include('GoogleBundle:GoogleDriveFileGrid/Watch/Box:viewer.html.twig') }}
+                </div>
+                <div class="box">
+                    {{ include('GoogleBundle:GoogleDriveFileGrid/Watch/Box:share.html.twig') }}
+                </div>
+                <div class="box">
+                    {{ include('GoogleBundle:GoogleDriveFileGrid/Watch/Box:videos.html.twig') }}
+                </div>
+                <div class="box">
+                    {{ include('GoogleBundle:GoogleDriveFileGrid/Watch/Box:comments.html.twig') }}
+                </div>
+            </div>
+            <div class="box-sidebar col-md-2">
+                {{ include ('GoogleBundle:GoogleDriveFileGrid/Watch/Box:sidebar.html.twig') }}
+            </div>
+        </div>
+    </section>
+
+    {{ include('GoogleBundle:GoogleDriveFileGrid:Watch/Modal/qr.html.twig') }}
+    {{ include('GoogleBundle:GoogleDriveFileGrid:Watch/Modal/download.html.twig') }}
+    {{ include('GoogleBundle:GoogleDriveFileGrid:Watch/Modal/info.html.twig') }}
+
+{% endblock %}
+
+
+
+

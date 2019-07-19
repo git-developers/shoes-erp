@@ -1,0 +1,111 @@
+{% extends "ThemesBundle:Adminlte:1_template_security.html.twig" %}
+
+{% block bodyclass %}
+    register-page
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        filter='cssrewrite'
+        '@UserBundle/Resources/public/css/tianos.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        });
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="register-box">
+
+        <div class="register-logo">
+            <b>Registrar</b>SE
+        </div>
+
+        {% if not form.vars.valid %}
+            <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <i class="icon fa fa-warning"></i> Info
+                {{ form_errors(form) }}
+            </div>
+        {% endif %}
+
+        <div class="register-box-body">
+            {#<p class="login-box-msg">Sign in to start your session</p>#}
+
+            {{ form_start(form, {'attr': {'role': 'form'}}) }}
+
+                <div class="form-group has-feedback">
+                    {{ form_label(form.name) }}
+                    {{ form_widget(form.name) }}
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                    {{ form_label(form.password) }}
+                    {{ form_widget(form.password) }}
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox">
+                            <label class="">
+                                {{ form_widget(form.termsAccepted) }}
+                                {{ form_label(form.termsAccepted) }}
+                                <a data-toggle="modal" data-target="#modal-terms-and-conditions"> terms y conds.</a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                </div>
+
+            {{ form_end(form)}}
+
+            <div class="social-auth-links text-center">
+                <p>-</p>
+                {#
+                <a href="{{ loginUrl|raw }}" class="btn btn-block btn-social btn-facebook btn-flat">
+                    <i class="fa fa-facebook"></i> Login Facebook
+                </a>
+                #}
+
+                {#
+                <a href="#" class="btn btn-block btn-social btn-google btn-flat">
+                    <i class="fa fa-google-plus"></i> Registrarse Google+
+                </a>
+                #}
+            </div>
+
+            <a href="{{ path('backend_security_reset_password_step_one') }}">
+                Olvidaste tu password?
+            </a>
+            <br>
+
+        </div>
+    </div>
+
+    {{ include('UserBundle:BackendUser:Security/Modal/terms_and_conditions.html.twig') }}
+
+{% endblock %}

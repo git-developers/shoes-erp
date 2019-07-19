@@ -1,0 +1,197 @@
+services:
+
+    sylius.form.type.admin_user:
+        class: Bundle\UserBundle\Form\Type\UserType
+        arguments: [ "%sylius.model.admin_user.class%" ]
+        tags:
+            - { name: sylius.form.type.admin_user, alias: sylius.form.type.admin_user }
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_1_PointofsaleData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_2_RoleData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_3_ProfileData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_4_UserData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_5_CategoryData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_12_UserHasPointOfSaleData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_14_PointofsaleBranchOfficeData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_15_PointofsaleHasUserData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_16_ServicesData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_17_ProductoData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_18_UnitData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    tianos.core.controller.default:
+        class: Bundle\CoreBundle\Controller\DefaultController
+        tags:
+            - { name: tianos.core.controller.default, alias: tianos.core.controller.default }
+
+    twig.extension.common:
+         class: Bundle\CoreBundle\Twig\Extension\CommonExtension
+         public: false
+         tags:
+             - { name: twig.extension }
+
+#    twig.extension.user:
+#        class: Bundle\CoreBundle\Twig\Extension\UserExtension
+#        public: false
+#        tags:
+#           - { name: twig.extension }
+
+
+
+
+
+
+
+
+
+
+#        <service id="sylius.form.type.admin_user" class="Sylius\Bundle\CoreBundle\Form\Type\User\AdminUserType">
+#            <argument>%sylius.model.admin_user.class%</argument>
+#            <argument>%sylius.form.type.admin_user.validation_groups%</argument>
+#            <tag name="form.type" />
+#        </service>
+
+
+#    core.listener.doctrine:
+#        class: Bundle\CoreBundle\EventListener\DoctrineListenerService
+#        arguments: ["@service_container", "@security.token_storage"]
+#        tags:
+#          - { name: doctrine.event_listener, event: postUpdate }
+#          - { name: doctrine.event_listener, event: preUpdate }
+#          - { name: doctrine.event_listener, event: prePersist }
+#          - { name: doctrine.event_listener, event: postLoad }
+#          - { name: doctrine.event_listener, event: postRemove }
+#
+#    core.module:
+#        class: Bundle\CoreBundle\Services\ModuleBuilder\ModuleBuilder
+#        arguments: ["@service_container"]
+#        tags:
+#            - { name: app.module, alias: app.module }
+#
+#    core.service.google_service_drive:
+#        class: Bundle\CoreBundle\Services\Google\GoogleService
+#        arguments: [ "@doctrine.orm.entity_manager", "@service_container", "@twig" ]
+#
+#    core.service.listhastree:
+#        class: Bundle\CoreBundle\Services\ListHasTree\ListHasTree
+#        arguments: [ "@router", "@request_stack" ]
+#        tags:
+#            - { name: core.service.listhastree, alias: core.service.listhastree }
+#
+#    core.service.template:
+#        class: Bundle\CoreBundle\Services\Template\Template
+#        arguments: [ "@router", "@request_stack"]
+#        tags:
+#            - { name: core.service.template, alias: core.service.template }
+#
+#    core.service.cruduser:
+#        class: Bundle\CoreBundle\Services\CrudUser\CrudUser
+#        arguments: [ "@router", "@request_stack" ]
+#        tags:
+#            - { name: core.service.cruduser, alias: core.service.cruduser }
+#
+#    core.service.crud:
+#        class: Bundle\CoreBundle\Services\Crud\Crud
+#        arguments: [ "@router", "@request_stack" ]
+#        tags:
+#            - { name: core.service.crud, alias: core.service.crud }
+#
+#    core.service.tree:
+#        class: Bundle\CoreBundle\Services\Tree\Tree
+#        arguments: [ "@router", "@request_stack" ]
+#        tags:
+#            - { name: core.service.tree, alias: core.service.tree }
+#
+#    core.service.treetoassign:
+#        class: Bundle\CoreBundle\Services\TreeToAssign\TreeToAssign
+#        arguments: [ "@router", "@request_stack" ]
+#        tags:
+#            - { name: core.service.treetoassign, alias: core.service.treetoassign }
+#
+#    core.service.boxonetomany:
+#        class: Bundle\CoreBundle\Services\BoxOneToMany\BoxOneToMany
+#        arguments: [ "@router", "@request_stack" ]
+#        tags:
+#            - { name: core.service.boxonetomany, alias: core.service.boxonetomany }
+#
+#    core.service.boxonetomanyassoc:
+#        class: Bundle\CoreBundle\Services\BoxOneToManyAssoc\BoxOneToManyAssoc
+#        arguments: [ "@router", "@request_stack" ]
+#        tags:
+#            - { name: core.service.boxonetomanyassoc, alias: core.service.boxonetomanyassoc }
+#
+#    core.service.boxonetomanygroup:
+#        class: Bundle\CoreBundle\Services\BoxOneToManyGroup\BoxOneToManyGroup
+#        arguments: [ "@router", "@request_stack" ]
+#        tags:
+#            - { name: core.service.boxonetomanygroup, alias: core.service.boxonetomanygroup }
+#
+#    twig.extension.crud:
+#         class: Bundle\CoreBundle\Twig\Extension\CrudExtension
+#         arguments: ["@request_stack"]
+#         public: false
+#         tags:
+#             - { name: twig.extension }
+#
+#
+#    twig.extension.boxmapper:
+#         class: Bundle\CoreBundle\Twig\Extension\BoxMapperExtension
+#         public: false
+#         tags:
+#             - { name: twig.extension }
+#
+#    twig.extension.treetoassign:
+#         class: Bundle\CoreBundle\Twig\Extension\TreeToAssignExtension
+#         public: false
+#         tags:
+#             - { name: twig.extension }
+#
+#    twig.extension.template:
+#         class: Bundle\CoreBundle\Twig\Extension\Template\TemplateExtension
+#         arguments: ["@doctrine.orm.entity_manager", "@jms_serializer"]
+#         public: false
+#         tags:
+#             - { name: twig.extension }
+#
+#    twig.extension.user:
+#        class: Bundle\CoreBundle\Twig\Extension\UserExtension
+#        public: false
+#        tags:
+#           - { name: twig.extension }
+#
+#    core.form.aclmasktype:
+#        class: Bundle\CoreBundle\Form\AclMaskType
+#        arguments: ['@service_container']
+#        tags:
+#            - { name: form.type, alias: core.form.aclmasktype }

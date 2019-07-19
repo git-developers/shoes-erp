@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="sylius.grid.renderer.twig" class="Bundle\GridBundle\Renderer\TwigGridRenderer">
+            <argument type="service" id="twig" />
+            <argument type="service" id="sylius.registry.grid_field" />
+            <argument type="service" id="form.factory" />
+            <argument type="service" id="sylius.form_registry.grid_filter" />
+            <argument>SyliusGridBundle::_grid.html.twig</argument>
+            <argument>%sylius.grid.templates.action%</argument>
+            <argument>%sylius.grid.templates.filter%</argument>
+        </service>
+        <service id="sylius.twig.extension.grid" class="Bundle\GridBundle\Twig\GridExtension" public="false">
+            <argument type="service" id="sylius.templating.helper.grid" />
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>

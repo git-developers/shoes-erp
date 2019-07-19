@@ -1,0 +1,81 @@
+services:
+
+    tianos.listener.doctrine.pointofsale:
+        class: Bundle\PointofsaleBundle\EventListener\DoctrineListenerService
+        arguments: ["@security.token_storage"]
+        tags:
+          - { name: doctrine.event_listener, event: postUpdate }
+          - { name: doctrine.event_listener, event: preUpdate }
+          - { name: doctrine.event_listener, event: prePersist }
+          - { name: doctrine.event_listener, event: postLoad }
+          - { name: doctrine.event_listener, event: postRemove }
+
+    tianos.api.controller.pointofsale:
+        class: Bundle\PointofsaleBundle\Controller\ApiController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.api.controller.pointofsale, alias: tianos.api.controller.pointofsale }
+
+    tianos.backend.controller.pointofsale:
+        class: Bundle\PointofsaleBundle\Controller\BackendController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.pointofsale, alias: tianos.backend.controller.pointofsale }
+
+    tianos.backend.controller.pointofsale.per.user:
+        class: Bundle\PointofsaleBundle\Controller\BackendPerUserController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.pointofsale.per.user, alias: tianos.backend.controller.pointofsale.per.user }
+
+    tianos.backend.controller.pointofsale.pdv.child:
+        class: Bundle\PointofsaleBundle\Controller\BackendPdvChildController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.pointofsale.pdv.child, alias: tianos.backend.controller.pointofsale.pdv.child }
+
+    tianos.backend.controller.pointofsale.add.user:
+        class: Bundle\PointofsaleBundle\Controller\BackendAddUserController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.pointofsale.pdv.child, alias: tianos.backend.controller.pointofsale.pdv.child }
+
+    tianos.backend.controller.pointofsale.map:
+        class: Bundle\PointofsaleBundle\Controller\BackendMapController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.pointofsale.map, alias: tianos.backend.controller.pointofsale.map }
+
+    tianos.frontend.controller.pointofsale:
+        class: Bundle\PointofsaleBundle\Controller\FrontendController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.frontend.controller.pointofsale, alias: tianos.frontend.controller.pointofsale }
+
+    tianos.map.controller.pointofsale:
+        class: Bundle\PointofsaleBundle\Controller\MapController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.map.controller.pointofsale, alias: tianos.map.controller.pointofsale }
+
+    tianos.repository.pointofsale:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\PointofsaleBundle\Entity\Pointofsale ]
+
+    tianos.form.pointofsale.adduser.type:
+        class: Bundle\PointofsaleBundle\Form\Type\PointofsaleAddUserType
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: tianos.form.pointofsale.adduser.type, alias: tianos.form.pointofsale.adduser.type }
+
+#    App\Form\TaskType:
+#        arguments: ['@doctrine.orm.entity_manager']
+#        tags: [form.type]
+
+
+#    tianos.controller.grid:
+#        class: Bundle\GridBundle\Controller\GridController
+#        arguments: [ Bundle\GridBundle\Controller\RequestConfigurationFactoryInterface ]
+#        tags:
+#            - { name: tianos.controller.grid, alias: tianos.controller.grid }

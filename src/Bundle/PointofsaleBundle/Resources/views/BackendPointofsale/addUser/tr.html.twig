@@ -1,0 +1,40 @@
+{% if user is not null %}
+    <tr id="user-{{ user.id }}">
+        <td style="width: 5%">
+            <span class="badge">#</span>
+        </td>
+        <td class="col-md-1">
+            <small class="label pull-right bg-blue">
+                ID: {{ user.id }}
+            </small>
+        </td>
+        <td class="col-md-6">
+            {{ user.name ~ ' ' ~ user.lastName }}
+        </td>
+        <td class="col-md-3">
+            <select class="form-control">
+                {% for key, profile in profiles %}
+                    <option value="{{ key }}" {{ key == user.profile.id ? 'selected' : '' }}>{{ profile }}</option>
+                {% endfor %}
+            </select>
+        </td>
+        <td class="col-md-1 text-right">
+            <button
+                    class="btn btn-xs btn-danger remove-user"
+                    data-id="{{ user.id }}"
+                    alt="Eliminar"
+                    title="Eliminar">
+                <i class="fa fa-fw fa-trash"></i>
+            </button>
+        </td>
+    </tr>
+{% else %}
+    <tr id="no-users">
+        <td>
+            <i class="fa fa-fw fa-warning"></i> Ingrese un usuario valido.
+        </td>
+    </tr>
+{% endif %}
+
+
+

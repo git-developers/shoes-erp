@@ -1,0 +1,144 @@
+Bundle\PointofsaleBundle\Entity\Pointofsale:
+    type: entity
+    table: point_of_sale
+    repositoryClass: Bundle\PointofsaleBundle\Doctrine\ORM\PointofsaleRepository
+    indexes:
+        fk_point_of_sale_point_of_sale1_idx:
+            columns:
+                - point_of_sale_id
+    uniqueConstraints:
+        code_UNIQUE:
+            columns:
+                - code
+        slug_UNIQUE:
+            columns:
+                - slug
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        code:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        latitude:
+            type: decimal
+            nullable: true
+            precision: 10
+            scale: 8
+        longitude:
+            type: decimal
+            nullable: true
+            precision: 11
+            scale: 8
+        description:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        address:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        phone:
+            type: text
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        userCreate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        userUpdate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_update
+        isActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: is_active
+    manyToOne:
+        pointOfSale:
+            targetEntity: Bundle\PointofsaleBundle\Entity\Pointofsale
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                point_of_sale_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        category:
+            targetEntity: Bundle\CategoryBundle\Entity\Category
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: pointOfSale
+            joinTable:
+                name: point_of_sale_has_category
+                joinColumns:
+                    -
+                        name: point_of_sale_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: category_id
+                        referencedColumnName: id
+            orderBy: null
+        user:
+            targetEntity: Bundle\UserBundle\Entity\User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: pointOfSale
+            joinTable:
+                name: point_of_sale_has_user
+                joinColumns:
+                    -
+                        name: point_of_sale_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: user_id
+                        referencedColumnName: id
+            orderBy: null
+    lifecycleCallbacks: {  }

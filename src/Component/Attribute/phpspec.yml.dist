@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Component\Attribute
+        psr4_prefix: Component\Attribute
+        src_path: .

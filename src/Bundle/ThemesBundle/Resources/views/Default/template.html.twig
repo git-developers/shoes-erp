@@ -1,0 +1,80 @@
+{% import "ThemesBundle::Default/Macro/html.html.twig" as html %}
+
+{% import "ThemesBundle::Default/Macro/head.html.twig" as head %}
+{% import "ThemesBundle::Adminlte/Macro/bi3d.html.twig" as bi3d %}
+{% import "ThemesBundle::Adminlte/Macro/twitter.html.twig" as twitter %}
+{% import "ThemesBundle::Adminlte/Macro/open_graph.html.twig" as og %}
+
+{% spaceless %}
+<!DOCTYPE html>
+<html lang="en-US">
+
+    <head>
+
+        {{ head.meta_default() }}
+        {{ head.favicon() }}
+        {{ head.canonical() }}
+
+        {% block seo %}
+            {% block head %}
+
+                {#para copiar en otras paginas#}
+                {{ head.title() }}
+            {% endblock %}
+
+            {% block twitter %}
+                {{ twitter.card() }}
+
+                {#para copiar en otras paginas#}
+                {#{{ twitter.title() }}#}
+                {#{{ twitter.description() }}#}
+                {#{{ twitter.image() }}#}
+            {% endblock %}
+
+            {% block open_graph %}
+                {{ og.default() }}
+                {{ og.url() }}
+
+                {#para copiar en otras paginas#}
+                {#{{ og.title() }}#}
+                {#{{ og.description() }}#}
+                {#{{ og.image() }}#}
+            {% endblock %}
+
+            {% block bi3d %}
+                {#para copiar en otras paginas#}
+                {#{{ bi3d.art_id() }}#}
+                {#{{ bi3d.section() }}#}
+                {#{{ bi3d.art_title() }}#}
+                {#{{ bi3d.pub_date() }}#}
+            {% endblock %}
+        {% endblock %}
+
+        {% block stylesheets %}
+            {% stylesheets
+                filter='cssrewrite'
+                'bundles/themes/adminlte/bootstrap/css/bootstrap.min.css'
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+
+            <script type="text/javascript">
+
+            </script>
+
+        {% endblock %}
+
+    </head>
+
+    <body class="">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </body>
+</html>
+{% endspaceless %}

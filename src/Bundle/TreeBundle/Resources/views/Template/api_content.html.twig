@@ -1,0 +1,17 @@
+{% spaceless %}
+    <div class="modal-body">
+
+        <div id="message" class="callout callout-danger" style="display: none;">
+            <p></p>
+        </div>
+
+        {% block api_content %}
+
+        {% endblock %}
+
+    </div>
+
+    <div class="modal-footer">
+        {{ modal_footer()|raw }}
+    </div>
+{% endspaceless %}

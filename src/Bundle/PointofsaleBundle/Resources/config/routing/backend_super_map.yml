@@ -1,0 +1,20 @@
+backend_super_pointofsale_map_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale.map:indexAction
+        _tianos:
+            action: index
+            template: PointofsaleBundle:BackendPointofsale/Map:index.html.twig
+            entity: Bundle\PointofsaleBundle\Entity\Pointofsale
+            vars:
+                subheader: sylius.ui.manage_your_pointofsale_catalog
+                icon: cube
+                body_css: grid-body-css
+                serialize_group_name: crud
+            form:
+                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
+            repository:
+                service: tianos.repository.pointofsale
+                method: findAll
+                arguments: [$pointofsaleId]

@@ -1,0 +1,163 @@
+backend_super_pointofsale_add_user_index:
+    path: /{id}
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale.add.user:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index_add_user.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_pointofsale_catalog
+                icon: cube
+                body_css: grid-body-css
+                box_class: primary
+                copy_clipboard: true
+            grid:
+                icon: user
+                box_class: primary
+                title: 'Punto de venta: agregar usuarios'
+                modal:
+                    create:
+                        title: Crear usuario
+                        size:
+                    edit:
+                        size:
+                    change_password:
+                        title: Cambiar password
+                data_table:
+                    route:
+                        info: backend_super_pointofsale_add_user_info
+                        view: backend_super_pointofsale_add_user_view
+                        edit: backend_super_pointofsale_add_user_edit
+                        create: backend_super_pointofsale_add_user_create
+                        delete: backend_super_pointofsale_add_user_delete
+                        add_user: backend_super_pointofsale_add_user
+                        change_password: backend_super_user_change_password
+                    table_button:
+                        - edit
+                        - delete
+                        - add_user
+                        - change_password
+                    table_button_header:
+#                        - create_pdv_child
+                        - create
+                        - info
+                    table_option:
+                        pageLength: 20
+                        dom: "'<\"top\"iflp><\"clear\">rt<\"bottom\"iflp>'"
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Nombre
+                          obj: obj.name_box
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\UserBundle\Form\Type\UserType
+            repository:
+                service: tianos.repository.pointofsale
+                method: findByPDV
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: pointofsale-has-user
+
+
+backend_super_user_change_password:
+    path: /change-password
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale.add.user:changePasswordAction
+        _tianos:
+            action: edit
+            template: UserBundle:BackendUser/Form:change_password.html.twig
+            entity: Bundle\UserBundle\Entity\ChangePassword2
+            form:
+                type: Bundle\UserBundle\Form\Type\UserChangePasswordType2
+            repository:
+                service: tianos.repository.user
+                method: find
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: crud
+
+backend_super_pointofsale_add_user_create:
+    path: /create
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale.add.user:createAction
+        _tianos:
+            action: create
+            template: UserBundle:BackendUser/Form:form.html.twig
+            entity: Bundle\UserBundle\Entity\User
+            form:
+                type: Bundle\UserBundle\Form\Type\UserType
+            repository:
+                vars:
+                    serialize_group_name: pointofsale-has-user
+
+backend_super_pointofsale_add_user_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale.add.user:editAction
+        _tianos:
+            action: edit
+            template: UserBundle:BackendUser/Form:form.html.twig
+            form:
+                type: Bundle\UserBundle\Form\Type\UserType
+            repository:
+                service: tianos.repository.user
+                method: find
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: pointofsale-has-user
+
+backend_super_pointofsale_add_user_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale.add.user:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.user
+                method: find
+                arguments: [$userId]
+            vars:
+#                body_css: grid-body-css
+
+backend_super_pointofsale_add_user_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale.add.user:viewAction
+        _tianos:
+            action: view
+            template: UserBundle:BackendUser/Informative:view.html.twig
+            repository:
+                service: tianos.repository.user
+                method: find
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: crud
+
+backend_super_pointofsale_add_user_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale.add.user:infoAction
+        _tianos:
+            action: info
+            template: UserBundle:BackendUser/Informative:info.html.twig

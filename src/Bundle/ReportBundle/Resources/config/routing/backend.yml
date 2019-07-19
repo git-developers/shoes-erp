@@ -1,0 +1,53 @@
+backend_report_combo_chart:
+    path: /combo-chart
+    methods: [GET, POST]
+    defaults:
+        _controller: tianos.backend.controller.report:comboChartAction
+        _tianos:
+            action: xxxxx
+            template: ReportBundle:BackendReport:combo_chart.html.twig
+            entity: Bundle\ReportBundle\Entity\Report
+            vars:
+                subheader: sylius.ui.manage_your_product_catalog
+                icon: pie-chart
+                title: 'Puntos de venta: tickets'
+                body_css: report-body-css
+                box_class: danger
+            grid:
+                modal:
+                    title: Crear xxxxx
+            repository:
+                service: tianos.repository.ticket
+                method: find
+                arguments: [$reportId]
+            form:
+                type: Bundle\ReportBundle\Form\Type\ReportType
+            vars:
+                serialize_group_name: crud
+
+backend_report_pie_chart:
+    path: /pie-chart
+    methods: [GET, POST]
+    defaults:
+        _controller: tianos.backend.controller.report:pieChartAction
+        _tianos:
+            action: xxxxx
+            template: ReportBundle:BackendReport:pie_chart.html.twig
+            entity: Bundle\ReportBundle\Entity\Report
+            vars:
+                subheader: sylius.ui.manage_your_product_catalog
+                icon: pie-chart
+                title: 'Puntos de venta: charts'
+                body_css: report-body-css
+                box_class: danger
+            grid:
+                modal:
+                    title: Crear xxxxx
+            repository:
+                service: tianos.repository.ticket
+                method: find
+                arguments: [$reportId]
+            form:
+                type: Bundle\ReportBundle\Form\Type\ReportType
+            vars:
+                serialize_group_name: crud

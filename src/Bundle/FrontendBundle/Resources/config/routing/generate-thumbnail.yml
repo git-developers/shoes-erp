@@ -1,0 +1,7 @@
+frontend_generate_thumbnail_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.generate.thumbnail:indexAction
+        _tianos:
+            template: FrontendBundle:Default:index.html.twig

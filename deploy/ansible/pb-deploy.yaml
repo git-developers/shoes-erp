@@ -1,0 +1,24 @@
+---
+
+- hosts: webservers
+  become: true
+  vars:
+    - repo_url: https://github.com/git-developers/Tianos-Backend.git
+    - app_name: tianos
+    - repo_remote: origin
+    - repo_version: banco-examenes-php-7.0
+    - webapps_dir: /var/www/html
+    - virtualenv_root: /deployed/PleaseDeployMe/mac
+    - welcomeMsg: "Pollo gordo 33333333333"
+
+  tasks:
+    - name: Git Pull Project
+      git: repo={{repo_url}} dest={{webapps_dir}}/{{app_name}} version={{repo_version}} force=yes
+      become: true
+      become_user: grupoca7
+
+#accept_hostkey=no
+#    - repo_url: git@gitlab.ec.pe:jafeth.bendezu/tianos.git
+
+#grupoca7@grupocazaperu.com
+

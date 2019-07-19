@@ -1,0 +1,124 @@
+{% extends 'GridBundle::Template/crud_modal_content.html.twig' %}
+
+{% block crud_modal_content %}
+    <div class="box box-solid">
+        {#<div class="box-header with-border">#}
+            {#<h3 class="box-title">About Me</h3>#}
+        {#</div>#}
+
+        <div class="box-body">
+
+            <div class="row">
+
+                {#LEFT#}
+                <div class="col-md-8">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>
+                                <i class="fa fa-book margin-r-5"></i> Nombre
+                            </strong>
+
+                            <p class="text-muted word-wrap">
+                                {{ entity.fileName }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>
+                                <i class="fa fa-file-text-o margin-r-5"></i> File id
+                            </strong>
+
+                            <p class="text-muted word-wrap">
+                                {{ entity.fileId }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>
+                                <i class="fa fa-fw fa-gg"></i> Id
+                            </strong>
+                            <p class="text-muted">
+                        <span class="badge bg-blue">
+                            {{ entity.id }}
+                        </span>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <strong>
+                                <i class="fa fa-arrows-alt margin-r-5"></i> Tamaño
+                            </strong>
+
+                            <p>
+                                {{ entity.fileSize|default('-') }}
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <strong>
+                                <i class="fa fa-calendar margin-r-5"></i> Creado
+                            </strong>
+
+                            <p>
+                                {{ entity.createdAt|date('Y-m-d H:i:s') }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>
+                                <i class="fa fa-align-justify margin-r-5"></i> Descripción
+                            </strong>
+
+                            <p style="max-height: 220px; overflow-y: scroll;">
+                                {{ tianos_google_description(entity.description) }}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                {#LEFT#}
+
+                {#RIGHT#}
+                <div class="col-md-4">
+                    {% if entity.hasThumbnail %}
+                        <div class="image-container-relevance">
+                            <img
+                                class="img-thumbnail img-responsive"
+                                src="{{ asset('google-drive-images/' ~ entity.fileId ~ '-w400.jpg') }}"
+                                alt="{{ entity.fileName }}"
+                                title="{{ entity.fileName }}"
+                            >
+                        </div>
+                    {% else %}
+                        <img
+                            data-toggle="tooltip"
+                            title="{{ entity.fileName }}"
+                            alt="{{ entity.fileName }}"
+                            class="img-thumbnail img-responsive"
+                            src="{{ asset('bundles/themes/adminlte/images/empty-image-300x200.png') }}"
+                        >
+                    {% endif %}
+                </div>
+                {#RIGHT#}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <a href="{{ path('backend_google_drive_grid_watch', {slug: entity.slug}) }}" class="btn btn-info">
+                <i class="fa fa-fw fa-eye"></i> ver archivo
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

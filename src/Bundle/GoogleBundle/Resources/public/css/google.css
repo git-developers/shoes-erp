@@ -1,0 +1,12 @@
+.no-preview {
+    margin-top: 15px;
+    -webkit-box-shadow: 2px 3px 31px 0px rgba(130,117,130,0.8);
+    -moz-box-shadow: 2px 3px 31px 0px rgba(130,117,130,0.8);
+    box-shadow: 2px 3px 31px 0px rgba(130,117,130,0.8);
+}
+
+.description-block .progress {
+    background: rgba(0,0,0,0.2);
+    margin: 5px -10px 5px -10px;
+    height: 2px;
+}

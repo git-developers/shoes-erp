@@ -1,0 +1,44 @@
+services:
+
+    tianos.tree:
+        class: Bundle\TreeBundle\Services\Tree\Tree
+        arguments: [ "@router", "@request_stack" ]
+        tags:
+            - { name: tianos.tree, alias: tianos.tree }
+
+    tianos.form_registry.tree_filter:
+        class: Bundle\TreeBundle\Form\Registry\FormTypeRegistry
+        public: false
+
+    tianos.registry.tree_field:
+        class: Component\Registry\ServiceRegistry
+        arguments: [ Component\Tree\FieldTypes\FieldTypeInterface, "tree field" ]
+
+    tianos.expression_language:
+        class: Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage
+        public: false
+
+    tianos.tree_options_parser:
+        class: Bundle\ResourceBundle\Tree\Parser\OptionsParser
+        arguments: [ "@service_container", "@tianos.expression_language", "@property_accessor" ]
+        public: false
+
+    tianos.custom_tree_renderer.twig.inner:
+        class: Bundle\TreeBundle\Renderer\TwigTreeRenderer
+        arguments: [ "@twig", "@tianos.registry.tree_field", "@form.factory", "@tianos.form_registry.tree_filter", SyliusTreeBundle::_tree.html.twig ]
+        public: false
+
+    tianos.custom_tree_renderer.twig:
+        class: Bundle\ResourceBundle\Tree\Renderer\TwigTreeRenderer
+        arguments: [ "@tianos.custom_tree_renderer.twig.inner", "@twig", "@tianos.tree_options_parser" ]
+
+    tianos.templating.helper.tree:
+        class: Bundle\TreeBundle\Templating\Helper\TreeHelper
+        arguments: [ "@tianos.custom_tree_renderer.twig" ]
+
+    twig.extension.tree:
+        class: Bundle\TreeBundle\Twig\TreeExtension
+        arguments: ['@tianos.templating.helper.tree']
+        public: false
+        tags:
+         - { name: twig.extension }

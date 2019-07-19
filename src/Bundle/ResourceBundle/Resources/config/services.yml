@@ -1,0 +1,51 @@
+services:
+
+    tianos.expression.language:
+        class: Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage
+#        arguments: [ '@service_container', '@tianos.expression.language' ]
+
+    tianos.resource.parameters.parser:
+        class: Bundle\ResourceBundle\Controller\ParametersParser
+        arguments: [ '@service_container', '@tianos.expression.language' ]
+
+    tianos.resource.configuration.factory:
+        class: Bundle\ResourceBundle\Controller\RequestConfigurationFactory
+        arguments: [ '@tianos.resource.parameters.parser', Bundle\ResourceBundle\Controller\RequestConfiguration ]
+        tags:
+            - { name: tianos.resource.configuration.factory, alias: tianos.resource.configuration.factory }
+
+    tianos.resource_registry:
+        class: Component\Resource\Metadata\Registry
+
+
+#<service id="sylius.resource_controller.request_configuration_factory" class="Sylius\Bundle\ResourceBundle\Controller\RequestConfigurationFactory" public="false">
+#    <argument type="service" id="sylius.resource_controller.parameters_parser" />
+#    <argument>Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration</argument>
+#    <argument>%sylius.resource.settings%</argument>
+#</service>
+
+
+
+
+#    sylius.resource_controller.request_configuration_factory:
+#        class: Bundle\ResourceBundle\Controller\RequestConfigurationFactory
+
+
+
+#    <service id="sylius.resource_controller.request_configuration_factory" class="Sylius\Bundle\ResourceBundle\Controller\RequestConfigurationFactory" public="false">
+#        <argument type="service" id="sylius.resource_controller.parameters_parser" />
+#        <argument>Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration</argument>
+#        <argument>%sylius.resource.settings%</argument>
+#    </service>
+
+#<service id="sylius.resource_registry" class="Sylius\Component\Resource\Metadata\Registry" public="false" />
+
+#<service id="sylius.expression_language" class="Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage" public="false" />
+#sylius.expression_language
+
+
+#<service id="sylius.resource_controller.request_configuration_factory" class="Bundle\ResourceBundle\Controller\RequestConfigurationFactory" public="false">
+#    <argument type="service" id="sylius.resource_controller.parameters_parser" />
+#    <argument>Bundle\ResourceBundle\Controller\RequestConfiguration</argument>
+#    <argument>%sylius.resource.settings%</argument>
+#</service>

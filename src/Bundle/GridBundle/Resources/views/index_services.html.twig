@@ -1,0 +1,302 @@
+{% extends "ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig" %}
+
+{% import "TreeBundle::Macro/tree_inventory.html.twig" as macro %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        filter='cssrewrite'
+        '@GridBundle/Resources/public/common/css/switch.css'
+        '@GridBundle/Resources/public/common/css/datatable.css'
+        '@GridBundle/Resources/public/plugins/datatables/dataTables.bootstrap.css'
+        '@GridBundle/Resources/public/plugins/datatables/extensions/Editor/css/editor.dataTables.min.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    {% stylesheets
+        '@TreeBundle/Resources/public/css/tree.css'
+        '@CoreBundle/Resources/public/css/tree.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <style>
+        table#{{ dataTable.tableOptions.table_name }} tr.{{ dataTable.tableOptions.table_tr_class }}:hover{
+            background-color: #d2d6de;
+            cursor: pointer;
+        }
+        input[type=checkbox] {
+            height: 20px;
+            width: 20px;
+        }
+        .dataTables_filter input[type="search"] {
+            width: 350px;
+            height: 35px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@GridBundle/Resources/public/common/js/formEdit.js'
+        '@GridBundle/Resources/public/common/js/formView.js'
+        '@GridBundle/Resources/public/common/js/formInfo.js'
+        '@GridBundle/Resources/public/common/js/formCreateCategoryProduct.js'
+        '@GridBundle/Resources/public/common/js/formDelete.js'
+        '@GridBundle/Resources/public/plugins/datatables/jquery.dataTables.min.js'
+        '@GridBundle/Resources/public/plugins/datatables/dataTables.bootstrap.min.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {#
+    "bLengthChange": false,
+    "bFilter": false,
+    "bSort": true,
+    "bInfo": true,
+    "bAutoWidth": false,
+    #}
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            var tableJson = $('#{{ dataTable.tableOptions.table_name }}').DataTable({
+                {% for key, value in dataTable.options %}
+                    '{{ key }}': {{ value|raw }},
+                {% endfor %}
+                'data': {{ dataTable.data|raw }},
+                'oSearch': {'sSearch': '{{ q|default() }}'},
+                'language': {
+                    'url': '{{ asset('bundles/grid/plugins/datatables/extensions/Language/spanish.json') }}'
+                },
+                'columns': [
+
+                    {% for key, value in grid.data_table.columns|default([]) %}
+                    {
+                        'data' : function (obj) {
+
+                            if({{ value.obj|raw }} != null){
+
+                                {% set obj = value.obj %}
+                                {% set property = value.options.property|default() %}
+
+                                {% if property %}
+                                    {{ property|raw }} {# ESTO SE USA PARA MOSTRAR CODIGO DIRECTAMENTE #}
+                                {% else %}
+                                    return {{ obj|raw }};
+                                {% endif %}
+                            }
+
+                            return '';
+                        },
+                    },
+                    {% endfor %}
+
+                    {% if dataTable.tableButton is not empty %}
+                    {
+                        'data' : function (obj) {
+                            return '{% spaceless %}
+                            {% for key, button in dataTable.tableButton %}
+                                {{ tianos_grid_render_button(button, '@Ui/Grid/Button/Header/_table_button.html.twig') }}
+                            {% endfor %}
+                            {% endspaceless %}';
+                        }
+                    },
+                    {% endif %}
+                ],
+                'columnDefs': [
+                    {
+                        {#'targets': '_all',#}
+                        'targets': {{ dataTable.columnsTargets }},
+                        'createdCell':  function (td, cellData, rowData, row, col) {
+                            $(td).attr('data-toggle', 'modal');
+                            $(td).attr('data-target', '#{{ modal.view_id }}');
+                            $(td).attr('class', '{{ dataTable.tableOptions.table_td_class }}');
+                        }
+                    }
+                ],
+                'fnRowCallback': function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+                    {% for key, nRow in dataTable.rowCallBack %}
+                        $(nRow).attr('{{ nRow.key|trim|raw }}', {{ nRow.value|trim|raw }});
+                    {% endfor %}
+
+                    $(nRow).attr('class', '{{ dataTable.tableOptions.table_tr_class }}');
+
+                    return nRow;
+                }
+            });
+
+            {{ tianos_grid_form_js(vars, modal, form_mapper, dataTable, '@Ui/Grid/FormJs/inventory.html.twig') }}
+
+            $('body.{{ vars.body_css }}').formCreateCategoryProduct({
+                categoryId: '{{ categoryId }}',
+                modalId: '{{ modal.create_id }}',
+                route: '{{ path(dataTable.route.create) }}',
+                formName: '{{ form_mapper.create_name }}',
+                tableJson: tableJson
+            });
+
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-{{ grid.icon }}"></i> {{ grid.title|raw }}
+            <small>one-to-many</small>
+        </h1>
+        <ol class="breadcrumb">
+            {#<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>#}
+            {#<li class="active">Dashboard</li>#}
+
+            {% for key, button in dataTable.tableHeaderButton %}
+                <li>
+                    {{ tianos_grid_render_button(button, '@Ui/Grid/Button/Header/_table_header_button.html.twig') }}
+                </li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-sitemap"></i> Categorías
+                        </h4>
+                        <div class="box-tools pull-right">
+                            <a href="{{ path('backend_category_services_tree_index', {entity_type: constant('Bundle\\CategoryBundle\\Entity\\Category::TYPE_SERVICE')}) }}">
+                                <span data-toggle="tooltip" title="" class="badge bg-light-blue" data-original-title="Editar categorias">
+                                    <i class="fa fa-edit"></i></button> Editar
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box-body">
+
+                        <div class="{{ tree.main_div }} box-body">
+
+                            <ul id="{{ tree.main_ul }}">
+                                {% if objectsTree is not empty %}
+                                    {{ macro.tree(
+                                        objectsTree,
+                                        tree,
+                                        modal,
+                                        -1,
+                                        'TreeBundle::Template/li_inventory.html.twig',
+                                        'backend_services_index',
+                                        categoryId) }}
+                                {% else %}
+                                    <p>No hay items que mostrar</p>
+                                {% endif %}
+                            </ul>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-file-text-o"></i> Servicios
+                        </h4>
+                        <div class="box-tools pull-right">
+                            {% if categoryId is not null %}
+                                <button
+                                    class="btn btn-xs btn-sm btn-success modal-create"
+                                    alt="Crear item"
+                                    title="Crear item"
+                                    data-toggle="modal"
+                                    data-target="#modal-create"
+                                    style="margin-right: 5px">
+                                        <i class="fa fa-fw fa-plus"></i> Crear item
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive"> {#no-padding#}
+
+                        {% if categoryId is null %}
+                            <div class="alert alert-warning alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <i class="icon fa fa-warning"></i> Seleccione una categoria.
+                            </div>
+                        {% else %}
+                            <table id="{{ dataTable.tableOptions.table_name }}"
+                                   class="table table-bordered table-striped dataTable"
+                                   role="grid"
+                                   aria-describedby="example1_info">
+                                <thead>
+                                    <tr>
+                                        {% for key, value in dataTable.columns|default([]) %}
+                                            <th>
+                                                {% if value.options.icon is defined %}
+                                                    <i class="fa fa-fw fa-{{ value.options.icon|raw }}"></i>
+                                                {% endif %}
+                                                {{ value.name|raw }}
+                                            </th>
+                                        {% endfor %}
+
+                                        {% if dataTable.tableButton is not empty %}
+                                            <th>&nbsp</th>
+                                        {% endif %}
+                                    </tr>
+                                </thead>
+
+                                <tfoot>
+                                    <tr>
+                                        {% for key, value in dataTable.columns|default([]) %}
+                                            <th>
+                                                {% if value.options.icon is defined %}
+                                                    <i class="fa fa-fw fa-{{ value.options.icon|raw }}"></i>
+                                                {% endif %}
+                                                {{ value.name|raw }}
+                                            </th>
+                                        {% endfor %}
+
+                                        {% if dataTable.tableButton is not empty %}
+                                            <th>&nbsp</th>
+                                        {% endif %}
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {#<div class="box box-{{ grid.box_class }}">#}
+
+    </section>
+
+    {{ include('GridBundle:Modal:create.html.twig') }}
+    {{ include('GridBundle:Modal:edit.html.twig') }}
+    {{ include('GridBundle:Modal:delete.html.twig') }}
+    {{ include('GridBundle:Modal:view.html.twig') }}
+    {{ include('GridBundle:Modal:info.html.twig') }}
+
+{% endblock %}

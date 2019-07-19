@@ -1,0 +1,16 @@
+{% spaceless %}
+
+    {% set paragraphs = settings.paragraph|default([]) %}
+
+    $(function () {
+        {% for key, paragraph in paragraphs %}
+            {#Replace the <textarea id="editor1"> with a CKEditor
+              instance, using default configuration.#}
+            var editor{{ key }} = CKEDITOR.replace('paragraph-{{ key }}', {
+                allowedContent: true,
+                autoParagraph: false
+            } );
+        {% endfor %}
+    });
+{% endspaceless %}
+

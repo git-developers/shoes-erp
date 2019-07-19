@@ -1,0 +1,4 @@
+themes_default_index:
+    path: /
+    defaults: { _controller: ThemesBundle:Default:index }
+    methods: [GET]

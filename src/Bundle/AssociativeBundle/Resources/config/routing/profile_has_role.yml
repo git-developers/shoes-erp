@@ -1,0 +1,169 @@
+backend_associative_profile_has_role_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.profilehasrole.controller.associative:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: OneToManyBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_profile_catalog
+                icon: cube
+                body_css: one-to-many-body-css
+            one_to_many:
+                box:
+                    icon: exchange
+                    class: primary
+                    form_name: main-form
+                    title: Perfil<i class="fa fa-fw fa-angle-double-right"></i>tiene<i class="fa fa-fw fa-angle-double-right"></i>Roles
+                    route_info: backend_associative_profile_has_role_info
+                box_left:
+                    icon: user-secret
+                    class: primary
+                    id: box-left-id
+                    title: Perfil
+                    li_class: box-left-li
+                    li_badge_class: bg-blue
+                    li_input_name: box-lefts-selected-value
+                    search_input_name: search-input-name-left
+                    route_search: backend_associative_profile_has_role_boxleft_search
+                    route_select_item: backend_associative_profile_has_role_boxleft_select_item
+                box_right:
+                    icon: expeditedssl
+                    class: primary
+                    id: box-right-id
+                    title: Rol
+                    li_class: box-right-li
+                    li_badge_class: bg-orange-active
+                    li_input_name: box-right-selected-value
+                    search_input_name: search-input-name-right
+                    route_search: backend_associative_profile_has_role_boxright_search
+                    route_select_item: backend_associative_profile_has_role_boxright_select_item
+            form:
+                type: Bundle\ProfileBundle\Form\Type\ProfileType
+            repository:
+                box_left:
+                    service: tianos.repository.profile
+                    method: findAllOffsetLimit
+                    arguments:
+                        limit: 20
+                    vars:
+                        serialize_group_name: one-to-many-left
+                box_right:
+                    service: tianos.repository.role
+                    method: findAllOffsetLimit
+                    arguments:
+                        limit: 20
+                    vars:
+                        serialize_group_name: one-to-many-right
+
+backend_associative_profile_has_role_boxleft_search:
+    path: /boxleft-search
+    methods: [POST]
+    defaults:
+        _controller: tianos.profilehasrole.controller.associative:boxLeftSearchAction
+        _tianos:
+            action: left_search
+            template: OneToManyBundle:Li:box_left.html.twig
+            one_to_many:
+                box_left:
+                    li_class: box-left-li
+                    li_badge_class: bg-blue
+                    li_input_name: box-lefts-selected-value
+                    search_input_name: search-input-name-left
+            repository:
+                box_left:
+                    service: tianos.repository.profile
+                    method: searchBoxLeft
+                    arguments:
+                        limit: 20
+                    vars:
+                        serialize_group_name: one-to-many-left
+
+backend_associative_profile_has_role_boxright_search:
+    path: /boxright-search
+    methods: [POST]
+    defaults:
+        _controller: tianos.profilehasrole.controller.associative:boxRightSearchAction
+        _tianos:
+            action: right_search
+            template: OneToManyBundle:Li:box_right_search.html.twig
+            one_to_many:
+                box_right:
+                    li_class: box-right-li
+                    li_badge_class: bg-blue
+                    li_input_name: box-lefts-selected-value
+                    search_input_name: search-input-name-left
+            repository:
+                box_left:
+                    service: tianos.repository.profile
+                    method: oneToManyLeft
+                    arguments:
+                        limit: 20
+                    vars:
+                        serialize_group_name: one-to-many-search
+                box_right:
+                    service: tianos.repository.role
+                    method: searchBoxRight
+                    arguments:
+                        limit: 20
+                    vars:
+                        serialize_group_name: one-to-many-right
+
+backend_associative_profile_has_role_boxright_select_item:
+    path: /boxright-select-item
+    methods: [POST]
+    defaults:
+        _controller: tianos.profilehasrole.controller.associative:boxRightSelectItemAction
+        _tianos:
+            repository:
+                box_left:
+                    service: tianos.repository.profile
+                    method: find
+                    add_entity: addRole
+                    remove_entity: removeRole
+                    method_delete_associative: deleteAssociativeTableById
+                box_right:
+                    service: tianos.repository.role
+                    method: find
+
+backend_associative_profile_has_role_boxleft_select_item:
+    path: /boxleft-select-item
+    methods: [POST]
+    defaults:
+        _controller: tianos.profilehasrole.controller.associative:boxLeftSelectItemAction
+        _tianos:
+            template: OneToManyBundle:Li:box_right_select_item.html.twig
+            one_to_many:
+                box_right:
+                    icon: expeditedssl
+                    class: primary
+                    id: box-right-id
+                    title: Role
+                    entity: role
+                    li_class: box-right-li
+                    li_badge_class: bg-blue
+                    li_input_name: box-right-selected-value
+                    search_input_name: search-input-name-right
+            repository:
+                box_left:
+                    service: tianos.repository.profile
+                    method: find
+                    vars:
+                        serialize_group_name: one-to-many-left-profilehasrole
+                box_right:
+                    service: tianos.repository.role
+                    method: find
+                    vars:
+                        serialize_group_name: one-to-many-right
+
+backend_associative_profile_has_role_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.profilehasrole.controller.associative:infoAction
+        _tianos:
+            action: info
+            template: AssociativeBundle:ProfileHasRole/Informative:info.html.twig

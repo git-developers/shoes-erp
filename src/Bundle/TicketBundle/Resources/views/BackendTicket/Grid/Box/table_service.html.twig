@@ -1,0 +1,68 @@
+{% spaceless %}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th style="width: 10px">cant.</th>
+                <th class="text-center">nombre</th>
+                <th class="text-right">precio unit.</th>
+                <th class="text-right">sub total</th>
+                <th class="text-center">acci&oacute;n</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% set subTotal = 0 %}
+            {% set totalPrice = 0 %}
+
+            {% for service in services %}
+
+                {% set subTotal = service.price * service.quantity %}
+
+                <tr>
+                    <td class="text-center">
+                            <span class="badge bg-light-blue">
+                                {{ service.quantity }}
+                            </span>
+                    </td>
+                    <td>
+                        {{ service.name }}
+                    </td>
+                    <td class="text-right">
+                        {{ service.price }}
+                    </td>
+                    <td class="text-right">
+                        {{ subTotal }}
+                    </td>
+                    <td class="text-center">
+                        <button
+                                type="button"
+                                class="btn btn-danger btn-xs decrement-services"
+                                data-id-service="{{ service.id }}">
+                            <i class="fa fa-fw fa-minus-circle"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                {% set totalPrice = totalPrice + subTotal %}
+
+            {% else %}
+                <tr>
+                    <td colspan="5">
+                        Agregue un servicio de la izquierda.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+        <tfoot>
+            <tr class="bg-gray">
+                <td colspan="4" class="text-right" style="padding: 3px 3px;">Total S/</td>
+                <td colspan="1" class="text-right" style="padding: 3px 3px;">
+                    <span class="badge bg-gray-active">
+                        {{ totalPrice }}
+                    </span>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+{% endspaceless %}

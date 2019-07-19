@@ -1,0 +1,46 @@
+{% extends "ThemesBundle:Default:template.html.twig" %}
+
+{#https://demo.themedelights.com/Wordpress/WP01/WP005#}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content" style="background-color: #F0F2F6">
+        <div class="row">
+            <div class="col-lg-6 col-xs-6 text-right" style="background-color: red">
+                <button>xxxxx</button>
+            </div>
+            <div class="col-lg-6 col-xs-6" style="background-color: green">
+                <button>ccccc</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-xs-12" align="center">
+                <img width="70%" src="{{ asset('bundles/themes/default/images/bg.png') }}" alt="" />
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

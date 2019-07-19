@@ -1,0 +1,19 @@
+api_role_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.api.controller.role:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_role
+            template: RoleBundle:Role:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_product_catalog
+                icon: cube
+            form:
+                type: Bundle\RoleBundle\Form\Type\RoleType
+            repository:
+                service: tianos.repository.role
+                method: findAll
+                arguments: [$roleId]

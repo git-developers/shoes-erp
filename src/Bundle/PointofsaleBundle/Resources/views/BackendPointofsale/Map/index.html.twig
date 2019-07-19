@@ -1,0 +1,87 @@
+{% extends 'ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        #map {
+            height: 1000px;
+            width: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        function initMap() {
+
+            var myLatLng = {lat: -12.0859333, lng: -76.9767342};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=2.2|30|FFC6A5|11|b|Jockey|Plaza',
+                title: 'Jockey Plaza'
+            });
+
+            {% for key, pdv in entity %}
+
+                {% if pdv.latitude is not null %}
+                    var contentString{{ key }} = '<div id="content">'+
+                        '<div id="siteNotice">'+
+                        '</div>'+
+                        '<h1 id="firstHeading" class="firstHeading">{{ pdv.name }}</h1>'+
+                        '<div id="bodyContent">'+
+                        '<p>{{ pdv.address }}</p>'+
+                        '</div>'+
+                        '</div>';
+
+                    var infowindow{{ key }} = new google.maps.InfoWindow({
+                        content: contentString{{ key }}
+                    });
+
+                    var myLatLng{{ key }} = {lat: {{ pdv.latitude }}, lng: {{ pdv.longitude }}};
+
+                    var marker{{ key }} = new google.maps.Marker({
+                        position: myLatLng{{ key }},
+                        map: map,
+                        {#title: '{{ pdv.name }}',#}
+                        icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=A|FF0000|000000'
+                        {#icon: '{{ asset('bundles/themes/adminlte/images/rangerstation.png') }}'#}
+                        {#url: '{{ path('app_map_detail', {pdvId:pdv.id_increment}) }}'#}
+                    });
+
+                    marker{{ key }}.addListener('click', function() {
+                        infowindow{{ key }}.open(map, marker{{ key }});
+                    });
+
+                    {#google.maps.event.addListener(marker{{ key }}, 'click', function() {#}
+                    {#window.location.href = this.url;#}
+                    {#});#}
+                {% endif %}
+
+            {% endfor %}
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ application_google_api_key }}&callback=initMap"></script>
+
+{% endblock %}
+
+{% block content %}
+
+    <div id="map"></div>
+
+{% endblock %}
+

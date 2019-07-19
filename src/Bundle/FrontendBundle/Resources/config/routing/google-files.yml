@@ -1,0 +1,25 @@
+frontend_google_files_view:
+    path: /view-files
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.google.files:insertViewAction
+        _tianos:
+            template: FrontendBundle:Default:index.html.twig
+
+frontend_google_files_share:
+    path: /view-share
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.google.files:insertShareAction
+        _tianos:
+            template: FrontendBundle:Default:index.html.twig
+
+frontend_google_create_json_files:
+    path: /create-json-files
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.google.files:createJsonFilesAction
+        _tianos:
+            template: FrontendBundle:Default:index.html.twig
+            vars:
+                serialize_group_name: google-drive-file

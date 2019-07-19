@@ -1,0 +1,110 @@
+{% if dataTable.route.create is defined %}
+    $('body.{{ vars.body_css }}').formCreate({
+        modalId: '{{ modal.create_id }}',
+        route: '{{ path(dataTable.route.create) }}',
+        formName: '{{ form_mapper.create_name }}',
+        tableJson: tableJson
+    });
+{% endif %}
+
+{% if dataTable.route.edit is defined %}
+    $('body.{{ vars.body_css }}').formEdit({
+        modalId: '{{ modal.edit_id }}',
+        route: '{{ path(dataTable.route.edit) }}',
+        formName: '{{ form_mapper.edit_name }}',
+        tableJson: tableJson
+    });
+{% endif %}
+
+{% if dataTable.route.delete is defined %}
+    $('body.{{ vars.body_css }}').formDelete({
+        modalId: '{{ modal.delete_id }}',
+        route: '{{ path(dataTable.route.delete) }}',
+        formName: '{{ form_mapper.delete_name }}',
+        tableJson: tableJson
+    });
+{% endif %}
+
+{% if dataTable.route.view is defined %}
+    $('body.{{ vars.body_css }}').formView({
+        modalId: '{{ modal.view_id }}',
+        route: '{{ path(dataTable.route.view) }}',
+        tableTdClass: '{{ dataTable.tableOptions.table_td_class }}'
+    });
+{% endif %}
+
+{% if dataTable.route.info is defined %}
+    $('body.{{ vars.body_css }}').formInfo({
+        modalId: '{{ modal.info_id }}',
+        route: '{{ path(dataTable.route.info) }}'
+    });
+{% endif %}
+
+{% if dataTable.route.watch is defined %}
+    $('body.{{ vars.body_css }}').formWatch({
+        buttonId: '{{ modal.watch_id }}',
+        route: '{{ path(dataTable.route.watch) }}'
+    });
+{% endif %}
+
+{% if dataTable.route.ticket_edit is defined %}
+    $('body.{{ vars.body_css }}').formTicketEdit({
+        buttonId: '{{ modal.ticket_edit_id }}',
+        route: '{{ path(dataTable.route.ticket_edit) }}'
+    });
+{% endif %}
+
+{% if dataTable.route.view_profile is defined %}
+    $('body.{{ vars.body_css }}').formViewProfile({
+        buttonId: '{{ modal.profile_id }}',
+        route: '{{ path(dataTable.route.view_profile) }}'
+    });
+{% endif %}
+
+{% if dataTable.route.cog is defined %}
+    $('body.{{ vars.body_css }}').formCog({
+        buttonId: '{{ modal.point_of_sale_cog }}',
+        route: '{{ path(dataTable.route.cog, {id:"-1"}) }}'
+    });
+{% endif %}
+
+{% if dataTable.route.create_pdv_child is defined %}
+    $('body.{{ vars.body_css }}').formCreatePdvChild({
+        modalId: '{{ modal.create_id }}',
+        route: '{{ path(dataTable.route.create_pdv_child) }}',
+        formName: '{{ form_mapper.create_name }}',
+        tableJson: tableJson
+    });
+{% endif %}
+
+{% if dataTable.route.change_password is defined %}
+    $('body.{{ vars.body_css }}').formChangePassword({
+        modalId: '{{ modal.change_password_id }}',
+        route: '{{ path(dataTable.route.change_password) }}',
+        formName: '{{ form_mapper.change_password_name }}',
+        tableJson: tableJson
+    });
+
+    $('body.{{ vars.body_css }}').togglePassword({
+        password_input_class: 'password-field',
+        checkbox_id: 'sylius_user_change_password_togglePassword'
+    });
+{% endif %}
+
+{% if vars.copy_clipboard|default() %}
+    $(document).on('click', '.copy-to-clipboard', function() {
+        $('.copy-to-clipboard-text').select();
+        document.execCommand("copy");
+    });
+{% endif %}
+
+{% if vars.files_upload.route.open_modal is defined and vars.files_upload.route.create is defined %}
+    $('body.{{ vars.body_css }}').formUploadFile({
+        modalId: '{{ modal.image_upload_id }}',
+        filter: '{{ vars.files_upload.filter }}',
+        fileType: '{{ vars.files_upload.file_type }}',
+        formName: '{{ form_mapper.image_upload_name }}',
+        routeModal: '{{ path(vars.files_upload.route.open_modal) }}',
+        routeCreate: '{{ path(vars.files_upload.route.create) }}'
+    });
+{% endif %}

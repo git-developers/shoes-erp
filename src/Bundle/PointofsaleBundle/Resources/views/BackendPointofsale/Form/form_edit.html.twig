@@ -1,0 +1,133 @@
+{% extends 'GridBundle::Template/crud_modal_content.html.twig' %}
+
+{% block crud_modal_content %}
+
+    {% block javascripts %}
+
+        <script type="text/javascript">
+
+            $( document ).ready(function() {
+
+                var map;
+                var marker;
+                var mapCanvas = document.getElementById('google-map-edit');
+                var mapOptions = {
+                    center: new google.maps.LatLng({{ form.latitude.vars.value }}, {{ form.longitude.vars.value }}),
+                    zoom: 16,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                map = new google.maps.Map(mapCanvas, mapOptions);
+
+                marker = new google.maps.Marker({
+                    position: {
+                        lat: {{ form.latitude.vars.value }},
+                        lng: {{ form.longitude.vars.value }}
+                    },
+                    map: map,
+                    title: '{{ form.name.vars.value }}'
+                });
+
+                google.maps.event.addListener(map, 'click', function(event) {
+                    $('.latitude').val(event.latLng.lat());
+                    $('.longitude').val(event.latLng.lng());
+
+                    console.log(event.latLng.lat() + ' -- ' + event.latLng.lng());
+
+
+
+                    if (marker == null) {
+
+
+                        console.log("ENTRE -- MARKER NULL -- IF");
+
+                        marker = new google.maps.Marker({
+                            map: map,
+                            title: '{{ form.latitude.vars.value }}',
+                            position: event.latLng
+                        });
+                    } else {
+
+                        console.log("ENTRE -- MARKER NULL -- ELSE");
+
+                        marker.setPosition(event.latLng);
+                    }
+                });
+            });
+
+        </script>
+
+    {% endblock %}
+
+    {% if id is defined %}
+        <input type="hidden" value="{{ id }}" name="id">
+    {% endif %}
+
+    {{ form_widget(form._token) }}
+
+        <div class="row" style="display: none">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-home"></i>
+                    {{ form_label(form.pointOfSale) }}
+                    {{ form_widget(form.pointOfSale) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-qrcode"></i>
+                    {{ form_label(form.code) }}
+                    {{ form_widget(form.code) }}
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-align-left"></i>
+                    {{ form_label(form.name) }}
+                    {{ form_widget(form.name) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-align-left"></i>
+                    {{ form_label(form.slug) }}
+                    {{ form_widget(form.slug) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-align-left"></i>
+                    {{ form_label(form.address) }}
+                    {{ form_widget(form.address) }}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-map-marker"></i>
+                    {{ form_label(form.latitude) }}
+                    {{ form_widget(form.latitude) }}
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-map-marker"></i>
+                    {{ form_label(form.longitude) }}
+                    {{ form_widget(form.longitude) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="google-map-edit" style="width:100%;height:400px;"></div>
+            </div>
+        </div>
+
+{% endblock %}

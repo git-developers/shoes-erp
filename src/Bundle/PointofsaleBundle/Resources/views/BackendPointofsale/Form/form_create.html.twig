@@ -1,0 +1,120 @@
+{% extends 'GridBundle::Template/crud_modal_content.html.twig' %}
+
+{% block crud_modal_content %}
+
+    {% block javascripts %}
+
+        <script type="text/javascript">
+
+            $( document ).ready(function() {
+                console.log( "CREATE --" );
+
+                var map;
+                var marker;
+                var mapCanvas = document.getElementById('google-map-create');
+                var mapOptions = {
+                    center: new google.maps.LatLng(-12.0672105, -77.0336597),
+                    zoom: 16,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                map = new google.maps.Map(mapCanvas, mapOptions);
+
+                google.maps.event.addListener(map, 'click', function(event) {
+                    $('#{{ form.latitude.vars.id }}').val(event.latLng.lat());
+                    $('#{{ form.longitude.vars.id }}').val(event.latLng.lng());
+
+                    var zoom = map.getZoom();
+
+                    console.log("zoom ::: " + zoom);
+
+
+
+                    if (marker == null) {
+                        marker = new google.maps.Marker({
+                            map: map,
+                            title: 'Aqui estas tu',
+                            position: event.latLng
+                        });
+                    } else {
+                        marker.setPosition(event.latLng);
+                    }
+                });
+            });
+
+        </script>
+
+    {% endblock %}
+
+    {% if id is defined %}
+        <input type="hidden" value="{{ id }}" name="id">
+    {% endif %}
+
+    {{ form_widget(form._token) }}
+
+        <div class="row" style="display: none">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-home"></i>
+                    {{ form_label(form.pointOfSale) }}
+                    {{ form_widget(form.pointOfSale) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-qrcode"></i>
+                    {{ form_label(form.code) }}
+                    {{ form_widget(form.code) }}
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-align-left"></i>
+                    {{ form_label(form.name) }}
+                    {{ form_widget(form.name) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-align-left"></i>
+                    {{ form_label(form.slug) }}
+                    {{ form_widget(form.slug) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-align-left"></i>
+                    {{ form_label(form.address) }}
+                    {{ form_widget(form.address) }}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-map-marker"></i>
+                    {{ form_label(form.latitude) }}
+                    {{ form_widget(form.latitude) }}
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <i class="fa fa-fw fa-map-marker"></i>
+                    {{ form_label(form.longitude) }}
+                    {{ form_widget(form.longitude) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="google-map-create" style="width:100%;height:400px;"></div>
+            </div>
+        </div>
+
+{% endblock %}

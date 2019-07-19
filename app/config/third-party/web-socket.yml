@@ -1,0 +1,16 @@
+# Web Socket Configuration
+gos_web_socket:
+    server:
+        port: 8080  #The port the socket server will listen on
+        host: %project_url% #127.0.0.1 #The host ip to bind to
+        router:
+            resources:
+                - '@CoreBundle/Resources/config/pubsub/routing.yml'
+    shared_config: true
+    pushers:
+        zmq:
+            default: true
+            host: 127.0.0.1
+            port: 5555
+            persistent: true
+            protocol: tcp

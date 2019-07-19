@@ -1,0 +1,25 @@
+imports:
+    - { resource: '@ApiBundle/Resources/config/services.yml' }
+    - { resource: '@TreeBundle/Resources/config/services.yml' }
+    - { resource: '@CoreBundle/Resources/config/services.yml' }
+    - { resource: '@GridBundle/Resources/config/services.yml' }
+    - { resource: '@GridBundle/Resources/config/services.yml' }
+    - { resource: '@UserBundle/Resources/config/services.yml' }
+    - { resource: '@RoleBundle/Resources/config/services.yml' }
+    - { resource: '@FilesBundle/Resources/config/services.yml' }
+    - { resource: '@PagesBundle/Resources/config/services.yml' }
+    - { resource: '@TicketBundle/Resources/config/services.yml' }
+    - { resource: '@BackendBundle/Resources/config/services.yml' }
+    - { resource: '@SessionBundle/Resources/config/services.yml' }
+    - { resource: '@ProfileBundle/Resources/config/services.yml' }
+    - { resource: '@ReportBundle/Resources/config/services.yml' }
+    - { resource: '@GoogleBundle/Resources/config/services.yml' }
+    - { resource: '@ProductBundle/Resources/config/services.yml' }
+    - { resource: '@FrontendBundle/Resources/config/services.yml' }
+    - { resource: '@CategoryBundle/Resources/config/services.yml' }
+    - { resource: '@ResourceBundle/Resources/config/services.yml' }
+    - { resource: '@ServicesBundle/Resources/config/services.yml' }
+    - { resource: '@OneToManyBundle/Resources/config/services.yml' }
+    - { resource: '@AssociativeBundle/Resources/config/services.yml' }
+    - { resource: '@PointofsaleBundle/Resources/config/services.yml' }
+    - { resource: '@TreeOneToManyBundle/Resources/config/services.yml' }

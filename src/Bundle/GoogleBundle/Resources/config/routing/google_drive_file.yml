@@ -1,0 +1,188 @@
+backend_google_drive_index:
+    path: /files/{field}
+    methods: [GET]
+    defaults:
+        field: my-drive
+        _controller: tianos.google.drive.controller.google:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GoogleBundle:GoogleDriveFile:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_google_catalog
+                icon: cube
+                body_css: grid-body-css
+                serialize_group_name: crud
+                form_name: google-drive-files
+                box_one:
+                    icon: building
+                    class: primary
+                    id: box-one-id
+                    title: Universidades
+                    li_class: box-one-li
+                    li_badge_class: bg-green
+                    li_input_radio_name: box-one-selected-value
+                    search_input_name: search-input-name-one
+                    route_search: backend_associativeacademic_one_search
+                    route_select_item: backend_associativeacademic_one_select_item
+                    repository:
+                        service: tianos.repository.university
+                        method: findAll
+                        arguments: [$googleId]
+                        vars:
+                            serialize_group_name: google-drive
+            grid:
+                icon: cube
+                box_class: primary
+                title: Gestionar google
+                data_table:
+                    route:
+                        info: backend_google_drive_info
+                        view: backend_google_drive_view
+                        edit: backend_google_drive_edit
+                        create: backend_google_drive_create
+                        delete: backend_google_drive_delete
+                    table_button:
+                        - edit
+                        - delete
+                    table_button_header:
+                        - create
+                        - info
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Name
+                          obj: obj.name
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google.drive
+                method: findAll
+                arguments: [$googleId]
+                vars:
+                    serialize_group_name: google-drive
+
+backend_google_drive_account_permissions:
+    path: /account-permissions
+    methods: [GET]
+    defaults:
+        _controller: tianos.google.drive.controller.google:accountPermissionsAction
+        _tianos:
+            action: create
+            template: GoogleBundle:GoogleDriveFile:account_permissions.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_google_catalog
+                icon: cube
+                body_css: grid-body-css
+                serialize_group_name: crud
+            entity: Bundle\GoogleBundle\Entity\GoogleDriveFile
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google.drive
+                method: findAll
+                arguments: [$googleId]
+                vars:
+                    serialize_group_name: google-drive
+
+backend_google_drive_save:
+    path: /save
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.google.drive.controller.google:saveAction
+        _tianos:
+            action: edit
+            template: GoogleBundle:GoogleBackend/Form:form.html.twig
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google.drive
+                method: find
+                arguments: [$googleId]
+                vars:
+                    serialize_group_name: google-drive
+
+backend_google_drive_delete:
+    path: /delete
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.google.drive.controller.google:deleteAction
+        _tianos:
+            action: edit
+            template: GoogleBundle:GoogleBackend/Form:form.html.twig
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google
+                method: find
+                arguments: [$googleId]
+                vars:
+                    serialize_group_name: crud
+
+backend_google_drive_revoke_token:
+    path: /revoke-token
+    methods: [GET]
+    defaults:
+        _controller: tianos.google.drive.controller.google:revokeTokenAction
+        _tianos:
+            action: edit
+            template: GoogleBundle:GoogleBackend/Form:form.html.twig
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google
+                method: find
+                arguments: [$googleId]
+                vars:
+                    serialize_group_name: crud
+
+backend_google_drive_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.backend.controller.google:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.google
+                method: find
+                arguments: [$googleId]
+            vars:
+#                body_css: grid-body-css
+
+backend_google_drive_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.google:viewAction
+        _tianos:
+            action: view
+            template: GoogleBundle:GoogleBackend/Informative:view.html.twig
+            repository:
+                service: tianos.repository.google
+                method: find
+                arguments: [$googleId]
+                vars:
+                    serialize_group_name: crud
+
+backend_google_drive_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.google:infoAction
+        _tianos:
+            action: info
+            template: GoogleBundle:GoogleBackend/Informative:info.html.twig

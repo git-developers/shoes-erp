@@ -1,0 +1,126 @@
+{% extends 'GridBundle::Template/crud_modal_content.html.twig' %}
+
+{% block crud_modal_content %}
+    <div class="box box-solid">
+        {#<div class="box-header with-border">#}
+            {#<h3 class="box-title">About Me</h3>#}
+        {#</div>#}
+
+        <div class="box-body">
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <strong>
+                        <i class="fa fa-qr-code margin-r-5"></i> ID
+                    </strong>
+
+                    <p class="text-muted">
+                        <span class="badge bg-blue">{{ entity.id }}</span>
+                    </p>
+                </div>
+
+                <div class="col-md-5">
+                    <strong>
+                        <i class="fa fa-book margin-r-5"></i> Nombre
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.name }}
+                    </p>
+                </div>
+
+                <div class="col-md-5">
+                    <strong>
+                        <i class="fa fa-calendar margin-r-5"></i> Creado
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.createdAt|date('Y-m-d H:i') }}
+                    </p>
+                </div>
+
+            </div>
+
+            <hr>
+
+            {#
+            <div class="row">
+
+                <div class="col-md-6">
+                    <strong>
+                        <i class="fa fa-map-marker margin-r-5"></i> Latitud
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.latitude }}
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <strong>
+                        <i class="fa fa-map-marker margin-r-5"></i> Longitud
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.longitude }}
+                    </p>
+                </div>
+
+            </div>
+
+            <hr>
+            #}
+
+            <strong>
+                <i class="fa fa-book margin-r-5"></i> Login link
+            </strong>
+
+            <div class="row">
+                <div class="col-md-11">
+                    <p class="text-muted">
+                        <input
+                            value="{{ url('backend_security_pdv_login', {slug: entity.slug}) }}"
+                            class="form-control copy-to-clipboard-text"
+                            readonly>
+                    </p>
+                </div>
+
+                <div class="col-md-1">
+                    <i
+                        class="fa fa-lg fa-fw fa-copy x-hand copy-to-clipboard"
+                        data-toggle="tooltip"
+                        data-original-title="Click para copiar"></i>
+                </div>
+            </div>
+
+            <hr>
+
+            <strong>
+                <i class="fa fa-home margin-r-5"></i> Sucursales
+            </strong>
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr class="bg-light-blue">
+                        <th style="width: 10px">#</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pdv in entity.pointOfSaleChildren %}
+                        <tr>
+                            <td><span class="badge bg-blue">{{ pdv.id }}</span></td>
+                            <td>{{ pdv.name }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="2">No tiene sucursales.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

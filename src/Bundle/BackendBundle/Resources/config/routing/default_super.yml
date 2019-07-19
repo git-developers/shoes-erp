@@ -1,0 +1,7 @@
+backend_default_super_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.default.super:indexAction
+        _tianos:
+            template: BackendBundle:Default:dashboard_super.html.twig

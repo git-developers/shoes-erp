@@ -1,0 +1,61 @@
+{% extends "ThemesBundle:Adminlte:1_template.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#activity" data-toggle="tab">{{ "now"|date("d F, h:ia") }}</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="activity">
+                            <div class="post">
+                                <div class="user-block">
+
+                                    <div class="error-page">
+                                        <h2 class="headline text-yellow"> {% block errorcode %}333{% endblock %}</h2>
+
+                                        <div class="error-content">
+                                            <h3><i class="fa fa-warning text-yellow"></i> Oops! {{ exception.message }}.</h3>
+                                            <p>
+                                                Un equipo de monos altamente <a href="#">capacitados</a> ha sido enviado para hacer frente a esta situación. <br>
+                                                Si los ves, muestrales esta información:
+                                            </p>
+
+                                            <p>&nbsp;</p>
+
+                                            <p style="max-width: 100%!important; word-wrap: break-word;">
+                                                {{ randomString(5000) }}
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}

@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Component\Grid
+        psr4_prefix: Component\Grid
+        src_path: .

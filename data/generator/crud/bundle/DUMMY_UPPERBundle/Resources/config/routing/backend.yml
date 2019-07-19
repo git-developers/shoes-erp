@@ -1,0 +1,183 @@
+backend_DUMMY_LOWER_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.DUMMY_LOWER:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_DUMMY_LOWER_catalog
+                icon: cube
+                body_css: grid-body-css
+                serialize_group_name: crud
+#            grid: sylius_admin_product
+            grid:
+                icon: cube
+                box_class: primary
+                title: Gestionar DUMMY_LOWER
+                data_table:
+                    route:
+                        info: backend_DUMMY_LOWER_info
+                        view: backend_DUMMY_LOWER_view
+                        edit: backend_DUMMY_LOWER_edit
+                        create: backend_DUMMY_LOWER_create
+                        delete: backend_DUMMY_LOWER_delete
+                    table_button:
+                        - edit
+                        - delete
+                    table_button_header:
+                        - create
+                        - info
+                    table_option:
+                        pageLength: 10
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Name
+                          obj: obj.name
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\DUMMY_UPPERBundle\Form\Type\DUMMY_UPPERType
+            repository:
+                service: tianos.repository.DUMMY_LOWER
+                method: findAll
+                arguments: [$DUMMY_LOWERId]
+                vars:
+                    serialize_group_name: crud
+
+backend_DUMMY_LOWER_create:
+    path: /create
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.DUMMY_LOWER:createAction
+        _tianos:
+            action: create
+            template: DUMMY_UPPERBundle:BackendDUMMY_UPPER/Form:form.html.twig
+            entity: Bundle\DUMMY_UPPERBundle\Entity\DUMMY_UPPER
+            form:
+                type: Bundle\DUMMY_UPPERBundle\Form\Type\DUMMY_UPPERType
+            repository:
+                vars:
+                    serialize_group_name: crud
+
+backend_DUMMY_LOWER_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.DUMMY_LOWER:editAction
+        _tianos:
+            action: edit
+            template: DUMMY_UPPERBundle:BackendDUMMY_UPPER/Form:form.html.twig
+            form:
+                type: Bundle\DUMMY_UPPERBundle\Form\Type\DUMMY_UPPERType
+            repository:
+                service: tianos.repository.DUMMY_LOWER
+                method: find
+                arguments: [$DUMMY_LOWERId]
+                vars:
+                    serialize_group_name: crud
+
+backend_DUMMY_LOWER_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.backend.controller.DUMMY_LOWER:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.DUMMY_LOWER
+                method: find
+                arguments: [$DUMMY_LOWERId]
+            vars:
+#                body_css: grid-body-css
+
+backend_DUMMY_LOWER_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.DUMMY_LOWER:viewAction
+        _tianos:
+            action: view
+            template: DUMMY_UPPERBundle:BackendDUMMY_UPPER/Informative:view.html.twig
+            repository:
+                service: tianos.repository.DUMMY_LOWER
+                method: find
+                arguments: [$DUMMY_LOWERId]
+                vars:
+                    serialize_group_name: crud
+
+backend_DUMMY_LOWER_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.DUMMY_LOWER:infoAction
+        _tianos:
+            action: info
+            template: DUMMY_UPPERBundle:BackendDUMMY_UPPER/Informative:info.html.twig
+
+
+
+
+
+#/var/www/html/Sylius/sylius/vendor/sylius/sylius/docs/customization/factory.rst
+#
+#    sylius_admin_product_create_simple:
+#        path: /products/new/simple
+#        methods: [GET, POST]
+#        defaults:
+#            _controller: sylius.controller.product:createAction
+#            _sylius:
+#                section: admin
+#                factory:
+#                    method: createDisabled # like here for example
+#                template: SyliusAdminBundle:Crud:create.html.twig
+#                redirect: sylius_admin_product_update
+#                vars:
+#                    subheader: sylius.ui.manage_your_product_catalog
+#                    templates:
+#                        form: SyliusAdminBundle:CRUDDUMMY:_form.html.twig
+#                    route:
+#                        name: sylius_admin_product_create_simple
+
+
+
+#            template: "@SyliusAdmin/ProductVariant/generate.html.twig"
+#            section: admin
+#            permission: true
+#            redirect:
+#                route: sylius_admin_product_variant_index
+#                parameters: { productId: $productId }
+#            form:
+#                type: Sylius\Bundle\ProductBundle\Form\Type\ProductGenerateVariantsType
+#            repository:
+#                method: find
+#                arguments: [$productId]
+#            flash: sylius.product_variant.generate
+
+#sylius_admin_product_index:
+#    path: /products/
+#    methods: [GET]
+#    defaults:
+#        _controller: sylius.controller.product:indexAction
+#        _sylius:
+#            section: admin
+#            permission: true
+#            grid: sylius_admin_product
+#            template: SyliusAdminBundle:CRUDDUMMY:index.html.twig
+#            vars:
+#                subheader: sylius.ui.manage_your_product_catalog
+#                icon: cube

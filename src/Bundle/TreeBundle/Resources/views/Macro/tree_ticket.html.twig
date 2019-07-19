@@ -1,0 +1,34 @@
+{% macro tree(objects, tree, index, template, routePath) %}
+
+    {% for key, value in objects %}
+
+        {% if loop.index0 == 0 %}
+            {% set index = index + 1 %}
+        {% endif %}
+
+        {% set entityParent = value.parent %}
+
+        {% if entityParent is not empty %}
+            <li
+                class="x-hand category-ticket"
+                data-category="{{ entityParent.id }}"
+                id="li-{{ entityParent.id }}">
+
+                {{ include(template, {
+                        entity: entityParent,
+                        badge_color: index|badge_colors(),
+                        route_path: routePath
+                    })
+                }}
+
+                <ul class="{{ tree.child_ul ~ '-' ~ entityParent.id }}">
+                    {% import _self as macro %}
+                    {{ macro.tree(value.children, tree, index, template, routePath) }}
+                </ul>
+
+            </li>
+        {% endif %}
+
+    {% endfor %}
+{% endmacro %}
+

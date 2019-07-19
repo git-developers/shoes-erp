@@ -1,0 +1,57 @@
+{% extends 'GridBundle::Template/crud_modal_content.html.twig' %}
+
+{% block crud_modal_content %}
+
+    {% if id is defined %}
+        <input type="hidden" value="{{ id }}" name="id">
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="target-result"></div>
+        </div>
+    </div>
+
+    <div class="row box-error" style="display: none">
+        <div class="col-md-12">
+            <div class="callout callout-danger">
+                <p>
+                    <i class="fa fa-fw fa-warning"></i>&nbsp;<span></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row box-upload">
+        <div class="col-md-12">
+            {{ form_widget(form.fileSelected) }}
+        </div>
+        <div class="col-md-12">
+            <br>
+            <div class="progress active" style="background-color: #008d4c">
+                <div
+                    class="progress-bar progress-bar-warning progress-bar-striped"
+                    role="progressbar"
+                    aria-valuenow="0"
+                    aria-valuemin="0"
+                    aria-valuemax="100">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 text-center img">
+            <img src="{{ imagePath }}">
+        </div>
+    </div>
+
+    <div class="row box-success" style="display: none">
+        <div class="col-md-12">
+            <div class="callout callout-success" style="background-color: #008d4c !important;">
+                <p>
+                    <i class="fa fa-fw fa-check"></i> Se subio con exito.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-12 text-center img"></div>
+    </div>
+
+{% endblock %}

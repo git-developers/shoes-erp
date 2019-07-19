@@ -1,0 +1,64 @@
+Bundle\TicketBundle\Entity\TicketHasServices:
+    type: entity
+    table: ticket_has_services
+    repositoryClass: Bundle\TicketBundle\Doctrine\ORM\TicketHasServicesRepository
+    indexes:
+        fk_ticket_has_services_ticket1_idx:
+            columns:
+                - ticket_id
+        fk_ticket_has_services_services1_idx:
+            columns:
+                - service_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        quantity:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        unitPrice:
+            type: float
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                fixed: false
+            column: unit_price
+        subTotal:
+            type: float
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                fixed: false
+            column: sub_total
+    manyToOne:
+        services:
+            targetEntity: Bundle\ServicesBundle\Entity\Services
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                service_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        ticket:
+            targetEntity: Bundle\TicketBundle\Entity\Ticket
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ticket_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

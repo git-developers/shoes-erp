@@ -1,0 +1,50 @@
+services:
+
+    tianos.one_to_many:
+        class: Bundle\TreeOneToManyBundle\Services\OneToMany\OneToMany
+        arguments: [ "@router", "@request_stack" ]
+        tags:
+            - { name: tianos.one_to_many, alias: tianos.one_to_many }
+
+    tianos.form_registry.treeonetomany_filter:
+        class: Bundle\TreeOneToManyBundle\Form\Registry\FormTypeRegistry
+        public: false
+
+    tianos.registry.treeonetomany_field:
+        class: Component\Registry\ServiceRegistry
+        arguments: [ Component\TreeOneToMany\FieldTypes\FieldTypeInterface, "grid field" ]
+
+    tianos.expression_language:
+        class: Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage
+        public: false
+
+    tianos.treeonetomany_options_parser:
+        class: Bundle\ResourceBundle\TreeOneToMany\Parser\OptionsParser
+        arguments: [ "@service_container", "@tianos.expression_language", "@property_accessor" ]
+        public: false
+
+    tianos.custom_treeonetomany_renderer.twig.inner:
+        class: Bundle\TreeOneToManyBundle\Renderer\TwigTreeOneToManyRenderer
+        arguments: [
+                "@twig",
+                "@tianos.registry.treeonetomany_field",
+                "@form.factory",
+                "@tianos.form_registry.treeonetomany_filter",
+                SyliusTreeOneToManyBundle::_grid.html.twig
+                ]
+        public: false
+
+    tianos.custom_treeonetomany_renderer.twig:
+        class: Bundle\ResourceBundle\TreeOneToMany\Renderer\TwigTreeOneToManyRenderer
+        arguments: [ "@tianos.custom_treeonetomany_renderer.twig.inner", "@twig", "@tianos.treeonetomany_options_parser" ]
+
+    tianos.templating.helper.tree.onetomany:
+        class: Bundle\TreeOneToManyBundle\Templating\Helper\TreeOneToManyHelper
+        arguments: [ "@tianos.custom_treeonetomany_renderer.twig" ]
+
+    twig.extension.tree_one_to_many:
+        class: Bundle\TreeOneToManyBundle\Twig\TreeOneToManyExtension
+        arguments: ['@tianos.templating.helper.tree.onetomany']
+        public: false
+        tags:
+         - { name: twig.extension }

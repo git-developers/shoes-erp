@@ -1,0 +1,21 @@
+{% macro art_id(content) %}
+    <meta name="bi3dArtId" content="{{ content }}"/>
+{% endmacro %}
+
+{% macro section(content) %}
+    <meta name="bi3dSection" content="{{ content }}"/>
+{% endmacro %}
+
+{% macro art_title(content) %}
+    <meta name="bi3dArtTitle" content="{{ content }}"/>
+{% endmacro %}
+
+{% macro pub_date(content) %}
+
+    {% if content is empty or not content matches '/^\\d+$/' %}
+        {% set date = 'now' %}
+    {% endif %}
+
+    <meta name="bi3dPubDate" content="{{ content|date('Y-m-d\\TH:i:sP') }}"/>
+    {#2017-05-09T21:29:31+00:00#}
+{% endmacro %}

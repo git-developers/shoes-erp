@@ -1,0 +1,510 @@
+{% extends "ThemesBundle:Adminlte:1_template.html.twig" %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        body.{{ vars.body_css }} form#{{ vars.form_name }} i.success{
+            color: #00a65a;
+        }
+        body.{{ vars.body_css }} form#{{ vars.form_name }} i.danger{
+            color: #dd4b39;
+        }
+        body.{{ vars.body_css }} form#{{ vars.form_name }} .todo-list{
+            overflow: hidden;
+        }
+
+        input[type=checkbox] {
+            height: 20px;
+            width: 20px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#{{ ws_client() }}#}
+
+    <script type="text/javascript">
+
+        $('#save-files').click(function(){
+
+            var array = [];
+            $('.file:checked').each(function(){
+                array.push({
+                    id: $(this).attr('id'),
+                    file:  $(this).val()
+                });
+            });
+
+            if(array.length == 0){
+                return;
+            }
+
+            var saved = $('#saved');
+
+            $.ajax({
+                url: '{{ path('backend_google_drive_save') }}',
+                type: 'POST',
+                data: {
+                    files:array
+                },
+                dataType: 'json',
+                beforeSend: function(jqXHR, settings) {
+
+                },
+                success: function(data, textStatus, jqXHR) {
+                    console.log('SUCCESS:: ' + data);
+
+                    saved.show();
+
+                    setTimeout(function(){
+                        saved.hide();
+                    }, 1500);
+
+                },
+                error: function(jqXHR, exception) {
+
+                }
+            });
+
+            // subscribeWebSocket();
+
+        });
+
+        $('#delete-files').click(function(){
+
+            var array = [];
+            $('.file:checked').each(function(){
+                array.push({
+                    id: $(this).attr('id'),
+                    file:  $(this).val()
+                });
+            });
+
+            if(array.length == 0){
+                return;
+            }
+
+            $.ajax({
+                {#url: '{{ path('backend_files_delete_many') }}',#}
+                url: '{{ path('backend_google_drive_delete') }}',
+                type: 'POST',
+                data: {
+                    files:array
+                },
+                dataType: 'json',
+                beforeSend: function(jqXHR, settings) {
+                    jqXHR.error = function(){
+//                        alert("failed");
+                    }
+                },
+                success: function(data, textStatus, jqXHR) {
+                    console.log('DELETE SUCCESS:: ' + data);
+
+                },
+                error: function(jqXHR, exception) {
+
+                }
+            });
+
+            // subscribeWebSocket();
+
+        });
+
+        $(':checkbox[name=select-all]').click (function () {
+            $(':checkbox[name=gd-file]').prop('checked', this.checked);
+        });
+
+        jQuery(function($) {
+
+            var areaAcademica = {
+                '1': ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn'],
+                '2': ['Barcelona'],
+                '3': ['Pecs'],
+                '3': ['Downers Grove'],
+                '4': ['Puebla'],
+                '5': ['Midrand'],
+                '6': ['Beijing'],
+                '7': ['St. Petersburg'],
+            };
+
+            var $areaAcademica = $('#area-academica');
+
+            $('#universidad').change(function () {
+                var universidad = $(this).val(), lcns = areaAcademica[universidad] || [];
+
+                console.log("universidad:: " + universidad);
+
+                var html = $.map(lcns, function(lcn){
+                    return '<option value="' + lcn + '">' + lcn + '</option>'
+                }).join('');
+
+                $areaAcademica.html(html)
+            });
+        });
+
+
+        {##}
+        {#function subscribeWebSocket() {#}
+
+            {#var _WS_URI = "ws://{{ gos_web_socket_server_host }}:{{ gos_web_socket_server_port }}";#}
+            {#var _WS_URI = "ws://{{ project_url }}:{{ gos_web_socket_server_port }}";#}
+            {#var webSocket = WS.connect(_WS_URI);#}
+
+            {#webSocket.on("socket/connect", function(session){#}
+                {#//the callback function in "subscribe" is called everytime an event is published in that channel.#}
+
+{#//                    session.unsubscribe("sitemap/channel");#}
+
+                {#session.subscribe("googledrive/channel", function(uri, payload){#}
+
+                    {#try {#}
+                        {#var json = jQuery.parseJSON(payload.msg);#}
+
+                        {#console.log(json);#}
+
+                        {#var id = json.id;#}
+                        {#var message = json.message;#}
+                        {#var status = json.status;#}
+
+                        {#$('#loading-' + id).removeClass('show').addClass('hidden');#}
+                        {#$('#ok-' + id).removeClass('show').addClass('hidden');#}
+                        {#$('#fail-' + id).removeClass('show').addClass('hidden');#}
+                        {#$('#delete-' + id).removeClass('show').addClass('hidden');#}
+
+                        {#if(status == 1){#}
+                            {#$('#ok-' + id).removeClass('hidden').addClass('show');#}
+                            {#$('#ok-' + id).attr('title', '');#}
+                            {#$('#ok-' + id).attr('title', message);#}
+                        {#}else if(status == 4){#}
+                            {#$('#loading-' + id).removeClass('hidden').addClass('show');#}
+                            {#$('#loading-' + id).attr('title', '');#}
+                        {#}else if(status == 5){#}
+                            {#$('#delete-' + id).removeClass('hidden').addClass('show');#}
+                            {#$('#delete-' + id).attr('title', message);#}
+                        {#}else if(status == 1062){#}
+                            {#$('#fail-' + id).removeClass('hidden').addClass('show');#}
+                            {#$('#fail-' + id).attr('title', message);#}
+                        {#}#}
+
+                        {#console.log('subscribe payload.msg:: ' + payload.msg);#}
+                    {#}#}
+                    {#catch(err) {#}
+{#//                            console.log('ERROR:: ' + err.message);#}
+{#//                        var html = liHtml('', payload.msg, '');#}
+{#//                        $("#validator-output ul#output-ul").append(html);#}
+                    {#}#}
+
+                {#});#}
+            {#});#}
+        {#}#}
+
+
+
+
+//        $(".todo-list").todolist({
+//            onCheck: function (ele) {
+//                window.console.log("The element has been checked");
+//                return ele;
+//            },
+//            onUncheck: function (ele) {
+//                window.console.log("The element has been unchecked");
+//                return ele;
+//            }
+//        });
+
+        /*
+        $(document).ready(function() {
+            $('#save-files').myPluginName({
+                onComplete: function() {
+//                    console.log('Then followup with an awesome callback!');
+                }
+            });
+        });
+        */
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+
+        <h1>
+            <i class="fa fa-google"></i> Google drive
+
+            {% if field is not empty %}
+                <a href="{{ path('backend_google_drive_index', { 'field':field }) }}">
+                    <small>
+                        <i class="fa fa-fw fa-angle-double-right"></i> {{  small_text }}
+                    </small>
+                </a>
+            {% endif %}
+
+            {% if parents is not empty %}
+                <a
+                    href="{{ path('backend_google_drive_index', {
+                        'field':field, 'parents':parents, 'folder_name':folder_name
+                    }) }}"
+                >
+                    <small>
+                        <i class="fa fa-fw fa-angle-double-right"></i> {{ folder_name }}
+                    </small>
+                </a>
+            {% endif %}
+
+        </h1>
+
+        <ol class="breadcrumb">
+            <li>
+                <a href="{{ path('frontend_default_index') }}">
+                    <i class="fa fa-dashboard"></i> Inicio
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('backend_google_drive_index') }}">
+                    <i class="fa fa-google"></i> Google drive
+                </a>
+            </li>
+        </ol>
+
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-widget"> {#box-solid box-widget#}
+
+                    {#
+                    <div class="box-header">
+                        <h3 class="box-title">Data Table With Full Features</h3>
+                    </div>
+                    #}
+
+                    <div class="box-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <h4>Seleccionar bloque academico de los archivos a subir:</h4>
+
+                                <div class="info-box bg-yellow">
+                                    <span class="info-box-icon">
+                                        <i class="fa fa fa-bookmark-o"></i>
+                                    </span>
+
+                                    <div class="info-box-content">
+
+                                        <form role="form">
+
+                                            {#<div class="col-xs-4 col-md-1"></div>#}
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Universidad</label>
+                                                    <select id="universidad" class="form-control">
+                                                        {% for object in objectsOne %}
+                                                            <option value="{{ object.id }}">{{ object.name_box }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Área académica</label>
+                                                    <select id="area-academica" class="form-control">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Facultad</label>
+                                                    <select id="facultad" class="form-control">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Escuela</label>
+                                                    <select id="escuela" class="form-control">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+                                        {#<span class="info-box-text">Events</span>#}
+                                        {#<span class="info-box-number">41,410</span>#}
+
+                                        {#<div class="progress">#}
+                                            {#<div class="progress-bar" style="width: 70%"></div>#}
+                                        {#</div>#}
+                                        {#<span class="progress-description">#}
+                                            {#70% Increase in 30 Days#}
+                                        {#</span>#}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-xs-12 col-md-12 margin-bottom-5">
+                                <div class="col-xs-4 col-md-1">
+                                    <div class="input-group input-group-sm" style="margin-left: -3px">
+                                        <input id="check-all" name="select-all" type="checkbox">
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-md-1 margin-bottom-5">
+                                    <button class="btn btn-success" id="saved" style="display: none">
+                                        <i class="fa fa-fw fa-check"></i> Guardado
+                                    </button>
+                                </div>
+                                <div class="col-xs-4 col-md-1 margin-bottom-5">
+                                    <button id="save-files" class="btn bg-olive btn-flat" data-toggle="tooltip" title="subir archivo">
+                                        Subir <i class="fa fa-fw fa-upload"></i>
+                                    </button>
+                                </div>
+                                <div class="col-xs-4 col-md-1 margin-bottom-5">
+                                    <button id="delete-files" class="btn bg-red btn-flat" data-toggle="tooltip" title="borrar">
+                                        Eliminar <i class="fa fa-fw fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="col-xs-4 col-md-1 margin-bottom-5">
+                                    <a href="{{ path('backend_google_drive_revoke_token') }}"
+                                       class="btn bg-purple btn-flat" data-toggle="tooltip" title="salir de google drive">
+                                        Salir <i class="fa fa-fw fa-sign-out"></i>
+                                    </a>
+                                </div>
+                                <div class="col-xs-12 col-md-7 margin-bottom-5">
+                                    <form action="{{ path('backend_google_drive_index') }}" method="get" role="form">
+                                        <div class="input-group input-group">
+                                            <input type="text" name="search" class="form-control" value="{{ search }}">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn bg-orange">
+                                                    <i class="fa fa-fw fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                {% if files is empty %}
+                                    <div class="info-box">
+                                        <span class="info-box-icon"><i class="fa fa-folder-open-o"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">folder vacio</span>
+                                            {#<span class="info-box-number">1,410</span>#}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <form id="{{ vars.form_name }}">
+
+                                    <ul class="todo-list ui-sortable">
+
+                                        {% for key,file in files %}
+                                            <li>
+                                                <div class="row">
+
+                                                    {#{{ dump(file) }}#}
+
+                                                    <div class="col-xs-3 col-md-1">
+                                                        <div class="row">
+                                                            <div class="col-xs-6 col-md-6">
+                                                                <div class="input-group input-group-sm">
+                                                                    <input
+                                                                        id="{{ file.id }}"
+                                                                        name="gd-file"
+                                                                        class="file"
+                                                                        type="checkbox"
+                                                                        value="{{ file|tianos_google_file_values }}"
+                                                                        data-active="1">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-6 col-md-6">
+                                                                <i id="loading-{{ file.id }}" data-toggle="tooltip" class="hidden fa fa-spinner fa-spin"></i>
+                                                                <i id="ok-{{ file.id }}" data-toggle="tooltip" class="success hidden fa fa-fw fa-check-circle"></i>
+                                                                <i id="fail-{{ file.id }}" data-toggle="tooltip" class="danger hidden fa fa-fw fa-warning"></i>
+                                                                <i id="delete-{{ file.id }}" data-toggle="tooltip" class="danger hidden fa fa-fw fa-trash"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-9 col-md-11">
+
+                                                        <span
+                                                            class="text file-name {{ file.mimeType|tianos_google_span_class }}"
+                                                            onclick="location.href='{{ file|tianos_google_span_url_filter(field) }}';"
+                                                            data-toggle="tooltip"
+                                                            title="{{ file.name }}" >
+
+                                                            {#{{ value.mimeType|tianos_google_mimetype_icon }}#}
+                                                            <img src="{{ file.iconLink }}" >
+                                                            {{ file.name }}
+                                                        </span>
+
+                                                        {#<small class="label label-success">v</small>#}
+                                                        <div class="tools">
+                                                            <i class="fa fa-edit"></i>
+                                                            {#<i class="fa fa-trash-o"></i>#}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </form>
+
+                            </div>
+
+                            <div class="col-sm-12">
+                                {% if next_page_token is not null %}
+                                    <a class="btn bg-orange pull-right" href="{{ path('backend_google_drive_index', {'page':next_page_token}) }}">
+                                        <i class="fa fa-fw fa-arrow-right"></i> siguiente
+                                    </a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {#{{ include("BackendBundle:Profile:Modal/modal_delete.html.twig") }}#}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

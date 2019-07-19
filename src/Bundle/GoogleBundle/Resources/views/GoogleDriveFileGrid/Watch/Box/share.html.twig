@@ -1,0 +1,66 @@
+<div class="box-header with-border">
+    <h3 class="box-title">
+        <i class="fa fa-fw fa-share-alt"></i> Compartir
+    </h3>
+    <div class="box-tools">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Colapsar">
+            <i class="fa fa-minus"></i>
+        </button>
+    </div>
+</div>
+<div class="box-body">
+    <div class="col-md-2">
+        <a
+            class="btn btn-block btn-social btn-facebook"
+            href="http://www.facebook.com/sharer.php?u={{ url('backend_google_drive_grid_watch', {slug: entity.slug}) }}&t={{ entity.fileName }}"
+            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=500');return false;"
+        >
+            <i class="fa fa-facebook"></i> Facebook
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a
+            class="btn btn-block btn-social btn-twitter"
+            href="https://twitter.com/intent/tweet?original_referer={{ url('backend_google_drive_grid_watch', {slug: entity.slug}) }}&amp;tw_p=tweetbutton&amp;text={{ entity.fileName }}&amp;url={{ url('backend_google_drive_grid_watch', {slug: entity.slug}) }}&amp;via={{ application_via }}"
+            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=500');return false;"
+        >
+            <i class="fa fa-twitter"></i> Twitter
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a
+            class="btn btn-block btn-social btn-whatsapp"
+            href="https://web.whatsapp.com/send?text={{ url('backend_google_drive_grid_watch', {slug: entity.slug}) }}"
+            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=800');return false;"
+        >
+            <i class="fa fa-whatsapp"></i> whatsApp
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a
+            class="btn btn-block btn-social btn-google"
+            href="https://plus.google.com/share?url={{ url('backend_google_drive_grid_watch', {slug: entity.slug}) }}"
+            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=500');return false;"
+        >
+            <i class="fa fa-google-plus"></i> Google
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a
+            class="btn btn-block btn-social btn-linkedin"
+            href="https://www.linkedin.com/shareArticle?url={{ url('backend_google_drive_grid_watch', {slug: entity.slug}) }}"
+            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=500');return false;"
+        >
+            <i class="fa fa-linkedin"></i> LinkedIn
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a
+            class="btn btn-block btn-social btn-pinterest"
+            href="//pinterest.com/pin/create/button/?url={{ url('backend_google_drive_grid_watch', {slug: entity.slug}) }}&amp;media=https://img.elcomercio.pe/files/article_main/uploads/2018/07/05/5b3eba1365ca0.jpeg&amp;description={{ entity.fileName }}"
+            onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=500');return false;"
+        >
+            <i class="fa fa-pinterest"></i> Pinterest
+        </a>
+    </div>
+</div>

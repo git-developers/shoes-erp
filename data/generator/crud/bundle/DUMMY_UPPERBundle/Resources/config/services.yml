@@ -1,0 +1,42 @@
+services:
+
+    tianos.listener.doctrine.DUMMY_LOWER:
+        class: Bundle\DUMMY_UPPERBundle\EventListener\DoctrineListenerService
+        arguments: ["@security.token_storage"]
+        tags:
+          - { name: doctrine.event_listener, event: postUpdate }
+          - { name: doctrine.event_listener, event: preUpdate }
+          - { name: doctrine.event_listener, event: prePersist }
+          - { name: doctrine.event_listener, event: postLoad }
+          - { name: doctrine.event_listener, event: postRemove }
+
+    tianos.api.controller.DUMMY_LOWER:
+        class: Bundle\DUMMY_UPPERBundle\Controller\ApiController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.api.controller.DUMMY_LOWER, alias: tianos.api.controller.DUMMY_LOWER }
+
+    tianos.backend.controller.DUMMY_LOWER:
+        class: Bundle\DUMMY_UPPERBundle\Controller\BackendController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.DUMMY_LOWER, alias: tianos.backend.controller.DUMMY_LOWER }
+
+    tianos.frontend.controller.DUMMY_LOWER:
+        class: Bundle\DUMMY_UPPERBundle\Controller\FrontendController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.frontend.controller.DUMMY_LOWER, alias: tianos.frontend.controller.DUMMY_LOWER }
+
+    tianos.repository.DUMMY_LOWER:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\DUMMY_UPPERBundle\Entity\DUMMY_UPPER ]
+
+
+
+#    tianos.controller.grid:
+#        class: Bundle\GridBundle\Controller\GridController
+#        arguments: [ Bundle\GridBundle\Controller\RequestConfigurationFactoryInterface ]
+#        tags:
+#            - { name: tianos.controller.grid, alias: tianos.controller.grid }

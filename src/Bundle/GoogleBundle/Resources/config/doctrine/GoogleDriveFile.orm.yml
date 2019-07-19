@@ -1,0 +1,140 @@
+Bundle\GoogleBundle\Entity\GoogleDriveFile:
+    type: entity
+    table: google_drive_file
+    repositoryClass: Bundle\GoogleBundle\Doctrine\ORM\GoogleDriveFileRepository
+    indexes:
+        fk_google_drive_file_user_idx:
+            columns:
+                - user_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        uniqueId:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: unique_id
+        slug:
+            type: string
+            nullable: false
+            length: 150
+            options:
+                fixed: false
+        description:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: description
+        fileId:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: file_id
+        fileMimeType:
+            type: string
+            nullable: true
+            length: 250
+            options:
+                fixed: false
+            column: file_mime_type
+        fileMimeTypeShort:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: file_mime_type_short
+        fileIconLink:
+            type: string
+            nullable: true
+            length: 250
+            options:
+                fixed: false
+            column: file_icon_link
+        fileName:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+            column: file_name
+        fileNameOriginal:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: file_name_original
+        fileSize:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: file_size
+        fileImage:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: file_image
+        hasThumbnail:
+            type: boolean
+            nullable: false
+            options:
+                default: '0'
+            column: has_thumbnail
+        countShare:
+            type: integer
+            nullable: true
+            length: 11
+            options:
+                fixed: false
+            column: count_share
+        countView:
+            type: integer
+            nullable: true
+            length: 11
+            options:
+                fixed: false
+            column: count_view
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        isActive:
+            type: boolean
+            nullable: false
+            options:
+                default: '1'
+            column: is_active
+    manyToOne:
+        user:
+            targetEntity: Bundle\UserBundle\Entity\User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

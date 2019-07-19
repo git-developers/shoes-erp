@@ -1,0 +1,220 @@
+NOW := $(shell /bin/date "+%Y-%m-%d . %H:%M:%S")
+AUTHOR_EMAIL := "josetue@outlook.com"
+AUTHOR_NAME := "Tianos"
+HOST_PROJECT := manguitos.com
+DATABASE_NAME := manguitos_db
+REMOTE_NAME := github
+BRANCH_NAME := master
+
+run:
+	@echo Domain: $(HOST_PROJECT)
+	make ssh
+	make nginx
+	make hosts
+	make restart_services
+	#make websocket
+
+delete:
+	@echo ---;
+	@echo Borrando los folderes cache y logs;
+	rm -rf var/logs/*
+	rm -rf var/cache/*
+	rm -rf web/bundles/*
+	rm -rf web/media/*
+	rm -rf web/css/*
+	rm -rf web/js/*
+	rm -rf web/upload/*
+	rm -rf web/media/*
+	@echo ---;
+	@echo ===========borrar los tokens de google===========;
+	rm -rf /tianos/data/google/credentials/*
+	@echo ---;
+
+perm:
+	@echo ---;
+	@echo se dara permisos a los folderes cache y logs;
+	chmod 0777 -R var/cache var/logs var/sessions $$PWD/app/DoctrineMigrations
+	@echo ---;
+
+assets:
+	$(eval ENV := dev)
+	$(eval DEBUG := )
+ifeq ($(env), prod)
+	$(eval ENV := prod)
+	$(eval DEBUG := --no-debug)
+endif
+
+	make delete
+	php bin/console cache:clear --env=$(ENV) $(DEBUG);
+	php bin/console assets:install --symlink --env=$(ENV) $(DEBUG);
+	php bin/console assetic:dump --env=$(ENV) $(DEBUG);
+	make perm
+
+save:
+	git add .
+	git config --global user.email $(AUTHOR_EMAIL)
+	git config --global user.name $(AUTHOR_NAME) --replace-all
+	git commit -m "Tianos said -> modifications made on: $(NOW)"
+ifeq ($(http), 1)
+	git push $(REMOTE_NAME) $(BRANCH_NAME)
+else
+	git push $(REMOTE_NAME) $(BRANCH_NAME)
+endif
+
+#READ: https://eole-io.github.io/sandstone/install-zmq-php-linux.html
+websocket:
+	$(eval DEBUG := --debug)
+ifeq ($(env), prod)
+	$(eval DEBUG := --no-debug)
+endif
+	php bin/console gos:websocket:server --host=$(HOST_PROJECT) --port:8080 $(DEBUG);
+
+doctrine_update:
+	php bin/console doctrine:migration:status
+	php bin/console doctrine:migration:diff
+
+#entity_update:
+	#php bin/console doctrine:mapping:import --force CoreBundle yml --filter="$(entity)"
+	#php bin/console doctrine:mapping:convert annotation ./src --force
+	#php bin/console doctrine:generate:entities CoreBundle:$(entity) --no-backup
+
+sql:
+	php bin/console doctrine:query:sql "$(query)"
+
+routing:
+	php bin/console tianos:crud:routing BackendBundle
+
+lift_up2:
+	sudo service httpd start;
+	sudo service httpd restart;
+	sudo setenforce 0
+
+mysql:
+	$(eval DB := $(DATABASE_NAME))
+ifeq ($(db), false)
+	$(eval DB := '')
+endif
+	mysql -h localhost -u root -proot $(DB)
+
+db_load:
+	make migrate_delete
+	php bin/console doctrine:database:drop --force --if-exists
+	php bin/console doctrine:database:create --if-not-exists
+	php bin/console doctrine:migration:diff
+	php bin/console doctrine:migration:migrate --no-interaction
+	make load_fixture
+	make perm
+
+log_nginx:
+ifeq ($(clean), 1)
+	> /var/log/nginx/manguitos_error.log
+	@echo = se borro el log con exito!;
+	@echo -;
+else
+	tail -n $(n) /var/log/nginx/manguitos_error.log
+endif
+
+nginx:
+	@echo ---;
+	@echo ===========se copiara la configuracion del NGINX===========;
+	cp /manguitos/app/config/docker/nginx.conf.dist /etc/nginx/sites-enabled/manguitos-nginx
+	@echo ---;
+	@echo ===========validando el sintax de la configuracion del NGINX===========;
+	nginx -t
+	@echo ---;
+	@echo ===========reiniciando servicio NGINX===========;
+	service nginx restart
+	@echo ---;
+
+hosts:
+	@echo ---;
+	@echo ===========se copiara la configuracion del HOSTS===========;
+	cp /manguitos/app/config/docker/hosts.dist /etc/hosts
+	@echo ---;
+
+ssh:
+	@echo ---;
+	@echo ===========se copiara el KEY SSH===========;
+	mkdir -p ~/.ssh/
+	cp /manguitos/app/config/docker/tianos-ssh ~/.ssh/tianos-ssh
+	@echo ---;
+
+restart_services:
+	@echo ---;
+	@echo ===========se reiniciara los servicios===========;
+	service --status-all
+	service nginx restart
+	service mysql restart
+	service php7.0-fpm stop
+	service php7.0-fpm start
+	@echo ---;
+
+step_1_mysql_permissions:
+	@echo ---;
+	@echo ===========cambiando permisos===========;
+	chown -Rv mysql:root /var/run/mysqld/
+	chgrp -Rv mysql /var/run/mysqld/
+	chown -Rv mysql:mysql /var/lib/mysql
+	chgrp -Rv mysql /var/lib/mysql
+	chown -Rv mysql:mysql /etc/mysql/
+	chgrp -Rv mysql /etc/mysql/
+
+step_2_init_msql:
+	@echo ---;
+	@echo ===========INIT MYSQL===========;
+	@echo ---;
+	@echo ===========borrando el contenido del library mysql===========;
+	rm -rf /var/lib/mysql/*
+	@echo ---;
+	@echo ===========inicializando===========;
+	mysqld --initialize --user=mysql --datadir=/var/lib/mysql/
+	service mysql start
+	@echo ---;
+	@echo ===========mostrando el log, se hace esto para mostrar el password temporal===========;
+	> /var/log/mysql/error.log
+	tail -n 70 /var/log/mysql/error.log
+	@echo ---;
+	@echo ===========ingrese el password temporal que se encuentra en el log===========;
+	mysql -u root -p
+	#dentro de mysql, ejecutar: ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
+
+load_fixture:
+	php bin/console tianos:truncate:tables
+	php bin/console doctrine:fixtures:load --no-interaction
+
+setfacl:
+	HTTPDUSER=$$(ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1)
+	setfacl -dR -m u:"$$HTTPDUSER":rwX -m u:$(whoami):rwX var
+	setfacl -R -m u:"$$HTTPDUSER":rwX -m u:$(whoami):rwX var
+
+crud_routing:
+	php bin/console tianos:crud:routing BackendBundle
+
+crud:
+	@echo =========== CRUD: replace dummy ===========;
+	php bin/console tianos:create:crud $(bundle)
+	make perm
+
+onetomany:
+	@echo =========== OneToMany: replace dummy ===========;
+	@echo =========== make onetomany bundle_left=profile bundle_right=role ===========;
+	php bin/console tianos:create:one-to-many $(bundle_left) $(bundle_right)
+	make perm
+
+tree_onetomany:
+	@echo =========== Tree OneToMany: replace dummy ===========;
+	@echo =========== make tree_onetomany bundle_left=category bundle_right=product ===========;
+	php bin/console tianos:create:tree-one-to-many $(bundle_left) $(bundle_right)
+	make perm
+
+migrate_delete:
+	@echo =========== Migrations: delete all ===========;
+	rm -rf $$PWD/app/DoctrineMigrations
+
+pointofsale-and-product:
+	@echo ======================;
+	php bin/console tianos:pointofsale:and:product $(date-start) $(date-end) $(delete)
+
+order-and-return:
+	@echo ======================;
+	php bin/console tianos:order-and-return $(date-start) $(date-end) $(delete)

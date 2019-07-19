@@ -1,0 +1,29 @@
+{% macro tree(objects, boxLeft, modal, index) %}
+
+    {% for key, value in objects %}
+
+        {% if loop.index0 == 0 %}
+            {% set index = index + 1 %}
+        {% endif %}
+
+        {% set entityParent = value.parent %}
+
+        {% if entityParent is not empty %}
+            <li
+                class="{{ boxLeft.li_class }} x-hand"
+                data-id="{{ entityParent.id }}"
+                id="li-{{ entityParent.id }}">
+
+                {{ include('TreeOneToManyBundle::Template/li.html.twig', {entity:entityParent, modal:modal, badge_color:index|badge_colors()}) }}
+
+                <ul class="{{ boxLeft.tree.child_ul ~ entityParent.id }}">
+                    {% import _self as macro %}
+                    {{ macro.tree(value.children, boxLeft, modal, index) }}
+                </ul>
+
+            </li>
+        {% endif %}
+
+    {% endfor %}
+{% endmacro %}
+

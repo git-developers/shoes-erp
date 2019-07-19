@@ -1,0 +1,259 @@
+{% extends "ThemesBundle:Adminlte/TemplateSuper:1_template.html.twig" %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {#{% stylesheets#}
+        {#filter='cssrewrite'#}
+        {#'@GridBundle/Resources/public/common/css/switch.css'#}
+    {#%}#}
+    {#<link rel="stylesheet" href="{{ asset_url }}" />#}
+    {#{% endstylesheets %}#}
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#{% javascripts#}
+        {#'@GridBundle/Resources/public/common/js/formEdit.js'#}
+    {#%}#}
+    {#<script type="text/javascript" src="{{ asset_url }}"></script>#}
+    {#{% endjavascripts %}#}
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+        });
+
+    </script>
+
+    <script type="text/javascript">
+
+        $(function() {
+
+            // https://www.tutorialspoint.com/jqueryui/jqueryui_autocomplete.htm
+            $( "#{{ form.userTag.vars.id }}" ).autocomplete({
+                minLength: 0,
+                source: {{ userTags|raw }},
+                focus: function( event, ui ) {
+                    $( "#{{ form.userTag.vars.id }}" ).val( ui.item.label );
+                    return false;
+                },
+                select: function( event, ui ) {
+                    $( "#{{ form.userTag.vars.id }}" ).val( ui.item.label );
+                    $( "#{{ form.userTagUsername.vars.id }}" ).val( ui.item.value );
+                    // $( "#project-description" ).html( ui.item.desc );
+                    return false;
+                }
+            })
+            .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                return $( "<li>" )
+                    .append( "<a>" + item.label + "</a>" )
+                    // .append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
+                    .appendTo( ul );
+            };
+
+
+            $("form[name='{{ form.vars.id }}']").submit(function( event ) {
+                event.preventDefault();
+
+                $.ajax({
+                    url: '{{ path('backend_pointofsale_add_user', {id: entity.id}) }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    dataType: 'html',
+                    cache: true,
+                    beforeSend: function(jqXHR, settings) {
+
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        $('#no-users').hide();
+                        $('#tabla-user tbody').prepend(data);
+                    },
+                    error: function(jqXHR, exception) {
+
+                    }
+                });
+            });
+
+            $('.remove-user').click(function( event ) {
+
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '{{ path('backend_pointofsale_remove_user') }}',
+                    type: 'PUT',
+                    data: {
+                        pdvId: '{{ entity.id }}',
+                        userId: id
+                    },
+                    dataType: 'json',
+                    cache: true,
+                    beforeSend: function(jqXHR, settings) {
+                        $('#user-' + id).hide();
+                    },
+                    success: function(data, textStatus, jqXHR) {
+
+                    },
+                    error: function(jqXHR, exception) {
+
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-{{ vars.icon }}"></i> {{ vars.title|raw }}
+            <small>grid</small>
+        </h1>
+        <ol class="breadcrumb">
+            {#<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>#}
+            {#<li class="active">Dashboard</li>#}
+
+            {#{% for key, button in dataTable.tableHeaderButton %}#}
+                {#<li>#}
+                    {#{{ tianos_grid_render_button(button, '@Ui/Grid/Button/Header/_table_header_button.html.twig') }}#}
+                {#</li>#}
+            {#{% endfor %}#}
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                {{ include('PointofsaleBundle:BackendPointofsale:sidebar-left.html.twig') }}
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="box box-{{ vars.box_class }}">
+
+                    {#
+                    <div class="box-header">
+                        <h3 class="box-title">Data Table With Full Features</h3>
+                    </div>
+                    #}
+
+                    <div class="box-body">
+
+                        {{ form_start(form) }}
+
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>usuario</th>
+                                    <th>nivel de acceso</th>
+                                    <th>accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-md-8">
+                                        {{ form_widget(form.userTag) }}
+                                        {{ form_widget(form.userTagUsername) }}
+                                    </td>
+                                    <td class="col-md-3">
+                                        {{ form_widget(form.profile) }}
+                                    </td>
+                                    <td class="col-md-1 text-right">
+                                        {{ form_widget(form.submit) }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        {{ form_widget(form) }}
+                        {{ form_end(form) }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="box box-solid" style="margin-top: -10px;">
+
+                    {#
+                    <div class="box-header">
+                        <h3 class="box-title">Data Table With Full Features</h3>
+                    </div>
+                    #}
+
+                    <div class="box-body">
+                        <div class="row">
+
+                            <div class="col-md-12 table-responsive">
+
+                                <table id="tabla-user" class="table table-striped">
+                                    <tbody>
+                                        {% for user in entity.user %}
+                                            <tr id="user-{{ user.id }}">
+                                                <td style="width: 5%">
+                                                    <span class="badge">{{ loop.index }}</span>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <small class="label pull-right bg-blue">
+                                                        ID: {{ user.id }}
+                                                    </small>
+                                                </td>
+                                                <td class="col-md-6">
+                                                    {{ user.name ~ ' ' ~ user.lastName }}
+                                                </td>
+                                                <td class="col-md-3">
+                                                    <select class="form-control">
+                                                        {% for key, profile in profiles %}
+                                                            <option value="{{ key }}" {{ key == user.profile.id ? 'selected' : '' }}>{{ profile }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </td>
+                                                <td class="col-md-1 text-right">
+                                                    <button
+                                                        class="btn btn-xs btn-danger remove-user"
+                                                        data-id="{{ user.id }}"
+                                                        alt="Eliminar"
+                                                        title="Eliminar">
+                                                        <i class="fa fa-fw fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr id="no-users">
+                                                <td>
+                                                    No hay usuarios asignados.
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </section>
+
+    {#{{ include('GridBundle:Modal:create.html.twig') }}#}
+
+{% endblock %}

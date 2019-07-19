@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Component\Registry
+        psr4_prefix: Component\Registry
+        src_path: .

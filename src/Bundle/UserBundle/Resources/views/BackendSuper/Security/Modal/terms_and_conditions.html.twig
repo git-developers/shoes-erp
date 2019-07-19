@@ -1,0 +1,26 @@
+{% spaceless %}
+    <div class="modal fade in" id="modal-terms-and-conditions">
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <i class="fa fa-fw fa-file-text-o"></i> Términos y condiciones de uso de Tianos
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    {{ include('UserBundle:BackendUser:Security/terms_and_conditions.html.twig') }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endspaceless %}

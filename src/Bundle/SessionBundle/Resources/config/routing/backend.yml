@@ -1,0 +1,79 @@
+backend_session_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.session:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_session_catalog
+                icon: cube
+                body_css: grid-body-css
+            grid:
+                icon: history
+                box_class: primary
+                title: "Lista de sesión al End-user <i class=\"fa fa-fw fa-mobile-phone\"></i>"
+                data_table:
+                    route:
+                        info: backend_session_info
+                        view: backend_session_view
+                    table_button:
+#                        - edit
+#                        - delete
+                    table_button_header:
+#                        - create
+                        - info
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Usuario
+#                          obj: "obj.user.name +' '+ obj.user.last_name"
+                          obj: obj.user.name_box
+                          options:
+                              icon: user
+                        - name: Token
+                          obj: " '<small class=\"label bg-green\">' + obj.token + '</small>' "
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\SessionBundle\Form\Type\SessionType
+            repository:
+                service: tianos.repository.session
+                method: findAll
+                arguments: [$sessionId]
+                vars:
+                    serialize_group_name: crud
+
+backend_session_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.session:viewAction
+        _tianos:
+            action: view
+            template: SessionBundle:BackendSession/Informative:view.html.twig
+            repository:
+                service: tianos.repository.session
+                method: find
+                arguments: [$sessionId]
+
+backend_session_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.session:infoAction
+        _tianos:
+            action: info
+            template: SessionBundle:BackendSession/Informative:info.html.twig

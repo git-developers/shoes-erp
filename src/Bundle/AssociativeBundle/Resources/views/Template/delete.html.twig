@@ -1,0 +1,10 @@
+{% extends 'AssociativeBundle::Template/crud_modal_content.html.twig' %}
+
+{% block crud_modal_content %}
+
+    {% if id is defined %}
+        <input type="hidden" name="id" value="{{ id }}">
+    {% endif %}
+
+    <p>Esta seguro ?</p>
+{% endblock %}

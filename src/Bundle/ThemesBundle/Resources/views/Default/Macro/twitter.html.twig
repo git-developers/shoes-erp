@@ -1,0 +1,25 @@
+{% macro card() %}
+    {#options: summary_large_image - summary#}
+
+    {% set card = 'summary' %}
+    {% set route = app.request.attributes.get('_route') %}
+
+    {% if route == 'wf_article_show' %}
+        {% set card = 'summary_large_image' %} {#summary_large_image solo se pone en notas#}
+    {% endif %}
+
+    <meta name="twitter:card" content="{{ card }}"/>
+{% endmacro %}
+
+{% macro title(content) %}
+    <meta name="twitter:title" content="{{ content }}"/>
+{% endmacro %}
+
+{% macro description(content) %}
+    <meta name="twitter:description" content="{{ content }}"/>
+{% endmacro %}
+
+{% macro image(content) %}
+    <meta name="twitter:image" content="{{ content }}"/>
+    {#http://elcomercio.pe/[ruta_images]/logo-elcomercio.jpg#}
+{% endmacro %}

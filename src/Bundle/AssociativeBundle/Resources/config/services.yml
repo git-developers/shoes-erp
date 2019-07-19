@@ -1,0 +1,2 @@
+services:
+    tianos.profilehasrole.controller.associative: { class: Bundle\AssociativeBundle\Controller\ProfileHasRoleController, arguments: [Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface], tags: [{ name: tianos.profilehasrole.controller.associative, alias: tianos.profilehasrole.controller.associative }] }

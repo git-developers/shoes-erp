@@ -1,0 +1,7 @@
+googledrive_topic:
+    channel: googledrive/channel
+    handler:
+        callback: 'googledrive.topic' #related to the getName() of your topic
+    requirements:
+        idClass:
+            pattern: '\d+'

@@ -1,0 +1,33 @@
+<div class="nav-tabs-custom">
+
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#comments" data-toggle="tab">
+                <i class="fa fa-fw fa-comments-o"></i> Escríbele algo a {{ entity.name|slice(0, 25) }}...
+            </a>
+        </li>
+        <li>
+            <a href="#timeline" data-toggle="tab">Últimos archivos</a>
+        </li>
+        {#<li>#}
+            {#<a href="#settings" data-toggle="tab">Settings</a>#}
+        {#</li>#}
+    </ul>
+
+    <div class="tab-content">
+
+        <div class="active tab-pane" id="comments">
+            {{ include('UserBundle:BackendUser/Profile/Box:comments.html.twig') }}
+        </div>
+
+        <div class="tab-pane" id="timeline">
+            {{ include('UserBundle:BackendUser/Profile/Box:timeline.html.twig') }}
+        </div>
+
+        {#<div class="tab-pane" id="settings">#}
+            {#xxxxx#}
+        {#</div>#}
+
+    </div>
+
+</div>

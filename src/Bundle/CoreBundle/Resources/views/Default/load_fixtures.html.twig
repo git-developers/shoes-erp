@@ -1,0 +1,103 @@
+{% extends "ThemesBundle:Adminlte:1_template.html.twig" %}
+
+{% block bodyclass %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        $('button').click(function(){
+
+            if (!confirm('Are you sure ?')) {
+                return;
+            }
+
+            $.ajax({
+                url: '{{ path('backend_core_loadfixtures') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {},
+                cache: true,
+                beforeSend: function(jqXHR, settings) {
+                    $('code').html('procesando...');
+                },
+                success: function(data, textStatus, jqXHR) {
+                    $('code').html('exito!');
+                },
+                error: function(jqXHR, exception) {
+                    $('code').html('terminado - error');
+                }
+            });
+        });
+    </script>
+
+    {% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-spinner fa-spin"></i> Load Fixtures
+            <small>lista</small>
+        </h1>
+        <ol class="breadcrumb">
+            {#<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>#}
+            {#<li class="active">Dashboard</li>#}
+
+            {#{% for key, value in dataTable.buttonHeader %}#}
+                {#<li>#}
+                    {#{{ value|raw }}#}
+                {#</li>#}
+            {#{% endfor %}#}
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Info</h3>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    {#<button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">#}
+                        {#<i class="fa fa-times"></i>#}
+                    {#</button>#}
+                </div>
+            </div>
+            <div class="box-body">
+                Cargar los valores por default del sistema:
+
+                <div class="row">
+
+                    <div class="col-xs-12 text-center">
+                        <code></code>
+                        <p>&nbsp;</p>
+                    </div>
+
+                    <div class="col-xs-12 text-center">
+                        <button type="button" class="btn btn-default btn-lrg ajax" title="Load Fixtures">
+                            Load Fixtures
+                        </button>
+                    </div>
+
+                </div>
+                <div class="ajax-content">
+                </div>
+            </div>
+
+            <div class="box-footer">
+                Footer
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

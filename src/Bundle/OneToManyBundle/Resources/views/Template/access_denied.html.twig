@@ -1,0 +1,14 @@
+{% spaceless %}
+    <div class="modal-body">
+        <div id="message" class="callout callout-danger">
+            <p>
+                <i class="fa fa-fw fa-warning"></i>
+                <code>{{ action }}</code> No tiene permisos. Contacte a su administrador.
+            </p>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        {{ modal_footer_access_denied()|raw }}
+    </div>
+{% endspaceless %}

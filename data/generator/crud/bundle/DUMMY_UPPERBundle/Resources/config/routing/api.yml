@@ -1,0 +1,19 @@
+api_DUMMY_LOWER_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.api.controller.DUMMY_LOWER:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_DUMMY_LOWER
+            template: DUMMY_UPPERBundle:DUMMY_UPPER:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_product_catalog
+                icon: cube
+            form:
+                type: Bundle\DUMMY_UPPERBundle\Form\Type\DUMMY_UPPERType
+            repository:
+                service: tianos.repository.DUMMY_LOWER
+                method: findAll
+                arguments: [$DUMMY_LOWERId]

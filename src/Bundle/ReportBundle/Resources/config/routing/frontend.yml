@@ -1,0 +1,19 @@
+frontend_report_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.report:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_report
+            template: ReportBundle:Report:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_report_catalog
+                icon: cube
+            form:
+                type: Bundle\ReportBundle\Form\Type\ReportType
+            repository:
+                service: tianos.repository.report
+                method: findAll
+                arguments: [$reportId]

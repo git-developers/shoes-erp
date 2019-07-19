@@ -1,0 +1,74 @@
+{% for gdFile in objects %}
+    <div class="box "> {#box-widget#}
+        <div class="box-header with-border">
+            <div class="user-block">
+                <img
+                    class="img-circle"
+                    src="{{ asset('bundles/user/images/no_avatar.jpg') }}"
+                    alt=""
+                    data-toggle="tooltip"
+                    title="Jonathan Burke Jr">
+                <span class="username">
+                    <a href="{{ path('backend_user_profile', {slug: gdFile.user_slug}) }}">
+                        {{ gdFile.user_name|slice(0, 15) }}
+                    </a>
+                </span>
+                {#<span class="description">Shared publicly - 7:30 PM Today</span>#}
+            </div>
+            <div class="box-tools">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Colapsar">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="box-body x-hand">
+
+            <a href="{{ path('backend_google_drive_grid_watch', { slug:gdFile.slug }) }}">
+                {% if gdFile.has_thumbnail %}
+                    <div class="image-container-relevance">
+                        <img
+                            class="img-responsive pad"
+                            src="{{ asset('google-drive-images/' ~ gdFile.file_id ~ '-w400.jpg') }}"
+                            alt="{{ gdFile.file_name }}"
+                            title="{{ gdFile.file_name }}"
+                        >
+                    </div>
+                {% else %}
+                    <img
+                        data-toggle="tooltip"
+                        title="{{ gdFile.file_name }}"
+                        alt="{{ gdFile.file_name }}"
+                        class="img-responsive pad x-hand"
+                        src="{{ asset('bundles/themes/adminlte/images/empty-image-300x200.png') }}"
+                    >
+                {% endif %}
+
+                <p
+                    data-toggle="tooltip"
+                    title="{{ gdFile.file_name }}">
+                    {{ gdFile.file_name|slice(0, 20) }}
+                </p>
+            </a>
+
+            <button
+                type="button"
+                class="btn btn-default btn-xs"
+                data-toggle="tooltip"
+                title="compartido {{ gdFile.count_share|default(0) }}">
+                <i class="fa fa-share-alt"></i> {{ gdFile.count_share|default(0) }}
+            </button>
+            <button
+                type="button"
+                class="btn btn-default btn-xs"
+                data-toggle="tooltip"
+                title="vistas {{ gdFile.count_view|default(0) }}">
+                <i class="fa fa-eye"></i> {{ gdFile.count_view|default(0) }}
+            </button>
+        </div>
+    </div>
+{% else %}
+    <div class="box-header with-border">
+        No hay archivos relevantes.
+    </div>
+{% endfor %}

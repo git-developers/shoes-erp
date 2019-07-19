@@ -1,0 +1,7 @@
+services:
+
+    tianos.DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER.controller.associative:
+        class: Bundle\AssociativeBundle\Controller\DUMMY_LEFT_UPPERHasDUMMY_RIGHT_UPPERController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER.controller.associative, alias: tianos.DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER.controller.associative }

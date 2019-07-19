@@ -1,0 +1,1 @@
+mysqldump -h localhost -u root -proot tianos_beauty > tianos_beauty_backup.sql

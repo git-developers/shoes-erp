@@ -1,0 +1,113 @@
+<div class="box-body">
+    {{ tianos_google_watch_viewer(entity.fileId, entity.fileMimeType) }}
+</div>
+
+<div class="box-header with-border">
+    <h3 class="box-title" data-toggle="tooltip" title="{{ entity.fileName }}">
+        <img src="{{ entity.fileIconLink }}" class="img-thumbnail"> {{ entity.fileName|slice(0, 250) }}
+    </h3>
+</div>
+
+<div class="box-footer clearfix">
+    <div class="col-md-4">
+        <div class="user-block">
+            <img class="img-circle" src="{{ asset('bundles/user/images/no_avatar.jpg') }}" alt="User Image">
+            <span class="username">
+                <a href="{{ path('backend_user_profile', {slug: entity.user.slug}) }}">
+                    {{ entity.user.name|slice(0, 30) ~' '~ entity.user.lastName|slice(0, 30) }}
+                </a>
+            </span>
+            <span class="description">Compartido el {{ entity.createdAt|date("Y-m-d H:i:s") }}</span>
+        </div>
+    </div>
+    <div class="col-md-2 border-right">
+        <div class="description-block">
+            <h5 class="description-header">{{ entity.fileSize }}</h5>
+            <span class="description-text">tamaño</span>
+        </div>
+    </div>
+    <div class="col-md-2 border-right">
+        <div class="description-block">
+            <h5 class="description-header">{{ entity.countShare|default(0) }}</h5>
+            <span class="description-text">compartido</span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="description-block">
+            <h5 class="description-header">{{ entity.countView|default(0) }}</h5>
+            <span class="description-text">vistas</span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="description-block">
+            <button
+                class="btn btn-info modal-info"
+                alt="Info"
+                title="Info"
+                data-toggle="modal"
+                data-target="#modal-info"
+                >
+                <i class="fa fa-fw fa-question-circle"></i> Ayuda
+            </button>
+        </div>
+    </div>
+</div>
+
+{#
+        <button type="button" class="tag btn btn-default btn-xs">
+            <i class="fa fa-fw fa-tag"></i> Ingenieria
+        </button>
+        <button type="button" class="tag btn btn-default btn-xs">
+            <i class="fa fa-fw fa-tag"></i> Tautologia
+        </button>
+        <button type="button" class="tag btn btn-default btn-xs">
+            <i class="fa fa-fw fa-tag"></i> Gallinazo
+        </button>
+#}
+
+<div class="box-footer clearfix">
+
+    <div class="col-md-6">
+        <div class="description description-height">
+            {{ tianos_google_description(entity.description) }}
+        </div>
+        <div>
+            <button type="button" class="btn btn-default btn-xs show-more">
+                <i class="fa fa-chevron-circle-down"></i> LEER
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-2 border-right">
+        <div id="share-qr" class="description-block" >
+            <button type="button" class="btn btn-default" data-toggle="tooltip" title="scanear desde movil">
+                <i class="fa fa-qrcode"></i> Qr
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-2 border-right">
+        <div class="description-block">
+            <button type="button" class="btn btn-default" title="descargar archivo" data-toggle="modal" data-target="#modal-download">
+                <i class="fa fa-download"></i> Descargar
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="description-block">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default thumbs-down" data-vote="0">
+                    <i class="fa fa-fw fa-thumbs-o-down"></i>
+                </button>
+                <button type="button" class="btn btn-default thumbs-up" data-vote="1">
+                    <i class="fa fa-fw fa-thumbs-o-up"></i>
+                </button>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" style="width: 70%"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

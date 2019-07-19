@@ -1,0 +1,15 @@
+{% spaceless %}
+
+    {% set paragraphs = settings.paragraph|default([]) %}
+
+    {% for key, paragraph in paragraphs %}
+        <div class="box-header">
+            <h3 class="box-title">{{ paragraph }}</h3>
+        </div>
+
+        <textarea id="paragraph-{{ key }}" name="paragraph[]">
+            {{ objectModule[key]|default()|raw  }}
+        </textarea>
+    {% endfor %}
+{% endspaceless %}
+

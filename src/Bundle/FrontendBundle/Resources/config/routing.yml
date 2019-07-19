@@ -1,0 +1,19 @@
+frontend_default:
+    resource: '@FrontendBundle/Resources/config/routing/default.yml'
+    prefix: /
+
+frontend_pages:
+    resource: '@PagesBundle/Resources/config/routing.yml'
+    prefix: /pages
+
+frontend_user:
+    resource: '@UserBundle/Resources/config/routing/frontend.yml'
+    prefix: /user
+
+frontend_generate_thumbnail:
+    resource: '@FrontendBundle/Resources/config/routing/generate-thumbnail.yml'
+    prefix: /generate-thumbnail
+
+frontend_google_files:
+    resource: '@FrontendBundle/Resources/config/routing/google-files.yml'
+    prefix: /google-files

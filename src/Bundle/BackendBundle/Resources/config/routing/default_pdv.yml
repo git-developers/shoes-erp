@@ -1,0 +1,7 @@
+backend_default_pdv_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.default.pdv:indexAction
+        _tianos:
+            template: BackendBundle:Default:dashboard_pdv.html.twig

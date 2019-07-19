@@ -1,0 +1,19 @@
+api_services_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.api.controller.services:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_services
+            template: ServicesBundle:Services:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_product_catalog
+                icon: cube
+            form:
+                type: Bundle\ServicesBundle\Form\Type\ServicesType
+            repository:
+                service: tianos.repository.services
+                method: findAll
+                arguments: [$servicesId]

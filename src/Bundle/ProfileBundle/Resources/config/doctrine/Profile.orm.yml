@@ -1,0 +1,81 @@
+Bundle\ProfileBundle\Entity\Profile:
+    type: entity
+    table: profile
+    repositoryClass: Bundle\ProfileBundle\Doctrine\ORM\ProfileRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        code:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        nameCanonical:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        userCreate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        userUpdate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_update
+        isActive:
+            type: boolean
+            nullable: true
+            column: is_active
+    manyToMany:
+        role:
+            targetEntity: Bundle\RoleBundle\Entity\Role
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: profile
+            joinTable:
+                name: profile_has_role
+                joinColumns:
+                    -
+                        name: profile_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: role_id
+                        referencedColumnName: id
+            orderBy: null
+    lifecycleCallbacks: {  }

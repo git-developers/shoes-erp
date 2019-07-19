@@ -1,0 +1,203 @@
+backend_services_index:
+    path: /{categoryId}
+    methods: [GET]
+    defaults:
+        categoryId: null
+        _controller: tianos.backend.controller.services:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index_services.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_services_catalog
+                icon: file-text-o
+                body_css: grid-body-css
+                serialize_group_name: crud
+            tree:
+                icon: file-text-o
+                box_class: primary
+                title: Gestionar servicios
+                main_div: box-main-div
+                main_ul: box-main-ul
+                child_ul: box-child-ul
+                li_span: li-span
+                route:
+                    info: backend_category_tree_info
+                    view: backend_category_tree_view
+                    edit: backend_category_tree_edit
+                    create: backend_category_tree_create
+                    create_child: backend_category_tree_create_child
+                    delete: backend_category_tree_delete
+            grid:
+                icon: file-text-o
+                box_class: primary
+                title: Gestionar servicios
+                data_table:
+                    route:
+                        info: backend_services_info
+                        view: backend_services_view
+                        edit: backend_services_edit
+                        create: backend_services_create
+                        delete: backend_services_delete
+                    table_button:
+                        - edit
+                        - delete
+                    table_button_header:
+#                        - create
+                        - info
+                    table_option:
+                        pageLength: 10
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Name
+                          obj: obj.name
+                        - name: Precio
+                          obj: obj.price
+                          options:
+                              icon: money
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\ServicesBundle\Form\Type\ServicesType
+            repository:
+                service: tianos.repository.services
+                method: findAllByCategory
+                arguments: [$servicesId]
+                vars:
+                    serialize_group_name: crud
+                    entity_type: service
+
+backend_services_create:
+    path: /create
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.services:createAction
+        _tianos:
+            action: create
+            template: ServicesBundle:BackendServices/Form:form.html.twig
+            entity: Bundle\ServicesBundle\Entity\Services
+            form:
+                type: Bundle\ServicesBundle\Form\Type\ServicesType
+            repository:
+                vars:
+                    serialize_group_name: crud
+
+backend_services_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.services:editAction
+        _tianos:
+            action: edit
+            template: ServicesBundle:BackendServices/Form:form.html.twig
+            form:
+                type: Bundle\ServicesBundle\Form\Type\ServicesType
+            repository:
+                service: tianos.repository.services
+                method: find
+                arguments: [$servicesId]
+                vars:
+                    serialize_group_name: crud
+
+backend_services_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.backend.controller.services:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.services
+                method: find
+                arguments: [$servicesId]
+            vars:
+#                body_css: grid-body-css
+
+backend_services_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.services:viewAction
+        _tianos:
+            action: view
+            template: ServicesBundle:BackendServices/Informative:view.html.twig
+            repository:
+                service: tianos.repository.services
+                method: find
+                arguments: [$servicesId]
+                vars:
+                    serialize_group_name: crud
+
+backend_services_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.services:infoAction
+        _tianos:
+            action: info
+            template: ServicesBundle:BackendServices/Informative:info.html.twig
+
+
+
+
+
+#/var/www/html/Sylius/sylius/vendor/sylius/sylius/docs/customization/factory.rst
+#
+#    sylius_admin_product_create_simple:
+#        path: /products/new/simple
+#        methods: [GET, POST]
+#        defaults:
+#            _controller: sylius.controller.product:createAction
+#            _sylius:
+#                section: admin
+#                factory:
+#                    method: createDisabled # like here for example
+#                template: SyliusAdminBundle:Crud:create.html.twig
+#                redirect: sylius_admin_product_update
+#                vars:
+#                    subheader: sylius.ui.manage_your_product_catalog
+#                    templates:
+#                        form: SyliusAdminBundle:CRUDDUMMY:_form.html.twig
+#                    route:
+#                        name: sylius_admin_product_create_simple
+
+
+
+#            template: "@SyliusAdmin/ProductVariant/generate.html.twig"
+#            section: admin
+#            permission: true
+#            redirect:
+#                route: sylius_admin_product_variant_index
+#                parameters: { productId: $productId }
+#            form:
+#                type: Sylius\Bundle\ProductBundle\Form\Type\ProductGenerateVariantsType
+#            repository:
+#                method: find
+#                arguments: [$productId]
+#            flash: sylius.product_variant.generate
+
+#sylius_admin_product_index:
+#    path: /products/
+#    methods: [GET]
+#    defaults:
+#        _controller: sylius.controller.product:indexAction
+#        _sylius:
+#            section: admin
+#            permission: true
+#            grid: sylius_admin_product
+#            template: SyliusAdminBundle:CRUDDUMMY:index.html.twig
+#            vars:
+#                subheader: sylius.ui.manage_your_product_catalog
+#                icon: cube

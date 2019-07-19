@@ -1,0 +1,23 @@
+{% spaceless %}
+    <button
+            class="btn btn-xs {{ button.class }}"
+            alt="{{ button.alt }}"
+            title="{{ button.title }}"
+            data-toggle="{{ button.dataToggle }}"
+            data-target="#{{ button.dataTarget }}"
+            style="{{ button.style }}">
+        {{ button.icon|raw }} {{ button.title }}
+    </button>
+{% endspaceless %}
+
+
+{#return '
+
+<button class="btn btn-warning btn-xs modal-edit"alt="Editar"title="Editar"data-toggle="modal"data-target="#modal-edit"style="margin-right: 5px" >#}
+    {#<i class="fa fa-pencil"></i></button>#}
+
+{#<button class="btn btn-danger btn-xs modal-delete"alt="Eliminar"title="Eliminar"data-toggle="modal"data-target="#modal-delete"style="margin-right: 5px" >
+<i class="fa fa-trash"></i></button>
+
+<button class="btn bg-purple btn-xs modal-change-password"alt="cambiar password"title="cambiar password"data-toggle="modal"data-target="#modal-change-password"style="margin-right: 5px" >#}
+    {#<i class="fa fa-key"></i></button>';#}

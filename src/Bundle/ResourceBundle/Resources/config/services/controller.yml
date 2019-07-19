@@ -1,0 +1,88 @@
+services:
+
+    sylius.resource_controller.parameters_parser:
+        class: Bundle\ResourceBundle\Controller\RequestConfigurationFactory
+        arguments: [ '@service_container', '@tianos.expression.language' ]
+
+    sylius.resource_controller.request_configuration_factory:
+        class: Bundle\ResourceBundle\Controller\RequestConfigurationFactory
+        arguments: [ '@sylius.resource_controller.parameters_parser', 'Bundle\ResourceBundle\Controller\RequestConfiguration', '%sylius.resource.settings%' ]
+
+    sylius.resource_controller.view_handler:
+        class: ResourceBundle\Controller\ViewHandler
+        arguments: [ '@fos_rest.view_handler' ]
+
+    sylius.resource_controller.new_resource_factory:
+        class: Bundle\ResourceBundle\Controller\NewResourceFactory
+
+    sylius.resource_controller.single_resource_provider:
+        class: Bundle\ResourceBundle\Controller\SingleResourceProvider
+
+    sylius.resource_controller.resources_collection_provider:
+        class: Bundle\ResourceBundle\Controller\ResourcesCollectionProvider
+
+    sylius.resource_controller.form_factory:
+        class: Bundle\ResourceBundle\Controller\ResourceFormFactory
+
+    sylius.resource_controller.redirect_handler:
+        class: Bundle\ResourceBundle\Controller\RedirectHandler
+
+    sylius.resource_controller.flash_helper:
+        class: Bundle\ResourceBundle\Controller\FlashHelper
+        arguments: [ '@session', '@translator', '%locale%' ]
+
+    sylius.resource_controller.authorization_checker.disabled:
+        class: Bundle\ResourceBundle\Controller\RedirectHandler
+
+
+
+#<service id="sylius.resource_controller.flash_helper" class="Bundle\ResourceBundle\Controller\FlashHelper" public="false">
+#    <argument type="service" id="session" />
+#    <argument type="service" id="translator" />
+#    <argument>%locale%</argument>
+#</service>
+
+
+
+#        <service id="sylius.resource_controller.view_handler" class="Bundle\ResourceBundle\Controller\ViewHandler" public="false">
+#            <argument type="service" id="fos_rest.view_handler" />
+#        </service>
+
+
+#<service id="sylius.resource_controller.request_configuration_factory" class="Sylius\Bundle\ResourceBundle\Controller\RequestConfigurationFactory" public="false">
+#    <argument type="service" id="sylius.resource_controller.parameters_parser" />
+#    <argument>Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration</argument>
+#    <argument>%sylius.resource.settings%</argument>
+#</service>
+
+
+#<service id="sylius.resource_controller.parameters_parser" class="Sylius\Bundle\ResourceBundle\Controller\ParametersParser" public="false">
+#    <argument type="service" id="service_container" />
+#    <argument type="service" id="sylius.expression_language" />
+#</service>
+
+
+
+
+#    sylius.resource_controller.request_configuration_factory:
+#        class: Bundle\ResourceBundle\Controller\RequestConfigurationFactory
+
+
+
+#    <service id="sylius.resource_controller.request_configuration_factory" class="Sylius\Bundle\ResourceBundle\Controller\RequestConfigurationFactory" public="false">
+#        <argument type="service" id="sylius.resource_controller.parameters_parser" />
+#        <argument>Sylius\Bundle\ResourceBundle\Controller\RequestConfiguration</argument>
+#        <argument>%sylius.resource.settings%</argument>
+#    </service>
+
+#<service id="sylius.resource_registry" class="Sylius\Component\Resource\Metadata\Registry" public="false" />
+
+#<service id="sylius.expression_language" class="Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage" public="false" />
+#sylius.expression_language
+
+
+#<service id="sylius.resource_controller.request_configuration_factory" class="Bundle\ResourceBundle\Controller\RequestConfigurationFactory" public="false">
+#    <argument type="service" id="sylius.resource_controller.parameters_parser" />
+#    <argument>Bundle\ResourceBundle\Controller\RequestConfiguration</argument>
+#    <argument>%sylius.resource.settings%</argument>
+#</service>

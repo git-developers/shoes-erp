@@ -1,0 +1,13 @@
+services:
+
+    tianos.pages.controller.default:
+        class: Bundle\PagesBundle\Controller\DefaultController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.pages.controller.default, alias: tianos.pages.controller.default }
+
+    tianos.pages.controller.privacy.policy:
+        class: Bundle\PagesBundle\Controller\PrivacyPolicyController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.pages.controller.privacy.policy, alias: tianos.pages.controller.privacy.policy }

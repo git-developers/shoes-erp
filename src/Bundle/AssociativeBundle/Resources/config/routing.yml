@@ -1,0 +1,3 @@
+backend_associative_profile_has_role:
+    resource: '@AssociativeBundle/Resources/config/routing/profile_has_role.yml'
+    prefix: /profile-has-role

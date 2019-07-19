@@ -1,0 +1,3 @@
+themes_default:
+    resource: '@ThemesBundle/Resources/config/routing/default.yml'
+    prefix: /

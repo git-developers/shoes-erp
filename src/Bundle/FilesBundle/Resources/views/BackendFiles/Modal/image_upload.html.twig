@@ -1,0 +1,27 @@
+{% spaceless %}
+    <div class="modal modal-success fade in" id="{{ modal.image_upload_id }}">
+        <div class="modal-dialog {{ modal.files_upload.size|default()  }}">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <i class="fa fa-fw fa-{{ modal.files_upload.icon|default('plus') }}"></i>
+                        {{ modal.files_upload.title|default('sylius.form.user.modal.create.title'|trans ) }}
+                        <small class="label label-success" style="font-size: 65%;"></small>
+                        <i class="fa fa-refresh fa-spin" style="color: white; margin-left: 10px; display:none"></i>
+                    </h4>
+                </div>
+
+                <form name="{{ form_mapper.image_upload_name }}" method="post">
+                    <div class="crud-modal-content"></div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+{% endspaceless %}

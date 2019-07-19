@@ -1,0 +1,114 @@
+{% extends 'ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig' %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {#{% stylesheets#}
+    {#filter='cssrewrite'#}
+    {#'@GridBundle/Resources/public/common/css/switch.css'#}
+    {#%}#}
+    {#<link rel="stylesheet" href="{{ asset_url }}" />#}
+    {#{% endstylesheets %}#}
+
+    <style>
+        input[type=checkbox] {
+            height: 16px;
+            width: 16px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#{% javascripts#}
+    {#'@GridBundle/Resources/public/common/js/formEdit.js'#}
+    {#'@GridBundle/Resources/public/common/js/formView.js'#}
+    {#%}#}
+    {#<script type="text/javascript" src="{{ asset_url }}"></script>#}
+    {#{% endjavascripts %}#}
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawVisualization);
+
+        function drawVisualization() {
+            // Some raw data (not necessarily accurate)
+            var data = google.visualization.arrayToDataTable([
+                ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
+                ['2004/05',  165,      938,         522,             998,           450,      614.6],
+                ['2005/06',  135,      1120,        599,             1268,          288,      682],
+                ['2006/07',  157,      1167,        587,             807,           397,      623],
+                ['2007/08',  139,      1110,        615,             968,           215,      609.4],
+                ['2008/09',  136,      691,         629,             1026,          366,      569.6]
+            ]);
+
+            var options = {
+                title : 'Monthly Coffee Production by Country',
+                vAxis: {title: 'Cups'},
+                hAxis: {title: 'Month'},
+                seriesType: 'bars',
+                series: {5: {type: 'line'}}
+            };
+
+            var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-{{ vars.icon }}"></i> {{ vars.title|raw }}
+            <small>report</small>
+        </h1>
+        <ol class="breadcrumb">
+            {#<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>#}
+            {#<li class="active">Dashboard</li>#}
+
+            <li>
+                <button
+                        class="btn btn-info btn-xs modal-info"
+                        alt="Info"
+                        title="Info"
+                        data-toggle="modal"
+                        data-target="#modal-info">
+                    <i class="fa fa-fw fa-info-circle"></i> info
+                </button>
+            </li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-{{ vars.box_class }}">
+
+                    <div class="box-header">
+                        <h3 class="box-title">Donut Chart</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div id="chart_div" style="width: 100%; height: 500px;"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{ include('ReportBundle:Modal:info.html.twig') }}
+
+{% endblock %}

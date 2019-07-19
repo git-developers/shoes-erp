@@ -1,0 +1,231 @@
+backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER.controller.associative:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: OneToManyBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_DUMMY_LEFT_LOWER_catalog
+                icon: cube
+                body_css: one-to-many-body-css
+            one_to_many:
+                box:
+                    icon: exchange
+                    class: primary
+                    form_name: main-form
+                    title: DUMMY_LEFT_UPPER has DUMMY_RIGHT_UPPER
+                    route_info: backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_info
+                box_left:
+                    icon: user-secret
+                    class: primary
+                    id: box-left-id
+                    title: DUMMY_LEFT_UPPER
+                    li_class: box-left-li
+                    li_badge_class: bg-blue
+                    li_input_name: box-lefts-selected-value
+                    search_input_name: search-input-name-left
+                    route_search: backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_boxleft_search
+                    route_select_item: backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_boxleft_select_item
+                    tree:
+                        icon: cube
+                        box_class: primary
+                        main_div: box-main-div
+                        main_ul: box-main-ul
+                        child_ul: box-child-ul
+                        li_span: li-span
+                box_right:
+                    icon: expeditedssl
+                    class: primary
+                    id: box-right-id
+                    title: DUMMY_RIGHT_UPPER
+                    li_class: box-right-li
+                    li_badge_class: bg-orange-active
+                    li_input_name: box-right-selected-value
+                    search_input_name: search-input-name-right
+                    route_search: backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_boxright_search
+                    route_select_item: backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_boxright_select_item
+            form:
+                type: Bundle\DUMMY_LEFT_UPPERBundle\Form\Type\DUMMY_LEFT_UPPERType
+            repository:
+                box_left:
+                    service: tianos.repository.DUMMY_LEFT_LOWER
+                    method: findAllParents
+                    arguments:
+                        limit: 20
+                    vars:
+                        serialize_group_name: tree-one-to-many-left
+                box_right:
+                    service: tianos.repository.DUMMY_RIGHT_LOWER
+                    method: findAllOffsetLimit
+                    arguments:
+                        limit: 20
+                    vars:
+                        serialize_group_name: tree-one-to-many-right
+
+backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_boxleft_search:
+    path: /boxleft-search
+    methods: [POST]
+    defaults:
+        _controller: tianos.DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER.controller.associative:boxLeftSearchAction
+        _tianos:
+            action: left_search
+            template: OneToManyBundle:Li:box_left.html.twig
+            one_to_many:
+                box_left:
+                    li_class: box-left-li
+                    li_badge_class: bg-blue
+                    li_input_name: box-lefts-selected-value
+                    search_input_name: search-input-name-left
+            repository:
+                box_left:
+                    service: tianos.repository.DUMMY_LEFT_LOWER
+                    method: searchBoxLeft
+                    arguments:
+                        limit: 20
+                    vars:
+                        serialize_group_name: tree-one-to-many-left
+
+backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_boxright_search:
+    path: /boxright-search
+    methods: [POST]
+    defaults:
+        _controller: tianos.DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER.controller.associative:boxRightSearchAction
+        _tianos:
+            action: right_search
+            template: TreeOneToManyBundle:Li:box_right_search.html.twig
+            one_to_many:
+                box_right:
+                    li_class: box-right-li
+                    li_badge_class: bg-blue
+                    li_input_name: box-lefts-selected-value
+                    search_input_name: search-input-name-left
+            repository:
+                box_left:
+                    service: tianos.repository.DUMMY_LEFT_LOWER.has.DUMMY_RIGHT_LOWER
+                    method: treeOneToManyLeft
+                    arguments:
+                        limit: 20
+                    vars:
+                        serialize_group_name: tree-one-to-many-search-DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER
+                box_right:
+                    service: tianos.repository.DUMMY_RIGHT_LOWER
+                    method: searchBoxRight
+                    arguments:
+                        limit: 20
+                    vars:
+                        serialize_group_name: tree-one-to-many-right
+
+backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_boxright_select_item:
+    path: /boxright-select-item
+    methods: [POST]
+    defaults:
+        _controller: tianos.DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER.controller.associative:boxRightSelectItemAction
+        _tianos:
+            repository:
+                box_left:
+                    service: tianos.repository.DUMMY_LEFT_LOWER
+                    method: find
+                    method_delete_associative: deleteAssociativeTableById
+                box_right:
+                    service: tianos.repository.DUMMY_RIGHT_LOWER
+                    method: find
+
+backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_boxleft_select_item:
+    path: /boxleft-select-item
+    methods: [POST]
+    defaults:
+        _controller: tianos.DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER.controller.associative:boxLeftSelectItemAction
+        _tianos:
+            template: OneToManyBundle:Li:box_right.html.twig
+            one_to_many:
+                box_right:
+                    icon: expeditedssl
+                    class: primary
+                    id: box-right-id
+                    title: DUMMY_RIGHT_UPPER
+                    entity: DUMMY_RIGHT_LOWER
+                    li_class: box-right-li
+                    li_badge_class: bg-orange-active
+                    li_input_name: box-right-selected-value
+                    search_input_name: search-input-name-right
+            repository:
+                box_left:
+                    service: tianos.repository.DUMMY_LEFT_LOWER
+                    method: find
+                    vars:
+                        serialize_group_name: tree-one-to-many-left-DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER
+                box_right:
+                    service: tianos.repository.DUMMY_RIGHT_LOWER
+                    method: find
+                    vars:
+                        serialize_group_name: tree-one-to-many-right
+
+backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.DUMMY_LEFT_LOWERhasDUMMY_RIGHT_LOWER.controller.associative:infoAction
+        _tianos:
+            action: info
+            template: AssociativeBundle:DUMMY_LEFT_UPPERHasDUMMY_RIGHT_UPPER/Informative:info.html.twig
+
+
+
+
+
+
+
+
+
+
+
+#backend_profile_has_role_edit:
+#    path: /edit
+#    methods: [PUT, POST]
+#    defaults:
+#        _controller: tianos.profilehasrole.controller.profile:editAction
+#        _tianos:
+#            action: edit
+#            template: ProfileBundle:ProfileBackend/Form:form.html.twig
+#            repository:
+#                service: tianos.repository.profile
+#                method: find
+#                arguments: [$profileId]
+#            form:
+#                type: Bundle\ProfileBundle\Form\Type\ProfileType
+#            vars:
+#                serialize_group_name: crud
+#
+#backend_profile_has_role_delete:
+#    path: /delete
+#    methods: [POST, DELETE]
+#    defaults:
+#        _controller: tianos.profilehasrole.controller.profile:deleteAction
+#        _tianos:
+#            action: delete
+#            template: GridBundle:Template:delete.html.twig
+#            repository:
+#                service: tianos.repository.profile
+#                method: find
+#                arguments: [$profileId]
+#            vars:
+##                body_css: grid-body-css
+#
+#backend_profile_has_role_view:
+#    path: /view
+#    methods: [POST]
+#    defaults:
+#        _controller: tianos.profilehasrole.controller.profile:viewAction
+#        _tianos:
+#            action: view
+#            template: ProfileBundle:ProfileBackend/Informative:view.html.twig
+#            repository:
+#                service: tianos.repository.profile
+#                method: find
+#                arguments: [$profileId]
+
+

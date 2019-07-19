@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Component\OneToMany
+        psr4_prefix: Component\OneToMany
+        src_path: .

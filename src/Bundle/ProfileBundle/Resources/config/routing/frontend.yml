@@ -1,0 +1,19 @@
+frontend_profile_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.profile:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_profile
+            template: ProfileBundle:Profile:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_profile_catalog
+                icon: cube
+            form:
+                type: Bundle\ProfileBundle\Form\Type\ProfileType
+            repository:
+                service: tianos.repository.profile
+                method: findAll
+                arguments: [$profileId]

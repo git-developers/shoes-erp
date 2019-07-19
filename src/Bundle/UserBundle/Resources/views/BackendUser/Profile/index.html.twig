@@ -1,0 +1,93 @@
+{% set extends_path = '' %}
+
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+    {% set extends_path = 'ThemesBundle:Adminlte/TemplateSuper:1_template.html.twig' %}
+{% elseif is_granted('ROLE_PDV_ADMIN') %}
+    {% set extends_path = 'ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig' %}
+{% elseif is_granted('ROLE_EMPLOYEE') %}
+    {% set extends_path = 'ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig' %}
+{% endif %}
+
+{% extends extends_path %}
+
+
+{#IMAGEN AVATAR#}
+{% if(entity.image is defined and entity.image is not null) %}
+    {% set profile_avatar = asset('../../uploads/user/' ~ entity.image) | imagine_filter('filter_160') %} {# ~'?'~ random()#}
+{% else %}
+    {% set profile_avatar = asset('bundles/user/images/no_avatar.jpg') %} {# | imagine_filter('filter_160')#}
+{% endif %}
+
+{% if(entity.image is defined and entity.image is not null) %}
+    {% set profile_avatar_modal = asset('../../uploads/user/' ~ entity.image) | imagine_filter('filter_500') %}
+{% else %}
+    {% set profile_avatar_modal = asset('bundles/user/images/no_avatar.jpg') %}
+{% endif %}
+{#IMAGEN AVATAR#}
+
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@UserBundle/Resources/public/js/formProfile.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        $(function() {
+
+            $('body.{{ vars.body_css }}').formProfile({
+                buttonAddFriend: '{{ vars.button_add_friend }}',
+                buttonRemoveFriend: '{{ vars.button_remove_friend }}',
+                routeAddFriend: '{{ path('frontend_user_add_friend', {username: entity.username}) }}',
+                routeRemoveFriend: '{{ path('frontend_user_remove_friend', {username: entity.username}) }}'
+            });
+
+        });
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>{{ entity.name ~ ' ' ~ entity.lastName }}</h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{{ path('frontend_default_index') }}">
+                    <i class="fa fa-dashboard"></i> Inicio
+                </a>
+            </li>
+            <li class="active">Perfil de usuario</li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                {{ include("UserBundle:BackendUser:Profile/Box/left.html.twig") }}
+            </div>
+
+            <div class="col-md-9">
+                {{ include("UserBundle:BackendUser:Profile/Box/right.html.twig") }}
+            </div>
+
+        </div>
+    </section>
+
+    {{ include("UserBundle:BackendUser:Profile/Modal/modal_avatar.html.twig") }}
+
+{% endblock %}

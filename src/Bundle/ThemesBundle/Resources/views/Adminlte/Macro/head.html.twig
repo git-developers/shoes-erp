@@ -1,0 +1,46 @@
+{% macro meta_default() %}
+    <meta meta charset="utf-8">
+    <meta meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {#Tell the browser to be responsive to screen width#}
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="robots" content="index,follow"/>
+    <meta name="googlebot" content="index, follow"/>
+    <meta name="theme-color" content="{{ application_theme_color }}"/>
+    <meta name="msapplication-TileColor" content="{{ application_theme_color }}"/>
+    <meta name="apple-mobile-web-app-title" content="{{ application_name }}"/>
+    <meta name="application-name" content="{{ application_name }}"/>
+{% endmacro %}
+
+{% macro dns_prefetch() %}
+    {#<link rel="dns-prefetch" href="http://fonts.gstatic.com"/>#}
+    {#<link rel="dns-prefetch" href="//ajax.googleapis.com"/>#}
+    {#<link rel="dns-prefetch" href="//fonts.googleapis.com"/>#}
+    {#<link rel="dns-prefetch" href="//www.google-analytics.com"/>#}
+{% endmacro %}
+
+{% macro apple_touch_icon() %}
+    {#<link rel="apple-touch-icon" href="http://elcomercio.pe/apple-touch-icon.png"/>#}
+    {#<link rel="apple-touch-icon" sizes="76x76" href="http://elcomercio.pe/touch-icon-ipad.png"/>#}
+    {#<link rel="apple-touch-icon" sizes="120x120" href="http://elcomercio.pe/touch-icon-iphone-retina.png"/>#}
+    {#<link rel="apple-touch-icon" sizes="152x152" href="http://elcomercio.pe/touch-icon-ipad-retina.png"/>#}
+{% endmacro %}
+
+{% macro favicon() %}
+    <link rel="shortcut icon" href="{{ asset('bundles/themes/adminlte/images/favicon.ico') }}">
+{% endmacro %}
+
+{% macro title(content) %}
+
+    {% if content is empty %}
+        {% set content = application_name ~ ' • Gestiona tus recursos on-line'|raw %}
+    {% else %}
+        {% set content = content ~ ' • Gestiona tus recursos on-line'|raw %}
+    {% endif %}
+
+    <title>{{ content }}</title>
+{% endmacro %}
+
+{% macro canonical() %}
+    <link rel="canonical" href="{{ app.request.uri }}"/>
+{% endmacro %}

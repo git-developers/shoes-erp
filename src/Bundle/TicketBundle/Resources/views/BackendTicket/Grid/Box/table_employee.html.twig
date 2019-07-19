@@ -1,0 +1,48 @@
+{% spaceless %}
+
+    {% if status %}
+
+        {% for employee in employees %}
+            <tr>
+                <td>
+                    <span class="badge bg-green">
+                        {{ employee.id }}
+                    </span>
+                </td>
+                <td style="width: 30px">
+                    <img
+                        src="{{ asset('bundles/themes/common/images/no_avatar.jpg') }}"
+                        style="max-height: 30px"
+                        class="img-circle">
+                </td>
+                <td>
+                    {{ employee.name_box|trim }}
+                </td>
+                <td class="text-center">
+                    {{ employee.created_at|date('Y-m-d') }}
+                </td>
+                <td class="text-right">
+                    <button
+                        type="button"
+                        class="btn btn-danger btn-xs btn-remove-employee">
+                        <i class="fa fa-fw fa-trash-o"></i>
+                    </button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">
+                    No hay datos que mostrar.
+                </td>
+            </tr>
+        {% endfor %}
+
+    {% else %}
+        <tr>
+            <td colspan="4">
+                El cliente no retorno data.
+            </td>
+        </tr>
+    {% endif %}
+
+{% endspaceless %}

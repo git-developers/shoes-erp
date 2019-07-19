@@ -1,0 +1,61 @@
+#INSTALAR EN LA INSTANCIA EC2
+#* Todos esos componentes son obligatorios para que corrar el proyecto
+#* si sale un error 502, falta el php-fpm
+#* si sale un error "Mysql: An exception occurred in driver: could not find driver", falta el php-mysql
+
+
+---
+
+- hosts: webservers
+  vars:
+    - welcomeMsg: "Pollo gordo 33333333333"
+
+  tasks:
+    - name: SetUp Python
+      apt: pkg=python state=installed update_cache=true
+    - name: SetUp Php 7.1
+      apt: pkg=php7.1-cli state=installed update_cache=true
+    - name: SetUp php-mbstring
+      apt: pkg=php7.1-mbstring state=installed update_cache=true
+    - name: SetUp php-xml
+      apt: pkg=php7.1-xml state=installed update_cache=true
+    - name: SetUp php-fpm
+      apt: pkg=php7.1-fpm state=installed update_cache=true
+    - name: SetUp php-mysql
+      apt: pkg=php7.1-mysql state=installed update_cache=true
+    - name: SetUp Nginx
+      apt: pkg=nginx state=installed update_cache=true
+    - name: SetUp Phpunit
+      apt: pkg=phpunit state=installed update_cache=true
+    - name: SetUp composer
+      apt: pkg=composer state=installed update_cache=true
+    - name: SetUp make
+      apt: pkg=make state=installed update_cache=true
+
+
+apt-get -y install php7.1-mysql
+
+
+#    - name: Copy Index.html files
+#      template: src=index.html dest=/var/www/html/index.html
+
+#apt: pkg=php7.1-cli state=installed update_cache=true
+#apt-get install php7.0-cli
+
+#    - name: Setting up Security/Firewall Group
+#    ec2_group:
+#      name: AWS_Security_Grp
+#      description: Rules Allowing Traffic on port 22 and 80
+#      region: us-west-2
+#      rules:
+#        - proto: tcp
+#          from_port: 80
+#          to_port: 80
+#          cidr_ip: 0.0.0.0/0
+#        - proto: tcp
+#          from_port: 22
+#          to_port: 22
+#          cidr_ip: 0.0.0.0/0
+#      rules_egress:
+#        - proto: all
+#          cidr_ip: 0.0.0.0/0

@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Component\User
+        psr4_prefix: Component\User
+        src_path: .

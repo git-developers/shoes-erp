@@ -1,0 +1,136 @@
+services:
+
+    tianos.listener.doctrine.user:
+        class: Bundle\UserBundle\EventListener\DoctrineListenerService
+        arguments: ["@security.token_storage", "@security.password_encoder"]
+        tags:
+          - { name: doctrine.event_listener, event: postUpdate }
+          - { name: doctrine.event_listener, event: preUpdate }
+          - { name: doctrine.event_listener, event: prePersist }
+          - { name: doctrine.event_listener, event: postLoad }
+          - { name: doctrine.event_listener, event: postRemove }
+
+    tianos.logout_success_handler:
+        class: Bundle\UserBundle\EventListener\LogoutSuccessHandler
+        arguments: ['@security.http_utils', "backend_security_pdv_login", "@security.token_storage", "@router"]
+        tags:
+            - { name: kernel.event_listener, event: request, method: onLogoutSuccess }
+
+    tianos.authentication_success_handler:
+        class: Bundle\UserBundle\EventListener\AuthenticationSuccessHandler
+        arguments: ['@service_container', "@router"]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+
+    tianos.authentication_failure_handler:
+        class: Bundle\UserBundle\EventListener\AuthenticationFailureHandler
+        arguments: ['@service_container']
+        tags:
+            - { name: 'monolog.logger', channel: 'security', method: onAuthenticationFailure }
+
+    tianos.api.controller.user:
+        class: Bundle\UserBundle\Controller\ApiController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.api.controller.user, alias: tianos.api.controller.user }
+
+    tianos.backend.controller.user:
+        class: Bundle\UserBundle\Controller\BackendController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.user, alias: tianos.backend.controller.user }
+
+    tianos.backend.setting.controller.user:
+        class: Bundle\UserBundle\Controller\BackendSettingController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.setting.controller.user, alias: tianos.backend.setting.controller.user }
+
+    tianos.backend.friends.controller.user:
+        class: Bundle\UserBundle\Controller\BackendFriendsController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.friends.controller.user, alias: tianos.backend.friends.controller.user }
+
+    tianos.frontend.controller.user:
+        class: Bundle\UserBundle\Controller\FrontendController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.frontend.controller.user, alias: tianos.frontend.controller.user }
+
+    tianos.security.controller.user:
+        class: Bundle\UserBundle\Controller\SecurityController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        public: true
+        tags:
+            - { name: tianos.security.controller.user, alias: tianos.security.controller.user }
+
+    tianos.security.controller.pdv:
+        class: Bundle\UserBundle\Controller\SecurityPdvController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        public: true
+        tags:
+            - { name: tianos.security.controller.pdv, alias: tianos.security.controller.pdv }
+
+    tianos.repository.user:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\UserBundle\Entity\User ]
+
+    tianos.repository.friends:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\UserBundle\Entity\Friends ]
+
+    tianos.login.user:
+        class: Bundle\UserBundle\Form\Type\UserLoginType
+        arguments: [ "@router" ]
+        tags:
+            - { name: form.type }
+
+    tianos.login.pdv:
+        class: Bundle\UserBundle\Form\Type\PdvLoginType
+        arguments: [ "@router" ]
+        tags:
+            - { name: form.type }
+
+
+
+#    TWIG EXTENSION
+#    TWIG EXTENSION
+    tianos.registry.user_field:
+        class: Component\Registry\ServiceRegistry
+        arguments: [ Component\User\FieldTypes\FieldTypeInterface, "grid field" ]
+
+    tianos.form_registry.user_filter:
+        class: Bundle\UserBundle\Form\Registry\FormTypeRegistry
+        public: false
+
+    tianos.expression_language:
+        class: Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage
+        public: false
+
+    tianos.user_options_parser:
+        class: Bundle\ResourceBundle\User\Parser\OptionsParser
+        arguments: [ "@service_container", "@tianos.expression_language", "@property_accessor" ]
+        public: false
+
+    tianos.custom_user_renderer.twig.inner:
+        class: Bundle\UserBundle\Renderer\TwigUserRenderer
+        arguments: [ "@twig", "@tianos.registry.user_field", "@form.factory", "@tianos.form_registry.user_filter", SyliusOneToManyBundle::_grid.html.twig ]
+        public: false
+
+    tianos.custom_user_renderer.twig:
+        class: Bundle\ResourceBundle\User\Renderer\TwigUserRenderer
+        arguments: [ "@tianos.custom_user_renderer.twig.inner", "@twig", "@tianos.user_options_parser" ]
+
+    tianos.templating.helper.user:
+        class: Bundle\UserBundle\Templating\Helper\UserHelper
+        arguments: [ "@tianos.custom_user_renderer.twig" ]
+
+    twig.extension.user:
+        class: Bundle\UserBundle\Twig\UserExtension
+        arguments: ['@tianos.templating.helper.user']
+        public: false
+        tags:
+         - { name: twig.extension }

@@ -1,0 +1,18 @@
+{% spaceless %}
+    <div class="modal-body">
+
+        <div id="message" class="callout callout-danger" style="display: none;">
+            <p></p>
+        </div>
+
+        {% block crud_modal_content %}
+
+        {% endblock %}
+
+    </div>
+
+    <div class="modal-footer">
+        {{ tianos_grid_render_modal_footer(action) }}
+        {#{{ tianos_grid_render_modal_footer()|raw }}#}
+    </div>
+{% endspaceless %}

@@ -1,0 +1,19 @@
+frontend_session_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.session:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_session
+            template: SessionBundle:Session:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_session_catalog
+                icon: cube
+            form:
+                type: Bundle\SessionBundle\Form\Type\SessionType
+            repository:
+                service: tianos.repository.session
+                method: findAll
+                arguments: [$sessionId]

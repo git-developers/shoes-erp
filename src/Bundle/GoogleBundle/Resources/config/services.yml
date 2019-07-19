@@ -1,0 +1,101 @@
+services:
+
+    tianos.listener.doctrine.google:
+        class: Bundle\GoogleBundle\EventListener\DoctrineListenerService
+        arguments: ["@security.token_storage"]
+        tags:
+          - { name: doctrine.event_listener, event: postUpdate }
+          - { name: doctrine.event_listener, event: preUpdate }
+          - { name: doctrine.event_listener, event: prePersist }
+          - { name: doctrine.event_listener, event: postLoad }
+          - { name: doctrine.event_listener, event: postRemove }
+
+    tianos.api.controller.google:
+        class: Bundle\GoogleBundle\Controller\ApiController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.api.controller.google, alias: tianos.api.controller.google }
+
+    tianos.google.drive.controller.google:
+        class: Bundle\GoogleBundle\Controller\GoogleDriveFileController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.google.drive.controller.google, alias: tianos.google.drive.controller.google }
+
+    tianos.google.drive.grid.controller.google:
+        class: Bundle\GoogleBundle\Controller\GoogleDriveFileGridController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.google.drive.list.controller.google, alias: tianos.google.drive.list.controller.google }
+
+    tianos.google.drive.vote.controller.google:
+        class: Bundle\GoogleBundle\Controller\GoogleDriveFileVoteController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.google.drive.vote.controller.google, alias: tianos.google.drive.vote.controller.google }
+
+    tianos.frontend.controller.google:
+        class: Bundle\GoogleBundle\Controller\FrontendController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.frontend.controller.google, alias: tianos.frontend.controller.google }
+
+    tianos.repository.google.drive:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\GoogleBundle\Entity\GoogleDriveFile ]
+
+    tianos.repository.google.drive.count:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\GoogleBundle\Entity\GoogleDriveFileCount ]
+
+    tianos.repository.google.drive.vote:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\GoogleBundle\Entity\GoogleDriveFileVote ]
+
+    tianos.service.google.drive.service:
+        class: Bundle\GoogleBundle\Services\Google\GoogleService
+        arguments: [ "@doctrine.orm.entity_manager", "@service_container", "@twig", "%kernel.environment%", "@security.token_storage" ]
+
+
+
+
+#    TWIG EXTENSION
+    tianos.registry.google_field:
+        class: Component\Registry\ServiceRegistry
+        arguments: [ Component\Google\FieldTypes\FieldTypeInterface, "grid field" ]
+
+    tianos.form_registry.google_filter:
+        class: Bundle\GoogleBundle\Form\Registry\FormTypeRegistry
+        public: false
+
+    tianos.expression_language:
+        class: Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage
+        public: false
+
+    tianos.google_options_parser:
+        class: Bundle\ResourceBundle\Google\Parser\OptionsParser
+        arguments: [ "@service_container", "@tianos.expression_language", "@property_accessor" ]
+        public: false
+
+    tianos.custom_google_renderer.twig.inner:
+        class: Bundle\GoogleBundle\Renderer\TwigGoogleRenderer
+        arguments: [ "@twig", "@tianos.registry.google_field", "@form.factory", "@tianos.form_registry.google_filter", SyliusOneToManyBundle::_grid.html.twig ]
+        public: false
+
+    tianos.custom_google_renderer.twig:
+        class: Bundle\ResourceBundle\Google\Renderer\TwigGoogleRenderer
+        arguments: [ "@tianos.custom_google_renderer.twig.inner", "@twig", "@tianos.google_options_parser" ]
+
+    tianos.templating.helper.google:
+        class: Bundle\GoogleBundle\Templating\Helper\GoogleHelper
+        arguments: [ "@tianos.custom_google_renderer.twig", "@router" ]
+
+    twig.extension.google:
+        class: Bundle\GoogleBundle\Twig\GoogleExtension
+        arguments: ['@tianos.templating.helper.google']
+        public: false
+        tags:
+         - { name: twig.extension }

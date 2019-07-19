@@ -1,0 +1,24 @@
+{% macro default() %}
+    <meta property="og:locale" content="es_LA"/>
+    <meta property="og:type" content="website"/>
+    <meta property="fb:app_id" content="{{ application_fb_app_id }}"/>
+    <meta property="og:site_name" content="{{ application_name }}"/>
+{% endmacro %}
+
+{% macro title(content) %}
+    <meta property="og:title" content="{{ content }}"/>
+{% endmacro %}
+
+{% macro description(content) %}
+    <meta name="og:description" content="{{ content }}"/>
+{% endmacro %}
+
+{% macro image(content) %}
+    <meta name="og:image" content="{{ content }}"/>
+    {#http://elcomercio.pe/[ruta_images]/logo-elcomercio.jpg#}
+{% endmacro %}
+
+{% macro url() %}
+    <meta name="og:url" content="{{ app.request.uri }}"/>
+{% endmacro %}
+

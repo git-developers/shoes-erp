@@ -1,0 +1,132 @@
+backend_profile_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.profile:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_profile_catalog
+                icon: cube
+                body_css: grid-body-css
+            grid:
+                icon: user-secret
+                box_class: primary
+                title: Gestionar perfiles
+                modal:
+                    create:
+                        title: Crear perfil
+                        size: modal-lg
+                    edit:
+                        size: modal-lg
+                data_table:
+                    route:
+                        info: backend_profile_info
+                        view: backend_profile_view
+                        edit: backend_profile_edit
+                        create: backend_profile_create
+                        delete: backend_profile_delete
+                    table_button:
+                        - edit
+#                        - delete
+                    table_button_header:
+                        - create
+                        - info
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Name
+                          obj: obj.name
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\ProfileBundle\Form\Type\ProfileType
+            repository:
+                service: tianos.repository.profile
+                method: findAll
+                arguments: [$profileId]
+                vars:
+                    serialize_group_name: crud
+
+backend_profile_create:
+    path: /create
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.profile:createAction
+        _tianos:
+            action: create
+            template: ProfileBundle:BackendProfile/Form:form.html.twig
+            entity: Bundle\ProfileBundle\Entity\Profile
+            form:
+                type: Bundle\ProfileBundle\Form\Type\ProfileType
+            repository:
+                vars:
+                    serialize_group_name: crud
+
+backend_profile_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.profile:editAction
+        _tianos:
+            action: edit
+            template: ProfileBundle:BackendProfile/Form:form.html.twig
+            form:
+                type: Bundle\ProfileBundle\Form\Type\ProfileType
+            repository:
+                service: tianos.repository.profile
+                method: find
+                arguments: [$profileId]
+                vars:
+                    serialize_group_name: crud
+
+backend_profile_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.backend.controller.profile:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.profile
+                method: find
+                arguments: [$profileId]
+            vars:
+#                body_css: grid-body-css
+
+backend_profile_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.profile:viewAction
+        _tianos:
+            action: view
+            template: ProfileBundle:BackendProfile/Informative:view.html.twig
+            repository:
+                service: tianos.repository.profile
+                method: find
+                arguments: [$profileId]
+                vars:
+                    serialize_group_name: crud
+
+backend_profile_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.profile:infoAction
+        _tianos:
+            action: info
+            template: ProfileBundle:BackendProfile/Informative:info.html.twig

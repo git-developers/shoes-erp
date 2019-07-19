@@ -1,0 +1,17 @@
+backend_security_pdv_login_check:
+    path: /login_check
+
+backend_security_pdv_logout:
+    path: /logout
+
+backend_security_pdv_login:
+#    path: /login
+    path: /{slug}
+    methods: [GET, POST]
+    defaults:
+        slug: null
+        _controller: tianos.security.controller.pdv:loginAction
+        _tianos:
+            action: create
+            template: UserBundle:BackendPdv/Security:login.html.twig
+

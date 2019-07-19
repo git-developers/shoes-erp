@@ -1,0 +1,90 @@
+backend_setting_user_index:
+    path: /{active}
+    methods: [GET, POST]
+    requirements:
+        active: \d+
+    defaults:
+        active: 1
+        _controller: tianos.backend.setting.controller.user:indexAction
+        _tianos:
+            action: view
+            template: UserBundle:BackendUserSetting:index.html.twig
+            grid:
+#                icon: cube
+#                box_class: primary
+#                title: Gestionar productos
+#                modal:
+#                    title: Crear producto
+                data_table:
+                    route:
+                    table_button:
+                    table_button_header:
+                        - info
+                    row_call_back:
+                    columns:
+            vars:
+                subheader: sylius.ui.manage_your_orderin_catalog
+                icon: cube
+                body_css: grid-body-css
+                serialize_group_name: crud
+                box:
+                    icon: newspaper-o
+                    class: primary
+#                    box_class: primary
+#                    form_name: main-form
+#                    title: Devolución de periódicos por los Canillitas <i class="fa fa-sign-in"></i>
+#                    route_submit: backend_orderin_upsert
+#                    route_info: backend_orderin_info
+#                    table_button_header:
+#                        - create
+#                        - info
+                box_left:
+                    icon: image
+                    class: primary
+                    id: box-left-id
+                    title: Puntos de venta
+                    li_class: box-left-li
+                    li_badge_class: bg-green
+                    li_input_name: box_left_selected_value
+                    search_input_name: search-input-name-left
+                    route_search: backend_orderin_search
+                    route_select_item: backend_orderin_boxleft_select_item
+                    form:
+                        type: Bundle\UserBundle\Form\Type\UserEditType
+                box_center:
+                    icon: user
+                    class: primary
+                    id: box-center-id
+                    title: Canillitas
+                    li_class: box-center-li
+                    li_badge_class: bg-orange-active
+                    li_input_name: box_center_selected_value
+                    route_select_item: backend_orderin_boxcenter_select_item
+                    form:
+                        type: Bundle\UserBundle\Form\Type\UserAvatarType
+                box_right:
+                    icon: lock
+                    class: primary
+                    id: box-right-id
+                    title: Periódicos
+                    li_class: box-right-li
+                    li_badge_class: bg-orange-active
+                    li_input_name: box-right-selected-value
+                    form:
+                        type: Bundle\UserBundle\Form\Type\UserPasswordType
+            repository:
+                service: tianos.repository.user
+                method: find
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: crud
+
+backend_setting_user_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.user:infoAction
+        _tianos:
+            action: info
+            template: UserBundle:UserBackend/Informative:info.html.twig
+

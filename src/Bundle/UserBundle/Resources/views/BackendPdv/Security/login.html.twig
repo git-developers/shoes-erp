@@ -1,0 +1,93 @@
+{% extends "ThemesBundle:Adminlte/TemplatePdv:1_template_security.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="login-box">
+
+        <div class="login-logo">
+            <b>Log</b>IN
+        </div>
+
+        {% if error %}
+            <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <i class="icon fa fa-warning"></i>
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        <div class="login-box-body">
+            <p class="login-box-msg">
+                <strong>PDV:</strong> {{ pdv.name|default() }}
+            </p>
+
+            {{ form_start(form, {'attr': {'class': ''}}) }}
+
+            {{ form_widget(form._csrf_token, {'value' : csrf_token('authenticate') }) }}
+
+            <div class="form-group has-feedback">
+                {{ form_widget(form.pointOfSale) }}
+                <span class="glyphicon glyphicon-map-marker form-control-feedback"></span>
+            </div>
+
+            <div class="form-group has-feedback">
+                {{ form_widget(form._username) }}
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+
+            <div class="form-group has-feedback">
+                {{ form_widget(form._password) }}
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-7">
+                    <div class="checkbox">
+                        <label>
+                            {{ form_widget(form._remember_me) }} Recuerdame
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-5">
+                    {{ form_widget(form.submit) }}
+                </div>
+            </div>
+            {{ form_end(form)}}
+
+            <div class="social-auth-links text-center">
+                <p>&nbsp;</p>
+
+                {#
+                <a href="{{ loginUrl|raw }}" class="btn btn-block btn-social btn-facebook btn-flat">
+                    <i class="fa fa-facebook"></i> Login Facebook
+                </a>
+                #}
+
+                {#
+                <a href="#" class="btn btn-block btn-social btn-google btn-flat">
+                    <i class="fa fa-google-plus"></i> Login Google+
+                </a>
+                #}
+            </div>
+
+            {#<a href="{{ path('backend_security_reset_password_step_one') }}">#}
+            <a href="">
+                Olvidaste tu password?
+            </a>
+            <br>
+
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,111 @@
+backend_pointofsale_per_user_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale.per.user:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_pointofsale_catalog
+                icon: cube
+                body_css: grid-body-css
+            grid:
+                icon: map-marker
+                box_class: primary
+                title: Datos del salón
+                modal:
+                    create:
+                        title: Crear punto de venta
+                        size: modal-lg
+                    edit:
+                        size: modal-lg
+                data_table:
+                    route:
+                        info: backend_pointofsale_per_user_info
+                        view: backend_pointofsale_per_user_view
+                        edit: backend_pointofsale_per_user_edit
+                    table_button:
+                        - edit
+                    table_button_header:
+                        - info
+                    table_option:
+                        pageLength: 50
+                        dom: "'<\"top\"iflp><\"clear\">rt<\"bottom\"iflp>'"
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+#                        - name: Es principal?
+#                          obj: obj.point_of_sale
+#                          options:
+#                              icon: image
+#                              property: " return (obj.point_of_sale != null) ? '<span class=\"badge bg-blue\">Principal</span>' : '' "
+                        - name: Nombre
+                          obj: obj.name
+#                        - name: Coordenadas
+#                          obj: " '<span class=\"badge bg-green\">' + obj.latitude + ' :: ' + obj.longitude + '</span>' "
+#                          options:
+#                              icon: map-marker
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
+            repository:
+                service: tianos.repository.pointofsale
+                method: findAllPerUser
+                arguments: [$pointofsaleId]
+                vars:
+                    serialize_group_name: crud
+
+backend_pointofsale_per_user_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale:editAction
+        _tianos:
+            action: edit
+            template: PointofsaleBundle:BackendPointofsale/Form:form_edit.html.twig
+            form:
+                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
+            repository:
+                service: tianos.repository.pointofsale
+                method: find
+                arguments: [$pointofsaleId]
+                vars:
+                    serialize_group_name: crud
+
+backend_pointofsale_per_user_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale:viewAction
+        _tianos:
+            action: view
+            template: PointofsaleBundle:BackendPointofsale/Informative:view.html.twig
+            repository:
+                service: tianos.repository.pointofsale
+                method: find
+                arguments: [$pointofsaleId]
+                vars:
+                    serialize_group_name: crud
+
+backend_pointofsale_per_user_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale:infoAction
+        _tianos:
+            action: info
+            template: PointofsaleBundle:BackendPointofsale/Informative:info.html.twig
+

@@ -1,0 +1,3 @@
+backend_associative_DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER:
+    resource: '@AssociativeBundle/Resources/config/routing/DUMMY_LEFT_LOWER_has_DUMMY_RIGHT_LOWER.yml'
+    prefix: /DUMMY_LEFT_LOWER-has-DUMMY_RIGHT_LOWER

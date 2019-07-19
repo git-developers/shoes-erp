@@ -1,0 +1,183 @@
+{% extends "ThemesBundle:Adminlte:1_template.html.twig" %}
+
+{% import "TreeBundle::Macro/tree.html.twig" as macro %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        '@TreeBundle/Resources/public/css/tree.css'
+        '@CoreBundle/Resources/public/css/tree.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <style>
+
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@TreeBundle/Resources/public/js/formEdit.js'
+        '@TreeBundle/Resources/public/js/formInfo.js'
+        '@TreeBundle/Resources/public/js/formView.js'
+        '@TreeBundle/Resources/public/js/formDelete.js'
+        '@TreeBundle/Resources/public/js/formCreate.js'
+        '@CoreBundle/Resources/public/js/jquery.tmpl.js'
+        '@TreeBundle/Resources/public/js/formCreateChild.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+
+        $(document).on({
+            mouseenter: function(){
+                $(this).find('div.tools').toggle();
+                $(this).toggleClass('bg-gray');
+            },
+            mouseleave: function(){
+                $(this).find('div.tools').toggle();
+                $(this).toggleClass('bg-gray');
+            },
+        }, 'span.{{ tree.li_span }}');
+
+
+        $('body.{{ vars.body_css }}').formView({
+            mainUl: '{{ tree.main_ul }}',
+            modalId: '{{ modal.view_id }}',
+            route: '{{ path(tree.route.view) }}'
+        });
+
+        $('body.{{ vars.body_css }}').formInfo({
+            modalId: '{{ modal.info_id }}',
+            route: '{{ path(tree.route.info) }}'
+        });
+
+        $('body.{{ vars.body_css }}').formCreate({
+            mainDiv: '{{ tree.main_div }}',
+            mainUl: '{{ tree.main_ul }}',
+            modalId: '{{ modal.create_id }}',
+            formName: '{{ form_mapper.create_name }}',
+            route: '{{ path(tree.route.create) }}'
+        });
+
+        $('body.{{ vars.body_css }}').formEdit({
+            modalId: '{{ modal.edit_id }}',
+            formName: '{{ form_mapper.edit_name }}',
+            route: '{{ path(tree.route.edit) }}'
+        });
+
+        $('body.{{ vars.body_css }}').formCreateChild({
+            mainDiv: '{{ tree.main_div }}',
+            childUl: '{{ tree.child_ul }}',
+            formName: '{{ form_mapper.create_child_name }}',
+            modalId: '{{ modal.create_child_id }}',
+            route: '{{ path(tree.route.create_child) }}'
+        });
+
+        $('body.{{ vars.body_css }}').formDelete({
+            mainDiv: '{{ tree.main_div }}',
+            formName: '{{ form_mapper.delete_name }}',
+            modalId: '{{ modal.delete_id }}',
+            route: '{{ path(tree.route.delete) }}'
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-sitemap"></i> {{ tree.title }}
+            <small>tree</small>
+        </h1>
+        <ol class="breadcrumb">
+            {#<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>#}
+            {#<li class="active">Dashboard</li>#}
+
+            <li>
+                <button
+                        class="btn btn-info btn-xs modal-info"
+                        alt="Info"
+                        title="Info"
+                        data-toggle="modal"
+                        data-target="#modal-info">
+                    <i class="fa fa-fw fa-info-circle"></i> info
+                </button>
+            </li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <form name="form-category-product">
+
+            <div class="row">
+                <section class="col-md-12 connectedSortable ui-sortable">
+                    <div class="box box-primary">
+
+                        <div class="box-header ui-sortable-handle" style="cursor: move;">
+                            <i class="ion ion-android-list"></i>
+                            <h3 class="box-title">items</h3>
+
+                            <div class="box-tools pull-right">
+                                <button
+                                        type="button"
+                                        class="btn btn-default pull-right {{ modal.create_id }}"
+                                        alt="Crear item"
+                                        title="Crear item"
+                                        data-toggle="modal"
+                                        data-target="#{{ modal.create_id }}">
+                                    <i class="fa fa-plus"></i> Crear item
+                                </button>
+                            </div>
+                        </div>
+
+                        {#<link rel="stylesheet" href="http://zgs225.github.io/easy-tree/dist/css/easyTree.min.css">#}
+                        {#https://two-wrongs.com/draw-a-tree-structure-with-only-css#}
+
+                        <div class="{{ tree.main_div }} box-body">
+
+                            <ul id="{{ tree.main_ul }}">
+                                {% if objects is not empty %}
+                                    {{ macro.tree(objects, tree, modal, -1) }}
+                                {% else %}
+                                    <p>No hay items que mostrar</p>
+                                {% endif %}
+                            </ul>
+
+                        </div>
+                        {#
+                        <div class="box-footer clearfix no-border">
+                            <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
+                        </div>#}
+
+                    </div>
+                </section>
+            </div>
+
+        </form>
+    </section>
+
+    {{ include('TreeBundle:Modal:edit.html.twig') }}
+    {{ include('TreeBundle:Modal:view.html.twig') }}
+    {{ include('TreeBundle:Modal:info.html.twig') }}
+    {{ include('TreeBundle:Modal:create.html.twig') }}
+    {{ include('TreeBundle:Modal:delete.html.twig') }}
+    {{ include('TreeBundle:Modal:create_child.html.twig') }}
+
+    {{ include('TreeBundle:Template:jquery_tmpl_1.html.twig') }}
+    {{ include('TreeBundle:Template:jquery_tmpl_2.html.twig') }}
+
+{% endblock %}

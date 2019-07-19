@@ -1,0 +1,40 @@
+services:
+
+    tianos.listener.doctrine.profile:
+        class: Bundle\ProfileBundle\EventListener\DoctrineListenerService
+        arguments: ["@security.token_storage"]
+        tags:
+          - { name: doctrine.event_listener, event: postUpdate }
+          - { name: doctrine.event_listener, event: preUpdate }
+          - { name: doctrine.event_listener, event: prePersist }
+          - { name: doctrine.event_listener, event: postLoad }
+          - { name: doctrine.event_listener, event: postRemove }
+
+    tianos.api.controller.profile:
+        class: Bundle\ProfileBundle\Controller\ApiController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.api.controller.profile, alias: tianos.api.controller.profile }
+
+    tianos.backend.controller.profile:
+        class: Bundle\ProfileBundle\Controller\BackendController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.profile, alias: tianos.backend.controller.profile }
+
+    tianos.frontend.controller.profile:
+        class: Bundle\ProfileBundle\Controller\FrontendController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.frontend.controller.profile, alias: tianos.frontend.controller.profile }
+
+    tianos.repository.profile:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\ProfileBundle\Entity\Profile ]
+
+    tianos.type.profile:
+        class: Bundle\ProfileBundle\Form\Type\ProfileType
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: form.type, alias: tianos.type.profile }

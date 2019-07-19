@@ -1,0 +1,1 @@
+include src/Bundle/CoreBundle/Resources/makefiles/tasks

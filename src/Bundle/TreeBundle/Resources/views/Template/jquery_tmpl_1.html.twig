@@ -1,0 +1,55 @@
+{% spaceless %}
+    <script id="jquery_tmpl_1" class="template" type="text/x-jquery-tmpl">
+        <li class="x-hand" data-id="${id}" id="li-${id}">
+            <span class="li-span">
+                <span class="badge">
+                    ${id}
+                </span>
+
+                <input type="radio" name="item-left" value="${id}">
+
+                <span id="li-span-${id}">
+
+                    <span class="label label-default">
+                        ${code}
+                    </span>
+
+                    <span class="text">
+                        ${name}
+                    </span>
+
+                </span>
+
+                <div
+                    class="tools"
+                    data-toggle="tooltip"
+                    data-original-title="Category ${id}"
+                    style="display: none"
+                >
+                    <i
+                        class="fa fa-1x fa-fw fa-plus {{ modal.create_child_id }}"
+                        alt="Agregar categoria hijo"
+                        title="Agregar categoria hijo"
+                        data-toggle="modal"
+                        data-target="#{{ modal.create_child_id }}"></i>
+                    <i
+                        class="fa fa-1x fa-fw fa-pencil {{ modal.edit_id }}"
+                        alt="Editar"
+                        title="Editar"
+                        data-toggle="modal"
+                        data-target="#{{ modal.edit_id }}"></i>
+                    <i
+                        class="fa fa-1x fa-fw fa-trash-o {{ modal.delete_id }}"
+                        alt="Eliminar"
+                        title="Eliminar"
+                        data-toggle="modal"
+                        data-target="#{{ modal.delete_id }}"></i>
+                </div>
+
+            </span>
+
+            <ul class="{{ tree.child_ul }}${id}"></ul>
+
+        </li>
+    </script>
+{% endspaceless %}

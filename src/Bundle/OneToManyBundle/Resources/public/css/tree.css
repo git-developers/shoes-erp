@@ -1,0 +1,33 @@
+.box-main-div, .box-main-div ul, .box-main-div li {
+    position: relative;
+}
+.box-main-div ul {
+    list-style: none;
+    padding-left: 25px;
+}
+.box-main-div li::before, .box-main-div li::after {
+    content: "";
+    position: absolute;
+    left: -10px;
+}
+.box-main-div li::before {
+    border-top: 2px solid rgb(100,100,100);
+    top: 17px;
+    width: 10px;
+}
+.box-main-div li::after {
+    border-left: 2px solid rgb(100,100,100);
+    height: 100%;
+    top: 0.7em;
+}
+.box-main-div ul > li:last-child::after {
+    height: 8px;
+}
+.box-main-div ul li span.label {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
+
+

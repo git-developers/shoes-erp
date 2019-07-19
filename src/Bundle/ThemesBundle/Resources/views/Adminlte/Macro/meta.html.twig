@@ -1,0 +1,14 @@
+{% macro keywords(content) %}
+
+    {% if content is empty %}
+        {% set content = 'Internet, Tecnologia, Cultura, Blogs, Redes Sociales, Fotos, Videos, Facebook, YouTube' %}
+    {% endif %}
+
+    <meta name="keywords" content="{{ content }}"/>
+{% endmacro %}
+
+{% macro description(content) %}
+    <meta name="description" content="{{ content }}"/>
+{% endmacro %}
+
+

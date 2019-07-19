@@ -1,0 +1,123 @@
+{% extends "ThemesBundle:Adminlte:1_template.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {#Bootstrap Color Picker#}
+    <link rel="stylesheet" href="{{ asset('bundles/backend/plugins/colorpicker/bootstrap-colorpicker.min.css')}}">
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#Bootstrap Color Picker#}
+    <script src="{{ asset('bundles/backend/plugins/colorpicker/bootstrap-colorpicker.min.js')}}"></script>
+
+    <script type="text/javascript">
+
+        //$(".my-colorpicker2").colorpicker();
+
+        {% if (formAvatar.image is defined) %}
+            document.getElementById("{{ formAvatar.image.vars.id }}").onchange = function () {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    get loaded data and render thumbnail
+                    document.getElementById("image").src = e.target.result;
+                };
+
+                read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            };
+        {% endif %}
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-wrench"></i> Configuraci&oacute;n
+            <small>edit account</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-white"> {# box-primary #}
+
+                    {#
+                    <div class="box-header">
+                        <h3 class="box-title">Data Table With Full Features</h3>
+                    </div>
+                    #}
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <div class="nav-tabs-custom">
+                                    <ul class="nav nav-tabs">
+                                        <li class="{{ (active == 1) ? 'active' : '' }}">
+                                            <a href="#tab_1" data-toggle="tab" title="actualizar foto de perfil">
+                                                <i class="fa fa-fw fa-{{ boxLeft.icon }}"></i> foto de perfil
+                                            </a>
+                                        </li>
+                                        <li class="{{ (active == 2) ? 'active' : '' }}">
+                                            <a href="#tab_2" data-toggle="tab" title="informaci&oacute;n general">
+                                                <i class="fa fa-fw fa-{{ boxCenter.icon }}"></i> informaci&oacute;n general
+                                            </a>
+                                        </li>
+                                        <li class="{{ (active == 3) ? 'active' : '' }}">
+                                            <a href="#tab_3" data-toggle="tab">
+                                                <i class="fa fa-fw fa-{{ boxRight.icon }}"></i> cambiar password
+                                            </a>
+                                        </li>
+                                        {#<li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>#}
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane {{ (active == 1) ? 'active' : '' }}" id="tab_1">
+                                            {{ include("UserBundle:BackendUserSetting:Form/avatar/avatar.html.twig") }}
+                                        </div>
+                                        <div class="tab-pane {{ (active == 2) ? 'active' : '' }}" id="tab_2">
+                                            {{ include("UserBundle:BackendUserSetting:Form/form.html.twig") }}
+                                        </div>
+                                        <div class="tab-pane {{ (active == 3) ? 'active' : '' }}" id="tab_3">
+                                            {{ include("UserBundle:BackendUserSetting:Form/change_password.html.twig") }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {#{{ include("UserBundle:Profile:Modal/modal_delete.html.twig") }}#}
+
+    {#<code>.nav-tabs-custom</code>#}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

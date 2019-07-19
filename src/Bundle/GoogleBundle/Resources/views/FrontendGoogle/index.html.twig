@@ -1,0 +1,24 @@
+{% extends "ThemesBundle:Frontend/Theme-1:index.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+    <h1>PRODUCTS 444</h1>
+
+    {{ dump(products|raw) }}
+
+    {#{% for product in products|raw %}#}
+        {#{{ dump(product.name) }}#}
+        {#<h2>{{ index.loop }}</h2>#}
+    {#{% endfor %}#}
+
+{% endblock %}

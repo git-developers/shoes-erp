@@ -1,0 +1,64 @@
+<header class="main-header">
+
+    {#Logo#}
+    <a href="{{ url('frontend_default_index') }}" class="logo">
+        {#mini logo for sidebar mini 50x50 pixels#}
+        <span class="logo-mini">
+            {#<b>TIA</b>NOS#}
+            <img src="{{ asset('bundles/themes/adminlte/images/favicon.ico') }}" height="40" width="40">
+        </span>
+
+        {#logo for regular state and mobile devices#}
+        <span class="logo-lg">
+            {{ application_name_html|raw }}
+        </span>
+    </a>
+
+    {#Header Navbar: style can be found in header.less#}
+    <nav class="navbar navbar-static-top">
+
+        {#Sidebar toggle button#}
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+
+        <div class="navbar-custom-menu">
+
+            <ul class="nav navbar-nav">
+
+                {% if app.user is not null %}
+                    {#Messages: style can be found in dropdown.less#}
+                    {#{{ include("CoreBundle::Template/dropdown_menu_messages.html.twig") }}#}
+
+                    {#Notifications: style can be found in dropdown.less#}
+                    {{ include("ThemesBundle::Adminlte/TemplateSuper/Dropdown/dropdown_menu_notifications.html.twig") }}
+
+                    {#Tasks: style can be found in dropdown.less#}
+                    {#{{ include("CoreBundle::Template/dropdown_menu_tasks.html.twig") }}#}
+                {% endif %}
+
+                {% if app.user is null %}
+                    <li>
+                        <a href="{{ path('backend_security_super_login') }}">
+                            <i class="fa fa-key"></i> Login
+                        </a>
+                    </li>
+
+                    {#
+                    <li>
+                        <a href="{{ path('backend_security_register') }}" title="Crea tu nueva cuenta">
+                            <i class="fa fa-user-plus"></i> Crear cuenta
+                        </a>
+                    </li>
+                    #}
+                {% endif %}
+
+                {#User Account: style can be found in dropdown.less#}
+                {% if app.user is not null %}
+                    {{ include("ThemesBundle::Adminlte/TemplateSuper/Dropdown/dropdown_menu_user.html.twig") }}
+                {% endif %}
+
+            </ul>
+        </div>
+    </nav>
+</header>

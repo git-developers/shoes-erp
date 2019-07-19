@@ -1,0 +1,90 @@
+{% spaceless %}
+
+    {{ form_start(form, {name: 'form-create-employee'}) }}
+
+        <div style="display: none">
+            {{ form_widget(form.code, {'value' : '-1'}) }}
+        </div>
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title">
+                <i class="fa fa-plus"></i> Agregar empleado
+            </h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="row" style="margin-bottom: 5px">
+                <div class="col-md-6">
+                    Total: <span class="badge bg-green-active total-employee">{{ employees|length }}</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control search-employee">
+                        <span class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </span>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-bordered table-employee table-scroll">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">avatar</th>
+                        <th class="text-center">nombre</th>
+                        <th class="text-center">
+                            <i class="fa fa-fw fa-calendar-plus-o"></i> miembro
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                        <tr>
+                            <td class="text-center">
+                                <input
+                                    type="checkbox"
+                                    name="employee[][code]"
+                                    value="{{ employee.id }}">
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-green-active">
+                                    {{ employee.id }}
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <img
+                                    src="{{ asset('bundles/themes/common/images/no_avatar.jpg') }}"
+                                    style="max-height: 30px"
+                                    class="img-circle">
+                            </td>
+                            <td class="text-center">
+                                {{ employee.name_box }}
+                            </td>
+                            <td class="text-center">
+                                {{ employee.created_at|date('Y-m-d') }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">
+                                No hay datos que mostrar.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-outline">Agregar</button>
+        </div>
+
+    {{ form_end(form) }}
+
+{% endspaceless %}

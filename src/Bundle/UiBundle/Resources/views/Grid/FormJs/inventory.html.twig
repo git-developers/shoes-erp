@@ -1,0 +1,32 @@
+{% if dataTable.route.edit is defined %}
+    $('body.{{ vars.body_css }}').formEdit({
+        modalId: '{{ modal.edit_id }}',
+        route: '{{ path(dataTable.route.edit) }}',
+        formName: '{{ form_mapper.edit_name }}',
+        tableJson: tableJson
+    });
+{% endif %}
+
+{% if dataTable.route.delete is defined %}
+    $('body.{{ vars.body_css }}').formDelete({
+        modalId: '{{ modal.delete_id }}',
+        route: '{{ path(dataTable.route.delete) }}',
+        formName: '{{ form_mapper.delete_name }}',
+        tableJson: tableJson
+    });
+{% endif %}
+
+{% if dataTable.route.view is defined %}
+    $('body.{{ vars.body_css }}').formView({
+        modalId: '{{ modal.view_id }}',
+        route: '{{ path(dataTable.route.view) }}',
+        tableTdClass: '{{ dataTable.tableOptions.table_td_class }}'
+    });
+{% endif %}
+
+{% if dataTable.route.info is defined %}
+    $('body.{{ vars.body_css }}').formInfo({
+        modalId: '{{ modal.info_id }}',
+        route: '{{ path(dataTable.route.info) }}'
+    });
+{% endif %}

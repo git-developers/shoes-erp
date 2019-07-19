@@ -1,0 +1,19 @@
+frontend_files_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.files:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_files
+            template: FilesBundle:Files:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_files_catalog
+                icon: cube
+            form:
+                type: Bundle\FilesBundle\Form\Type\FilesType
+            repository:
+                service: tianos.repository.files
+                method: findAll
+                arguments: [$filesId]

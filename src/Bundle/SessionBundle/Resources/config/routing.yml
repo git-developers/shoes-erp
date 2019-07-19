@@ -1,0 +1,7 @@
+#backend_product_bundle:
+#    resource: '@ProductBundle/Resources/config/product-backend.yml'
+#    prefix: /product-backend
+#
+#frontend_product_bundle:
+#    resource: '@ProductBundle/Resources/config/product-frontend.yml'
+#    prefix: /products-frontend

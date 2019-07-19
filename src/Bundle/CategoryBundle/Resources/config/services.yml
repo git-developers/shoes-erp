@@ -1,0 +1,46 @@
+services:
+
+    tianos.listener.doctrine.category:
+        class: Bundle\CategoryBundle\EventListener\DoctrineListenerService
+        arguments: ["@security.token_storage"]
+        tags:
+          - { name: doctrine.event_listener, event: postUpdate }
+          - { name: doctrine.event_listener, event: preUpdate }
+          - { name: doctrine.event_listener, event: prePersist }
+          - { name: doctrine.event_listener, event: postLoad }
+          - { name: doctrine.event_listener, event: postRemove }
+
+    tianos.api.controller.category:
+        class: Bundle\CategoryBundle\Controller\ApiController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.api.controller.category, alias: tianos.api.controller.category }
+
+    tianos.backend.controller.category:
+        class: Bundle\CategoryBundle\Controller\BackendController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.category, alias: tianos.backend.controller.category }
+
+    tianos.frontend.controller.category:
+        class: Bundle\CategoryBundle\Controller\FrontendController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.frontend.controller.category, alias: tianos.frontend.controller.category }
+
+    tianos.tree.controller.category:
+        class: Bundle\CategoryBundle\Controller\TreeController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.tree.controller.category, alias: tianos.tree.controller.category }
+
+    tianos.repository.category:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\CategoryBundle\Entity\Category ]
+
+    tianos.type.category:
+        class: Bundle\CategoryBundle\Form\Type\CategoryType
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: form.type, alias: tianos.type.category }

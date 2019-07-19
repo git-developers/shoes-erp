@@ -1,0 +1,16 @@
+backend_google_drive_vote_like_dislike:
+    path: /like-dislike
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.google.drive.vote.controller.google:voteAction
+        _tianos:
+            action: edit
+            template: GoogleBundle:GoogleDriveFileGrid/Form:form.html.twig
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google.drive.vote
+                method: vote
+                arguments: [$clientId]
+                vars:
+                    serialize_group_name: google-drive-file-vote

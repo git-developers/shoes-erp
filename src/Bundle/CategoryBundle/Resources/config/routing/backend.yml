@@ -1,0 +1,132 @@
+backend_category_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.category:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_category_catalog
+                icon: cube
+                body_css: grid-body-css
+            grid:
+                icon: sitemap
+                box_class: primary
+                title: Gestionar categoría
+                modal:
+                    title: Crear categoría
+                data_table:
+                    route:
+                        info: backend_category_info
+                        view: backend_category_view
+                        edit: backend_category_edit
+                        create: backend_category_create
+                        delete: backend_category_delete
+                    table_button:
+                        - edit
+                        - delete
+                    table_button_header:
+                        - create
+                        - info
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: code
+                          obj: obj.code
+                          options:
+                              icon: qrcode
+                        - name: Name
+                          obj: obj.name
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\CategoryBundle\Form\Type\CategoryType
+            repository:
+                service: tianos.repository.category
+                method: findAll
+                arguments: [$categoryId]
+                vars:
+                    serialize_group_name: crud
+
+backend_category_create:
+    path: /create
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.category:createAction
+        _tianos:
+            action: create
+            template: CategoryBundle:BackendCategory/Form:form.html.twig
+            entity: Bundle\CategoryBundle\Entity\Category
+            form:
+                type: Bundle\CategoryBundle\Form\Type\CategoryType
+            repository:
+                vars:
+                    serialize_group_name: crud
+
+backend_category_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.category:editAction
+        _tianos:
+            action: edit
+            template: CategoryBundle:BackendCategory/Form:form.html.twig
+            form:
+                type: Bundle\CategoryBundle\Form\Type\CategoryType
+            repository:
+                service: tianos.repository.category
+                method: find
+                arguments: [$categoryId]
+                vars:
+                    serialize_group_name: crud
+
+backend_category_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.backend.controller.category:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.category
+                method: find
+                arguments: [$categoryId]
+            vars:
+#                body_css: grid-body-css
+
+backend_category_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.category:viewAction
+        _tianos:
+            action: view
+            template: CategoryBundle:BackendCategory/Informative:view.html.twig
+            repository:
+                service: tianos.repository.category
+                method: find
+                arguments: [$categoryId]
+                vars:
+                    serialize_group_name: crud
+
+backend_category_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.category:infoAction
+        _tianos:
+            action: info
+            template: CategoryBundle:CategoryBackend/Informative:info.html.twig

@@ -1,0 +1,117 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services/services.yml }
+    - { resource: services/controller.yml }
+    - { resource: third-party/assetic.yml }
+    - { resource: third-party/doctrine-migrations.yml }
+    - { resource: third-party/fos-user.yml }
+    - { resource: third-party/knp-menu.yml }
+    - { resource: third-party/liip-imagine.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: es
+    locales: [en, fr, es]
+
+framework:
+    #esi: ~
+    translator: { fallbacks: ['%locale%'] }
+    secret: '%secret%'
+    router:
+        resource: '%kernel.project_dir%/app/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    session:
+        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    date:
+        timezone: America/Lima
+    globals:
+        locale: "%locale%"
+        application_name: '%application_name%'
+        application_name_html: '%application_name_html%'
+        application_version: '%application_version%'
+        application_url: '%application_url%'
+        application_via: '%application_via%'
+        application_url_canonical: '%application_url_canonical%'
+        application_description: '%application_description%'
+        application_theme_color: '%application_theme_color%'
+#        application_image: 'http://%application_url%/xxx.jpg'
+#        application_favicon: 'http://%application_url%/favicon.ico'
+        application_fb_app_id: '%application_fb_app_id%'
+        application_google_api_key: '%application_google_api_key%'
+        application_google_plus: '%application_google_plus%'
+        application_facebook: '%application_facebook%'
+        application_twitter: '%application_twitter%'
+        application_skin: '%application_skin%'
+#        app_id: '%app_id%'
+
+#        websocket_port: '8080'
+#        websocket_host: '%application_url%'
+#        uploads_directory: "%uploads_directory%"
+#        google_client_id: "%google_client_id%"
+#        google_client_secret: "%google_client_secret%"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        charset: UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #path: '%database_path%'
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+#        mappings:
+#            ComponentProduct:
+#                type: annotation
+#                dir: %kernel.root_dir%/../src/Component/Product/Model
+#                is_bundle: false
+#                prefix: Component\Product\Model
+#                alias: App
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
+
+#sylius_theme:
+#    sources:
+#        filesystem:
+#            directories:
+#                - "%kernel.root_dir%/../../Fixtures/themes"
+

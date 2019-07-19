@@ -1,0 +1,102 @@
+{% extends "ThemesBundle:Adminlte:1_template.html.twig" %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-google"></i> Google drive
+            <small>account permissions</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{{ path('backend_google_drive_index') }}">
+                    <i class="fa fa-dashboard"></i> Google drive
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">permisos</a>
+            </li>
+        </ol>
+        {#{{ render(controller('BackendBundle:GoogleDrive:breadcrumb', {'files': files})) }}#}
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="box box-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    {#style="background: url('{{ asset('bundles/backend/images/google/wallpaper/wallpaper-1.png') }}') center bottom;"#}
+                    <div class="widget-user-header bg-green">
+                        <h3 class="widget-user-username">Google</h3>
+                        <h5 class="widget-user-desc">Drive</h5>
+                    </div>
+                    <div class="widget-user-image">
+                        <img class="img-circle" src="{{ asset('bundles/google/images/google-drive-logo.png') }}" >
+                    </div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 border-right">
+                                <div class="description-block">
+                                    <a href="{{ auth_url }}" class="btn bg-olive margin">Otorgar permisos al drive</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="box box-warning collapsed-box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title x-hand" data-widget="collapse">Que es esto?</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body" style="display: none;">
+                        <ul>
+                            <li>Al dar click en "Otorgar permisos al drive", podras visualizar tus archivos de tu google drive.</li>
+                            <li>El sistema Tianos, funciona compartiendo los archivos de tu google drive.</li>
+                            <li>El sistema Tianos, no guarda ninguna dato personal de tu google drive.</li>
+                            <li>Intentalo!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

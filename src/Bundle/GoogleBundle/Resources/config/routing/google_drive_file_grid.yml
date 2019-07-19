@@ -1,0 +1,347 @@
+backend_google_drive_grid_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.google.drive.grid.controller.google:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_client_catalog
+                icon: cube
+                body_css: grid-body-css
+            grid:
+                icon: google
+                box_class: primary
+                title: Todos los archivos Google Drive gestionados en Tianos
+                modal:
+                    title: Crear cliente
+                    view_size: modal-lg
+                data_table:
+                    route:
+                        info: backend_google_drive_grid_info
+                        view: backend_google_drive_grid_view
+                        edit: backend_google_drive_grid_edit
+                        delete: backend_google_drive_grid_delete
+                        watch: backend_google_drive_grid_watch
+#                        create: backend_client_create
+                    table_option:
+                        pageLength: 50
+                        dom: "'<\"top\"iflp><\"clear\">rt<\"bottom\"iflp>'"
+                    table_button:
+#                        - edit
+#                        - delete
+                        - watch
+                    table_button_header:
+#                        - create
+                        - info
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: data-slug
+                          value: aData.slug
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+#                        - name: Thumbnail
+#                          obj: " '<img class=\" img-thumbnail img-responsive \" src=\" ' + obj.file_image + ' \" >' "
+#                          options:
+#                              icon: image
+#                              property: " return (obj.has_thumbnail == '1') ? '<img style=\" max-height:120px \" class=\" img-thumbnail img-responsive \" src=\" ../../../web/google-drive-images/' + obj.file_id + '-w400.jpg \" >' : '<i class=\"fa fa-fw fa-2x fa-image\"></i>' "
+                        - name: Icon
+                          obj: " '<img class=\" img-thumbnail img-responsive \" src=\" ' + obj.file_icon_link + ' \" >' "
+#                        - name: Icon 2
+#                          obj: " '<i class=\" fa fa-fw fa-2x fa-' + obj.file_mime_type_short + ' \"></i> ' "
+                        - name: Nombre
+                          obj: obj.file_name
+            form:
+                type: Bundle\UniversityBundle\Form\Type\UniversityType
+            repository:
+                service: tianos.repository.google.drive
+#                method: findAll
+                method: findAllNative
+                arguments: [$clientId]
+                vars:
+                    serialize_group_name: google-drive-file
+
+backend_google_drive_grid_index_admin:
+    path: /admin
+    methods: [GET]
+    defaults:
+        _controller: tianos.google.drive.grid.controller.google:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_client_catalog
+                icon: cube
+                body_css: grid-body-css
+            grid:
+                icon: google
+                box_class: primary
+                title: 'Admin: archivos Google Drive gestionados en Tianos'
+                modal:
+                    title: Crear cliente
+                data_table:
+                    route:
+                        info: backend_google_drive_grid_info
+                        view: backend_google_drive_grid_view
+                        edit: backend_google_drive_grid_edit
+                        delete: backend_google_drive_grid_delete
+                        watch: backend_google_drive_grid_watch
+#                        create: backend_client_create
+                    table_option:
+                        pageLength: 50
+                        dom: "'<\"top\"flp><\"clear\">rt<\"bottom\"flp>'"
+                    table_button:
+                        - edit
+                        - delete
+                        - watch
+                    table_button_header:
+#                        - create
+                        - info
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: data-slug
+                          value: aData.slug
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Thumbnail
+                          obj: " '<img class=\" img-thumbnail img-responsive \" src=\" ' + obj.file_image + ' \" >' "
+                          options:
+                              icon: image
+                              property: " return (obj.file_image == null) ? '<i class=\"fa fa-fw fa-2x fa-image\"></i>' : '<img class=\" img-thumbnail img-responsive \" src=\" ' + obj.file_image + ' \" >' "
+                        - name: Icon
+                          obj: " '<img class=\" img-thumbnail img-responsive \" src=\" ' + obj.file_icon_link + ' \" >' "
+#                        - name: Icon 2
+#                          obj: " '<i class=\" fa fa-fw fa-2x fa-' + obj.file_mime_type_short + ' \"></i> ' "
+                        - name: Nombre
+                          obj: obj.file_name
+                        - name: Tamaño
+                          obj: obj.file_size
+            form:
+                type: Bundle\UniversityBundle\Form\Type\UniversityType
+            repository:
+                service: tianos.repository.google.drive
+#                method: findAll
+                method: findAllNative
+                arguments: [$clientId]
+                vars:
+                    serialize_group_name: google-drive-file
+
+backend_google_drive_grid_mis_archivos:
+    path: /mis-archivos
+    methods: [GET]
+    defaults:
+        _controller: tianos.google.drive.grid.controller.google:misArchivosAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_client_catalog
+                icon: cube
+                body_css: grid-body-css
+            grid:
+                icon: google
+                box_class: primary
+                title: Mis archivos Google Drive gestionados en Tianos
+                modal:
+                    title: Crear cliente
+                data_table:
+                    route:
+                        info: backend_google_drive_grid_info
+                        view: backend_google_drive_grid_view
+                        edit: backend_google_drive_grid_edit
+                        delete: backend_google_drive_grid_delete
+                        watch: backend_google_drive_grid_watch
+#                        create: backend_client_create
+                    table_option:
+                        pageLength: 50
+                    table_button:
+                        - edit
+                        - delete
+                        - watch
+                    table_button_header:
+#                        - create
+                        - info
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: data-slug
+                          value: aData.slug
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Thumbnail
+                          obj: " '<img class=\" img-thumbnail img-responsive \" src=\" ' + obj.file_image + ' \" >' "
+                          options:
+                              icon: image
+                              property: " return (obj.file_image == null) ? '<i class=\"fa fa-fw fa-2x fa-image\"></i>' : '<img class=\" img-thumbnail img-responsive \" src=\" ' + obj.file_image + ' \" >' "
+                        - name: Icon
+                          obj: " '<img class=\" img-thumbnail img-responsive \" src=\" ' + obj.file_icon_link + ' \" >' "
+#                        - name: Icon 2
+#                          obj: " '<i class=\" fa fa-fw fa-2x fa-' + obj.file_mime_type_short + ' \"></i> ' "
+                        - name: Nombre
+                          obj: obj.file_name
+                        - name: Tamaño
+                          obj: obj.file_size
+            form:
+                type: Bundle\UniversityBundle\Form\Type\UniversityType
+            repository:
+                service: tianos.repository.google.drive
+                method: findMisArchivos
+                arguments: [$clientId]
+                vars:
+                    serialize_group_name: google-drive-file
+
+backend_google_drive_grid_relevance:
+    path: /relevance
+    methods: [POST]
+    defaults:
+        _controller: tianos.google.drive.grid.controller.google:relevanceAction
+        _tianos:
+            action: edit
+            template: GoogleBundle:GoogleDriveFileGrid/Watch/Box:relevance.html.twig
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google.drive
+                method: relevance
+                arguments: [$clientId]
+                vars:
+                    serialize_group_name: google-drive-file
+
+backend_google_drive_grid_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.google.drive.grid.controller.google:editAction
+        _tianos:
+            action: edit
+            template: GoogleBundle:GoogleDriveFileGrid/Form:form.html.twig
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google.drive
+                method: find
+                arguments: [$clientId]
+                vars:
+                    serialize_group_name: google-drive-file
+
+backend_google_drive_grid_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.google.drive.grid.controller.google:viewAction
+        _tianos:
+            action: view
+            template: GoogleBundle:GoogleDriveFileGrid/Informative:view.html.twig
+            repository:
+                service: tianos.repository.google.drive
+                method: find
+                arguments: [$clientId]
+                vars:
+                    serialize_group_name: google-drive-file
+
+backend_google_drive_grid_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.google.drive.grid.controller.google:infoAction
+        _tianos:
+            action: info
+            template: GoogleBundle:GoogleDriveFileGrid/Informative:info.html.twig
+
+backend_google_drive_grid_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.google.drive.grid.controller.google:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.google.drive
+                method: find
+                arguments: [$clientId]
+            vars:
+#                body_css: grid-body-css
+
+backend_google_drive_grid_watch:
+    path: /watch/{slug}
+    methods: [GET]
+    defaults:
+        slug: null
+        _controller: tianos.google.drive.grid.controller.google:watchAction
+        _tianos:
+            action: edit
+            template: GoogleBundle:GoogleDriveFileGrid/Watch:index.html.twig
+            vars:
+                body_css: tianos-file-watch
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google.drive
+                method: findOneBySlug
+                arguments: [$googleId]
+                vars:
+                    serialize_group_name: google-drive
+
+backend_google_drive_grid_qr:
+    path: /qr
+    methods: [POST]
+    defaults:
+        _controller: tianos.google.drive.grid.controller.google:qrAction
+        _tianos:
+            action: xxx
+            template: GoogleBundle:GoogleDriveFileGrid/Watch/Box:qr.html.twig
+            vars:
+                body_css: tianos-file-watch
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google.drive
+                method: findOneBySlug
+                arguments: [$googleId]
+                vars:
+                    serialize_group_name: google-drive
+
+backend_google_drive_grid_share_count:
+    path: /share-count
+    methods: [POST]
+    defaults:
+        _controller: tianos.google.drive.grid.controller.google:shareCountAction
+        _tianos:
+#            action: xxx
+#            template: GoogleBundle:GoogleDriveFileGrid/Watch/Box:qr.html.twig
+#            vars:
+#                body_css: tianos-file-watch
+#            form:
+#                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google.drive.count
+                method: insertShare
+                arguments: [$googleId]
+                vars:
+                    serialize_group_name: google-drive
+

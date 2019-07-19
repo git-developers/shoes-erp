@@ -1,0 +1,36 @@
+{% extends 'GridBundle::Template/crud_modal_content.html.twig' %}
+
+{% block crud_modal_content %}
+    <div class="box box-solid">
+        {#<div class="box-header with-border">#}
+            {#<h3 class="box-title">About Me</h3>#}
+        {#</div>#}
+
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>
+                        <i class="fa fa-book margin-r-5"></i> Nombre
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.name }}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <strong>
+                        <i class="fa fa-calendar margin-r-5"></i> Creado
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.createdAt|date("Y-m-d H:i:s") }}
+                    </p>
+                </div>
+            </div>
+
+            <hr>
+
+        </div>
+    </div>
+{% endblock %}

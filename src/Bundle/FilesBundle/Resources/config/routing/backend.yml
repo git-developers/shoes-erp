@@ -1,0 +1,151 @@
+backend_files_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.files:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_files_catalog
+                icon: cube
+                body_css: grid-body-css
+                serialize_group_name: crud
+#            grid: sylius_admin_product
+            grid:
+                icon: cube
+                box_class: primary
+                title: Gestionar files
+                data_table:
+                    route:
+                        info: backend_files_info
+                        view: backend_files_view
+                        edit: backend_files_edit
+                        create: backend_files_create
+                        delete: backend_files_delete
+                    table_button:
+                        - edit
+                        - delete
+                    table_button_header:
+                        - create
+                        - info
+                    table_option:
+                        pageLength: 10
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Name
+                          obj: obj.name
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\FilesBundle\Form\Type\FilesType
+            repository:
+                service: tianos.repository.files
+                method: findAll
+                arguments: [$filesId]
+                vars:
+                    serialize_group_name: crud
+
+backend_files_open_modal:
+    path: /open-modal
+    methods: [PUT]
+    defaults:
+        _controller: tianos.backend.controller.files:openModalAction
+        _tianos:
+            action: upload_info
+            template: FilesBundle:BackendFiles/Form:image_form.html.twig
+            entity: Bundle\FilesBundle\Entity\Files
+            form:
+                type: Bundle\FilesBundle\Form\Type\FilesType
+            repository:
+                service: tianos.repository.files
+                method: findByPk
+                arguments: [$filesId]
+                vars:
+                    serialize_group_name: crud
+
+backend_files_create:
+    path: /create
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.files:createAction
+        _tianos:
+            action: upload_info
+            template: FilesBundle:BackendFiles/Form:image_form.html.twig
+            entity: Bundle\FilesBundle\Entity\Files
+            form:
+                type: Bundle\FilesBundle\Form\Type\FilesType
+            repository:
+                service: tianos.repository.files
+                method: findByPk
+                arguments: [$filesId]
+                vars:
+                    serialize_group_name: crud
+
+backend_files_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.files:editAction
+        _tianos:
+            action: edit
+            template: FilesBundle:BackendFiles/Form:form.html.twig
+            form:
+                type: Bundle\FilesBundle\Form\Type\FilesType
+            repository:
+                service: tianos.repository.files
+                method: find
+                arguments: [$filesId]
+                vars:
+                    serialize_group_name: crud
+
+backend_files_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.backend.controller.files:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.files
+                method: find
+                arguments: [$filesId]
+            vars:
+#                body_css: grid-body-css
+
+backend_files_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.files:viewAction
+        _tianos:
+            action: view
+            template: FilesBundle:BackendFiles/Informative:view.html.twig
+            repository:
+                service: tianos.repository.files
+                method: find
+                arguments: [$filesId]
+                vars:
+                    serialize_group_name: crud
+
+backend_files_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.files:infoAction
+        _tianos:
+            action: info
+            template: FilesBundle:BackendFiles/Informative:info.html.twig

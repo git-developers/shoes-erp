@@ -1,0 +1,56 @@
+<ul class="timeline timeline-inverse">
+    {% for gdFile in lastGoogleDriveFiles %}
+
+        <li class="time-label">
+            <span class="bg-green">{{ gdFile.created_at|date('Y-m-d H:i') }}</span>
+        </li>
+
+        <li>
+            <i class="fa fa-file-code-o bg-blue"></i>
+            <div class="timeline-item">
+                {#<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>#}
+                <h3 class="timeline-header">
+                    <a href="{{ path('backend_google_drive_grid_watch', {slug: gdFile.slug}) }}">
+                        {{ gdFile.file_name|slice(0, 100) }}
+                    </a>
+                </h3>
+                <div class="timeline-body" title="{{ gdFile.description }}">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="{{ path('backend_google_drive_grid_watch', { slug:gdFile.slug }) }}">
+                                {% if gdFile.has_thumbnail %}
+                                    <img
+                                        class="img-responsive img-thumbnail"
+                                        style="max-height: 100px"
+                                        src="{{ asset('google-drive-images/' ~ gdFile.file_id ~ '-w400.jpg') }}"
+                                        alt="{{ gdFile.file_name }}"
+                                        title="{{ gdFile.file_name }}">
+                                {% else %}
+                                    <img
+                                        class="img-responsive img-thumbnail"
+                                        style="max-height: 100px"
+                                        src="{{ asset('bundles/themes/adminlte/images/empty-image-600x400.png') }}"
+                                        alt="">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+                            {{ gdFile.description|default('-')|slice(0, 200) }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="timeline-footer">
+                    <a class="btn btn-default btn-xs margin-right-5">
+                        <i class="fa fa-share-alt"></i> {{ gdFile.count_share|default(0) }} compartido
+                    </a>
+                    <a class="btn btn-default btn-xs">
+                        <i class="fa fa-eye"></i> {{ gdFile.count_view|default(0) }} vistas
+                    </a>
+                </div>
+            </div>
+        </li>
+
+    {% endfor %}
+</ul>

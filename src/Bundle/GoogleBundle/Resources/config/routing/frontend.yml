@@ -1,0 +1,19 @@
+frontend_google_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.google:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_google
+            template: GoogleBundle:Google:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_google_catalog
+                icon: cube
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.google
+                method: findAll
+                arguments: [$googleId]

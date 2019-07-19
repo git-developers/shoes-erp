@@ -1,0 +1,132 @@
+backend_role_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.role:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_role_catalog
+                icon: cube
+                body_css: grid-body-css
+            grid:
+                icon: expeditedssl
+                box_class: primary
+                title: Gestionar roles
+                modal:
+                    title: Crear rol
+                data_table:
+                    route:
+                        info: backend_role_info
+                        view: backend_role_view
+                        edit: backend_role_edit
+                        create: backend_role_create
+                        delete: backend_role_delete
+                    table_button:
+                        - edit
+                        - delete
+                    table_button_header:
+                        - create
+                        - info
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Name
+                          obj: obj.name
+                        - name: Grupo de rol
+                          obj: obj.group_rol
+                        - name: Slug
+                          obj: " '<span class=\"badge bg-green\">' + obj.slug + '</span>' "
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\RoleBundle\Form\Type\RoleType
+            repository:
+                service: tianos.repository.role
+                method: findAll
+                arguments: [$roleId]
+                vars:
+                    serialize_group_name: crud
+
+backend_role_create:
+    path: /create
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.role:createAction
+        _tianos:
+            action: create
+            template: RoleBundle:BackendRole/Form:form.html.twig
+            entity: Bundle\RoleBundle\Entity\Role
+            form:
+                type: Bundle\RoleBundle\Form\Type\RoleType
+            repository:
+                vars:
+                    serialize_group_name: crud
+
+backend_role_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.role:editAction
+        _tianos:
+            action: edit
+            template: RoleBundle:BackendRole/Form:form.html.twig
+            form:
+                type: Bundle\RoleBundle\Form\Type\RoleType
+            repository:
+                service: tianos.repository.role
+                method: find
+                arguments: [$roleId]
+                vars:
+                    serialize_group_name: crud
+
+backend_role_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.backend.controller.role:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.role
+                method: find
+                arguments: [$roleId]
+            vars:
+#                body_css: grid-body-css
+
+backend_role_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.role:viewAction
+        _tianos:
+            action: view
+            template: RoleBundle:BackendRole/Informative:view.html.twig
+            repository:
+                service: tianos.repository.role
+                method: find
+                arguments: [$roleId]
+                vars:
+                    serialize_group_name: crud
+
+backend_role_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.role:infoAction
+        _tianos:
+            action: info
+            template: RoleBundle:BackendRole/Informative:info.html.twig

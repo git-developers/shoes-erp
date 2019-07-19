@@ -1,0 +1,189 @@
+backend_user_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.user:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: GridBundle::index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_user_catalog
+                icon: cube
+                body_css: grid-body-css
+            grid:
+                icon: user
+                box_class: primary
+                title: Gestionar usuarios XX
+                modal:
+                    create:
+                        title: Crear usuario
+                    change_password:
+                        title: Cambiar password
+                data_table:
+                    route:
+                        info: backend_user_info
+                        view: backend_user_view
+                        edit: backend_user_edit
+                        create: backend_user_create
+                        delete: backend_user_delete
+                        view_profile: backend_user_profile
+                        change_password: backend_user_change_password
+                    table_button:
+                        - edit
+                        - delete
+                        - view_profile
+                        - change_password
+                    table_button_header:
+                        - create
+                        - info
+                    table_option:
+                        pageLength: 50
+                    row_call_back:
+                        - key: id
+                          value: aData.id
+                        - key: data-id
+                          value: aData.id
+                        - key: data-slug
+                          value: aData.slug
+                        - key: class
+                          value: "'alert'"
+                    columns:
+                        - name: '#'
+                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Username
+                          obj: " '<span class=\"badge bg-green\">' + obj.username + '</span>' "
+                          options:
+                              icon: feed
+                        - name: Nombre
+                          obj: " obj.name + ' ' + obj.last_name "
+                        - name: Email
+                          obj: obj.email
+                          options:
+                              icon: envelope-o
+                        - name: Perfil
+                          obj: " '<span class=\"badge bg-teal\">' + obj.profile.name + '</span>' "
+                        - name: Creado
+                          obj: obj.created_at
+                          options:
+                              icon: calendar
+            form:
+                type: Bundle\UserBundle\Form\Type\UserType
+            repository:
+                service: tianos.repository.user
+                method: findAll
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: crud
+
+backend_user_create:
+    path: /create
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.user:createAction
+        _tianos:
+            action: create
+            template: UserBundle:BackendUser/Form:form.html.twig
+            entity: Bundle\UserBundle\Entity\User
+            form:
+                type: Bundle\UserBundle\Form\Type\UserType
+            repository:
+                vars:
+                    serialize_group_name: crud
+
+backend_user_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.user:editAction
+        _tianos:
+            action: edit
+            template: UserBundle:BackendUser/Form:form.html.twig
+            form:
+                type: Bundle\UserBundle\Form\Type\UserType
+            repository:
+                service: tianos.repository.user
+                method: find
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: crud
+
+backend_user_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.backend.controller.user:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.user
+                method: find
+                arguments: [$userId]
+            vars:
+#                body_css: grid-body-css
+
+backend_user_change_password:
+    path: /change-password
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.user:changePasswordAction
+        _tianos:
+            action: edit
+            template: UserBundle:BackendUser/Form:change_password.html.twig
+            entity: Bundle\UserBundle\Entity\ChangePassword2
+            form:
+                type: Bundle\UserBundle\Form\Type\UserChangePasswordType2
+            repository:
+                service: tianos.repository.user
+                method: find
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: crud
+
+backend_user_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.user:viewAction
+        _tianos:
+            action: view
+            template: UserBundle:BackendUser/Informative:view.html.twig
+            repository:
+                service: tianos.repository.user
+                method: find
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: crud
+
+backend_user_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.user:infoAction
+        _tianos:
+            action: info
+            template: UserBundle:BackendUser/Informative:info.html.twig
+
+backend_user_profile:
+    path: /{slug}
+    methods: [GET]
+    defaults:
+        slug: null
+        _controller: tianos.backend.controller.user:profileAction
+        _tianos:
+            action: edit
+            template: UserBundle:BackendUser/Profile:index.html.twig
+            vars:
+                body_css: tianos-profile-user
+                button_add_friend: add-friend
+                button_remove_friend: remove-friend
+            form:
+                type: Bundle\GoogleBundle\Form\Type\GoogleType
+            repository:
+                service: tianos.repository.user
+                method: findOneBySlug
+                arguments: [$userId]
+                vars:
+                    serialize_group_name: user

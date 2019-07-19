@@ -1,0 +1,48 @@
+{% spaceless %}
+
+    {% for key, entity in objectsRight %}
+
+        {% set id = entity.id|default('< missing ID >') %}
+
+        <li
+            class="{{ boxRight.li_class }} x-hand bg-orange"
+            data-id="{{ id }}"
+        >
+
+            <span class="handle ui-sortable-handle">
+                <i class="fa fa-ellipsis-v"></i>
+                <i class="fa fa-ellipsis-v"></i>
+            </span>
+
+            {#<input#}
+                {#type="hidden"#}
+                {#name="{{ boxRight.box_value_hidden }}">#}
+
+            <input
+                name="{{ boxRight.li_input_name }}"
+                type="checkbox"
+                checked="checked"
+                data-id="{{ id }}"
+                value="{{ id }}">
+
+            <span class="badge {{ boxRight.li_badge_class }}">
+                {{ id }}
+            </span>
+
+            <span class="text">
+                {{ entity.name_box|default('< missing name_box >') }}
+            </span>
+
+            <div class="tools">
+                <i class="fa fa-edit"></i>
+                {#<i class="fa fa-trash-o"></i>#}
+            </div>
+        </li>
+    {% else %}
+        <li>
+            <span class="text">
+                No hay resultados.
+            </span>
+        </li>
+    {% endfor %}
+{% endspaceless %}

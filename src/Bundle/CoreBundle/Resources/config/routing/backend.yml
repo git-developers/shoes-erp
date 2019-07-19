@@ -1,0 +1,7 @@
+backend_core_loadfixtures:
+    path: /load-fixtures
+    methods: [GET, POST]
+    defaults:
+        _controller: tianos.core.controller.default:loadFixturesAction
+        _tianos:
+            template: CoreBundle:Default:load_fixtures.html.twig

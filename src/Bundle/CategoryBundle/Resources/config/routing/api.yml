@@ -1,0 +1,20 @@
+api_category_index:
+    path: /
+    methods: [POST]
+    defaults:
+        _controller: tianos.api.controller.category:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_category
+            template: CategoryBundle:Category:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_product_catalog
+                icon: cube
+                serialize_group_name: api
+            form:
+                type: Bundle\CategoryBundle\Form\Type\CategoryType
+            repository:
+                service: tianos.repository.category
+                method: findAllParents
+                arguments: [$categoryId]

@@ -901,10 +901,21 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
 	/**
 	 * @return \Bundle\PointofsaleBundle\Entity\Pointofsale
 	 */
-//	public function getPointOfSaleActive(): \Bundle\PointofsaleBundle\Entity\Pointofsale
 	public function getPointOfSaleActive()
 	{
 		return $this->pointOfSaleActive;
+	}
+	
+	/**
+	 * @return \Bundle\PointofsaleBundle\Entity\Pointofsale
+	 */
+	public function getPointOfSaleActiveSlug()
+	{
+		if (!$this->pointOfSaleActive instanceof Pointofsale) {
+			return false;
+		}
+		
+		return $this->pointOfSaleActive->getSlug();
 	}
 	
 	public function getPointOfSaleActiveId()

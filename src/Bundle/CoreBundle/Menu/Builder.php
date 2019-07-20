@@ -137,9 +137,11 @@ class Builder implements ContainerAwareInterface
             Role::ROLE_PDV_ADMIN,
         ]);
 
+        /*
         $isGrantedSuperAdmin = $this->isGranted(Role::ROLE_SUPER_ADMIN);
         $isGrantedAdmin = $this->isGranted(Role::ROLE_PDV_ADMIN);
         $isGrantedEmployee = $this->isGranted(Role::ROLE_EMPLOYEE);
+        */
 
         $menu->addChild('Usuarios', [
             'route' => 'frontend_default_index',
@@ -159,12 +161,12 @@ class Builder implements ContainerAwareInterface
         ->setDisplay(true)
         ;
 
-        $menu['Usuarios']->addChild('Gestionar', [
+        $menu['Usuarios']->addChild('Todos', [
             'route' => 'backend_super_user_index'
         ])
             ->setAttribute('icon', self::CIRCLE_1)
             ->setAttribute('class', $this->activeRoute('backend_super_user_index'))
-            ->setDisplay($isGrantedSuperAdmin)
+            ->setDisplay($isGranted)
         ;
 
         $menu['Usuarios']->addChild('Clientes', [
@@ -172,7 +174,7 @@ class Builder implements ContainerAwareInterface
         ])
             ->setAttribute('icon', self::CIRCLE_2)
             ->setAttribute('class', $this->activeRoute('backend_user_client_index'))
-            ->setDisplay($isGrantedAdmin || $isGrantedEmployee)
+            ->setDisplay($isGranted)
         ;
 
         $menu['Usuarios']->addChild('Empleados', [
@@ -180,7 +182,7 @@ class Builder implements ContainerAwareInterface
         ])
             ->setAttribute('icon', self::CIRCLE_3)
             ->setAttribute('class', $this->activeRoute('backend_user_employee_index'))
-            ->setDisplay($isGrantedAdmin)
+            ->setDisplay($isGranted)
         ;
         /**
          * ACCOUNTS - ADMIN
@@ -192,7 +194,7 @@ class Builder implements ContainerAwareInterface
 
 
         /**
-         * STOCK - INVENTORY
+         * PDV - STOCK - INVENTORY
          */
         $isGranted = $this->isGranted([
             Role::ROLE_PDV_ADMIN,
@@ -234,7 +236,57 @@ class Builder implements ContainerAwareInterface
             ->setDisplay($isGranted)
         ;
         /**
-         * STOCK - INVENTORY
+         * PDV - STOCK - INVENTORY
+         */
+		
+
+
+
+
+        /**
+         * SUPER - STOCK - INVENTORY
+         */
+        $isGranted = $this->isGranted([
+	        Role::ROLE_SUPER_ADMIN,
+        ]);
+
+        $menu->addChild('Inventario', [
+            'route' => 'backend_super_product_index',
+            'extras' => ['safe_label' => true],
+            'childrenAttributes' => [
+                'class' => 'treeview-menu',
+            ],
+        ])
+            ->setAttribute('allow_angle', true)
+            ->setAttribute('class', 'treeview')
+            ->setAttribute('class', $this->activeRoute([
+                'backend_super_product_index',
+                'backend_super_category_tree_index',
+            ]))
+            ->setAttribute('icon', 'fa-fw fa-dropbox')
+            ->setDisplay($isGranted)
+        ;
+
+        $menu['Inventario']->addChild('Categoria', [
+            'route' => 'backend_super_category_tree_index',
+            'routeParameters' => [
+                'entity_type' => Category::TYPE_PRODUCT
+            ]
+        ])
+            ->setAttribute('icon', self::CIRCLE_1)
+            ->setAttribute('class', $this->activeRoute('backend_super_category_tree_index'))
+            ->setDisplay($isGranted)
+        ;
+
+        $menu['Inventario']->addChild('Producto', [
+            'route' => 'backend_super_product_index'
+        ])
+            ->setAttribute('icon', self::CIRCLE_2)
+            ->setAttribute('class', $this->activeRoute('backend_super_product_index'))
+            ->setDisplay($isGranted)
+        ;
+        /**
+         * SUPER - STOCK - INVENTORY
          */
 		
 
@@ -245,6 +297,7 @@ class Builder implements ContainerAwareInterface
         /**
          * SERVICES
          */
+        /*
         $isGranted = $this->isGranted([
             Role::ROLE_PDV_ADMIN,
         ]);
@@ -284,6 +337,7 @@ class Builder implements ContainerAwareInterface
             ->setAttribute('class', $this->activeRoute('backend_services_index'))
             ->setDisplay($isGranted)
         ;
+        */
         /**
          * SERVICES
          */
@@ -373,6 +427,7 @@ class Builder implements ContainerAwareInterface
         $isGranted = $this->isGranted([
             Role::ROLE_EMPLOYEE,
 	        Role::ROLE_PDV_ADMIN,
+	        Role::ROLE_SUPER_ADMIN,
         ]);
 
         $menu->addChild('Ticket', [

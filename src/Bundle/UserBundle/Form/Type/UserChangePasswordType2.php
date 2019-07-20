@@ -43,7 +43,7 @@ final class UserChangePasswordType2 extends AbstractType
                 'second_options' => [
                     'label' => 'Confirmar password',
                     'attr' => [
-                        'class' => 'form-control',
+                        'class' => 'form-control password-field',
                         'placeholder' => '****',
                     ],
                 ],

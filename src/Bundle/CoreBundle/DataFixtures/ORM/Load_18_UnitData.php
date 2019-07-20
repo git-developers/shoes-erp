@@ -35,6 +35,8 @@ class Load_18_UnitData extends AbstractFixture implements OrderedFixtureInterfac
         
         $this->addReference('unit-1', $entity);
         
+        
+        /*
         $entity = new Unit();
 	    $entity->setName('gramos');
 	    $entity->setIsActive(true);
@@ -64,6 +66,7 @@ class Load_18_UnitData extends AbstractFixture implements OrderedFixtureInterfac
 	    $manager->persist($product_2);
         
         $this->addReference('unit-4', $entity);
+        */
         
         $entity = new Unit();
 	    $entity->setName('unidades');
@@ -75,6 +78,8 @@ class Load_18_UnitData extends AbstractFixture implements OrderedFixtureInterfac
         
         $this->addReference('unit-5', $entity);
         
+        
+        /*
         $entity = new Unit();
 	    $entity->setName('ampollas');
 	    $entity->setIsActive(true);
@@ -84,7 +89,7 @@ class Load_18_UnitData extends AbstractFixture implements OrderedFixtureInterfac
 	    $manager->persist($product_2);
         
         $this->addReference('unit-6', $entity);
-        
+        */
         
         $manager->flush();
 

@@ -76,3 +76,5 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/backend/, role: [ROLE_PDV_ADMIN, ROLE_EMPLOYEE] }
         - { path: ^/backend-super/, role: ROLE_SUPER_ADMIN }
+        #- { path: ^/backend/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/backend-super/, role: IS_AUTHENTICATED_ANONYMOUSLY }

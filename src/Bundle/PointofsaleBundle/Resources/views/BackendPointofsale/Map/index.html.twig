@@ -38,6 +38,7 @@
             {% for key, pdv in entity %}
 
                 {% if pdv.latitude is not null %}
+
                     var contentString{{ key }} = '<div id="content">'+
                         '<div id="siteNotice">'+
                         '</div>'+
@@ -51,10 +52,11 @@
                         content: contentString{{ key }}
                     });
 
-                    var myLatLng{{ key }} = {lat: {{ pdv.latitude }}, lng: {{ pdv.longitude }}};
+                    {#var myLatLng{{ key }} = {lat: {{ pdv.latitude }}, lng: {{ pdv.longitude }}};#}
 
                     var marker{{ key }} = new google.maps.Marker({
-                        position: myLatLng{{ key }},
+                        {#position: myLatLng{{ key }},#}
+                        position: { lat: {{ pdv.latitude }}, lng: {{ pdv.longitude }} },
                         map: map,
                         {#title: '{{ pdv.name }}',#}
                         icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld=A|FF0000|000000'

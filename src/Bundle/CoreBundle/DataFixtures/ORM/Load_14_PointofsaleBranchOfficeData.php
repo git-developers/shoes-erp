@@ -26,36 +26,36 @@ class Load_14_PointofsaleBranchOfficeData extends AbstractFixture implements Ord
 
         $entity = new Pointofsale();
         $entity->setCode('1111');
-        $entity->setName('Salon Belleza Sucursal 1');
-        $entity->setAddress('Av. paz 234');
+        $entity->setName('Punto de venta Sucursal 1');
+        $entity->setAddress('Av. jerusalem 777');
         $entity->setPhone('994826014');
         $entity->setSlug('point-of-sale-11');
-        $entity->setLatitude('-12.0240716');
-        $entity->setLongitude('-77.1120326');
+        $entity->setLatitude('-12.1288771');
+        $entity->setLongitude('-77.0011349');
 	    $entity->setPointOfSale($pointOfSale);
         $manager->persist($entity);
         $this->addReference('pointofsale-11', $entity);
 
         $entity = new Pointofsale();
         $entity->setCode('2222');
-        $entity->setName('Salon Belleza Sucursal 2');
-        $entity->setAddress('Av. paz 234');
+        $entity->setName('Punto de venta Sucursal 2');
+        $entity->setAddress('Av. breña del mar 4567');
         $entity->setPhone('2484434');
         $entity->setSlug('point-of-sale-12');
-        $entity->setLatitude('-12.1476123');
-        $entity->setLongitude('-77.021375');
+        $entity->setLatitude('-12.1208747');
+        $entity->setLongitude('-77.0296563');
 	    $entity->setPointOfSale($pointOfSale);
         $manager->persist($entity);
         $this->addReference('pointofsale-12', $entity);
 
         $entity = new Pointofsale();
         $entity->setCode('3333');
-        $entity->setName('Salon Belleza Sucursal 3');
-        $entity->setAddress('Av. paz 234');
+        $entity->setName('Punto de venta Sucursal 3');
+        $entity->setAddress('Av. del mar 1234');
         $entity->setPhone('998461653');
         $entity->setSlug('point-of-sale-13');
-        $entity->setLatitude('-12.0982821');
-        $entity->setLongitude('-76.9620132');
+        $entity->setLatitude('-12.0560869');
+        $entity->setLongitude('-77.0843921');
 	    $entity->setPointOfSale($pointOfSale);
         $manager->persist($entity);
         $this->addReference('pointofsale-13', $entity);

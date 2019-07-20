@@ -24,8 +24,12 @@ class Load_15_PointofsaleHasUserData extends AbstractFixture implements OrderedF
 	
 	    $user_2 = $this->getReference('user-2');
 	
+	    $pointofsale_1 = $this->getReference('pointofsale-1');
 	    $pointofsale_3 = $this->getReference('pointofsale-3');
 	    $pointofsale_4 = $this->getReference('pointofsale-4');
+	
+	    $pointofsale_1->addUser($user_2);
+	    $manager->persist($pointofsale_1);
 	
 	    $pointofsale_3->addUser($user_2);
 	    $manager->persist($pointofsale_3);

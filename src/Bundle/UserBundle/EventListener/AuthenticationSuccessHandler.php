@@ -74,7 +74,8 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
 			    $o->messageData = [];
 			    
 			    $request->getSession()->set(Security::AUTHENTICATION_ERROR, $o);
-			    $referer = $this->router->generate('backend_security_pdv_login', ['slug' => $user->getPointOfSaleActive()->getSlug()]);
+			    $referer = $this->router->generate('backend_security_pdv_login',
+				    ['slug' => $user->getPointOfSaleActiveSlug()]);
 		    }
 	    }
 	

@@ -22,11 +22,11 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
     public function load(ObjectManager $manager)
     {
 	
-	    $category10 = $this->getReference('category-10');
-	    $category11 = $this->getReference('category-11');
-	    $category12 = $this->getReference('category-12');
-	    $category13 = $this->getReference('category-13');
-	    $category14 = $this->getReference('category-14');
+	    $category1 = $this->getReference('category-1');
+	    $category2 = $this->getReference('category-2');
+	    $category3 = $this->getReference('category-3');
+	    $category4 = $this->getReference('category-4');
+	    $category5 = $this->getReference('category-5');
 	    
 
         /**
@@ -36,7 +36,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
         $entity->setCode('001');
         $entity->setName('Servicio 1');
         $entity->setPrice(25.33);
-        $entity->setCategory($category10);
+        $entity->setCategory($category1);
         $manager->persist($entity);
         $this->addReference('services-1', $entity);
 
@@ -44,7 +44,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
         $entity->setCode('002');
         $entity->setName('Servicio 2');
 	    $entity->setPrice(56.33);
-        $entity->setCategory($category10);
+        $entity->setCategory($category1);
         $manager->persist($entity);
         $this->addReference('services-2', $entity);
 
@@ -52,7 +52,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
         $entity->setCode('003');
         $entity->setName('Servicio 3');
 	    $entity->setPrice(28.33);
-        $entity->setCategory($category10);
+        $entity->setCategory($category1);
         $manager->persist($entity);
         $this->addReference('services-3', $entity);
 
@@ -60,7 +60,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
         $entity->setCode('004');
         $entity->setName('Servicio 4');
 	    $entity->setPrice(72.12);
-        $entity->setCategory($category10);
+        $entity->setCategory($category1);
         $manager->persist($entity);
         $this->addReference('services-4', $entity);
 	
@@ -72,7 +72,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
         $entity->setCode('005');
         $entity->setName('Servicio 5');
 	    $entity->setPrice(67.12);
-        $entity->setCategory($category11);
+        $entity->setCategory($category2);
         $manager->persist($entity);
         $this->addReference('services-5', $entity);
 
@@ -80,7 +80,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
         $entity->setCode('006');
         $entity->setName('Servicio 6');
 	    $entity->setPrice(38.45);
-        $entity->setCategory($category11);
+        $entity->setCategory($category2);
         $manager->persist($entity);
         $this->addReference('services-6', $entity);
 	
@@ -92,7 +92,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
         $entity->setCode('007');
         $entity->setName('Servicio 7');
 	    $entity->setPrice(87.43);
-        $entity->setCategory($category12);
+        $entity->setCategory($category3);
         $manager->persist($entity);
         $this->addReference('services-66', $entity);
 
@@ -100,7 +100,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
         $entity->setCode('008');
         $entity->setName('Servicio 8');
 	    $entity->setPrice(56.67);
-        $entity->setCategory($category12);
+        $entity->setCategory($category3);
         $manager->persist($entity);
         $this->addReference('services-8', $entity);
 
@@ -108,7 +108,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
         $entity->setCode('009');
         $entity->setName('Servicio 9');
 	    $entity->setPrice(123.44);
-        $entity->setCategory($category12);
+        $entity->setCategory($category3);
         $manager->persist($entity);
         $this->addReference('services-9', $entity);
         
@@ -120,7 +120,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setCode('010');
 	    $entity->setName('Servicio 10');
 	    $entity->setPrice(78.25);
-	    $entity->setCategory($category13);
+	    $entity->setCategory($category4);
 	    $manager->persist($entity);
 	    $this->addReference('services-10', $entity);
 	
@@ -128,7 +128,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setCode('011');
 	    $entity->setName('Servicio 11');
 	    $entity->setPrice(34.67);
-	    $entity->setCategory($category13);
+	    $entity->setCategory($category4);
 	    $manager->persist($entity);
 	    $this->addReference('services-11', $entity);
 
@@ -140,7 +140,7 @@ class Load_16_ServicesData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setCode('012');
 	    $entity->setName('Servicio 12');
 	    $entity->setPrice(15.45);
-	    $entity->setCategory($category14);
+	    $entity->setCategory($category5);
 	    $manager->persist($entity);
 	    $this->addReference('services-12', $entity);
 	    

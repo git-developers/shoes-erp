@@ -67,11 +67,13 @@ class TreeController extends BaseController
 
         
         //REPOSITORY
-        $objects = $this->get($repository)->$method($user->getPointOfSaleActiveId(), $entityType);
+	    //AQUI SE BUSCABA LAS CATEGORIAS FILTRADA POR PDV
+	    //$objects = $this->get($repository)->$method($user->getPointOfSaleActiveId(), $entityType);
+	    $objects = $this->get($repository)->$method($entityType);
         $varsRepository = $configuration->getRepositoryVars();
         $objects = $this->getTreeEntities($objects, $configuration, $varsRepository->serialize_group_name);
         
-
+        
         //CRUD
         $crud = $this->get('tianos.tree');
         $modal = $crud->getModalMapper()->getDefaults();

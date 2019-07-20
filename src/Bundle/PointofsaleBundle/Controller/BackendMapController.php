@@ -45,7 +45,8 @@ class BackendMapController extends GridController
 	    $id = $request->get('id');
 	    $repository = $configuration->getRepositoryService();
 	    $method = $configuration->getRepositoryMethod();
-	    $entity = $this->get($repository)->$method($id);
+	    //$entity = $this->get($repository)->$method($id);
+	    $entity = $this->get($repository)->$method();
 	
 	    //FORM
 	    $form = $this->createForm($formType, $entity, [

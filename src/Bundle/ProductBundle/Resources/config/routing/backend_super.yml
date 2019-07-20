@@ -1,4 +1,4 @@
-backend_product_index:
+backend_super_product_index:
     path: /{categoryId}
     methods: [GET]
     defaults:
@@ -8,7 +8,7 @@ backend_product_index:
             action: index
             section: admin
             permission: true
-            template: GridBundle::index_inventory.html.twig
+            template: GridBundle::index_inventory_super.html.twig
             vars:
                 subheader: sylius.ui.manage_your_product_catalog
                 icon: cube
@@ -24,12 +24,12 @@ backend_product_index:
                 child_ul: box-child-ul
                 li_span: li-span
                 route:
-                    info: backend_category_tree_info
-                    view: backend_category_tree_view
-                    edit: backend_category_tree_edit
-                    create: backend_category_tree_create
-                    create_child: backend_category_tree_create_child
-                    delete: backend_category_tree_delete
+                    info: backend_super_category_tree_info
+                    view: backend_super_category_tree_view
+                    edit: backend_super_category_tree_edit
+                    create: backend_super_category_tree_create
+                    create_child: backend_super_category_tree_create_child
+                    delete: backend_super_category_tree_delete
             grid:
                 icon: dropbox
                 box_class: primary
@@ -43,11 +43,11 @@ backend_product_index:
                         size: modal-
                 data_table:
                     route:
-                        info: backend_product_info
-                        view: backend_product_view
-                        edit: backend_product_edit
-                        create: backend_product_create
-                        delete: backend_product_delete
+                        info: backend_super_product_info
+                        view: backend_super_product_view
+                        edit: backend_super_product_edit
+                        create: backend_super_product_create
+                        delete: backend_super_product_delete
                     table_button:
                         - edit
                         - delete
@@ -84,7 +84,7 @@ backend_product_index:
                     serialize_group_name: crud
                     entity_type: product
 
-backend_product_create:
+backend_super_product_create:
     path: /create
     methods: [POST]
     defaults:
@@ -99,7 +99,7 @@ backend_product_create:
                 vars:
                     serialize_group_name: crud
 
-backend_product_edit:
+backend_super_product_edit:
     path: /edit
     methods: [PUT, POST]
     defaults:
@@ -116,7 +116,7 @@ backend_product_edit:
                 vars:
                     serialize_group_name: crud
 
-backend_product_delete:
+backend_super_product_delete:
     path: /delete
     methods: [POST, DELETE]
     defaults:
@@ -131,7 +131,7 @@ backend_product_delete:
             vars:
 #                body_css: grid-body-css
 
-backend_product_view:
+backend_super_product_view:
     path: /view
     methods: [POST]
     defaults:
@@ -146,7 +146,7 @@ backend_product_view:
                 vars:
                     serialize_group_name: crud
 
-backend_product_info:
+backend_super_product_info:
     path: /info
     methods: [POST]
     defaults:
@@ -155,55 +155,3 @@ backend_product_info:
             action: info
             template: ProductBundle:BackendProduct/Informative:info.html.twig
 
-
-
-
-
-#/var/www/html/Sylius/sylius/vendor/sylius/sylius/docs/customization/factory.rst
-#
-#    sylius_admin_product_create_simple:
-#        path: /products/new/simple
-#        methods: [GET, POST]
-#        defaults:
-#            _controller: sylius.controller.product:createAction
-#            _sylius:
-#                section: admin
-#                factory:
-#                    method: createDisabled # like here for example
-#                template: SyliusAdminBundle:Crud:create.html.twig
-#                redirect: sylius_admin_product_update
-#                vars:
-#                    subheader: sylius.ui.manage_your_product_catalog
-#                    templates:
-#                        form: SyliusAdminBundle:CRUDDUMMY:_form.html.twig
-#                    route:
-#                        name: sylius_admin_product_create_simple
-
-
-
-#            template: "@SyliusAdmin/ProductVariant/generate.html.twig"
-#            section: admin
-#            permission: true
-#            redirect:
-#                route: sylius_admin_product_variant_index
-#                parameters: { productId: $productId }
-#            form:
-#                type: Sylius\Bundle\ProductBundle\Form\Type\ProductGenerateVariantsType
-#            repository:
-#                method: find
-#                arguments: [$productId]
-#            flash: sylius.product_variant.generate
-
-#sylius_admin_product_index:
-#    path: /products/
-#    methods: [GET]
-#    defaults:
-#        _controller: sylius.controller.product:indexAction
-#        _sylius:
-#            section: admin
-#            permission: true
-#            grid: sylius_admin_product
-#            template: SyliusAdminBundle:CRUDDUMMY:index.html.twig
-#            vars:
-#                subheader: sylius.ui.manage_your_product_catalog
-#                icon: cube

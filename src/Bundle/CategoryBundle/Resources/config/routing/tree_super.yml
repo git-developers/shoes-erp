@@ -1,0 +1,161 @@
+backend_super_category_tree_index:
+    path: /{entity_type}
+    methods: [GET]
+    defaults:
+        _controller: tianos.tree.controller.category:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: TreeBundle::index_inventory.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_category_catalog
+                icon: dropbox
+                body_css: grid-body-css
+            tree:
+                icon: sitemap
+                box_class: primary
+                title: 'Inventario : categoría'
+                main_div: box-main-div
+                main_ul: box-main-ul
+                child_ul: box-child-ul
+                li_span: li-span
+                route:
+                    info: backend_super_category_tree_info
+                    view: backend_super_category_tree_view
+                    edit: backend_super_category_tree_edit
+                    create: backend_super_category_tree_create
+                    create_child: backend_super_category_tree_create_child
+                    delete: backend_super_category_tree_delete
+            form:
+                type: Bundle\CategoryBundle\Form\Type\CategoryType
+            repository:
+                service: tianos.repository.category
+                method: findAllParentsByType
+                arguments: [$categoryId]
+                vars:
+                    serialize_group_name: tree
+
+backend_super_category_services_tree_index:
+    path: /t/{entity_type}
+    methods: [GET]
+    defaults:
+        _controller: tianos.tree.controller.category:indexAction
+        _tianos:
+            action: index
+            section: admin
+            permission: true
+            template: TreeBundle::index_inventory.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_category_catalog
+                icon: dropbox
+                body_css: grid-body-css
+            tree:
+                icon: sitemap
+                box_class: primary
+                title: 'Inventario : servicio'
+                main_div: box-main-div
+                main_ul: box-main-ul
+                child_ul: box-child-ul
+                li_span: li-span
+                route:
+                    info: backend_super_category_tree_info
+                    view: backend_super_category_tree_view
+                    edit: backend_super_category_tree_edit
+                    create: backend_super_category_tree_create
+                    create_child: backend_super_category_tree_create_child
+                    delete: backend_super_category_tree_delete
+            form:
+                type: Bundle\CategoryBundle\Form\Type\CategoryType
+            repository:
+                service: tianos.repository.category
+                method: findAllParentsByType
+                arguments: [$categoryId]
+                vars:
+                    serialize_group_name: tree
+
+backend_super_category_tree_create:
+    path: /create
+    methods: [POST, PUT]
+    defaults:
+        _controller: tianos.tree.controller.category:createAction
+        _tianos:
+            action: create
+            template: CategoryBundle:BackendCategory/Form:form.html.twig
+            entity: Bundle\CategoryBundle\Entity\Category
+            form:
+                type: Bundle\CategoryBundle\Form\Type\CategoryType
+            repository:
+                vars:
+                    serialize_group_name: tree
+
+backend_super_category_tree_create_child:
+    path: /create-child
+    methods: [POST, PUT]
+    defaults:
+        _controller: tianos.tree.controller.category:createChildAction
+        _tianos:
+            action: create
+            template: CategoryBundle:BackendCategory/Form:form.html.twig
+            entity: Bundle\CategoryBundle\Entity\Category
+            form:
+                type: Bundle\CategoryBundle\Form\Type\CategoryType
+            repository:
+                vars:
+                    serialize_group_name: tree
+
+backend_super_category_tree_edit:
+    path: /edit
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.tree.controller.category:editAction
+        _tianos:
+            action: edit
+            template: CategoryBundle:BackendCategory/Form:form.html.twig
+            form:
+                type: Bundle\CategoryBundle\Form\Type\CategoryType
+            repository:
+                service: tianos.repository.category
+                method: find
+                arguments: [$categoryId]
+                vars:
+                    serialize_group_name: tree
+
+backend_super_category_tree_delete:
+    path: /delete
+    methods: [POST, DELETE]
+    defaults:
+        _controller: tianos.tree.controller.category:deleteAction
+        _tianos:
+            action: delete
+            template: GridBundle:Template:delete.html.twig
+            repository:
+                service: tianos.repository.category
+                method: find
+                arguments: [$categoryId]
+            vars:
+#                body_css: grid-body-css
+
+backend_super_category_tree_view:
+    path: /view
+    methods: [POST]
+    defaults:
+        _controller: tianos.tree.controller.category:viewAction
+        _tianos:
+            action: view
+            template: CategoryBundle:BackendCategory/Informative:view.html.twig
+            repository:
+                service: tianos.repository.category
+                method: find
+                arguments: [$categoryId]
+                vars:
+                    serialize_group_name: tree
+
+backend_super_category_tree_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.tree.controller.category:infoAction
+        _tianos:
+            action: info
+            template: CategoryBundle:BackendCategory/Informative:info.html.twig

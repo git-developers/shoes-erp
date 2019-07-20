@@ -31,3 +31,9 @@ backend_super_pointofsale_map:
 backend_super_files:
     resource: '@FilesBundle/Resources/config/routing/backend.yml'
     prefix: /files
+backend_category:
+    resource: '@CategoryBundle/Resources/config/routing/tree_super.yml'
+    prefix: /category
+backend_product:
+    resource: '@ProductBundle/Resources/config/routing/backend_super.yml'
+    prefix: /product

@@ -17,10 +17,10 @@ backend_user_employee:
     resource: '@UserBundle/Resources/config/routing/backend_employee.yml'
     prefix: /user-employee
 backend_product:
-    resource: '@ProductBundle/Resources/config/routing/backend.yml'
+    resource: '@ProductBundle/Resources/config/routing/backend_pdv.yml'
     prefix: /product
 backend_category:
-    resource: '@CategoryBundle/Resources/config/routing/tree.yml'
+    resource: '@CategoryBundle/Resources/config/routing/tree_pdv.yml'
     prefix: /category
 backend_services:
     resource: '@ServicesBundle/Resources/config/routing/backend.yml'

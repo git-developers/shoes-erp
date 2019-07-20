@@ -28,6 +28,7 @@ class Load_3_ProfileData extends AbstractFixture implements OrderedFixtureInterf
 
         $entity = new Profile();
         $entity->setName(Profile::SUPER_ADMIN);
+        $entity->addRole($rolePdvAdmin);
         $entity->addRole($roleUserAdmin);
         $manager->persist($entity);
         $this->addReference('profile-super-admin', $entity);

@@ -26,7 +26,7 @@ class BackendController extends GridController
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function createAction(Request $request): Response
+	public function createInternalAction(Request $request): Response
 	{
 		
 		$parameters = [
@@ -51,8 +51,9 @@ class BackendController extends GridController
 		//USER
 		$user = $this->getUser();
 		
-		//REPOSITORY TREE
-		$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), Category::TYPE_SERVICE);
+		//REPOSITORY TREE -- LO MODIFIQUE
+		//$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), Category::TYPE_SERVICE);
+		$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType(Category::TYPE_PRODUCT);
 		$objectsTree = $this->getTreeEntities($objectsTreeParent, $configuration, 'tree');
 		
 		$servicesArray = [];
@@ -189,6 +190,178 @@ class BackendController extends GridController
 			]
 		);
 	}
+	
+	/**
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function createExternalAction(Request $request): Response
+	{
+		
+		$parameters = [
+			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
+		];
+		$applicationName = $this->container->getParameter('application_name');
+		$this->metadata = new Metadata('tianos', $applicationName, $parameters);
+		
+		//CONFIGURATION
+		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
+		$template = $configuration->getTemplate('');
+		$action = $configuration->getAction();
+		$formType = $configuration->getFormType();
+		$vars = $configuration->getVars();
+		$tree = $configuration->getTree();
+		$entity = $configuration->getEntity();
+		$entity = new $entity();
+		
+		$form = $this->createForm($formType, $entity, ['form_data' => []]);
+		$form->handleRequest($request);
+		
+		//USER
+		$user = $this->getUser();
+		
+		//REPOSITORY TREE -- LO MODIFIQUE
+		//$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), Category::TYPE_SERVICE);
+		$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType(Category::TYPE_PRODUCT);
+		$objectsTree = $this->getTreeEntities($objectsTreeParent, $configuration, 'tree');
+		
+		$servicesArray = [];
+		$servicesObjs = $this->getServices($objectsTreeParent, $configuration, 'ticket', $servicesArray);
+		//REPOSITORY TREE
+		
+		
+		//SERVICES
+		$serviceArray = [];
+		$session = $request->getSession();
+		$services = $session->get('services');
+		
+		if (!empty($services)) {
+			foreach ($services as $key => $service) {
+				$serviceObj = $this->get('tianos.repository.services')->find($service['idService']);
+				$serviceObj->setQuantity($service['quantity']);
+				$serviceArray[] = $this->getSerializeDecode($serviceObj, 'ticket');
+			}
+		}
+		//SERVICES
+		
+		if ($form->isSubmitted()) {
+			
+			try {
+				
+				$ticket = $request->get('ticket');
+				$ticket = json_decode(json_encode($ticket));
+				
+				$session = $request->getSession();
+				$idClient = $session->get('id_client');
+				$idEmployees = $session->get('id_employee');
+				$services = $session->get('services');
+				
+				if (empty($idClient)) {
+					return $this->json([
+						'status' => false,
+						'message' => 'Seleccione un cliente.'
+					]);
+				}
+				
+				if (empty($idEmployees)) {
+					return $this->json([
+						'status' => false,
+						'message' => 'Seleccione al menos un empleado.'
+					]);
+				}
+				
+				if (empty($services)) {
+					return $this->json([
+						'status' => false,
+						'message' => 'Seleccione al menos un servicio.'
+					]);
+				}
+				
+				if (empty($ticket->name)) {
+					return $this->json([
+						'status' => false,
+						'message' => 'Ingrese un nombre.'
+					]);
+				}
+				
+				if (empty($ticket->dateTicket)) {
+					return $this->json([
+						'status' => false,
+						'message' => 'Ingrese la fecha.'
+					]);
+				}
+				
+				
+				$entity->setName($ticket->name);
+				$entity->setDateTicket(new \DateTime($ticket->dateTicket));
+				
+				$client = $this->get('tianos.repository.user')->find($idClient);
+				$entity->setClient($client);
+				
+				foreach ($idEmployees as $key => $idEmployee) {
+					$employee = $this->get('tianos.repository.user')->find($idEmployee);
+					$entity->addEmployee($employee);
+				}
+				
+				$this->persist($entity);
+				
+				
+				/**
+				 * SAVE TICKET
+				 */
+				foreach ($services as $key => $service) {
+					$service = $this->get('tianos.repository.services')->find($service['idService']);
+					
+					$ticketHasService = new TicketHasServices();
+					$ticketHasService->setServices($service);
+					$ticketHasService->setTicket($entity);
+					$ticketHasService->setQuantity($service->getQuantity());
+					$ticketHasService->setUnitPrice($service->getPrice());
+					$ticketHasService->setSubTotal($service->getPrice() * $service->getQuantity());
+					$this->persist($ticketHasService);
+				}
+				/**
+				 * SAVE TICKET
+				 */
+				
+				
+				$this->flashAlertSuccess('Se creo el ticket.');
+				
+				//Remove session
+				$session = $request->getSession();
+				$session->remove('id_client');
+				$session->remove('id_employee');
+				$session->remove('services');
+				
+				return $this->json([
+					'status' => true
+				]);
+				
+			} catch (\Exception $e) {
+				return $this->json([
+					'status' => false,
+					'message' => $e->getMessage()
+				]);
+			}
+			
+		}
+		
+		return $this->render(
+			$template,
+			[
+				'tree' => $tree,
+				'vars' => $vars,
+				'action' => $action,
+				'servicesObjs' => $servicesObjs,
+				'objectsTree' => $objectsTree,
+				'services' => $serviceArray
+//				'form' => $form->createView(),
+			]
+		);
+	}
+	
+	
+	
 	
 	/**
 	 * @param Request $request

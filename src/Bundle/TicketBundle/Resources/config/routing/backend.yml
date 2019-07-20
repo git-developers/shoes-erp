@@ -21,7 +21,7 @@ backend_ticket_index:
                     route:
                         info: backend_ticket_info
                         view: backend_ticket_view
-                        create: backend_ticket_create
+                        create: backend_ticket_create_internal
                         ticket_edit: backend_ticket_edit
 #                        edit: backend_ticket_edit
 #                        delete: backend_ticket_delete
@@ -65,11 +65,37 @@ backend_ticket_index:
                 vars:
                     serialize_group_name: crud
 
-backend_ticket_create:
-    path: /create
+backend_ticket_create_internal:
+    path: /create-internal
     methods: [GET, POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:createAction
+        _controller: tianos.backend.controller.ticket:createInternalAction
+        _tianos:
+            action: create
+            vars:
+                body_css: grid-body-css
+                serialize_group_name: crud
+            tree:
+                icon: file-text-o
+                box_class: primary
+                title: Gestionar servicios
+                main_div: box-main-div
+                main_ul: box-main-ul
+                child_ul: box-child-ul
+                li_span: li-span
+            entity: Bundle\TicketBundle\Entity\Ticket
+            template: TicketBundle:BackendTicket/Grid:create.html.twig
+            form:
+                type: Bundle\TicketBundle\Form\Type\TicketType
+            repository:
+                vars:
+                    serialize_group_name: crud
+
+backend_ticket_create_external:
+    path: /create-external
+    methods: [GET, POST]
+    defaults:
+        _controller: tianos.backend.controller.ticket:createExternalAction
         _tianos:
             action: create
             vars:

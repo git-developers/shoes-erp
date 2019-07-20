@@ -20,7 +20,7 @@ class AppKernel extends Kernel
 	        new \Bundle\SessionBundle\SessionBundle(),
 	        new \Bundle\ServicesBundle\ServicesBundle(),
 	        new \Bundle\CategoryBundle\CategoryBundle(),
-            new \Bundle\PointofsaleBundle\PointofsaleBundle(),
+	        new \Bundle\PointofsaleBundle\PointofsaleBundle(),
         ];
 
         return array_merge(parent::registerBundles(), $bundles);

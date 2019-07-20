@@ -16,11 +16,11 @@
 
             {#{{ path('frontend_profile_index', {slug:app.user.slug}) }}#}
             <img src="{{ image_avatar }}" class="img-circle x-hand" onclick="location.href='';">
-            <p>
+            <p style="margin-top: 5px;">
                 {{ tianos_app_user_name(app.user, 0, 10) }}
                 {#<small>Miembro desde {{ app.user.createdAt|localizeddate('full', 'none', locale, null, 'Y') }}</small>#}
                 <small>Miembro desde el {{ app.user.createdAt|date('d, F Y')}}</small>
-                <small><code>{{ app.user.profile.name }}</code></small>
+                <code>{{ app.user.profile.name }}</code>
             </p>
         </li>
 

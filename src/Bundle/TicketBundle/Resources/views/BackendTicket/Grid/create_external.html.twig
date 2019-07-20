@@ -66,7 +66,7 @@
 
             $('body.{{ vars.body_css }}').formTicket({
                 formName: 'form-ticket',
-                route: '{{ path('backend_ticket_create') }}',
+                route: '{{ path('backend_ticket_create_externo') }}',
                 routeRedirect: '{{ path('backend_ticket_index') }}'
             });
 
@@ -80,7 +80,7 @@
 
     <section class="content-header">
         <h1>
-            <i class="fa fa-fw fa-ticket"></i> Crear Ticket
+            <i class="fa fa-fw fa-ticket"></i> Crear pedido externo
             <small>service</small>
         </h1>
         <ol class="breadcrumb">

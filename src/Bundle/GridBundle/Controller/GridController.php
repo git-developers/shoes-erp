@@ -37,6 +37,7 @@ class GridController extends BaseController
      */
     public function indexAction(Request $request): Response
     {
+    	
 //        $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
         $parameters = [

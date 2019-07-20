@@ -22,11 +22,17 @@ class DefaultPdvController extends BaseController
 //        return $this->redirectUrl('frontend_default_index');
 
 
-        $user = $this->getUser();
 	
-//	    echo "POLLO:::USERNAME:::: <pre>";
-//	    print_r( $user->getPointOfSaleActive()->getName() );
-//	    exit;
+/*	    $user = $this->getUser();
+	
+	    if ($user == null) {
+		    echo 'USER NULL :::: PDV ---- DefaultController<pre>';
+		    exit;
+	    }
+	    
+	    echo 'PDV USER ---- DefaultController<pre>';
+	    print_r($user->getRoles());
+	    exit;*/
 
 
 //	    $token = $this->container->get('security.token_storage')->getToken();

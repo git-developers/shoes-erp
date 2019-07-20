@@ -20,6 +20,7 @@ security:
     firewalls:
         main_super:
             pattern: ^/backend-super
+            #pattern: ^/(backend-super|backend)/
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
@@ -69,12 +70,13 @@ security:
                 always_remember_me: false
                 remember_me_parameter: _remember_me
             anonymous:    true
+
     access_control:
         - { path: ^/backend/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/backend/login/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/backend-super/security/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/backend/, role: [ROLE_PDV_ADMIN, ROLE_EMPLOYEE] }
+        #- { path: ^/backend/ticket/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/backend/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/backend-super/, role: ROLE_SUPER_ADMIN }
-        #- { path: ^/backend/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/backend-super/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/backend/, roles: [ROLE_PDV_ADMIN, ROLE_EMPLOYEE] }

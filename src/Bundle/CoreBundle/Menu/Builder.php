@@ -45,14 +45,28 @@ class Builder implements ContainerAwareInterface
         ])
         ;
 	
+	
         
-
+        /*
+	    $user = $this->getUser();
+	    echo 'ROLES GATO:::<pre>';
+	    print_r($user->getRoles());
+	    exit;
+        */
+        
         
 	    
         /**
          * DASHBOARD
          */
 	
+	    $route = 'backend_default_pdv_index';
+	
+	    if ($this->isGranted(Role::ROLE_SUPER_ADMIN)) {
+		    $route = 'backend_default_super_index';
+	    }
+	    
+	    /*
 	    if ($this->isGranted(Role::ROLE_PDV_ADMIN)) {
 		    $route = 'backend_default_pdv_index';
 	    } elseif ($this->isGranted(Role::ROLE_EMPLOYEE)) {
@@ -60,6 +74,7 @@ class Builder implements ContainerAwareInterface
 	    } elseif ($this->isGranted(Role::ROLE_SUPER_ADMIN)) {
 		    $route = 'backend_default_super_index';
 	    }
+	    */
 	    
         $menu->addChild('Dashboard', [
             'route' => $route,
@@ -76,8 +91,8 @@ class Builder implements ContainerAwareInterface
         /**
          * DASHBOARD
          */
-
-
+	
+	
 
 
 
@@ -86,6 +101,7 @@ class Builder implements ContainerAwareInterface
          */
 	    $isGranted = $this->isGranted([
 		    Role::ROLE_SUPER_ADMIN,
+		    Role::ROLE_PDV_ADMIN,
 	    ]);
 	
 	    $menu->addChild('Puntos de venta', [
@@ -251,7 +267,7 @@ class Builder implements ContainerAwareInterface
         ]);
 
         $menu->addChild('Inventario', [
-            'route' => 'backend_super_product_index',
+            'route' => 'backend_product_index',
             'extras' => ['safe_label' => true],
             'childrenAttributes' => [
                 'class' => 'treeview-menu',
@@ -260,29 +276,29 @@ class Builder implements ContainerAwareInterface
             ->setAttribute('allow_angle', true)
             ->setAttribute('class', 'treeview')
             ->setAttribute('class', $this->activeRoute([
-                'backend_super_product_index',
-                'backend_super_category_tree_index',
+                'backend_product_index',
+                'backend_category_tree_index',
             ]))
             ->setAttribute('icon', 'fa-fw fa-dropbox')
             ->setDisplay($isGranted)
         ;
 
         $menu['Inventario']->addChild('Categoria', [
-            'route' => 'backend_super_category_tree_index',
+            'route' => 'backend_category_tree_index',
             'routeParameters' => [
                 'entity_type' => Category::TYPE_PRODUCT
             ]
         ])
             ->setAttribute('icon', self::CIRCLE_1)
-            ->setAttribute('class', $this->activeRoute('backend_super_category_tree_index'))
+            ->setAttribute('class', $this->activeRoute('backend_category_tree_index'))
             ->setDisplay($isGranted)
         ;
 
         $menu['Inventario']->addChild('Producto', [
-            'route' => 'backend_super_product_index'
+            'route' => 'backend_product_index'
         ])
             ->setAttribute('icon', self::CIRCLE_2)
-            ->setAttribute('class', $this->activeRoute('backend_super_product_index'))
+            ->setAttribute('class', $this->activeRoute('backend_product_index'))
             ->setDisplay($isGranted)
         ;
         /**
@@ -419,7 +435,8 @@ class Builder implements ContainerAwareInterface
          */
 	
 	
-	
+
+        
 	
 	    /**
          * TICKET
@@ -430,41 +447,51 @@ class Builder implements ContainerAwareInterface
 	        Role::ROLE_SUPER_ADMIN,
         ]);
 
-        $menu->addChild('Ticket', [
+        $menu->addChild('Pedido', [
             'route' => 'backend_ticket_index',
             'extras' => ['safe_label' => true],
             'childrenAttributes' => [
                 'class' => 'treeview-menu',
             ],
         ])
-            ->setAttribute('class', 'treeview')
-            ->setAttribute('class', $this->activeRoute([
-                'backend_ticket_index',
-                'backend_ticket_create',
-                'backend_ticket_edit',
-            ]))
-            ->setAttribute('icon', 'fa-fw fa-ticket')
-            ->setDisplay($isGranted)
+        ->setAttribute('class', 'treeview')
+        ->setAttribute('class', $this->activeRoute([
+            'backend_ticket_index',
+            'backend_ticket_create_internal',
+            'backend_ticket_create_external',
+            'backend_ticket_edit',
+        ]))
+        ->setAttribute('icon', 'fa-fw fa-ticket')
+        ->setDisplay($isGranted)
         ;
-        
-	    $menu['Ticket']->addChild('Crear ticket', [
-		    'route' => 'backend_ticket_create'
+	
+	    $menu['Pedido']->addChild('Gestionar', [
+		    'route' => 'backend_ticket_index'
 	    ])
 		    ->setAttribute('icon', self::CIRCLE_1)
-		    ->setAttribute('class', $this->activeRoute('backend_ticket_create'))
+		    ->setAttribute('class', $this->activeRoute([
+			    'backend_ticket_index',
+			    'backend_ticket_edit'
+		    ]))
 		    ->setDisplay($isGranted)
 	    ;
-
-        $menu['Ticket']->addChild('Gestionar', [
-            'route' => 'backend_ticket_index'
-        ])
-            ->setAttribute('icon', self::CIRCLE_2)
-            ->setAttribute('class', $this->activeRoute([
-            	'backend_ticket_index',
-	            'backend_ticket_edit'
-            ]))
-            ->setDisplay($isGranted)
-        ;
+        
+	    $menu['Pedido']->addChild('Crear pedido interno', [
+		    'route' => 'backend_ticket_create_internal'
+	    ])
+	    ->setAttribute('icon', self::CIRCLE_2)
+	    ->setAttribute('class', $this->activeRoute('backend_ticket_create_internal'))
+	    ->setDisplay($isGranted)
+	    ;
+     
+	    $menu['Pedido']->addChild('Crear pedido externo', [
+		    'route' => 'backend_ticket_create_external'
+	    ])
+	    ->setAttribute('icon', self::CIRCLE_3)
+	    ->setAttribute('class', $this->activeRoute('backend_ticket_create_external'))
+	    ->setDisplay($isGranted)
+	    ;
+	    
         /**
          * TICKET
          */
@@ -477,6 +504,7 @@ class Builder implements ContainerAwareInterface
          */
         $isGranted = $this->isGranted([
 	        Role::ROLE_PDV_ADMIN,
+	        Role::ROLE_SUPER_ADMIN,
         ]);
 
         $menu->addChild('Estadísticas', [

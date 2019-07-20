@@ -17,6 +17,12 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 //https://symfony.com/doc/current/doctrine/reverse_engineering.html
 //doctrine:mapping:import
 
+/**
+ * Class CreateCrudCommand
+ * @package Bundle\CoreBundle\Command
+ *
+ * make crud bundle=productsorder
+ */
 class CreateCrudCommand extends ContainerAwareCommand
 {
 

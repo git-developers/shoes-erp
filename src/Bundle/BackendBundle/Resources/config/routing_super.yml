@@ -13,27 +13,36 @@ backend_security_super:
 backend_super_session:
     resource: '@SessionBundle/Resources/config/routing/backend.yml'
     prefix: /session
-backend_super_pointofsale:
-    resource: '@PointofsaleBundle/Resources/config/routing/backend.yml'
-    prefix: /point-of-sale
 backend_super_user:
     resource: '@UserBundle/Resources/config/routing/backend_super.yml'
     prefix: /user
-backend_super_pointofsale_pdv_child:
-    resource: '@PointofsaleBundle/Resources/config/routing/backend_super_pdv_child.yml'
-    prefix: /point-of-sale-child
-backend_super_pointofsale_add_user:
-    resource: '@PointofsaleBundle/Resources/config/routing/backend_super_add_user.yml'
-    prefix: /point-of-sale-add-user
-backend_super_pointofsale_map:
-    resource: '@PointofsaleBundle/Resources/config/routing/backend_super_map.yml'
-    prefix: /point-of-sale/map
 backend_super_files:
     resource: '@FilesBundle/Resources/config/routing/backend.yml'
     prefix: /files
-backend_category:
-    resource: '@CategoryBundle/Resources/config/routing/tree_super.yml'
-    prefix: /category
+backend_report:
+    resource: '@ReportBundle/Resources/config/routing/backend.yml'
+    prefix: /report
+
 backend_product:
-    resource: '@ProductBundle/Resources/config/routing/backend_super.yml'
+    resource: '@ProductBundle/Resources/config/routing/backend.yml'
     prefix: /product
+backend_category:
+    resource: '@CategoryBundle/Resources/config/routing/tree.yml'
+    prefix: /category
+
+backend_ticket:
+    resource: '@TicketBundle/Resources/config/routing/backend.yml'
+    prefix: /ticket
+
+backend_pointofsale:
+    resource: '@PointofsaleBundle/Resources/config/routing/backend.yml'
+    prefix: /point-of-sale
+backend_pointofsale_map:
+    resource: '@PointofsaleBundle/Resources/config/routing/backend_map.yml'
+    prefix: /point-of-sale/map
+backend_pointofsale_add_user:
+    resource: '@PointofsaleBundle/Resources/config/routing/backend_add_user.yml'
+    prefix: /point-of-sale-add-user
+backend_pointofsale_pdv_child:
+    resource: '@PointofsaleBundle/Resources/config/routing/backend_pdv_child.yml'
+    prefix: /point-of-sale-child

@@ -22,10 +22,17 @@ class DefaultSuperController extends BaseController
 //        return $this->redirectUrl('frontend_default_index');
 
 
-//        $user = $this->getUser();
-//        echo 'SUPER DefaultController --- GATO:::<pre>';
-//        print_r($user->getRoles());
-//        exit;
+/*        $user = $this->getUser();
+        
+        if ($user == null) {
+	        echo 'USER NULL :::: SUPER ---- DefaultController<pre>';
+	        exit;
+        }
+        
+        
+        echo 'SUPER ---- DefaultController<pre>';
+        print_r($user->getRoles());
+        exit;*/
 
 
 //        $pointOfSales = $this->getUser()->getPointOfSale();

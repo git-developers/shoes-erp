@@ -16,24 +16,33 @@ backend_user_client:
 backend_user_employee:
     resource: '@UserBundle/Resources/config/routing/backend_employee.yml'
     prefix: /user-employee
-backend_product:
-    resource: '@ProductBundle/Resources/config/routing/backend_pdv.yml'
-    prefix: /product
-backend_category:
-    resource: '@CategoryBundle/Resources/config/routing/tree_pdv.yml'
-    prefix: /category
 backend_services:
     resource: '@ServicesBundle/Resources/config/routing/backend.yml'
     prefix: /services
-backend_pointofsale_per_user:
-    resource: '@PointofsaleBundle/Resources/config/routing/backend_per_user.yml'
-    prefix: /point-of-sale-per-user
-backend_ticket:
-    resource: '@TicketBundle/Resources/config/routing/backend.yml'
-    prefix: /ticket
 backend_user:
     resource: '@UserBundle/Resources/config/routing/backend_pdv.yml'
     prefix: /user
 backend_report:
     resource: '@ReportBundle/Resources/config/routing/backend.yml'
     prefix: /report
+
+backend_category:
+    resource: '@CategoryBundle/Resources/config/routing/tree.yml'
+    prefix: /category
+backend_product:
+    resource: '@ProductBundle/Resources/config/routing/backend.yml'
+    prefix: /product
+
+backend_ticket:
+    resource: '@TicketBundle/Resources/config/routing/backend.yml'
+    prefix: /ticket
+
+backend_pointofsale:
+    resource: '@PointofsaleBundle/Resources/config/routing/backend.yml'
+    prefix: /point-of-sale
+backend_pointofsale_map:
+    resource: '@PointofsaleBundle/Resources/config/routing/backend_map.yml'
+    prefix: /point-of-sale/map
+backend_pointofsale_per_user:
+    resource: '@PointofsaleBundle/Resources/config/routing/backend_per_user.yml'
+    prefix: /point-of-sale-per-user

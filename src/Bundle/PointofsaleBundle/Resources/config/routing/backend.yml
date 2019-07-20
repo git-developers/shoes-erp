@@ -148,26 +148,28 @@ backend_pointofsale_info:
             action: info
             template: PointofsaleBundle:BackendPointofsale/Informative:info.html.twig
 
-backend_pointofsale_module:
-    path: /module/{id}
-    methods: [GET, POST]
-    defaults:
-        _controller: tianos.backend.controller.pointofsale:moduleAction
-        _tianos:
-            action: edit
-            template: PointofsaleBundle:BackendPointofsale:module.html.twig
-            entity: Bundle\PointofsaleBundle\Entity\PointofsaleModule
-            vars:
-                icon: map-marker
-                box_class: primary
-                title: 'Punto de venta: agregar modulos'
-                body_css: grid-body-css
-                copy_clipboard: true
-            form:
-                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleModuleType
-            repository:
-                service: tianos.repository.pointofsale
-                method: find
-                arguments: [$pointofsaleId]
-                vars:
-                    serialize_group_name: crud
+
+
+#backend_pointofsale_module:
+#    path: /module/{id}
+#    methods: [GET, POST]
+#    defaults:
+#        _controller: tianos.backend.controller.pointofsale:moduleAction
+#        _tianos:
+#            action: edit
+#            template: PointofsaleBundle:BackendPointofsale:module.html.twig
+#            entity: Bundle\PointofsaleBundle\Entity\PointofsaleModule
+#            vars:
+#                icon: map-marker
+#                box_class: primary
+#                title: 'Punto de venta: agregar modulos'
+#                body_css: grid-body-css
+#                copy_clipboard: true
+#            form:
+#                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleModuleType
+#            repository:
+#                service: tianos.repository.pointofsale
+#                method: find
+#                arguments: [$pointofsaleId]
+#                vars:
+#                    serialize_group_name: crud

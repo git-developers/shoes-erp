@@ -260,7 +260,11 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
      * })
-     * @JMSS\Groups({"login", "crud"})
+     * @JMSS\Groups({
+     *     "login",
+     *     "crud",
+     *     "pointofsale-has-user"
+     * })
      */
     private $profile;
 

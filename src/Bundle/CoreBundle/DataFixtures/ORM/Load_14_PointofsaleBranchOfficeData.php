@@ -22,7 +22,7 @@ class Load_14_PointofsaleBranchOfficeData extends AbstractFixture implements Ord
     public function load(ObjectManager $manager)
     {
 
-        $pointOfSale = $this->getReference('pointofsale-10');
+        $pointOfSale = $this->getReference('pointofsale-3');
 
         $entity = new Pointofsale();
         $entity->setCode('1111');

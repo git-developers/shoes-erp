@@ -28,7 +28,11 @@ class Profile
     /**
      * @var integer
      *
-     * @JMSS\Groups({"crud", "login", "one-to-many-left"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "login",
+     *     "one-to-many-left"
+     * })
      */
     private $id;
 
@@ -42,7 +46,11 @@ class Profile
     /**
      * @var string
      *
-     * @JMSS\Groups({"crud", "login"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "login",
+     *     "pointofsale-has-user"
+     * })
      */
     private $name;
 
@@ -55,6 +63,10 @@ class Profile
 
     /**
      * @var string
+     *
+     * @JMSS\Groups({
+     *     "pointofsale-has-user"
+     * })
      */
     private $slug;
 

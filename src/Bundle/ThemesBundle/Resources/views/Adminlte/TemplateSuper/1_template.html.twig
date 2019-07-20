@@ -1,4 +1,4 @@
-{#https://almsaeedstudio.com/themes/AdminLTE/index2.html#}
+{# https://adminlte.io/themes/AdminLTE/index2.html #}
 
 {% import "ThemesBundle::Adminlte/Macro/html.html.twig" as html %}
 {% import "ThemesBundle::Adminlte/Macro/head.html.twig" as head %}
@@ -6,20 +6,6 @@
 {% import "ThemesBundle::Adminlte/Macro/bi3d.html.twig" as bi3d %}
 {% import "ThemesBundle::Adminlte/Macro/twitter.html.twig" as twitter %}
 {% import "ThemesBundle::Adminlte/Macro/open_graph.html.twig" as og %}
-
-{#{{ dump(app.user) }}#}
-
-{#{% if(app.user.image is defined and app.user.image is not null) %}#}
-    {#{% set image_avatar = asset('../../uploads/user/' ~ app.user.image) | imagine_filter('filter_160') %} #}{# ~'?'~ random()#}
-{#{% else %}#}
-    {#{% set image_avatar = asset('bundles/themes/common/images/no_avatar.jpg') %} #}{# | imagine_filter('filter_160')#}
-{#{% endif %}#}
-
-{#{% if(app.user.image is defined and app.user.image is not null) %}#}
-    {#{% set image_update = asset('../../uploads/user/' ~ app.user.image) | imagine_filter('filter_500') %}#}
-{#{% else %}#}
-    {#{% set image_update = asset('bundles/themes/common/images/no_avatar.jpg') %}#}
-{#{% endif %}#}
 
 {% set image_avatar = asset('bundles/themes/common/images/no_avatar.jpg') %} {# | imagine_filter('filter_160')#}
 

@@ -57,6 +57,11 @@ backend_super_pointofsale_add_user_index:
                     columns:
                         - name: '#'
                           obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
+                        - name: Perfil
+                          obj: obj.profile.name
+                          options:
+                              icon: imagen
+                              property: " return (obj.profile.name == 'client') ? '<span class=\"badge bg-teal\">' + obj.profile.name + '</span>' : '<span class=\"badge bg-teal\">' + obj.profile.name + '</span>' "
                         - name: Nombre
                           obj: obj.name_box
                         - name: Creado

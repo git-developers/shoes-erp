@@ -28,8 +28,8 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
         $profileClient = $this->getReference('profile-client');
         $profileGuest = $this->getReference('profile-guest');
 	
-	    $pointOfSale_10 = $this->getReference('pointofsale-10');
-
+	    $pointOfSale_10 = $this->getReference('pointofsale-3');
+		
 
         $entity = new User();
         $entity->setDni('12345688');

@@ -99,7 +99,6 @@ class Builder implements ContainerAwareInterface
 		    ->setAttribute('class', 'treeview')
 		    ->setAttribute('class', $this->activeRoute([
 			    'backend_pointofsale_index',
-			    'backend_pointofsale_module',
 			    'backend_super_pointofsale_map_index',
 			    'backend_super_pointofsale_add_user_index',
 			    'backend_super_pointofsale_pdv_child_index',
@@ -345,6 +344,8 @@ class Builder implements ContainerAwareInterface
             ]))
             ->setDisplay($isGranted)
         ;
+        
+        /*
         $menu['Seguridad']->addChild('Sesión', [
             'route' => 'backend_session_index',
             'extras' => ['safe_label' => true],
@@ -358,6 +359,7 @@ class Builder implements ContainerAwareInterface
             ]))
             ->setDisplay($isGranted)
         ;
+        */
         /**
          * SECURITY
          */

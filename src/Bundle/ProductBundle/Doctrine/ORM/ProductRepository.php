@@ -53,8 +53,11 @@ class ProductRepository extends TianosEntityRepository implements ProductReposit
     /**
      * {@inheritdoc}
      */
-    public function findAllByCategory($categoryId): array
+    public function findAllByCategory($category): array
     {
+	
+	    $categoryId = isset($category['id']) ? $category['id'] : null;
+    	
         $em = $this->getEntityManager();
         $dql = "
             SELECT product

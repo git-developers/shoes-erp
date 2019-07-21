@@ -59,9 +59,9 @@
 
             $('body.{{ vars.body_css }}').formServices({
                 modalId: 'modal-create-services',
-                routeIncrement: '{{ path('backend_ticket_increment_services') }}',
-                routeDecrement: '{{ path('backend_ticket_decrement_services') }}',
-                routeRemoveAll: '{{ path('backend_ticket_remove_all_services') }}'
+                routeIncrement: '{{ path('backend_ticket_increment_item') }}',
+                routeDecrement: '{{ path('backend_ticket_decrement_item') }}',
+                routeRemoveAll: '{{ path('backend_ticket_remove_all_item') }}'
             });
 
             $('body.{{ vars.body_css }}').formTicket({

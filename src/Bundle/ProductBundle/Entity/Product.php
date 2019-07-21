@@ -17,7 +17,10 @@ class Product
     /**
      * @var integer
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "ticket"
+     * })
      */
     private $id;
 
@@ -25,11 +28,24 @@ class Product
      * @var string
      */
     private $code;
-
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
+	 *     "crud",
+	 *     "ticket"
+	 * })
+	 */
+	private $price;
+    
     /**
      * @var string
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "ticket"
+     * })
      */
     private $name;
 
@@ -41,14 +57,20 @@ class Product
     /**
      * @var integer
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "ticket"
+     * })
      */
     private $stock;
 
     /**
      * @var \DateTime
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "ticket"
+     * })
      * @JMSS\Type("DateTime<'Y-m-d H:i'>")
      */
     private $createdAt;
@@ -79,6 +101,10 @@ class Product
      * @ORM\ManyToOne(targetEntity="Bundle\CategoryBundle\Entity\Category")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * })
+     *
+     * @JMSS\Groups({
+     *     "ticket"
      * })
      */
     private $category;
@@ -126,7 +152,23 @@ class Product
     {
         return $this->code;
     }
-
+	
+	/**
+	 * @return float
+	 */
+	public function getPrice() //: float
+	{
+		return $this->price;
+	}
+	
+	/**
+	 * @param float $price
+	 */
+	public function setPrice(float $price)
+	{
+		$this->price = $price;
+	}
+	
     /**
      * Set name
      *

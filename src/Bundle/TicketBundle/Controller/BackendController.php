@@ -57,7 +57,7 @@ class BackendController extends GridController
 		$objectsTree = $this->getTreeEntities($objectsTreeParent, $configuration, 'tree');
 		
 		$servicesArray = [];
-		$servicesObjs = $this->getServices($objectsTreeParent, $configuration, 'ticket', $servicesArray);
+		$productsObjs = $this->getProducts($objectsTreeParent, $configuration, 'ticket', $servicesArray);
 		//REPOSITORY TREE
 		
 		
@@ -183,7 +183,7 @@ class BackendController extends GridController
 				'tree' => $tree,
 				'vars' => $vars,
 				'action' => $action,
-				'servicesObjs' => $servicesObjs,
+				'productsObjs' => $productsObjs,
 				'objectsTree' => $objectsTree,
 				'services' => $serviceArray
 //				'form' => $form->createView(),
@@ -359,9 +359,6 @@ class BackendController extends GridController
 			]
 		);
 	}
-	
-	
-	
 	
 	/**
 	 * @param Request $request
@@ -756,7 +753,7 @@ class BackendController extends GridController
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function incrementDecrementServicesAction(Request $request): Response
+	public function incrementDecrementItemAction(Request $request): Response
 	{
 		
 		if (!$this->isXmlHttpRequest()) {
@@ -799,7 +796,7 @@ class BackendController extends GridController
 	 * @param Request $request
 	 * @return Response
 	 */
-	public function removeAllServicesAction(Request $request): Response
+	public function removeAllItemAction(Request $request): Response
 	{
 		
 		if (!$this->isXmlHttpRequest()) {
@@ -861,8 +858,28 @@ class BackendController extends GridController
 			$result_2 = $this->getServices($children, $configuration, $serializeGroupName, $entity);
 			
 			$entity = array_merge($result_1, $result_2);
-		
 		}
+
+		return $entity;
+	}
+	
+	private function getProducts($parents, $configuration, $serializeGroupName, &$entity)
+	{
+		if(is_null($parents)){
+			$parents = [];
+		}
+		
+		foreach ($parents as $key => $parent) {
+			
+			$products = $this->get('tianos.repository.product')->findAllByCategory($parent);
+			$result_1 = $this->getSerializeDecode($products, $serializeGroupName);
+			
+			$children = $this->get('tianos.repository.category')->findAllByParent($parent);
+			$result_2 = $this->getProducts($children, $configuration, $serializeGroupName, $entity);
+			
+			$entity = array_merge($result_1, $result_2);
+		}
+		
 
 		return $entity;
 	}

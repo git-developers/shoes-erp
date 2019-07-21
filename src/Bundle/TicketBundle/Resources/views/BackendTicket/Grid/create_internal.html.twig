@@ -35,7 +35,7 @@
     {% javascripts
         '@TicketBundle/Resources/public/js/formClient.js'
         '@TicketBundle/Resources/public/js/formEmployee.js'
-        '@TicketBundle/Resources/public/js/formServices.js'
+        '@TicketBundle/Resources/public/js/formProducts.js'
         '@TicketBundle/Resources/public/js/formTicket.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -57,11 +57,11 @@
                 route: '{{ path('backend_ticket_add_employee') }}'
             });
 
-            $('body.{{ vars.body_css }}').formServices({
+            $('body.{{ vars.body_css }}').formProducts({
                 modalId: 'modal-create-services',
-                routeIncrement: '{{ path('backend_ticket_increment_services') }}',
-                routeDecrement: '{{ path('backend_ticket_decrement_services') }}',
-                routeRemoveAll: '{{ path('backend_ticket_remove_all_services') }}'
+                routeIncrement: '{{ path('backend_ticket_increment_item') }}',
+                routeDecrement: '{{ path('backend_ticket_decrement_item') }}',
+                routeRemoveAll: '{{ path('backend_ticket_remove_all_item') }}'
             });
 
             $('body.{{ vars.body_css }}').formTicket({
@@ -114,11 +114,11 @@
                         <div class="col-md-7">
                             <div class="box-header with-border">
                                 <h4 class="box-title">
-                                    <i class="fa fa-fw fa-file-text-o"></i> Servicios
+                                    <i class="fa fa-fw fa-file-text-o"></i> Productos
                                 </h4>
 
-                                <div class="box-tools pull-right" data-toggle="tooltip" data-original-title="Agregar nuevos servicios">
-                                    <a href="{{ path('backend_services_index') }}">
+                                <div class="box-tools pull-right" data-toggle="tooltip" data-original-title="Agregar nuevos productos">
+                                    <a href="{{ path('backend_product_index') }}">
                                         <span class="badge bg-green x-hand">
                                             <i class="fa fa-plus"></i>
                                         </span>
@@ -141,7 +141,7 @@
                                                 tree,
                                                 -1,
                                                 'TreeBundle::Template/li_ticket.html.twig',
-                                                'backend_services_index'
+                                                'backend_product_index'
                                             ) }}
                                         {% else %}
                                             <p>No hay items que mostrar</p>
@@ -168,22 +168,22 @@
                                             Seleccione una categor&iacute;a.
                                         </td>
                                     </tr>
-                                    {% for service in servicesObjs %}
-                                        <tr class="tr-service tr-service-{{ service.category.id }}" style="display: none">
+                                    {% for product in productsObjs %}
+                                        <tr class="tr-service tr-service-{{ product.category.id }}" style="display: none">
                                             <td class="text-center">
-                                                {{ service.id }}
+                                                {{ product.id }}
                                             </td>
                                             <td class="text-center">
-                                                {{ service.name }}
+                                                {{ product.name }}
                                             </td>
                                             <td class="text-center">
-                                                {{ service.price }}
+                                                {{ product.price }}
                                             </td>
                                             <td>
                                                 <button
                                                     type="button"
                                                     class="btn btn-success btn-xs increment-services"
-                                                    data-id-service="{{ service.id }}">
+                                                    data-id-service="{{ product.id }}">
                                                     <i class="fa fa-fw fa-plus-circle"></i>
                                                 </button>
                                             </td>

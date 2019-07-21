@@ -84,7 +84,7 @@ backend_ticket_create_internal:
                 child_ul: box-child-ul
                 li_span: li-span
             entity: Bundle\TicketBundle\Entity\Ticket
-            template: TicketBundle:BackendTicket/Grid:create.html.twig
+            template: TicketBundle:BackendTicket/Grid:create_internal.html.twig
             form:
                 type: Bundle\TicketBundle\Form\Type\TicketType
             repository:
@@ -110,7 +110,7 @@ backend_ticket_create_external:
                 child_ul: box-child-ul
                 li_span: li-span
             entity: Bundle\TicketBundle\Entity\Ticket
-            template: TicketBundle:BackendTicket/Grid:create.html.twig
+            template: TicketBundle:BackendTicket/Grid:create_external.html.twig
             form:
                 type: Bundle\TicketBundle\Form\Type\TicketType
             repository:
@@ -183,11 +183,11 @@ backend_ticket_add_employee:
                 vars:
                     serialize_group_name: crud
 
-backend_ticket_increment_services:
-    path: /increment-services
+backend_ticket_increment_item:
+    path: /increment-item
     methods: [PUT, POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:incrementDecrementServicesAction
+        _controller: tianos.backend.controller.ticket:incrementDecrementItemAction
         _tianos:
             action: create
             template: TicketBundle:BackendTicket/Grid/Box:table_service.html.twig
@@ -209,11 +209,11 @@ backend_ticket_increment_services:
                 vars:
                     serialize_group_name: crud
 
-backend_ticket_decrement_services:
-    path: /decrement-services
+backend_ticket_decrement_item:
+    path: /decrement-item
     methods: [PUT, POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:incrementDecrementServicesAction
+        _controller: tianos.backend.controller.ticket:incrementDecrementItemAction
         _tianos:
             action: create
             template: TicketBundle:BackendTicket/Grid/Box:table_service.html.twig
@@ -235,11 +235,11 @@ backend_ticket_decrement_services:
                 vars:
                     serialize_group_name: crud
 
-backend_ticket_remove_all_services:
-    path: /remove-all-services
+backend_ticket_remove_all_item:
+    path: /remove-all-item
     methods: [POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:removeAllServicesAction
+        _controller: tianos.backend.controller.ticket:removeAllItemAction
         _tianos:
             action: create
             template: TicketBundle:BackendTicket/Grid/Box:table_service.html.twig
@@ -276,67 +276,3 @@ backend_ticket_info:
         _tianos:
             action: info
             template: TicketBundle:BackendTicket/Informative:info.html.twig
-
-#backend_ticket_delete:
-#    path: /delete
-#    methods: [POST, DELETE]
-#    defaults:
-#        _controller: tianos.backend.controller.ticket:deleteAction
-#        _tianos:
-#            action: delete
-#            template: GridBundle:Template:delete.html.twig
-#            repository:
-#                service: tianos.repository.ticket
-#                method: find
-#                arguments: [$ticketId]
-#            vars:
-##                body_css: grid-body-css
-
-#/var/www/html/Sylius/sylius/vendor/sylius/sylius/docs/customization/factory.rst
-#
-#    sylius_admin_product_create_simple:
-#        path: /products/new/simple
-#        methods: [GET, POST]
-#        defaults:
-#            _controller: sylius.controller.product:createAction
-#            _sylius:
-#                section: admin
-#                factory:
-#                    method: createDisabled # like here for example
-#                template: SyliusAdminBundle:Crud:create.html.twig
-#                redirect: sylius_admin_product_update
-#                vars:
-#                    subheader: sylius.ui.manage_your_product_catalog
-#                    templates:
-#                        form: SyliusAdminBundle:CRUDDUMMY:_form.html.twig
-#                    route:
-#                        name: sylius_admin_product_create_simple
-
-
-
-#            template: "@SyliusAdmin/ProductVariant/generate.html.twig"
-#            section: admin
-#            permission: true
-#            redirect:
-#                route: sylius_admin_product_variant_index
-#                parameters: { productId: $productId }
-#            form:
-#                type: Sylius\Bundle\ProductBundle\Form\Type\ProductGenerateVariantsType
-#            repository:
-#                method: find
-#                arguments: [$productId]
-#            flash: sylius.product_variant.generate
-
-#sylius_admin_product_index:
-#    path: /products/
-#    methods: [GET]
-#    defaults:
-#        _controller: sylius.controller.product:indexAction
-#        _sylius:
-#            section: admin
-#            permission: true
-#            grid: sylius_admin_product
-#            template: SyliusAdminBundle:CRUDDUMMY:index.html.twig
-#            vars:
-#                subheader: sylius.ui.manage_your_product_catalog
-#                icon: cube

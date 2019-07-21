@@ -59,14 +59,14 @@
 
             $('body.{{ vars.body_css }}').formServices({
                 modalId: 'modal-create-services',
-                routeIncrement: '{{ path('backend_ticket_increment_services') }}',
-                routeDecrement: '{{ path('backend_ticket_decrement_services') }}',
-                routeRemoveAll: '{{ path('backend_ticket_remove_all_services') }}'
+                routeIncrement: '{{ path('backend_ticket_increment_item') }}',
+                routeDecrement: '{{ path('backend_ticket_decrement_item') }}',
+                routeRemoveAll: '{{ path('backend_ticket_remove_all_item') }}'
             });
 
             $('body.{{ vars.body_css }}').formTicket({
                 formName: 'form-ticket',
-                route: '{{ path('backend_ticket_create_externo') }}',
+                route: '{{ path('backend_ticket_create_external') }}',
                 routeRedirect: '{{ path('backend_ticket_index') }}'
             });
 
@@ -117,8 +117,8 @@
                                     <i class="fa fa-fw fa-file-text-o"></i> Servicios
                                 </h4>
 
-                                <div class="box-tools pull-right" data-toggle="tooltip" data-original-title="Agregar nuevos servicios">
-                                    <a href="{{ path('backend_services_index') }}">
+                                <div class="box-tools pull-right" data-toggle="tooltip" data-original-title="Agregar nuevos productos">
+                                    <a href="{{ path('backend_product_index') }}">
                                         <span class="badge bg-green x-hand">
                                             <i class="fa fa-plus"></i>
                                         </span>
@@ -141,7 +141,7 @@
                                                 tree,
                                                 -1,
                                                 'TreeBundle::Template/li_ticket.html.twig',
-                                                'backend_services_index'
+                                                'backend_product_index'
                                             ) }}
                                         {% else %}
                                             <p>No hay items que mostrar</p>

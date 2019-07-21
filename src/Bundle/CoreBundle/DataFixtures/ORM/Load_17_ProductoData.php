@@ -34,6 +34,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(35);
 	    $entity->setCode('111');
+	    $entity->setPrice(25.33);
 	    $entity->setName('Producto 1');
 	    $entity->setCategory($category_1);
         $manager->persist($entity);
@@ -42,6 +43,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(67);
 	    $entity->setCode('222');
+	    $entity->setPrice(67.77);
 	    $entity->setName('Producto 2');
 	    $entity->setCategory($category_1);
         $manager->persist($entity);
@@ -50,6 +52,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(25);
 	    $entity->setCode('333');
+	    $entity->setPrice(15.33);
 	    $entity->setName('Producto 3');
 	    $entity->setCategory($category_1);
         $manager->persist($entity);
@@ -58,6 +61,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(98);
 	    $entity->setCode('444');
+	    $entity->setPrice(12.33);
 	    $entity->setName('Producto 4');
 	    $entity->setCategory($category_1);
         $manager->persist($entity);
@@ -66,6 +70,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(15);
 	    $entity->setCode('555');
+	    $entity->setPrice(43.33);
 	    $entity->setName('Producto 5');
 	    $entity->setCategory($category_1);
         $manager->persist($entity);
@@ -79,6 +84,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(35);
 	    $entity->setCode('666');
+	    $entity->setPrice(23.44);
 	    $entity->setName('Producto 6');
 	    $entity->setCategory($category_2);
         $manager->persist($entity);
@@ -87,6 +93,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(67);
 	    $entity->setCode('777');
+	    $entity->setPrice(99.22);
 	    $entity->setName('Producto 7');
 	    $entity->setCategory($category_2);
         $manager->persist($entity);
@@ -95,6 +102,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(25);
 	    $entity->setCode('888');
+	    $entity->setPrice(77.88);
 	    $entity->setName('Producto 8');
 	    $entity->setCategory($category_2);
         $manager->persist($entity);
@@ -103,6 +111,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(98);
 	    $entity->setCode('999');
+	    $entity->setPrice(41.66);
 	    $entity->setName('Producto 9');
 	    $entity->setCategory($category_2);
         $manager->persist($entity);
@@ -115,6 +124,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(78);
 	    $entity->setCode('1010');
+	    $entity->setPrice(67.55);
 	    $entity->setName('Producto 10');
 	    $entity->setCategory($category_3);
         $manager->persist($entity);
@@ -123,6 +133,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(34);
 	    $entity->setCode('1111');
+	    $entity->setPrice(45.22);
 	    $entity->setName('Producto 11');
 	    $entity->setCategory($category_3);
         $manager->persist($entity);
@@ -131,6 +142,7 @@ class Load_17_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $entity = new Product();
 	    $entity->setStock(22);
 	    $entity->setCode('1212');
+	    $entity->setPrice(14.33);
 	    $entity->setName('Producto 12');
 	    $entity->setCategory($category_3);
         $manager->persist($entity);

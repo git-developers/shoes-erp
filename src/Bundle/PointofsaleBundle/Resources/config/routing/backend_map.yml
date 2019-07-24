@@ -1,4 +1,4 @@
-backend_super_pointofsale_map_index:
+backend_pointofsale_map_index:
     path: /
     methods: [GET]
     defaults:

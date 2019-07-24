@@ -181,45 +181,19 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     {
 	    $em = $this->getEntityManager();
 	    $dql = "
-            SELECT pdv, user_, profile
-            FROM PointofsaleBundle:Pointofsale pdv
-            LEFT JOIN pdv.user user_
+            SELECT user_, profile
+            FROM UserBundle:User user_
             INNER JOIN user_.profile profile
             WHERE
             profile.slug = :slug AND
-            pdv.isActive = :active
+            user_.enabled = :active
             ";
 	
 	    $query = $em->createQuery($dql);
 	    $query->setParameter('active', 1);
 	    $query->setParameter('slug', Profile::CLIENT_SLUG);
 
-	    return $query->getOneOrNullResult();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function findAllClientCOPY($idPdv) //: array
-    {
-	    $em = $this->getEntityManager();
-	    $dql = "
-            SELECT pdv, user_, profile
-            FROM PointofsaleBundle:Pointofsale pdv
-            LEFT JOIN pdv.user user_
-            INNER JOIN user_.profile profile
-            WHERE
-            pdv.id = :id AND
-            profile.slug = :slug AND
-            pdv.isActive = :active
-            ";
-	
-	    $query = $em->createQuery($dql);
-	    $query->setParameter('active', 1);
-	    $query->setParameter('id', $idPdv);
-	    $query->setParameter('slug', Profile::CLIENT_SLUG);
-
-	    return $query->getOneOrNullResult();
+	    return $query->getResult();
     }
 
     /**
@@ -229,20 +203,19 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     {
 	    $em = $this->getEntityManager();
 	    $dql = "
-            SELECT pdv, user_, profile
-            FROM PointofsaleBundle:Pointofsale pdv
-            LEFT JOIN pdv.user user_
+            SELECT user_, profile
+            FROM UserBundle:User user_
             INNER JOIN user_.profile profile
             WHERE
             profile.slug = :slug AND
-            pdv.isActive = :active
+            user_.enabled = :active
             ";
 	
 	    $query = $em->createQuery($dql);
 	    $query->setParameter('active', 1);
 	    $query->setParameter('slug', Profile::EMPLOYEE_SLUG);
 	
-	    return $query->getOneOrNullResult();
+	    return $query->getResult();
     }
 
     /**

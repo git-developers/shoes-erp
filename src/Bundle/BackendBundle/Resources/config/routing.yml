@@ -59,3 +59,6 @@ backend_pointofsale_per_user:
 backend_pointofsale_add_user:
     resource: '@PointofsaleBundle/Resources/config/routing/backend_add_user.yml'
     prefix: /point-of-sale/add-user
+backend_pointofsale_pdv_child:
+    resource: '@PointofsaleBundle/Resources/config/routing/backend_pdv_child.yml'
+    prefix: /point-of-sale/child

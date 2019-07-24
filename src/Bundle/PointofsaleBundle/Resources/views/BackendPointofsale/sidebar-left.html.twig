@@ -29,7 +29,7 @@
                     <div class="col-md-10">
                         <p class="text-muted">
                             <input
-                                value="{{ url('backend_security_pdv_login', {slug: pdv.slug}) }}"
+                                value="{{ url('backend_security_login_pdv', {slug: pdv.slug}) }}"
                                 class="form-control copy-to-clipboard-text"
                                 readonly>
                         </p>
@@ -66,7 +66,7 @@
                 </a>
             </li>
             <li class="{% if app.request.get('_route') in 'backend_pointofsale_pdv_child_index' %}active{% endif %}">
-                <a href="{{ path('backend_ointofsale_pdv_child_index', {id: pdv.id}) }}">
+                <a href="{{ path('backend_pointofsale_pdv_child_index', {id: pdv.id}) }}">
                     <i class="fa fa-map-marker"></i> Agregar sucursales PDV
                 </a>
             </li>

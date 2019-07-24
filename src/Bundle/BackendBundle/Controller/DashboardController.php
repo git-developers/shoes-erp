@@ -9,6 +9,7 @@ use Bundle\CoreBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webmozart\Assert\Assert;
+use Bundle\RoleBundle\Entity\Role;
 
 class DashboardController extends BaseController
 {
@@ -19,9 +20,6 @@ class DashboardController extends BaseController
      */
     public function indexAction(Request $request): Response
     {
-//        return $this->redirectUrl('frontend_default_index');
-
-
 	
 /*	    $user = $this->getUser();
 	
@@ -64,6 +62,11 @@ class DashboardController extends BaseController
 
         $template = $options['template'] ?? null;
         Assert::notNull($template, 'Template is not configured.');
+	
+	
+	    if ($this->isGranted(Role::ROLE_SUPER_ADMIN)) {
+		    $template = "BackendBundle:Default:dashboard_admin.html.twig";
+	    }
 
         return $this->render($template, [
             'form' => null

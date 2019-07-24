@@ -1,4 +1,4 @@
-backend_super_pointofsale_pdv_child_index:
+backend_pointofsale_pdv_child_index:
     path: /{id}
     methods: [GET]
     defaults:
@@ -26,11 +26,11 @@ backend_super_pointofsale_pdv_child_index:
                         size: modal-lg
                 data_table:
                     route:
-                        info: backend_super_pointofsale_pdv_child_info
-                        view: backend_super_pointofsale_pdv_child_view
-                        edit: backend_super_pointofsale_pdv_child_edit
-                        create_pdv_child: backend_super_pointofsale_pdv_child_create
-                        delete: backend_super_pointofsale_pdv_child_delete
+                        info: backend_pointofsale_pdv_child_info
+                        view: backend_pointofsale_pdv_child_view
+                        edit: backend_pointofsale_pdv_child_edit
+                        create_pdv_child: backend_pointofsale_pdv_child_create
+                        delete: backend_pointofsale_pdv_child_delete
                         add_user: backend_pointofsale_add_user
                     table_button:
                         - edit
@@ -67,7 +67,7 @@ backend_super_pointofsale_pdv_child_index:
                 vars:
                     serialize_group_name: crud
 
-backend_super_pointofsale_pdv_child_create:
+backend_pointofsale_pdv_child_create:
     path: /create
     methods: [POST]
     defaults:
@@ -82,7 +82,7 @@ backend_super_pointofsale_pdv_child_create:
                 vars:
                     serialize_group_name: crud
 
-backend_super_pointofsale_pdv_child_edit:
+backend_pointofsale_pdv_child_edit:
     path: /edit
     methods: [PUT, POST]
     defaults:
@@ -99,7 +99,7 @@ backend_super_pointofsale_pdv_child_edit:
                 vars:
                     serialize_group_name: crud
 
-backend_super_pointofsale_pdv_child_delete:
+backend_pointofsale_pdv_child_delete:
     path: /delete
     methods: [POST, DELETE]
     defaults:
@@ -114,7 +114,7 @@ backend_super_pointofsale_pdv_child_delete:
             vars:
 #                body_css: grid-body-css
 
-backend_super_pointofsale_pdv_child_view:
+backend_pointofsale_pdv_child_view:
     path: /view
     methods: [POST]
     defaults:
@@ -129,7 +129,7 @@ backend_super_pointofsale_pdv_child_view:
                 vars:
                     serialize_group_name: crud
 
-backend_super_pointofsale_pdv_child_info:
+backend_pointofsale_pdv_child_info:
     path: /info
     methods: [POST]
     defaults:

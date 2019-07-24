@@ -1,0 +1,162 @@
+{% extends "ThemesBundle:Adminlte/Template:1_template.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            Dashboard
+            <small>Version {{ application_version }}</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> Home
+                </a>
+            </li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header bg-teal-active">
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="{{ asset('bundles/themes/adminlte/images/icon-2-128x128.png') }}" alt="">
+                        </div>
+                        <h3 class="widget-user-username">Usuarios</h3>
+                        <h5 class="widget-user-desc">info</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="{{ path('backend_user_index') }}">Todos <span class="pull-right badge bg-blue">31</span></a></li>
+                            <li><a href="{{ path('backend_user_client_index') }}">Clientes <span class="pull-right badge bg-blue">31</span></a></li>
+                            <li><a href="{{ path('backend_user_employee_index') }}">Empleados <span class="pull-right badge bg-aqua">5</span></a></li>
+                            <li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header bg-light-blue-active">
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="{{ asset('bundles/themes/adminlte/images/icon-1-128x128.png') }}" alt="">
+                        </div>
+                        <h3 class="widget-user-username">Puntos de ventas</h3>
+                        <h5 class="widget-user-desc">info</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="{{ path('backend_pointofsale_index') }}">Gestionar <span class="pull-right badge bg-blue">31</span></a></li>
+                            <li><a href="{{ path('backend_pointofsale_map_index') }}">Mapa <span class="pull-right badge bg-aqua">5</span></a></li>
+                            <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
+                            <li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header bg-purple-active">
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="{{ asset('bundles/themes/adminlte/images/icon-3-128x128.png') }}" alt="">
+                        </div>
+                        <h3 class="widget-user-username">Inventarios</h3>
+                        <h5 class="widget-user-desc">info</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="{{ path('backend_category_tree_index', {entity_type: 'PRODUCT'}) }}">Categoria <span class="pull-right badge bg-blue">31</span></a></li>
+                            <li><a href="{{ path('backend_product_index') }}">Producto <span class="pull-right badge bg-aqua">5</span></a></li>
+                            <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
+                            <li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header bg-maroon-active">
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="{{ asset('bundles/themes/adminlte/images/icon-4-128x128.png') }}" alt="">
+                        </div>
+                        <h3 class="widget-user-username">Seguridad</h3>
+                        <h5 class="widget-user-desc">info</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="{{ path('backend_profile_index') }}">Perfil <span class="pull-right badge bg-blue">31</span></a></li>
+                            <li><a href="{{ path('backend_role_index') }}">Rol <span class="pull-right badge bg-aqua">5</span></a></li>
+                            <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
+                            <li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header bg-yellow">
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="{{ asset('bundles/themes/adminlte/images/icon-5-128x128.png') }}" alt="">
+                        </div>
+                        <h3 class="widget-user-username">Pedidos</h3>
+                        <h5 class="widget-user-desc">info</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="{{ path('backend_ticket_index') }}">Gestionar <span class="pull-right badge bg-blue">31</span></a></li>
+                            <li><a href="{{ path('backend_ticket_create_internal') }}">Pedidos internos <span class="pull-right badge bg-aqua">5</span></a></li>
+                            <li><a href="{{ path('backend_ticket_create_external') }}">Pedidos externos <span class="pull-right badge bg-green">12</span></a></li>
+                            <li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="box box-widget widget-user-2">
+                    <div class="widget-user-header bg-green-active">
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="{{ asset('bundles/themes/adminlte/images/icon-6-128x128.png') }}" alt="">
+                        </div>
+                        <h3 class="widget-user-username">Estadísticas</h3>
+                        <h5 class="widget-user-desc">info</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="{{ path('backend_report_combo_chart') }}">Combo chart <span class="pull-right badge bg-blue">31</span></a></li>
+                            <li><a href="{{ path('backend_report_pie_chart') }}">Tasks <span class="pull-right badge bg-aqua">5</span></a></li>
+                            <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
+                            <li><a href="#">Followers <span class="pull-right badge bg-red">842</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+{% endblock %}

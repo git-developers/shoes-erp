@@ -15,7 +15,7 @@ class DataTableMapper
 
     const TABLE_NAME = 'table-grid';
     const TABLE_TR_CLASS = 'row-tr-class';
-    const TABLE_TD_CLASS = 'row-td-class';
+    const TABLE_TD_CLASS = 'row-td-class-';
 
     private $grid;
 

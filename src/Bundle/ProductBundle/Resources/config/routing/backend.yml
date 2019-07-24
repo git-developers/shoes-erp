@@ -78,7 +78,7 @@ backend_product_index:
                 type: Bundle\ProductBundle\Form\Type\ProductType
             repository:
                 service: tianos.repository.product
-                method: findAllByCategory
+                method: findAllByCategoryId
                 arguments: [$productId]
                 vars:
                     serialize_group_name: crud

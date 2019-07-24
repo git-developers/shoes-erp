@@ -16,7 +16,7 @@ backend_ticket_index:
             grid:
                 icon: ticket
                 box_class: primary
-                title: Gestionar ticket
+                title: Gestionar pedidos
                 data_table:
                     route:
                         info: backend_ticket_info
@@ -190,7 +190,7 @@ backend_ticket_increment_item:
         _controller: tianos.backend.controller.ticket:incrementDecrementItemAction
         _tianos:
             action: create
-            template: TicketBundle:BackendTicket/Grid/Box:table_service.html.twig
+            template: TicketBundle:BackendTicket/Grid/Box:table_product.html.twig
             vars:
                 body_css: grid-body-css
                 serialize_group_name: crud
@@ -216,7 +216,7 @@ backend_ticket_decrement_item:
         _controller: tianos.backend.controller.ticket:incrementDecrementItemAction
         _tianos:
             action: create
-            template: TicketBundle:BackendTicket/Grid/Box:table_service.html.twig
+            template: TicketBundle:BackendTicket/Grid/Box:table_product.html.twig
             vars:
                 body_css: grid-body-css
                 serialize_group_name: crud
@@ -242,7 +242,7 @@ backend_ticket_remove_all_item:
         _controller: tianos.backend.controller.ticket:removeAllItemAction
         _tianos:
             action: create
-            template: TicketBundle:BackendTicket/Grid/Box:table_service.html.twig
+            template: TicketBundle:BackendTicket/Grid/Box:table_product.html.twig
             vars:
                 body_css: grid-body-css
                 serialize_group_name: crud

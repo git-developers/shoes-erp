@@ -28,77 +28,6 @@ class BackendController extends GridController
      */
     protected $requestConfigurationFactory;
 	
-	
-	/**
-	 * @param Request $request
-	 *
-	 * @return Response
-	 */
-	public function indexSuperAction(Request $request): Response
-	{
-//        $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
-		
-		$parameters = [
-			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
-		];
-		$applicationName = $this->container->getParameter('application_name');
-		$this->metadata = new Metadata('tianos', $applicationName, $parameters);
-		
-		//CONFIGURATION
-		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
-		$filesUpload = $configuration->getFilesUploadService();
-		$repository = $configuration->getRepositoryService();
-		$method = $configuration->getRepositoryMethod();
-		$template = $configuration->getTemplate('');
-		$grid = $configuration->getGrid();
-		$vars = $configuration->getVars();
-		$modal = $configuration->getModal();
-		
-		//REPOSITORY
-		$objects = $this->get($repository)->$method();
-		$objects = $this->rowImages($objects);
-		
-		$varsRepository = $configuration->getRepositoryVars();
-		$objects = $this->getSerialize($objects, $varsRepository->serialize_group_name);
-		
-		
-//		echo "POLLO WWW:: <pre>";
-//		print_r($objects);
-//		exit;
-		
-		
-		//GRID
-		$gridService = $this->get('tianos.grid');
-		$modal = $gridService->getModalMapper()->getDefaults($modal);
-		$formMapper = $gridService->getFormMapper()->getDefaults();
-		
-		//DATATABLE
-		$dataTable = $gridService->getDataTableMapper($grid)
-			->setRoute()
-			->setColumns()
-			->setOptions()
-			->setRowCallBack()
-			->setData($objects)
-			->setTableOptions()
-			->setTableButton()
-			->setTableHeaderButton()
-			->setColumnsTargets()
-			->resetGridVariable()
-		;
-		
-		return $this->render(
-			$template,
-			[
-				'vars' => $vars,
-				'grid' => $grid,
-				'modal' => $modal,
-				'dataTable' => $dataTable,
-				'form_mapper' => $formMapper,
-				'filesUpload' => $filesUpload,
-			]
-		);
-	}
- 
 	/**
 	 * @param Request $request
 	 *
@@ -129,10 +58,17 @@ class BackendController extends GridController
 		
 		
 		//REPOSITORY
-		$objects = $this->get($repository)->$method($user->getPointOfSaleActiveId());
-		$objects = is_object($objects) ? $objects->getUser() : [];
+		//$objects = $this->get($repository)->$method($user->getPointOfSaleActiveId());
+		$objects = $this->get($repository)->$method();
+		//$objects = is_object($objects) ? $objects->getUser() : [];
 		$varsRepository = $configuration->getRepositoryVars();
 		$objects = $this->getSerialize($objects, $varsRepository->serialize_group_name);
+		
+		
+//		echo "POLLO:: <pre>";
+//		print_r($objects);
+//		exit;
+		
 		
 		//GRID
 		$gridService = $this->get('tianos.grid');

@@ -14,21 +14,21 @@
             {% set subTotal = 0 %}
             {% set totalPrice = 0 %}
 
-            {% for service in services %}
+            {% for product in products %}
 
-                {% set subTotal = service.price * service.quantity %}
+                {% set subTotal = product.price * product.quantity %}
 
                 <tr>
                     <td class="text-center">
-                            <span class="badge bg-light-blue">
-                                {{ service.quantity }}
-                            </span>
+                        <span class="badge bg-light-blue">
+                            {{ product.quantity }}
+                        </span>
                     </td>
                     <td>
-                        {{ service.name }}
+                        {{ product.name }}
                     </td>
                     <td class="text-right">
-                        {{ service.price }}
+                        {{ product.price }}
                     </td>
                     <td class="text-right">
                         {{ subTotal }}
@@ -37,7 +37,7 @@
                         <button
                                 type="button"
                                 class="btn btn-danger btn-xs decrement-services"
-                                data-id-service="{{ service.id }}">
+                                data-id-item="{{ product.id }}">
                             <i class="fa fa-fw fa-minus-circle"></i>
                         </button>
                     </td>

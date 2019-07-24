@@ -1,4 +1,4 @@
-{% extends "ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig" %}
+{% extends "ThemesBundle:Adminlte/Template:1_template.html.twig" %}
 
 {% import "TreeBundle::Macro/tree_ticket.html.twig" as macro %}
 
@@ -183,7 +183,7 @@
                                                 <button
                                                     type="button"
                                                     class="btn btn-success btn-xs increment-services"
-                                                    data-id-service="{{ product.id }}">
+                                                    data-id-item="{{ product.id }}">
                                                     <i class="fa fa-fw fa-plus-circle"></i>
                                                 </button>
                                             </td>
@@ -301,7 +301,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="box-body box-table-services">
+                        <div class="box-body box-table-items">
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -318,15 +318,15 @@
                                 </div>
                             </div>
 
-                            <div class="services">
-                                {{ include('TicketBundle:BackendTicket/Grid/Box:table_service.html.twig') }}
+                            <div class="items">
+                                {{ include('TicketBundle:BackendTicket/Grid/Box:table_product.html.twig') }}
                             </div>
 
                         </div>
 
                         <div class="box-footer text-center">
                             <button type="submit" class="btn btn-primary">
-                                Generar comprobante
+                                Generar pedido
                             </button>
                         </div>
 

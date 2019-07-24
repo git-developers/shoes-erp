@@ -930,7 +930,8 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
 	/**
 	 * @param \Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSaleActive
 	 */
-	public function setPointOfSaleActive(\Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSaleActive)
+	//public function setPointOfSaleActive(\Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSaleActive)
+	public function setPointOfSaleActive($pointOfSaleActive)
 	{
 		$this->pointOfSaleActive = $pointOfSaleActive;
 	}

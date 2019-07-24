@@ -15,7 +15,7 @@ backend_user_index:
             grid:
                 icon: user
                 box_class: primary
-                title: Gestionar usuarios XX
+                title: Gestionar usuarios
                 modal:
                     create:
                         title: Crear usuario

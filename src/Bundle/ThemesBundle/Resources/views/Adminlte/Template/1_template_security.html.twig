@@ -14,6 +14,41 @@
         {{ head.favicon() }}
         {{ head.canonical() }}
 
+        {% block seo %}
+            {% block head %}
+
+                {#para copiar en otras paginas#}
+                {{ head.title() }}
+            {% endblock %}
+
+            {% block twitter %}
+                {{ twitter.card() }}
+
+                {#para copiar en otras paginas#}
+                {#{{ twitter.title() }}#}
+                {#{{ twitter.description() }}#}
+                {#{{ twitter.image() }}#}
+            {% endblock %}
+
+            {% block open_graph %}
+                {{ og.default() }}
+                {{ og.url() }}
+
+                {#para copiar en otras paginas#}
+                {#{{ og.title() }}#}
+                {#{{ og.description() }}#}
+                {#{{ og.image() }}#}
+            {% endblock %}
+
+            {% block bi3d %}
+                {#para copiar en otras paginas#}
+                {#{{ bi3d.art_id() }}#}
+                {#{{ bi3d.section() }}#}
+                {#{{ bi3d.art_title() }}#}
+                {#{{ bi3d.pub_date() }}#}
+            {% endblock %}
+        {% endblock %}
+
     {% block stylesheets %}
 
         {#'@ThemesBundle/Resources/public/common/css/skin-tianos.css'#}
@@ -40,7 +75,7 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Pacifico">
+        {#<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Pacifico">#}
 
         <style>
             .login-box, .register-box{
@@ -60,7 +95,7 @@
 
     {% endblock %}
 
-    {{ include('ThemesBundle:Adminlte/TemplateSuper:2_header.html.twig') }}
+    {{ include('ThemesBundle:Adminlte/Template:2_header.html.twig') }}
 
     {{ html.flash_message_success }}
     {{ html.flash_message_warning }}

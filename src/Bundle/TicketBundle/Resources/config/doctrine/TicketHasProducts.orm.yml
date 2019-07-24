@@ -1,7 +1,7 @@
-Bundle\TicketBundle\Entity\TicketHasServices:
+Bundle\TicketBundle\Entity\TicketHasProducts:
     type: entity
     table: ticket_has_services
-    repositoryClass: Bundle\TicketBundle\Doctrine\ORM\TicketHasServicesRepository
+    repositoryClass: Bundle\TicketBundle\Doctrine\ORM\TicketHasProductsRepository
     indexes:
         fk_ticket_has_services_ticket1_idx:
             columns:
@@ -41,8 +41,8 @@ Bundle\TicketBundle\Entity\TicketHasServices:
                 fixed: false
             column: sub_total
     manyToOne:
-        services:
-            targetEntity: Bundle\ServicesBundle\Entity\Services
+        products:
+            targetEntity: Bundle\ProductBundle\Entity\Product
             cascade: {  }
             fetch: LAZY
             mappedBy: null

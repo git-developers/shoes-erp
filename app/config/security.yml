@@ -3,7 +3,6 @@
 security:
 
 #    always_authenticate_before_granting: true
-
     encoders:
         Bundle\UserBundle\Entity\User: bcrypt
 #        FOS\UserBundle\Model\UserInterface: bcrypt
@@ -18,47 +17,21 @@ security:
             id: fos_user.user_provider.username_email
 
     firewalls:
-        main_super:
-            pattern: ^/backend-super
-            #pattern: ^/(backend-super|backend)/
-            form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
-                login_path: backend_security_super_login
-                check_path: backend_security_super_login_check
-                default_target_path: backend_default_super_index
-                success_handler: tianos.authentication_success_handler
-                failure_handler: tianos.authentication_failure_handler
-                # if you are using Symfony < 2.8, use the following config instead:
-                # csrf_provider: form.csrf_provider
-            logout:
-                path: backend_security_super_logout
-                target: backend_security_super_login
-            remember_me:
-#                token_provider: name
-                secret: "%secret%"
-#                name: NameOfTheCookie
-                lifetime: 3600 # in seconds
-                secure: false
-                httponly: true
-                always_remember_me: false
-                remember_me_parameter: _remember_me
-            anonymous:    true
         main_pdv:
             pattern: ^/backend
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-                login_path: backend_security_pdv_login
-                check_path: backend_security_pdv_login_check
-                default_target_path: backend_default_pdv_index
+                login_path: backend_security_login_admin
+                check_path: backend_security_login_check
+                default_target_path: backend_dashboard_index
                 success_handler: tianos.authentication_success_handler
                 failure_handler: tianos.authentication_failure_handler
                 # if you are using Symfony < 2.8, use the following config instead:
                 # csrf_provider: form.csrf_provider
             logout:
-                path: backend_security_pdv_logout
-                target: backend_security_pdv_login
+                path: backend_security_logout
+                target: backend_security_login_admin
                 success_handler: tianos.logout_success_handler
             remember_me:
 #                token_provider: name
@@ -69,14 +42,10 @@ security:
                 httponly: true
                 always_remember_me: false
                 remember_me_parameter: _remember_me
-            anonymous:    true
+            anonymous: true
 
     access_control:
-        - { path: ^/backend/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/backend/login/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/backend-super/security/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/backend/security/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/backend/security/pdv/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/backend/, role: ROLE_USER }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/backend/ticket/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/backend/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/backend-super/, role: ROLE_SUPER_ADMIN }
-        #- { path: ^/backend/, roles: [ROLE_PDV_ADMIN, ROLE_EMPLOYEE] }

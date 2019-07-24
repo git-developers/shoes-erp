@@ -118,7 +118,16 @@ class Product
 	 * })
 	 */
 	private $unit;
-
+	
+	/**
+	 * @var integer
+	 *
+	 * @JMSS\Groups({
+	 *     "ticket"
+	 * })
+	 */
+	private $quantity;
+	
     /**
      * Get id
      *
@@ -399,6 +408,22 @@ class Product
 	public function getUnit()
 	{
 		return $this->unit;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getQuantity(): int
+	{
+		return $this->quantity;
+	}
+	
+	/**
+	 * @param int $quantity
+	 */
+	public function setQuantity(int $quantity)
+	{
+		$this->quantity = $quantity;
 	}
 }
 

@@ -158,7 +158,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      */
     public function findAll(): array
     {
-        $em = $this->getEntityManager();
+	    $em = $this->getEntityManager();
         
 	    $dql = "
             SELECT user_, profile
@@ -177,7 +177,30 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function findAllClient($idPdv) //: array
+    public function findAllClient() //: array
+    {
+	    $em = $this->getEntityManager();
+	    $dql = "
+            SELECT pdv, user_, profile
+            FROM PointofsaleBundle:Pointofsale pdv
+            LEFT JOIN pdv.user user_
+            INNER JOIN user_.profile profile
+            WHERE
+            profile.slug = :slug AND
+            pdv.isActive = :active
+            ";
+	
+	    $query = $em->createQuery($dql);
+	    $query->setParameter('active', 1);
+	    $query->setParameter('slug', Profile::CLIENT_SLUG);
+
+	    return $query->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllClientCOPY($idPdv) //: array
     {
 	    $em = $this->getEntityManager();
 	    $dql = "
@@ -202,7 +225,30 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function findAllEmployee($idPdv) //: array
+    public function findAllEmployee() //: array
+    {
+	    $em = $this->getEntityManager();
+	    $dql = "
+            SELECT pdv, user_, profile
+            FROM PointofsaleBundle:Pointofsale pdv
+            LEFT JOIN pdv.user user_
+            INNER JOIN user_.profile profile
+            WHERE
+            profile.slug = :slug AND
+            pdv.isActive = :active
+            ";
+	
+	    $query = $em->createQuery($dql);
+	    $query->setParameter('active', 1);
+	    $query->setParameter('slug', Profile::EMPLOYEE_SLUG);
+	
+	    return $query->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllEmployeeCOPY($idPdv) //: array
     {
 	    $em = $this->getEntityManager();
 	    $dql = "

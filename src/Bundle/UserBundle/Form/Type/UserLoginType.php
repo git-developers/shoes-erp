@@ -34,7 +34,7 @@ final class UserLoginType extends AbstractType
 
         $builder
 //            ->setAction($this->router->generate('fos_user_security_check'))
-            ->setAction($this->router->generate('backend_security_super_login_check'))
+            ->setAction($this->router->generate('backend_security_login_check'))
             ->add('_username', EmailType::class, [
                 'required' => true,
                 'label_attr' => [

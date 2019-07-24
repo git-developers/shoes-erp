@@ -41,7 +41,7 @@ final class PdvLoginType extends AbstractType
         $this->pdv = $options['pdv'];
 	
 	    $builder
-            ->setAction($this->router->generate('backend_security_pdv_login_check'))
+            ->setAction($this->router->generate('backend_security_login_check'))
             ->add('pointOfSale', EntityType::class, [
                 'class' => Pointofsale::class,
                 'query_builder' => function(EntityRepository $er) {

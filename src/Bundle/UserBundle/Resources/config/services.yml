@@ -12,7 +12,7 @@ services:
 
     tianos.logout_success_handler:
         class: Bundle\UserBundle\EventListener\LogoutSuccessHandler
-        arguments: ['@security.http_utils', "backend_security_pdv_login", "@security.token_storage", "@router"]
+        arguments: ['@security.http_utils', "backend_security_login_admin", "@security.token_storage", "@router"]
         tags:
             - { name: kernel.event_listener, event: request, method: onLogoutSuccess }
 

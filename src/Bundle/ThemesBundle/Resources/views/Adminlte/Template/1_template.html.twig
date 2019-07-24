@@ -1,4 +1,4 @@
-{#https://almsaeedstudio.com/themes/AdminLTE/index2.html#}
+{# https://adminlte.io/themes/AdminLTE/index2.html #}
 
 {% import "ThemesBundle::Adminlte/Macro/html.html.twig" as html %}
 {% import "ThemesBundle::Adminlte/Macro/head.html.twig" as head %}
@@ -6,20 +6,6 @@
 {% import "ThemesBundle::Adminlte/Macro/bi3d.html.twig" as bi3d %}
 {% import "ThemesBundle::Adminlte/Macro/twitter.html.twig" as twitter %}
 {% import "ThemesBundle::Adminlte/Macro/open_graph.html.twig" as og %}
-
-{#{{ dump(app.user) }}#}
-
-{#{% if(app.user.image is defined and app.user.image is not null) %}#}
-    {#{% set image_avatar = asset('../../uploads/user/' ~ app.user.image) | imagine_filter('filter_160') %} #}{# ~'?'~ random()#}
-{#{% else %}#}
-    {#{% set image_avatar = asset('bundles/themes/common/images/no_avatar.jpg') %} #}{# | imagine_filter('filter_160')#}
-{#{% endif %}#}
-
-{#{% if(app.user.image is defined and app.user.image is not null) %}#}
-    {#{% set image_update = asset('../../uploads/user/' ~ app.user.image) | imagine_filter('filter_500') %}#}
-{#{% else %}#}
-    {#{% set image_update = asset('bundles/themes/common/images/no_avatar.jpg') %}#}
-{#{% endif %}#}
 
 {% set image_avatar = asset('bundles/themes/common/images/no_avatar.jpg') %} {# | imagine_filter('filter_160')#}
 
@@ -92,9 +78,9 @@
             '@ThemesBundle/Resources/public/adminlte/plugins/pace/pace.min.css'
         %}
             <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
+        {% endstylesheets %}
 
-    {#<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Pacifico">#}
+        {#<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Pacifico">#}
 
     {% endblock %}
 
@@ -108,18 +94,10 @@
 
 <div class="wrapper">
 
-    {{ include("ThemesBundle:Adminlte/TemplatePdv:2_header.html.twig") }}
-    {{ include("ThemesBundle:Adminlte/TemplatePdv:3_left_main_sidebar.html.twig") }}
+    {{ include("ThemesBundle:Adminlte/Template:2_header.html.twig") }}
+    {{ include("ThemesBundle:Adminlte/Template:3_left_main_sidebar.html.twig") }}
 
     <div class="content-wrapper">
-        {{ html.tianos_alert_success_2 }}
-        {{ html.tianos_alert_warning_2 }}
-        {{ html.tianos_alert_error_2 }}
-
-        {{ html.tianos_alert_success }}
-        {{ html.tianos_alert_warning }}
-        {{ html.tianos_alert_error }}
-
         {{ html.flash_message_success }}
         {{ html.flash_message_warning }}
         {{ html.flash_message_error }}
@@ -135,7 +113,7 @@
         <strong>{{ application_name }} &copy {{ "now"|date("d, F Y - H:i") }}</strong> All rights reserved.
     </footer>
 
-    {{ include("ThemesBundle:Adminlte/TemplatePdv:4_right_control_sidebar.html.twig") }}
+    {{ include("ThemesBundle:Adminlte/Template:4_right_control_sidebar.html.twig") }}
 
 </div>
 
@@ -159,7 +137,6 @@
         '@ThemesBundle/Resources/public/adminlte/dist/js/app.min.js'
         '@ThemesBundle/Resources/public/adminlte/plugins/iCheck/icheck.min.js'
         '@ThemesBundle/Resources/public/adminlte/bower_components/PACE/pace.min.js'
-        '@ThemesBundle/Resources/public/adminlte/js/tianos.js'
 
     %}
         <script src="{{ asset_url }}"></script>

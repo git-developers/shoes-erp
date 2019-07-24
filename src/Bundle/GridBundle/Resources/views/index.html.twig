@@ -1,22 +1,4 @@
-{% set extends_path = 'ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig' %}
-
-{% if is_granted('ROLE_SUPER_ADMIN') %}
-    {% set extends_path = 'ThemesBundle:Adminlte/TemplateSuper:1_template.html.twig' %}
-{% endif %}
-
-
-{#
-{% if is_granted('ROLE_SUPER_ADMIN') %}
-    {% set extends_path = 'ThemesBundle:Adminlte/TemplateSuper:1_template.html.twig' %}
-{% elseif is_granted('ROLE_PDV_ADMIN') %}
-    {% set extends_path = 'ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig' %}
-{% elseif is_granted('ROLE_EMPLOYEE') %}
-    {% set extends_path = 'ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig' %}
-{% endif %}
-#}
-
-
-{% extends extends_path %}
+{% extends 'ThemesBundle:Adminlte/Template:1_template.html.twig' %}
 
 {% block bodyclass %}{% spaceless %}
     {{ vars.body_css }}
@@ -138,7 +120,7 @@
                         'createdCell':  function (td, cellData, rowData, row, col) {
                             $(td).attr('data-toggle', 'modal');
                             $(td).attr('data-target', '#{{ modal.view_id }}');
-                            $(td).attr('class', '{{ dataTable.tableOptions.table_td_class }}');
+                            $(td).attr('class', '{{ dataTable.tableOptions.table_td_class }} {{ dataTable.tableOptions.table_td_class }}' + col);
                         }
                     }
                 ],

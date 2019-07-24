@@ -1,4 +1,4 @@
-{% extends "ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig" %}
+{% extends "ThemesBundle:Adminlte/Template:1_template.html.twig" %}
 
 {% import "TreeBundle::Macro/tree_ticket.html.twig" as macro %}
 
@@ -35,7 +35,7 @@
     {% javascripts
         '@TicketBundle/Resources/public/js/formClient.js'
         '@TicketBundle/Resources/public/js/formEmployee.js'
-        '@TicketBundle/Resources/public/js/formServices.js'
+        '@TicketBundle/Resources/public/js/formProducts.js'
         '@TicketBundle/Resources/public/js/formTicket.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -57,7 +57,7 @@
                 route: '{{ path('backend_ticket_add_employee') }}'
             });
 
-            $('body.{{ vars.body_css }}').formServices({
+            $('body.{{ vars.body_css }}').formProducts({
                 modalId: 'modal-create-services',
                 routeIncrement: '{{ path('backend_ticket_increment_item') }}',
                 routeDecrement: '{{ path('backend_ticket_decrement_item') }}',
@@ -66,7 +66,7 @@
 
             $('body.{{ vars.body_css }}').formTicket({
                 formName: 'form-ticket',
-                route: '{{ path('backend_ticket_create_external') }}',
+                route: '{{ path('backend_ticket_create_internal') }}',
                 routeRedirect: '{{ path('backend_ticket_index') }}'
             });
 
@@ -114,7 +114,7 @@
                         <div class="col-md-7">
                             <div class="box-header with-border">
                                 <h4 class="box-title">
-                                    <i class="fa fa-fw fa-file-text-o"></i> Servicios
+                                    <i class="fa fa-fw fa-file-text-o"></i> Productos
                                 </h4>
 
                                 <div class="box-tools pull-right" data-toggle="tooltip" data-original-title="Agregar nuevos productos">
@@ -168,22 +168,22 @@
                                             Seleccione una categor&iacute;a.
                                         </td>
                                     </tr>
-                                    {% for service in servicesObjs %}
-                                        <tr class="tr-service tr-service-{{ service.category.id }}" style="display: none">
+                                    {% for product in productsObjs %}
+                                        <tr class="tr-service tr-service-{{ product.category.id }}" style="display: none">
                                             <td class="text-center">
-                                                {{ service.id }}
+                                                {{ product.id }}
                                             </td>
                                             <td class="text-center">
-                                                {{ service.name }}
+                                                {{ product.name }}
                                             </td>
                                             <td class="text-center">
-                                                {{ service.price }}
+                                                {{ product.price }}
                                             </td>
                                             <td>
                                                 <button
-                                                    type="button"
-                                                    class="btn btn-success btn-xs increment-services"
-                                                    data-id-service="{{ service.id }}">
+                                                        type="button"
+                                                        class="btn btn-success btn-xs increment-services"
+                                                        data-id-item="{{ product.id }}">
                                                     <i class="fa fa-fw fa-plus-circle"></i>
                                                 </button>
                                             </td>
@@ -206,9 +206,9 @@
                         </h4>
                         <div class="box-tools pull-right">
                             <span
-                                class="badge bg-green x-hand add-client"
-                                data-toggle="modal"
-                                data-target="#modal-create-client">
+                                    class="badge bg-green x-hand add-client"
+                                    data-toggle="modal"
+                                    data-target="#modal-create-client">
                                 <i class="fa fa-plus"></i> Buscar
                             </span>
                         </div>
@@ -226,11 +226,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td colspan="5">
-                                        Seleccione un cliente.
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="5">
+                                    Seleccione un cliente.
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
 
@@ -267,11 +267,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td colspan="5">
-                                        Seleccione un empleado.
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="5">
+                                    Seleccione un empleado.
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
 
@@ -294,14 +294,14 @@
                             </h4>
                             <div class="box-tools pull-right">
                                 <span
-                                    class="badge bg-red x-hand remove-all-services"
-                                    data-toggle="tooltip"
-                                    data-original-title="Eliminar todos los servicios">
+                                        class="badge bg-red x-hand remove-all-services"
+                                        data-toggle="tooltip"
+                                        data-original-title="Eliminar todos los servicios">
                                     <i class="fa fa-minus-circle"></i> Eliminar
                                 </span>
                             </div>
                         </div>
-                        <div class="box-body box-table-services">
+                        <div class="box-body box-table-items">
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -318,15 +318,15 @@
                                 </div>
                             </div>
 
-                            <div class="services">
-                                {{ include('TicketBundle:BackendTicket/Grid/Box:table_service.html.twig') }}
+                            <div class="items">
+                                {{ include('TicketBundle:BackendTicket/Grid/Box:table_product.html.twig') }}
                             </div>
 
                         </div>
 
                         <div class="box-footer text-center">
                             <button type="submit" class="btn btn-primary">
-                                Generar comprobante
+                                Generar pedido
                             </button>
                         </div>
 

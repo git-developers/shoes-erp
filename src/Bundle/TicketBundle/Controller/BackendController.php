@@ -14,7 +14,7 @@ use Bundle\ResourceBundle\ResourceBundle;
 use JMS\Serializer\SerializationContext;
 use Bundle\CategoryBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Bundle\TicketBundle\Entity\TicketHasServices;
+use Bundle\TicketBundle\Entity\TicketHasProducts;
 
 class BackendController extends GridController
 {
@@ -54,7 +54,7 @@ class BackendController extends GridController
 		//REPOSITORY TREE -- LO MODIFIQUE
 		//$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), Category::TYPE_SERVICE);
 		$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType(Category::TYPE_PRODUCT);
-		$objectsTree = $this->getTreeEntities($objectsTreeParent, $configuration, 'tree');
+		$objectsTree = $this->getTreeEntities($objectsTreeParent, $configuration, 'tree');https://www.youtube.com/feed/trending
 		
 		$servicesArray = [];
 		$productsObjs = $this->getProducts($objectsTreeParent, $configuration, 'ticket', $servicesArray);
@@ -62,18 +62,22 @@ class BackendController extends GridController
 		
 		
 		//SERVICES
-		$serviceArray = [];
+		$productArray = [];
 		$session = $request->getSession();
-		$services = $session->get('services');
+		$products = $session->get('products');
+		//$session->remove('products');
 		
-		if (!empty($services)) {
-			foreach ($services as $key => $service) {
-				$serviceObj = $this->get('tianos.repository.services')->find($service['idService']);
-				$serviceObj->setQuantity($service['quantity']);
-				$serviceArray[] = $this->getSerializeDecode($serviceObj, 'ticket');
+		
+		if (!empty($products)) {
+			foreach ($products as $key => $product) {
+				$serviceObj = $this->get('tianos.repository.product')->find($product['idItem']);
+				$serviceObj->setQuantity($product['quantity']);
+				$productArray[] = $this->getSerializeDecode($serviceObj, 'ticket');
 			}
 		}
 		//SERVICES
+		
+		
 		
 		if ($form->isSubmitted()) {
 			
@@ -85,7 +89,7 @@ class BackendController extends GridController
 				$session = $request->getSession();
 				$idClient = $session->get('id_client');
 				$idEmployees = $session->get('id_employee');
-				$services = $session->get('services');
+				$products = $session->get('products');
 				
 				if (empty($idClient)) {
 					return $this->json([
@@ -101,7 +105,7 @@ class BackendController extends GridController
 					]);
 				}
 				
-				if (empty($services)) {
+				if (empty($products)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Seleccione al menos un servicio.'
@@ -140,15 +144,15 @@ class BackendController extends GridController
 				/**
 				 * SAVE TICKET
 				 */
-				foreach ($services as $key => $service) {
-					$service = $this->get('tianos.repository.services')->find($service['idService']);
+				foreach ($products as $key => $product) {
+					$product = $this->get('tianos.repository.product')->find($product['idItem']);
 					
-					$ticketHasService = new TicketHasServices();
-					$ticketHasService->setServices($service);
+					$ticketHasService = new TicketHasProducts();
+					$ticketHasService->setProducts($product);
 					$ticketHasService->setTicket($entity);
-					$ticketHasService->setQuantity($service->getQuantity());
-					$ticketHasService->setUnitPrice($service->getPrice());
-					$ticketHasService->setSubTotal($service->getPrice() * $service->getQuantity());
+					$ticketHasService->setQuantity($product->getQuantity());
+					$ticketHasService->setUnitPrice($product->getPrice());
+					$ticketHasService->setSubTotal($product->getPrice() * $product->getQuantity());
 					$this->persist($ticketHasService);
 				}
 				/**
@@ -162,7 +166,7 @@ class BackendController extends GridController
 				$session = $request->getSession();
 				$session->remove('id_client');
 				$session->remove('id_employee');
-				$session->remove('services');
+				$session->remove('products');
 				
 				return $this->json([
 					'status' => true
@@ -185,7 +189,7 @@ class BackendController extends GridController
 				'action' => $action,
 				'productsObjs' => $productsObjs,
 				'objectsTree' => $objectsTree,
-				'services' => $serviceArray
+				'products' => $productArray
 //				'form' => $form->createView(),
 			]
 		);
@@ -223,26 +227,29 @@ class BackendController extends GridController
 		//REPOSITORY TREE -- LO MODIFIQUE
 		//$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), Category::TYPE_SERVICE);
 		$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType(Category::TYPE_PRODUCT);
-		$objectsTree = $this->getTreeEntities($objectsTreeParent, $configuration, 'tree');
+		$objectsTree = $this->getTreeEntities($objectsTreeParent, $configuration, 'tree');https://www.youtube.com/feed/trending
 		
 		$servicesArray = [];
-		$servicesObjs = $this->getServices($objectsTreeParent, $configuration, 'ticket', $servicesArray);
+		$productsObjs = $this->getProducts($objectsTreeParent, $configuration, 'ticket', $servicesArray);
 		//REPOSITORY TREE
 		
 		
-		//SERVICES
-		$serviceArray = [];
+		//SESSION PRODUCTS
+		$productArray = [];
 		$session = $request->getSession();
-		$services = $session->get('services');
-		
-		if (!empty($services)) {
-			foreach ($services as $key => $service) {
-				$serviceObj = $this->get('tianos.repository.services')->find($service['idService']);
-				$serviceObj->setQuantity($service['quantity']);
-				$serviceArray[] = $this->getSerializeDecode($serviceObj, 'ticket');
+		$products = $session->get('products');
+		//$session->remove('products');
+
+		if (!empty($products)) {
+			foreach ($products as $key => $product) {
+				$serviceObj = $this->get('tianos.repository.product')->find($product['idItem']);
+				$serviceObj->setQuantity($product['quantity']);
+				$productArray[] = $this->getSerializeDecode($serviceObj, 'ticket');
 			}
 		}
-		//SERVICES
+		//SESSION PRODUCTS
+		
+		
 		
 		if ($form->isSubmitted()) {
 			
@@ -254,7 +261,7 @@ class BackendController extends GridController
 				$session = $request->getSession();
 				$idClient = $session->get('id_client');
 				$idEmployees = $session->get('id_employee');
-				$services = $session->get('services');
+				$products = $session->get('products');
 				
 				if (empty($idClient)) {
 					return $this->json([
@@ -270,7 +277,7 @@ class BackendController extends GridController
 					]);
 				}
 				
-				if (empty($services)) {
+				if (empty($products)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Seleccione al menos un servicio.'
@@ -309,15 +316,15 @@ class BackendController extends GridController
 				/**
 				 * SAVE TICKET
 				 */
-				foreach ($services as $key => $service) {
-					$service = $this->get('tianos.repository.services')->find($service['idService']);
+				foreach ($products as $key => $product) {
+					$product = $this->get('tianos.repository.product')->find($product['idItem']);
 					
-					$ticketHasService = new TicketHasServices();
-					$ticketHasService->setServices($service);
+					$ticketHasService = new TicketHasProducts();
+					$ticketHasService->setProducts($product);
 					$ticketHasService->setTicket($entity);
-					$ticketHasService->setQuantity($service->getQuantity());
-					$ticketHasService->setUnitPrice($service->getPrice());
-					$ticketHasService->setSubTotal($service->getPrice() * $service->getQuantity());
+					$ticketHasService->setQuantity($product->getQuantity());
+					$ticketHasService->setUnitPrice($product->getPrice());
+					$ticketHasService->setSubTotal($product->getPrice() * $product->getQuantity());
 					$this->persist($ticketHasService);
 				}
 				/**
@@ -331,7 +338,7 @@ class BackendController extends GridController
 				$session = $request->getSession();
 				$session->remove('id_client');
 				$session->remove('id_employee');
-				$session->remove('services');
+				$session->remove('products');
 				
 				return $this->json([
 					'status' => true
@@ -352,9 +359,9 @@ class BackendController extends GridController
 				'tree' => $tree,
 				'vars' => $vars,
 				'action' => $action,
-				'servicesObjs' => $servicesObjs,
+				'productsObjs' => $productsObjs,
 				'objectsTree' => $objectsTree,
-				'services' => $serviceArray
+				'products' => $productArray
 //				'form' => $form->createView(),
 			]
 		);
@@ -397,7 +404,8 @@ class BackendController extends GridController
 		
 		
 		//REPOSITORY TREE
-		$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), Category::TYPE_SERVICE);
+		//$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), Category::TYPE_SERVICE);
+		$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType(Category::TYPE_PRODUCT);
 		$objectsTree = $this->getTreeEntities($objectsTreeParent, $configuration, 'tree');
 		
 		$servicesArray = [];
@@ -405,16 +413,20 @@ class BackendController extends GridController
 		//REPOSITORY TREE
 		
 		
-		//SERVICES
-		$serviceArray = [];
-		$ticketHasServices = $this->get('tianos.repository.ticket.services')->findAllByService($id);
-		foreach ($ticketHasServices as $key => $ths) {
-
-			$services = $ths->getServices();
-			$services->setQuantity($ths->getQuantity());
-			$serviceArray[] = $this->getSerializeDecode($services, 'ticket');
+		//SESSION PRODUCTS
+		$productArray = [];
+		$session = $request->getSession();
+		$products = $session->get('products');
+		//$session->remove('products');
+		
+		if (!empty($products)) {
+			foreach ($products as $key => $product) {
+				$serviceObj = $this->get('tianos.repository.product')->find($product['idItem']);
+				$serviceObj->setQuantity($product['quantity']);
+				$productArray[] = $this->getSerializeDecode($serviceObj, 'ticket');
+			}
 		}
-		//SERVICES
+		//SESSION PRODUCTS
 		
 		
 		if ($form->isSubmitted()) {
@@ -427,7 +439,7 @@ class BackendController extends GridController
 				$session = $request->getSession();
 				$idClient = $session->get('id_client');
 				$idEmployees = $session->get('id_employee');
-				$services = $session->get('services');
+				$products = $session->get('products');
 				
 				if (empty($idClient)) {
 					return $this->json([
@@ -443,7 +455,7 @@ class BackendController extends GridController
 					]);
 				}
 				
-				if (empty($services)) {
+				if (empty($products)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Seleccione al menos un servicio.'
@@ -476,9 +488,9 @@ class BackendController extends GridController
 					$entity->addUser($employee);
 				}
 				
-				foreach ($services as $key => $service) {
-					$service = $this->get('tianos.repository.services')->find($service['idService']);
-					$entity->addServices($service);
+				foreach ($products as $key => $product) {
+					$product = $this->get('tianos.repository.services')->find($product['idItem']);
+					$entity->addServices($product);
 				}
 				
 				$this->persist($entity);
@@ -512,7 +524,7 @@ class BackendController extends GridController
 				'action' => $action,
 				'servicesObjs' => $servicesObjs,
 				'objectsTree' => $objectsTree,
-				'services' => $serviceArray,
+				'products' => $productArray,
 				'entity' => $entity
 //				'form' => $form->createView(),
 			]
@@ -551,14 +563,14 @@ class BackendController extends GridController
 			throw $this->createNotFoundException('CRUD: Unable to find  entity.');
 		}
 		
-		$ticketHasServices = $this->get('tianos.repository.ticket.services')->findAllByService($id);
+		$ticketHasProducts = $this->get('tianos.repository.ticket.products')->findAllByTicket($id);
 		
 		return $this->render(
 			$template,
 			[
 				'action' => $action,
 				'entity' => $entity,
-				'ticketHasServices' => $ticketHasServices,
+				'ticketHasProducts' => $ticketHasProducts,
 			]
 		);
 	}
@@ -597,7 +609,9 @@ class BackendController extends GridController
 		//USER
 		$user = $this->getUser();
 		
-		$clients = $this->get('tianos.repository.user')->findAllClient($user->getPointOfSaleActiveId());
+		//BUSCA LOS CLIENTES DEL PDV
+		//$clients = $this->get('tianos.repository.user')->findAllClient($user->getPointOfSaleActiveId());
+		$clients = $this->get('tianos.repository.user')->findAllClient();
 		$clients = is_object($clients) ? $clients->getUser() : [];
 		$clients = $this->getSerializeDecode($clients, 'ticket');
 		
@@ -680,7 +694,10 @@ class BackendController extends GridController
 		//USER
 		$user = $this->getUser();
 		
-		$employees = $this->get('tianos.repository.user')->findAllEmployee($user->getPointOfSaleActiveId());
+		
+		//BUSCAR EMPLEADOS DEDD
+		//$employees = $this->get('tianos.repository.user')->findAllEmployee($user->getPointOfSaleActiveId());
+		$employees = $this->get('tianos.repository.user')->findAllEmployee();
 		$employees = is_object($employees) ? $employees->getUser() : [];
 		$employees = $this->getSerializeDecode($employees, 'ticket');
 		
@@ -770,24 +787,25 @@ class BackendController extends GridController
 		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
 		$template = $configuration->getTemplate('');
 		
-		$serviceArray = [];
+		$productArray = [];
 		$session = $request->getSession();
 		$action = $request->get('action');
 		
 		$this->incrementDecrementSession($request, $action);
 		
-		$services = $session->get('services');
+		$products = $session->get('products');
 		
-		foreach ($services as $key => $service) {
-			$serviceObj = $this->get('tianos.repository.services')->find($service['idService']);
-			$serviceObj->setQuantity($service['quantity']);
-			$serviceArray[] = $this->getSerializeDecode($serviceObj, 'ticket');
+		
+		foreach ($products as $key => $product) {
+			$productObj = $this->get('tianos.repository.product')->find($product['idItem']);
+			$productObj->setQuantity($product['quantity']);
+			$productArray[] = $this->getSerializeDecode($productObj, 'ticket');
 		}
 
 		return $this->render(
 			$template,
 			[
-				'services' => $serviceArray
+				'products' => $productArray
 			]
 		);
 	}
@@ -816,13 +834,13 @@ class BackendController extends GridController
 		$session = $request->getSession();
 //		$session->remove('id_client');
 //		$session->remove('id_employee');
-		$session->remove('services');
+		$session->remove('products');
 		
 		return $this->render(
 			$template,
 			[
 				'status' => self::STATUS_SUCCESS,
-				'services' => []
+				'products' => []
 			]
 		);
 	}
@@ -888,60 +906,60 @@ class BackendController extends GridController
 	{
 		
 		//SESSION
-		$idService = $request->get('idService');
+		$idItem = $request->get('idItem');
 		
 		$session = $request->getSession();
 		
-		$services = $session->get('services');
+		$products = $session->get('products');
 		
-		if (is_null($services))
+		if (is_null($products))
 		{
-			$session->set('services', []);
+			$session->set('products', []);
 		}
 		
-		$services = $session->get('services');
+		$products = $session->get('products');
 		
 		$exist = false;
-		foreach ($services as $key => $service) {
+		foreach ($products as $key => $product) {
 			
-			if ($service['idService'] == $idService) {
+			if ($product['idItem'] == $idItem) {
 				
-				if ($action == self::DECREMENT AND $service['quantity'] >= 1) {
+				if ($action == self::DECREMENT AND $product['quantity'] >= 1) {
 					$array[] = [
-						'idService' => $idService,
-						'quantity' => --$service['quantity']
+						'idItem' => $idItem,
+						'quantity' => --$product['quantity']
 					];
 				}
 				
 				if ($action == self::INCREMENT) {
 					$array[] = [
-						'idService' => $idService,
-						'quantity' => ++$service['quantity']
+						'idItem' => $idItem,
+						'quantity' => ++$product['quantity']
 					];
 				}
 				
-				unset($services[$key]);
-				$session->set('services', array_merge($services, $array));
+				unset($products[$key]);
+				$session->set('products', array_merge($products, $array));
 				
 				$exist = true;
 				break;
 			}
 		}
 		
-		$services = $session->get('services');
+		$products = $session->get('products');
 		
 		// QUITAR CON ZEROS
-		foreach ($services as $key => $service) {
-			if ($service['quantity'] == 0) {
-				unset($services[$key]);
-				$session->set('services', $services);
+		foreach ($products as $key => $product) {
+			if ($product['quantity'] == 0) {
+				unset($products[$key]);
+				$session->set('products', $products);
 			}
 		}
 
 		if (!$exist) {
-			$session->set('services', array_merge($services, [
+			$session->set('products', array_merge($products, [
 				[
-					'idService' => $idService,
+					'idItem' => $idItem,
 					'quantity' => 1,
 				]
 			]));

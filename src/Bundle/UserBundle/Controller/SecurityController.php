@@ -46,7 +46,6 @@ class SecurityController extends BaseController
 
         return $this->render($template,
             [
-//                'loginUrl' => htmlspecialchars($loginUrl),
                 'form' => $form->createView(),
                 'last_username' => $lastUsername,
                 'error' => $error,
@@ -146,7 +145,7 @@ class SecurityController extends BaseController
 
 //        if ($this->isGranted('IS_AUTHENTICATED_FULLY'))
 //        {
-//            return $this->redirect($this->generateUrl('backend_default_index'));
+//            return $this->redirect($this->generateUrl('backend_dashboard_index'));
 //        }
 
         $options = $request->attributes->get('_tianos');
@@ -175,7 +174,7 @@ class SecurityController extends BaseController
 
             $this->flashSuccess('Cuenta creada, puedes iniciar sesión.');
 
-            return $this->redirectToRoute('backend_security_login');
+            return $this->redirectToRoute('backend_security_login_admin');
         }
 
         /**
@@ -212,7 +211,7 @@ class SecurityController extends BaseController
 
 //        if ($this->isGranted('IS_AUTHENTICATED_FULLY'))
 //        {
-//            return $this->redirect($this->generateUrl('backend_default_index'));
+//            return $this->redirect($this->generateUrl('backend_dashboard_index'));
 //        }
 
 //        https://myaccount.google.com/lesssecureapps
@@ -282,7 +281,7 @@ class SecurityController extends BaseController
 
 //        if ($this->isGranted('IS_AUTHENTICATED_FULLY'))
 //        {
-//            return $this->redirect($this->generateUrl('backend_default_index'));
+//            return $this->redirect($this->generateUrl('backend_dashboard_index'));
 //        }
 
 //        https://myaccount.google.com/lesssecureapps
@@ -335,7 +334,7 @@ class SecurityController extends BaseController
             $this->persist($user);
 
             $this->flashSuccess('Password cambiado, puede iniciar sesión.');
-            return $this->redirectToRoute('backend_security_login');
+            return $this->redirectToRoute('backend_security_login_admin');
 
         }
 

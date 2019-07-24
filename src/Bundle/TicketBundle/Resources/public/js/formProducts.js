@@ -30,15 +30,15 @@
 
         base.incrementServices = function(context) {
 
-            var div = $('div.box-table-services div.services');
-            var idService = $(context).data('id-service');
+            var div = $('div.box-table-items div.items');
+            var idItem = $(context).data('id-item');
 
             $.ajax({
                 url: options.routeIncrement,
                 type: 'POST',
                 dataType: 'html',
                 data: {
-                    idService: idService,
+                    idItem: idItem,
                     action: 'INCREMENT'
                 },
                 beforeSend: function(jqXHR, settings) {
@@ -55,15 +55,15 @@
 
         base.decrementServices = function(context) {
 
-            var div = $('div.box-table-services div.services');
-            var idService = $(context).data('id-service');
+            var div = $('div.box-table-items div.items');
+            var idItem = $(context).data('id-item');
 
             $.ajax({
                 url: options.routeDecrement,
                 type: 'POST',
                 dataType: 'html',
                 data: {
-                    idService: idService,
+                    idItem: idItem,
                     action: 'DECREMENT'
                 },
                 beforeSend: function(jqXHR, settings) {
@@ -84,7 +84,7 @@
                 return false;
             }
 
-            var div = $('div.box-table-services div.services');
+            var div = $('div.box-table-items div.items');
 
             $.ajax({
                 url: options.routeRemoveAll,

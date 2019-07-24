@@ -27,7 +27,7 @@ class SecurityPdvController extends BaseController
 
         $template = $options['template'] ?? null;
         Assert::notNull($template, 'Template is not configured.');
-
+		
         $slug = $request->get('slug');
         $pdv = $this->get('tianos.repository.pointofsale')->findBySlug($slug);
 

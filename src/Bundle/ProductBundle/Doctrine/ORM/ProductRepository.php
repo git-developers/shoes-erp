@@ -53,11 +53,9 @@ class ProductRepository extends TianosEntityRepository implements ProductReposit
     /**
      * {@inheritdoc}
      */
-    public function findAllByCategory($category): array
+    public function findAllByCategoryId($categoryId): array
     {
-	
-	    $categoryId = isset($category['id']) ? $category['id'] : null;
-    	
+
         $em = $this->getEntityManager();
         $dql = "
             SELECT product
@@ -72,6 +70,15 @@ class ProductRepository extends TianosEntityRepository implements ProductReposit
         $query->setParameter('categoryId', $categoryId);
 
         return $query->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByCategory($category): array
+    {
+	    $categoryId = isset($category['id']) ? $category['id'] : null;
+        return $this->findAllByCategoryId($categoryId);
     }
 
     /**

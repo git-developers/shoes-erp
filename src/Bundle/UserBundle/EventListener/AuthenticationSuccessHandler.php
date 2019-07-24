@@ -39,7 +39,13 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
         $token = $event->getAuthenticationToken();
         $request = $event->getRequest();
 	
+	    /**
+	     * Set un PDV al USER
+	     */
 	    $user = $token->getUser();
+	    $user->setPointOfSaleActive(null);
+	    //$user->setPointOfSaleActive(new Pointofsale());
+	    $token->setUser($user);
 	
 	    $pointOfSale = $this->container->get('tianos.repository.pointofsale')->find($request->get('pointOfSale'));
 
@@ -60,11 +66,13 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
 	
+	
+	    /*
 	    $user = $token->getUser();
 	
 	    if ($this->isGranted(Role::ROLE_PDV_ADMIN)) {
 	    	
-		    $referer = $this->router->generate('backend_default_pdv_index');
+		    $referer = $this->router->generate('backend_dashboard_index');
 		    $userBelongsToPdv = $request->attributes->get(User::USER_BELONGS_TO_PDV);
 
 		    if (!$userBelongsToPdv) {
@@ -74,18 +82,22 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
 			    $o->messageData = [];
 			    
 			    $request->getSession()->set(Security::AUTHENTICATION_ERROR, $o);
-			    $referer = $this->router->generate('backend_security_pdv_login',
+			    $referer = $this->router->generate('backend_security_login_admin',
 				    ['slug' => $user->getPointOfSaleActiveSlug()]);
 		    }
 	    }
 	
+	    
 	    if ($this->isGranted(Role::ROLE_SUPER_ADMIN)) {
-		    $referer = $this->router->generate('backend_default_super_index');
+		    $referer = $this->router->generate('backend_dashboard_index');
 	    }
 	
 	    if ($this->isGranted(Role::ROLE_EMPLOYEE)) {
-		    $referer = $this->router->generate('backend_default_pdv_index');
+		    $referer = $this->router->generate('backend_dashboard_index');
 	    }
+	    */
+	
+	    $referer = $this->router->generate('backend_dashboard_index');
 	    
 	    return $this->httpUtils->createRedirectResponse($request, $referer);
     }

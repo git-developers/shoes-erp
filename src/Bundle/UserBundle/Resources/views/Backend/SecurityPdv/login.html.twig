@@ -1,4 +1,4 @@
-{% extends "ThemesBundle:Adminlte/TemplateSuper:1_template_security.html.twig" %}
+{% extends "ThemesBundle:Adminlte/Template:1_template_security.html.twig" %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -27,34 +27,41 @@
         {% endif %}
 
         <div class="login-box-body">
-            {#<p class="login-box-msg">Sign in to start your session</p>#}
+            <p class="login-box-msg">
+                <strong>PDV:</strong> {{ pdv.name|default() }}
+            </p>
 
             {{ form_start(form, {'attr': {'class': ''}}) }}
 
-                {{ form_widget(form._csrf_token, {'value' : csrf_token('authenticate') }) }}
+            {{ form_widget(form._csrf_token, {'value' : csrf_token('authenticate') }) }}
 
-                <div class="form-group has-feedback">
-                    {{ form_widget(form._username) }}
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form.pointOfSale) }}
+                <span class="glyphicon glyphicon-map-marker form-control-feedback"></span>
+            </div>
 
-                <div class="form-group has-feedback">
-                    {{ form_widget(form._password) }}
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form._username) }}
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
 
-                <div class="row">
-                    <div class="col-xs-7">
-                        <div class="checkbox">
-                            <label>
-                                {{ form_widget(form._remember_me) }} Recuerdame
-                            </label>
-                        </div>
+            <div class="form-group has-feedback">
+                {{ form_widget(form._password) }}
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-7">
+                    <div class="checkbox">
+                        <label>
+                            {{ form_widget(form._remember_me) }} Recuerdame
+                        </label>
                     </div>
-                    <div class="col-xs-5">
-                        {{ form_widget(form.submit) }}
-                    </div>
                 </div>
+                <div class="col-xs-5">
+                    {{ form_widget(form.submit) }}
+                </div>
+            </div>
             {{ form_end(form)}}
 
             <div class="social-auth-links text-center">
@@ -83,3 +90,4 @@
     </div>
 
 {% endblock %}
+

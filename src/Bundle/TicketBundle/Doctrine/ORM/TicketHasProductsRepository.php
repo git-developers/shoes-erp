@@ -7,7 +7,7 @@ namespace Bundle\TicketBundle\Doctrine\ORM;
 use Bundle\CoreBundle\Doctrine\ORM\EntityRepository as TianosEntityRepository;
 use Component\Ticket\Repository\TicketRepositoryInterface;
 
-class TicketHasServicesRepository extends TianosEntityRepository
+class TicketHasProductsRepository extends TianosEntityRepository
 {
 
     /**
@@ -18,7 +18,7 @@ class TicketHasServicesRepository extends TianosEntityRepository
 	    $em = $this->getEntityManager();
         $dql = "
             SELECT a
-            FROM TicketBundle:TicketHasServices a
+            FROM TicketBundle:TicketHasProducts a
             WHERE
             a.ticket = :idTicket
             ";

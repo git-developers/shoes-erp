@@ -5,7 +5,7 @@
         {#mini logo for sidebar mini 50x50 pixels#}
         <span class="logo-mini">
             {#<b>TIA</b>NOS#}
-            <img src="{{ asset('bundles/themes/adminlte/images/logo.png') }}" height="40" width="40">
+            <img src="{{ asset('bundles/themes/adminlte/images/favicon.ico') }}" height="40" width="40">
         </span>
 
         {#logo for regular state and mobile devices#}
@@ -24,31 +24,14 @@
 
         <div class="navbar-custom-menu">
 
-            {#<form id="search-box-header" action="" class="navbar-form navbar-left" role="search" >#}
-                {#<div class="input-group" >#}
-                    {#<input type="text" class="form-control" placeholder="Buscar..." id="navbar-search-input">#}
-                    {#<span class="input-group-btn">#}
-                        {#<button type="submit" name="search" id="search-btn" class="btn btn-flat" >#}
-                            {#<i class="fa fa-search" style="color: #E8750C"></i>#}
-                        {#</button>#}
-                    {#</span>#}
-                {#</div>#}
-            {#</form>#}
-
             <ul class="nav navbar-nav">
-
-{#                <li class="messages-menu">
-                    <a href="{{ path('backend_googledrive_index', {id: 'my-drive'}) }}" class="dropdown-toggle" title="Subir archivo">
-                        <i class="fa fa-upload"></i>
-                    </a>
-                </li>#}
 
                 {% if app.user is not null %}
                     {#Messages: style can be found in dropdown.less#}
                     {#{{ include("CoreBundle::Template/dropdown_menu_messages.html.twig") }}#}
 
                     {#Notifications: style can be found in dropdown.less#}
-                    {{ include("ThemesBundle::Adminlte/TemplatePdv/Dropdown/dropdown_menu_notifications.html.twig") }}
+                    {{ include("ThemesBundle::Adminlte/Template/Dropdown/dropdown_menu_notifications.html.twig") }}
 
                     {#Tasks: style can be found in dropdown.less#}
                     {#{{ include("CoreBundle::Template/dropdown_menu_tasks.html.twig") }}#}
@@ -56,7 +39,7 @@
 
                 {% if app.user is null %}
                     <li>
-                        <a href="{{ path('backend_security_pdv_login') }}">
+                        <a href="{{ path('backend_security_login_admin') }}">
                             <i class="fa fa-key"></i> Login
                         </a>
                     </li>
@@ -72,7 +55,7 @@
 
                 {#User Account: style can be found in dropdown.less#}
                 {% if app.user is not null %}
-                    {{ include("ThemesBundle::Adminlte/TemplatePdv/Dropdown/dropdown_menu_user.html.twig") }}
+                    {{ include("ThemesBundle::Adminlte/Template/Dropdown/dropdown_menu_user.html.twig") }}
                 {% endif %}
 
             </ul>

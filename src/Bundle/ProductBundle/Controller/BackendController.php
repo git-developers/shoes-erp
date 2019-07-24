@@ -60,7 +60,7 @@ class BackendController extends GridController
         $objects = $this->get($repository)->$method($categoryId);
         $varsRepository = $configuration->getRepositoryVars();
         $objects = $this->getSerialize($objects, $varsRepository->serialize_group_name);
-
+        
         //GRID
         $gridService = $this->get('tianos.grid');
         $modal = $gridService->getModalMapper()->getDefaults($modal);

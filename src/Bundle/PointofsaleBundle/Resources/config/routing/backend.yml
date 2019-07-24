@@ -32,7 +32,7 @@ backend_pointofsale_index:
                         edit: backend_pointofsale_edit
                         create: backend_pointofsale_create
                         delete: backend_pointofsale_delete
-                        cog: backend_super_pointofsale_add_user_index
+                        cog: backend_pointofsale_add_user_index
                     table_button:
                         - edit
                         - delete

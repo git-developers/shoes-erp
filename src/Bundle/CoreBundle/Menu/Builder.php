@@ -60,21 +60,7 @@ class Builder implements ContainerAwareInterface
          * DASHBOARD
          */
 	
-	    $route = 'backend_default_pdv_index';
-	
-	    if ($this->isGranted(Role::ROLE_SUPER_ADMIN)) {
-		    $route = 'backend_default_super_index';
-	    }
-	    
-	    /*
-	    if ($this->isGranted(Role::ROLE_PDV_ADMIN)) {
-		    $route = 'backend_default_pdv_index';
-	    } elseif ($this->isGranted(Role::ROLE_EMPLOYEE)) {
-		    $route = 'backend_default_pdv_index';
-	    } elseif ($this->isGranted(Role::ROLE_SUPER_ADMIN)) {
-		    $route = 'backend_default_super_index';
-	    }
-	    */
+	    $route = 'backend_dashboard_index';
 	    
         $menu->addChild('Dashboard', [
             'route' => $route,
@@ -115,9 +101,9 @@ class Builder implements ContainerAwareInterface
 		    ->setAttribute('class', 'treeview')
 		    ->setAttribute('class', $this->activeRoute([
 			    'backend_pointofsale_index',
-			    'backend_super_pointofsale_map_index',
-			    'backend_super_pointofsale_add_user_index',
-			    'backend_super_pointofsale_pdv_child_index',
+			    'backend_pointofsale_map_index',
+			    'backend_pointofsale_add_user_index',
+			    'backend_pointofsale_pdv_child_index',
 		    ]))
 		    ->setAttribute('icon', 'fa-fw fa-map-marker')
 		    ->setDisplay($isGranted)
@@ -169,7 +155,7 @@ class Builder implements ContainerAwareInterface
         ->setAttribute('class', 'treeview')
         ->setAttribute('class', $this->activeRoute([
 	        'backend_user_profile',
-	        'backend_super_user_index',
+	        'backend_user_index',
 	        'backend_user_client_index',
 	        'backend_user_employee_index',
         ]))
@@ -178,10 +164,10 @@ class Builder implements ContainerAwareInterface
         ;
 
         $menu['Usuarios']->addChild('Todos', [
-            'route' => 'backend_super_user_index'
+            'route' => 'backend_user_index'
         ])
             ->setAttribute('icon', self::CIRCLE_1)
-            ->setAttribute('class', $this->activeRoute('backend_super_user_index'))
+            ->setAttribute('class', $this->activeRoute('backend_user_index'))
             ->setDisplay($isGranted)
         ;
 
@@ -447,7 +433,7 @@ class Builder implements ContainerAwareInterface
 	        Role::ROLE_SUPER_ADMIN,
         ]);
 
-        $menu->addChild('Pedido', [
+        $menu->addChild('Pedidos', [
             'route' => 'backend_ticket_index',
             'extras' => ['safe_label' => true],
             'childrenAttributes' => [
@@ -465,7 +451,7 @@ class Builder implements ContainerAwareInterface
         ->setDisplay($isGranted)
         ;
 	
-	    $menu['Pedido']->addChild('Gestionar', [
+	    $menu['Pedidos']->addChild('Gestionar', [
 		    'route' => 'backend_ticket_index'
 	    ])
 		    ->setAttribute('icon', self::CIRCLE_1)
@@ -476,7 +462,7 @@ class Builder implements ContainerAwareInterface
 		    ->setDisplay($isGranted)
 	    ;
         
-	    $menu['Pedido']->addChild('Crear pedido interno', [
+	    $menu['Pedidos']->addChild('Crear pedido interno', [
 		    'route' => 'backend_ticket_create_internal'
 	    ])
 	    ->setAttribute('icon', self::CIRCLE_2)
@@ -484,7 +470,7 @@ class Builder implements ContainerAwareInterface
 	    ->setDisplay($isGranted)
 	    ;
      
-	    $menu['Pedido']->addChild('Crear pedido externo', [
+	    $menu['Pedidos']->addChild('Crear pedido externo', [
 		    'route' => 'backend_ticket_create_external'
 	    ])
 	    ->setAttribute('icon', self::CIRCLE_3)

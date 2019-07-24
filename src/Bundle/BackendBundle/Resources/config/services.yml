@@ -1,13 +1,7 @@
 services:
 
-    tianos.backend.controller.default.super:
-        class: Bundle\BackendBundle\Controller\DefaultSuperController
+    tianos.backend.controller.dashboard:
+        class: Bundle\BackendBundle\Controller\DashboardController
         arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
         tags:
-            - { name: tianos.backend.controller.default.super, alias: tianos.backend.controller.default.super }
-
-    tianos.backend.controller.default.pdv:
-        class: Bundle\BackendBundle\Controller\DefaultPdvController
-        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
-        tags:
-            - { name: tianos.backend.controller.default.pdv, alias: tianos.backend.controller.default.pdv }
+            - { name: tianos.backend.controller.dashboard, alias: tianos.backend.controller.dashboard }

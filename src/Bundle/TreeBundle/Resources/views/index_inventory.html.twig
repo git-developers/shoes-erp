@@ -1,4 +1,4 @@
-{% extends "ThemesBundle:Adminlte/TemplatePdv:1_template.html.twig" %}
+{% extends "ThemesBundle:Adminlte/Template:1_template.html.twig" %}
 
 {% import "TreeBundle::Macro/tree.html.twig" as macro %}
 
@@ -128,7 +128,7 @@
             <div class="box-body">
                 <div class="row">
 
-                    {#
+
                     <div class="col-md-12">
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
@@ -137,8 +137,8 @@
                                         <i class="fa fa-fw fa-sitemap"></i> Categoría
                                     </a>
                                 </li>
-                                <li class="{{ app.request.get('_route') == 'backend_category_tree_index' ? 'active' }}">
-                                    <a href="{{ path('backend_category_tree_index') }}">
+                                <li class="{{ app.request.get('_route') == 'backend_product_index' ? 'active' }}">
+                                    <a href="{{ path('backend_product_index') }}">
                                         <i class="fa fa-fw fa-sitemap"></i> Categoría
                                     </a>
                                 </li>
@@ -161,9 +161,9 @@
                             <div class="tab-content"></div>
                         </div>
                     </div>
-                    #}
 
-                    <div class="col-md-12">
+
+                    <div class="col-md-6">
 
                         <div class="box-header ui-sortable-handle" style="cursor: move;">
                             <i class="ion ion-android-list"></i>

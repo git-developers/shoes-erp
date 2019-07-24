@@ -1,4 +1,4 @@
-backend_super_pointofsale_add_user_index:
+backend_pointofsale_add_user_index:
     path: /{id}
     methods: [GET]
     defaults:

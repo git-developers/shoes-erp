@@ -61,18 +61,18 @@
                         </thead>
                         <tbody>
                             {% set total = 0 %}
-                            {% for ths in ticketHasServices %}
+                            {% for thp in ticketHasProducts %}
                                 <tr>
                                     <td>
-                                        <span class="badge bg-blue">{{ ths.id }}</span>
+                                        <span class="badge bg-blue">{{ thp.id }}</span>
                                     </td>
-                                    <td>{{ ths.services.name }}</td>
-                                    <td class="text-center">{{ ths.quantity }}</td>
-                                    <td class="text-right">{{ ths.unitPrice }}</td>
-                                    <td class="text-right">{{ ths.subTotal }}</td>
+                                    <td>{{ thp.products.name }}</td>
+                                    <td class="text-center">{{ thp.quantity }}</td>
+                                    <td class="text-right">{{ thp.unitPrice }}</td>
+                                    <td class="text-right">{{ thp.subTotal }}</td>
                                 </tr>
 
-                                {% set total = total + ths.subTotal %}
+                                {% set total = total + thp.subTotal %}
                             {% else %}
                                 <tr>
                                     <td colspan="5">No tiene servicios.</td>

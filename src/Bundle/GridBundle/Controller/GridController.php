@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Component\Resource\Metadata\Metadata;
 use Bundle\ResourceBundle\ResourceBundle;
 use JMS\Serializer\SerializationContext;
+use Bundle\UserBundle\Entity\User;
 
 class GridController extends BaseController
 {
@@ -37,7 +38,6 @@ class GridController extends BaseController
      */
     public function indexAction(Request $request): Response
     {
-    	
 //        $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
         $parameters = [
@@ -54,16 +54,20 @@ class GridController extends BaseController
         $grid = $configuration->getGrid();
         $vars = $configuration->getVars();
         $modal = $configuration->getModal();
+	
+        //IS_GRANTED
+	    //$this->denyAccessUnlessGranted(User::ROLE_USER_VIEW, null, self::ACCESS_DENIED_MSG);
+	    
+	    /*
+	    if ($this->isGranted(User::ROLE_USER_VIEW)) {
+		    throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
+	    }
+	    */
 
         //REPOSITORY
         $objects = $this->get($repository)->$method();
         $varsRepository = $configuration->getRepositoryVars();
         $objects = $this->getSerialize($objects, $varsRepository->serialize_group_name);
-
-
-//        echo "POLLO:: <pre>";
-//        print_r($modal);
-//        exit;
         
         
         //GRID

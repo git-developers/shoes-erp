@@ -26,8 +26,8 @@ backend_role_index:
                         create: backend_role_create
                         delete: backend_role_delete
                     table_button:
-                        - edit
-                        - delete
+                        #- edit
+                        #- delete
                     table_button_header:
                         - create
                         - info

@@ -27,6 +27,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class User extends BaseUser // implements UserInterface, DomainObjectInterface, \Serializable
 {
 	
+	const ROLE_USER_CREATE = 'ROLE_USER_CREATE';
+	const ROLE_USER_EDIT = 'ROLE_USER_EDIT';
+	const ROLE_USER_VIEW = 'ROLE_USER_VIEW';
+	const ROLE_USER_DELETE = 'ROLE_USER_DELETE';
+	
 	const USER_BELONGS_TO_PDV = 'USER_BELONGS_TO_PDV';
 	
     /**

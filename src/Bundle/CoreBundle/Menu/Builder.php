@@ -553,7 +553,7 @@ class Builder implements ContainerAwareInterface
 		    ->setDisplay($isGranted)
 	    ;
 	
-	    $menu['Ajustes']->addChild('Datos del salón', [
+	    $menu['Ajustes']->addChild('Settings', [
 		    'route' => 'backend_pointofsale_per_user_index'
 	    ])
 		    ->setAttribute('icon', self::CIRCLE_1)

@@ -65,6 +65,14 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         /**
          * USER
          */
+	    $entity = new Role();
+	    $entity->setName('User view');
+	    $entity->setSlug('ROLE_USER_VIEW');
+	    $entity->setGroupRol('usuario');
+	    $entity->setGroupRolTag('group-user');
+	    $manager->persist($entity);
+	    $this->addReference('role-user-view', $entity);
+        
         $entity = new Role();
         $entity->setName('User create');
         $entity->setSlug('ROLE_USER_CREATE');
@@ -80,14 +88,6 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setGroupRolTag('group-user');
         $manager->persist($entity);
         $this->addReference('role-user-edit', $entity);
-
-        $entity = new Role();
-        $entity->setName('User view');
-        $entity->setSlug('ROLE_USER_VIEW');
-        $entity->setGroupRol('usuario');
-        $entity->setGroupRolTag('group-user');
-        $manager->persist($entity);
-        $this->addReference('role-user-view', $entity);
 
         $entity = new Role();
         $entity->setName('User delete');

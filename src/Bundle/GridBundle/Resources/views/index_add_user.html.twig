@@ -113,12 +113,13 @@
     {{ parent() }}
 
     {% javascripts
+        '@UserBundle/Resources/public/js/togglePassword.js'
         '@GridBundle/Resources/public/common/js/formEdit.js'
         '@GridBundle/Resources/public/common/js/formView.js'
         '@GridBundle/Resources/public/common/js/formInfo.js'
         '@GridBundle/Resources/public/common/js/formCreate.js'
         '@GridBundle/Resources/public/common/js/formDelete.js'
-        '@UserBundle/Resources/public/js/togglePassword.js'
+        '@GridBundle/Resources/public/common/js/formViewProfile.js'
         '@GridBundle/Resources/public/common/js/formChangePassword.js'
         '@GridBundle/Resources/public/plugins/datatables/jquery.dataTables.min.js'
         '@GridBundle/Resources/public/plugins/datatables/dataTables.bootstrap.min.js'
@@ -223,8 +224,6 @@
                                 $(td).attr('data-target', '#{{ modal.delete_id }}');
                             {% elseif defs.className|default() is not empty and modal.profile_id in defs.className %}
                                 $(td).attr('title', 'ver perfil');
-                                $(td).attr('data-toggle', 'modal');
-                                $(td).attr('data-target', '#{{ modal.profile_id }}');
                             {% elseif defs.className|default() is not empty and modal.change_password_id in defs.className %}
                                 $(td).attr('title', 'cambiar password');
                                 $(td).attr('data-toggle', 'modal');

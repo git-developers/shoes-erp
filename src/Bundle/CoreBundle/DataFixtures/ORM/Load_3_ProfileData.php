@@ -50,40 +50,60 @@ class Load_3_ProfileData extends AbstractFixture implements OrderedFixtureInterf
 	    $roleProductCreate = $this->getReference('role-product-create');
 	    $roleProductEdit = $this->getReference('role-product-edit');
 	    $roleProductDelete = $this->getReference('role-product-delete');
+	
+	    $roleEmployeeView = $this->getReference('role-employee-view');
+	    $roleEmployeeCreate = $this->getReference('role-employee-create');
+	    $roleEmployeeEdit = $this->getReference('role-employee-edit');
+	    $roleEmployeeDelete = $this->getReference('role-employee-delete');
 
 
         $entity = new Profile();
         $entity->setName(Profile::SUPER_ADMIN);
+	
+	    $entity->addRole($roleStadistics);
+	    $entity->addRole($roleSettings);
+        
         $entity->addRole($roleUserView);
         $entity->addRole($roleUserCreate);
         $entity->addRole($roleUserEdit);
         $entity->addRole($roleUserDelete);
-        $entity->addRole($roleStadistics);
-        $entity->addRole($roleSettings);
+        
         $entity->addRole($roleProfileView);
         $entity->addRole($roleProfileCreate);
         $entity->addRole($roleProfileEdit);
         $entity->addRole($roleProfileDelete);
+        
         $entity->addRole($roleClientView);
         $entity->addRole($roleClientCreate);
         $entity->addRole($roleClientEdit);
         $entity->addRole($roleClientDelete);
+        
         $entity->addRole($rolePdvView);
         $entity->addRole($rolePdvCreate);
         $entity->addRole($rolePdvEdit);
         $entity->addRole($rolePdvDelete);
+        
         $entity->addRole($roleCategoryView);
         $entity->addRole($roleCategoryCreate);
         $entity->addRole($roleCategoryEdit);
         $entity->addRole($roleCategoryDelete);
+        
         $entity->addRole($roleTicketView);
         $entity->addRole($roleTicketCreate);
         $entity->addRole($roleTicketEdit);
         $entity->addRole($roleTicketDelete);
+        
         $entity->addRole($roleProductView);
         $entity->addRole($roleProductCreate);
         $entity->addRole($roleProductEdit);
         $entity->addRole($roleProductDelete);
+        
+        $entity->addRole($roleEmployeeView);
+        $entity->addRole($roleEmployeeCreate);
+        $entity->addRole($roleEmployeeEdit);
+        $entity->addRole($roleEmployeeDelete);
+        
+        
         $manager->persist($entity);
         $this->addReference('profile-super-admin', $entity);
 

@@ -58,12 +58,6 @@ class GridController extends BaseController
 	
         //IS_GRANTED
 	    $this->denyAccessUnlessGranted($rolesAllow, null, self::ACCESS_DENIED_MSG);
-	    
-	    /*
-	    if ($this->isGranted(User::ROLE_USER_VIEW)) {
-		    throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
-	    }
-	    */
 
         //REPOSITORY
         $objects = $this->get($repository)->$method();

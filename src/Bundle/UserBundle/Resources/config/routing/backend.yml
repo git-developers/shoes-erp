@@ -86,11 +86,13 @@ backend_user_index:
                               title: '<i class="fa fa-fw fa-feed"></i> Username'
                               className: text-center
                               filter: 1
-                        - name: Perfil
-                          obj: " '<span class=\"badge bg-purple\">' + obj.profile.name + '</span>' "
+                        - obj: obj.profile.name
+                          options:
+                              icon: imagen
+                              property: " return (obj.profile.slug == 'client') ? '<span class=\"badge bg-navy\">' + obj.profile.name + '</span>' : '<span class=\"badge bg-purple\">' + obj.profile.name + '</span>' "
                           defs:
                               targets: 4
-                              title: Profile
+                              title: '<i class="fa fa-fw fa-user"></i> Profile'
                               className: text-center
                               filter: 1
                         - obj: obj.created_at

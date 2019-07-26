@@ -37,6 +37,11 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
 	const ROLE_CLIENT_EDIT = 'ROLE_CLIENT_EDIT';
 	const ROLE_CLIENT_DELETE = 'ROLE_CLIENT_DELETE';
 	
+	const ROLE_EMPLOYEE_VIEW = 'ROLE_EMPLOYEE_VIEW';
+	const ROLE_EMPLOYEE_CREATE = 'ROLE_EMPLOYEE_CREATE';
+	const ROLE_EMPLOYEE_EDIT = 'ROLE_EMPLOYEE_EDIT';
+	const ROLE_EMPLOYEE_DELETE = 'ROLE_EMPLOYEE_DELETE';
+	
 	const USER_BELONGS_TO_PDV = 'USER_BELONGS_TO_PDV';
 	
     /**
@@ -147,7 +152,8 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
      * @JMSS\Groups({
      *     "crud",
      *     "anonymous_user",
-     *     "friends"
+     *     "friends",
+     *     "pointofsale-has-user"
      * })
      */
     private $slug;

@@ -85,10 +85,11 @@ class Builder implements ContainerAwareInterface
         /**
          * ACCOUNTS
          */
-        $isGranted = $this->isGranted([
-	        User::ROLE_USER_VIEW,
-        ]);
-
+	    $isGranted = $this->isGranted([
+		    User::ROLE_USER_VIEW,
+		    User::ROLE_CLIENT_VIEW,
+		    User::ROLE_EMPLOYEE_VIEW
+	    ]);
         $menu->addChild('Usuarios', [
             'route' => 'frontend_default_index',
             'extras' => ['safe_label' => true],
@@ -104,31 +105,31 @@ class Builder implements ContainerAwareInterface
 	        'backend_user_employee_index',
         ]))
         ->setAttribute('icon', 'fa-fw fa-user')
-        ->setDisplay(true)
+        ->setDisplay($isGranted)
         ;
 
         $menu['Usuarios']->addChild('Todos', [
             'route' => 'backend_user_index'
         ])
-            ->setAttribute('icon', self::CIRCLE_1)
-            ->setAttribute('class', $this->activeRoute('backend_user_index'))
-            ->setDisplay($isGranted)
+        ->setAttribute('icon', self::CIRCLE_1)
+        ->setAttribute('class', $this->activeRoute('backend_user_index'))
+        ->setDisplay($this->isGranted([User::ROLE_USER_VIEW]))
         ;
 
         $menu['Usuarios']->addChild('Clientes', [
             'route' => 'backend_user_client_index'
         ])
-            ->setAttribute('icon', self::CIRCLE_2)
-            ->setAttribute('class', $this->activeRoute('backend_user_client_index'))
-            ->setDisplay($isGranted)
+        ->setAttribute('icon', self::CIRCLE_2)
+        ->setAttribute('class', $this->activeRoute('backend_user_client_index'))
+        ->setDisplay($this->isGranted([User::ROLE_CLIENT_VIEW]))
         ;
 
         $menu['Usuarios']->addChild('Empleados', [
             'route' => 'backend_user_employee_index'
         ])
-            ->setAttribute('icon', self::CIRCLE_3)
-            ->setAttribute('class', $this->activeRoute('backend_user_employee_index'))
-            ->setDisplay($isGranted)
+        ->setAttribute('icon', self::CIRCLE_3)
+        ->setAttribute('class', $this->activeRoute('backend_user_employee_index'))
+        ->setDisplay($this->isGranted([User::ROLE_EMPLOYEE_VIEW]))
         ;
         /**
          * ACCOUNTS

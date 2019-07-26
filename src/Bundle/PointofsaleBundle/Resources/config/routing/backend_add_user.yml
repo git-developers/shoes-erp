@@ -36,6 +36,7 @@ backend_pointofsale_add_user_index:
                         create: backend_super_pointofsale_add_user_create
                         delete: backend_super_pointofsale_add_user_delete
                         add_user: backend_super_pointofsale_add_user
+                        view_profile: backend_user_profile
                         change_password: backend_super_user_change_password
                     table_button:
                         #- edit
@@ -54,6 +55,8 @@ backend_pointofsale_add_user_index:
                           value: aData.id
                         - key: data-id
                           value: aData.id
+                        - key: data-slug
+                          value: aData.slug
                         - key: class
                           value: "'alert'"
                     columns:
@@ -78,12 +81,12 @@ backend_pointofsale_add_user_index:
                         - obj: obj.profile.name
                           options:
                               icon: imagen
-                              property: " return (obj.profile.slug == 'client') ? '<span class=\"badge bg-teal\">' + obj.profile.name + '</span>' : '<span class=\"badge bg-purple\">' + obj.profile.name + '</span>' "
+                              property: " return (obj.profile.slug == 'client') ? '<span class=\"badge bg-navy\">' + obj.profile.name + '</span>' : '<span class=\"badge bg-purple\">' + obj.profile.name + '</span>' "
                           defs:
                               targets: 2
                               orderable: 1
                               sorting: 1
-                              title: '<i class="fa fa-fw fa-user"></i> Perfil'
+                              title: '<i class="fa fa-fw fa-user"></i> Profile'
                               className: text-center
                               filter: 1
                         - obj: obj.created_at
@@ -91,9 +94,25 @@ backend_pointofsale_add_user_index:
                               targets: 3
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
-                        - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
+                        - obj: " '<button class=\"btn btn-xs bg-olive\"><i class=\"fa fa-fw fa-user\"></i></button>' "
                           defs:
                               targets: 4
+                              title: Perfil
+                              width: 4%
+                              sorting: 0
+                              orderable: 0
+                              className: profile-button-id text-center
+                        - obj: " '<button class=\"btn btn-xs btn-info\"><i class=\"fa fa-fw fa-lock\"></i></button>' "
+                          defs:
+                              targets: 5
+                              title: Password
+                              width: 4%
+                              sorting: 0
+                              orderable: 0
+                              className: change-password-id text-center
+                        - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
+                          defs:
+                              targets: 6
                               title: Eliminar
                               width: 4%
                               sorting: 0

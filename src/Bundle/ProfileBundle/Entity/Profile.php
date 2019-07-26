@@ -69,6 +69,7 @@ class Profile
      * @var string
      *
      * @JMSS\Groups({
+     *     "crud",
      *     "pointofsale-has-user"
      * })
      */

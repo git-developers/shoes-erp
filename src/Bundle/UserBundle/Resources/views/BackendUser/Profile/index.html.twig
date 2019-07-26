@@ -1,5 +1,6 @@
 {% extends 'ThemesBundle:Adminlte/Template:1_template.html.twig' %}
 
+{% import "ThemesBundle::Adminlte/Macro/html.html.twig" as html %}
 
 {#IMAGEN AVATAR#}
 {% if(entity.image is defined and entity.image is not null) %}
@@ -23,6 +24,10 @@
 {% block stylesheets %}
     {{ parent() }}
 
+{% endblock %}
+
+{% block facebookSdk %}
+    {{ html.facebook_sdk }}
 {% endblock %}
 
 {% block javascripts %}

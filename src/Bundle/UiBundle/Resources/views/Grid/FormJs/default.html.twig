@@ -3,7 +3,7 @@
         modalId: '{{ modal.create_id }}',
         route: '{{ path(dataTable.route.create) }}',
         formName: '{{ form_mapper.create_name }}',
-        tableJson: tableJson
+        dataTableObject: dataTableObject
     });
 {% endif %}
 
@@ -12,7 +12,7 @@
         modalId: '{{ modal.edit_id }}',
         route: '{{ path(dataTable.route.edit) }}',
         formName: '{{ form_mapper.edit_name }}',
-        tableJson: tableJson
+        dataTableObject: dataTableObject
     });
 {% endif %}
 
@@ -21,7 +21,7 @@
         modalId: '{{ modal.delete_id }}',
         route: '{{ path(dataTable.route.delete) }}',
         formName: '{{ form_mapper.delete_name }}',
-        tableJson: tableJson
+        dataTableObject: dataTableObject
     });
 {% endif %}
 
@@ -73,7 +73,7 @@
         modalId: '{{ modal.create_id }}',
         route: '{{ path(dataTable.route.create_pdv_child) }}',
         formName: '{{ form_mapper.create_name }}',
-        tableJson: tableJson
+        dataTableObject: dataTableObject
     });
 {% endif %}
 
@@ -82,7 +82,7 @@
         modalId: '{{ modal.change_password_id }}',
         route: '{{ path(dataTable.route.change_password) }}',
         formName: '{{ form_mapper.change_password_name }}',
-        tableJson: tableJson
+        dataTableObject: dataTableObject
     });
 
     $('body.{{ vars.body_css }}').togglePassword({

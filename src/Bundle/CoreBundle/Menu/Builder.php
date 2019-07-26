@@ -10,6 +10,9 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Bundle\ProfileBundle\Entity\Profile;
 use Bundle\RoleBundle\Entity\Role;
+use Bundle\UserBundle\Entity\User;
+use Bundle\PointofsaleBundle\Entity\Pointofsale;
+use Bundle\TicketBundle\Entity\Ticket;
 
 class Builder implements ContainerAwareInterface
 {
@@ -59,11 +62,8 @@ class Builder implements ContainerAwareInterface
         /**
          * DASHBOARD
          */
-	
-	    $route = 'backend_dashboard_index';
-	    
         $menu->addChild('Dashboard', [
-            'route' => $route,
+            'route' => 'backend_dashboard_index',
             'extras' => ['safe_label' => true],
             'childrenAttributes' => [
                 'class' => 'treeview-menu',
@@ -71,7 +71,7 @@ class Builder implements ContainerAwareInterface
         ])
         ->setAttribute('class', 'treeview')
         ->setAttribute('icon', 'fa-fw fa-tv')
-        ->setAttribute('class', $this->activeRoute($route))
+        ->setAttribute('class', $this->activeRoute('backend_dashboard_index'))
         ->setDisplay(true)
         ;
         /**
@@ -86,15 +86,8 @@ class Builder implements ContainerAwareInterface
          * ACCOUNTS
          */
         $isGranted = $this->isGranted([
-            Role::ROLE_SUPER_ADMIN,
-            Role::ROLE_PDV_ADMIN,
+	        User::ROLE_USER_VIEW,
         ]);
-
-        /*
-        $isGrantedSuperAdmin = $this->isGranted(Role::ROLE_SUPER_ADMIN);
-        $isGrantedAdmin = $this->isGranted(Role::ROLE_PDV_ADMIN);
-        $isGrantedEmployee = $this->isGranted(Role::ROLE_EMPLOYEE);
-        */
 
         $menu->addChild('Usuarios', [
             'route' => 'frontend_default_index',
@@ -148,8 +141,7 @@ class Builder implements ContainerAwareInterface
 	     * POINTS OF SALES
 	     */
 	    $isGranted = $this->isGranted([
-		    Role::ROLE_SUPER_ADMIN,
-		    Role::ROLE_PDV_ADMIN,
+		    Pointofsale::ROLE_PDV_VIEW
 	    ]);
 	
 	    $menu->addChild('Puntos de venta', [
@@ -159,32 +151,32 @@ class Builder implements ContainerAwareInterface
 			    'class' => 'treeview-menu',
 		    ],
 	    ])
-		    ->setAttribute('allow_angle', true)
-		    ->setAttribute('class', 'treeview')
-		    ->setAttribute('class', $this->activeRoute([
-			    'backend_pointofsale_index',
-			    'backend_pointofsale_map_index',
-			    'backend_pointofsale_add_user_index',
-			    'backend_pointofsale_pdv_child_index',
-		    ]))
-		    ->setAttribute('icon', 'fa-fw fa-map-marker')
-		    ->setDisplay($isGranted)
+	    ->setAttribute('allow_angle', true)
+	    ->setAttribute('class', 'treeview')
+	    ->setAttribute('class', $this->activeRoute([
+		    'backend_pointofsale_index',
+		    'backend_pointofsale_map_index',
+		    'backend_pointofsale_add_user_index',
+		    'backend_pointofsale_pdv_child_index',
+	    ]))
+	    ->setAttribute('icon', 'fa-fw fa-map-marker')
+	    ->setDisplay($isGranted)
 	    ;
 	
 	    $menu['Puntos de venta']->addChild('Gestionar', [
 		    'route' => 'backend_pointofsale_index'
 	    ])
-		    ->setAttribute('icon', self::CIRCLE_1)
-		    ->setAttribute('class', $this->activeRoute('backend_pointofsale_index'))
-		    ->setDisplay($isGranted)
+	    ->setAttribute('icon', self::CIRCLE_1)
+	    ->setAttribute('class', $this->activeRoute('backend_pointofsale_index'))
+	    ->setDisplay($isGranted)
 	    ;
 	
 	    $menu['Puntos de venta']->addChild('Mapa', [
 		    'route' => 'backend_pointofsale_map_index'
 	    ])
-		    ->setAttribute('icon', self::CIRCLE_2)
-		    ->setAttribute('class', $this->activeRoute('backend_pointofsale_map_index'))
-		    ->setDisplay($isGranted)
+	    ->setAttribute('icon', self::CIRCLE_2)
+	    ->setAttribute('class', $this->activeRoute('backend_pointofsale_map_index'))
+	    ->setDisplay($isGranted)
 	    ;
 	    /**
 	     * POINTS OF SALES
@@ -195,10 +187,10 @@ class Builder implements ContainerAwareInterface
 	
 	
 	    /**
-         * PDV - STOCK - INVENTORY
+         * STOCK - INVENTORY
          */
         $isGranted = $this->isGranted([
-            Role::ROLE_PDV_ADMIN,
+	        Category::ROLE_CATEGORY_VIEW
         ]);
 
         $menu->addChild('Inventario', [
@@ -208,14 +200,14 @@ class Builder implements ContainerAwareInterface
                 'class' => 'treeview-menu',
             ],
         ])
-            ->setAttribute('allow_angle', true)
-            ->setAttribute('class', 'treeview')
-            ->setAttribute('class', $this->activeRoute([
-                'backend_product_index',
-                'backend_category_tree_index',
-            ]))
-            ->setAttribute('icon', 'fa-fw fa-dropbox')
-            ->setDisplay($isGranted)
+        ->setAttribute('allow_angle', true)
+        ->setAttribute('class', 'treeview')
+        ->setAttribute('class', $this->activeRoute([
+            'backend_product_index',
+            'backend_category_tree_index',
+        ]))
+        ->setAttribute('icon', 'fa-fw fa-dropbox')
+        ->setDisplay($isGranted)
         ;
 
         $menu['Inventario']->addChild('Categoria', [
@@ -224,31 +216,32 @@ class Builder implements ContainerAwareInterface
                 'entity_type' => Category::TYPE_PRODUCT
             ]
         ])
-            ->setAttribute('icon', self::CIRCLE_1)
-            ->setAttribute('class', $this->activeRoute('backend_category_tree_index'))
-            ->setDisplay($isGranted)
+        ->setAttribute('icon', self::CIRCLE_1)
+        ->setAttribute('class', $this->activeRoute('backend_category_tree_index'))
+        ->setDisplay($isGranted)
         ;
 
         $menu['Inventario']->addChild('Producto', [
             'route' => 'backend_product_index'
         ])
-            ->setAttribute('icon', self::CIRCLE_2)
-            ->setAttribute('class', $this->activeRoute('backend_product_index'))
-            ->setDisplay($isGranted)
+        ->setAttribute('icon', self::CIRCLE_2)
+        ->setAttribute('class', $this->activeRoute('backend_product_index'))
+        ->setDisplay($isGranted)
         ;
         /**
-         * PDV - STOCK - INVENTORY
+         * STOCK - INVENTORY
          */
 		
 
 
 
+        
 
         /**
-         * SUPER - STOCK - INVENTORY
+         * INVENTORY
          */
         $isGranted = $this->isGranted([
-	        Role::ROLE_SUPER_ADMIN,
+	        Category::ROLE_CATEGORY_VIEW
         ]);
 
         $menu->addChild('Inventario', [
@@ -287,7 +280,7 @@ class Builder implements ContainerAwareInterface
             ->setDisplay($isGranted)
         ;
         /**
-         * SUPER - STOCK - INVENTORY
+         * INVENTORY
          */
 		
 
@@ -353,7 +346,7 @@ class Builder implements ContainerAwareInterface
          * SECURITY
          */
         $isGranted = $this->isGranted([
-            Role::ROLE_SUPER_ADMIN,
+	        Profile::ROLE_PROFILE_VIEW
         ]);
 
         $menu->addChild('Seguridad', [
@@ -363,15 +356,15 @@ class Builder implements ContainerAwareInterface
                 'class' => 'treeview-menu',
             ],
         ])
-            ->setAttribute('allow_angle', true)
-            ->setAttribute('class', 'treeview')
-            ->setAttribute('class', $this->activeRoute([
-                'backend_role_index',
-                'backend_session_index',
-                'backend_profile_index',
-            ]))
-            ->setAttribute('icon', 'fa-fw fa-lock')
-            ->setDisplay($isGranted)
+        ->setAttribute('allow_angle', true)
+        ->setAttribute('class', 'treeview')
+        ->setAttribute('class', $this->activeRoute([
+            'backend_role_index',
+            'backend_session_index',
+            'backend_profile_index',
+        ]))
+        ->setAttribute('icon', 'fa-fw fa-lock')
+        ->setDisplay($isGranted)
         ;
         $menu['Seguridad']->addChild('Perfil', [
             'route' => 'backend_profile_index',
@@ -380,11 +373,11 @@ class Builder implements ContainerAwareInterface
                 'class' => 'treeview-menu',
             ],
         ])
-            ->setAttribute('icon', 'fa-fw fa-user-secret')
-            ->setAttribute('class', $this->activeRoute([
-                'backend_profile_index',
-            ]))
-            ->setDisplay($isGranted)
+        ->setAttribute('icon', 'fa-fw fa-user-secret')
+        ->setAttribute('class', $this->activeRoute([
+            'backend_profile_index',
+        ]))
+        ->setDisplay($isGranted)
         ;
         $menu['Seguridad']->addChild('Rol', [
             'route' => 'backend_role_index',
@@ -393,11 +386,11 @@ class Builder implements ContainerAwareInterface
                 'class' => 'treeview-menu',
             ],
         ])
-            ->setAttribute('icon', 'fa-fw fa-expeditedssl')
-            ->setAttribute('class', $this->activeRoute([
-                'backend_role_index',
-            ]))
-            ->setDisplay($isGranted)
+        ->setAttribute('icon', 'fa-fw fa-expeditedssl')
+        ->setAttribute('class', $this->activeRoute([
+            'backend_role_index',
+        ]))
+        ->setDisplay($isGranted)
         ;
         
         /*
@@ -427,9 +420,7 @@ class Builder implements ContainerAwareInterface
          * TICKET
          */
         $isGranted = $this->isGranted([
-            Role::ROLE_EMPLOYEE,
-	        Role::ROLE_PDV_ADMIN,
-	        Role::ROLE_SUPER_ADMIN,
+	        Ticket::ROLE_TICKET_VIEW,
         ]);
 
         $menu->addChild('Pedidos', [
@@ -453,12 +444,12 @@ class Builder implements ContainerAwareInterface
 	    $menu['Pedidos']->addChild('Gestionar', [
 		    'route' => 'backend_ticket_index'
 	    ])
-		    ->setAttribute('icon', self::CIRCLE_1)
-		    ->setAttribute('class', $this->activeRoute([
-			    'backend_ticket_index',
-			    'backend_ticket_edit'
-		    ]))
-		    ->setDisplay($isGranted)
+	    ->setAttribute('icon', self::CIRCLE_1)
+	    ->setAttribute('class', $this->activeRoute([
+		    'backend_ticket_index',
+		    'backend_ticket_edit'
+	    ]))
+	    ->setDisplay($isGranted)
 	    ;
         
 	    $menu['Pedidos']->addChild('Crear pedido interno', [
@@ -483,13 +474,13 @@ class Builder implements ContainerAwareInterface
 	
 
         
+        
 
         /**
          * STATISTICS
          */
         $isGranted = $this->isGranted([
-	        Role::ROLE_PDV_ADMIN,
-	        Role::ROLE_SUPER_ADMIN,
+	        Role::ROLE_STADISTICS,
         ]);
 
         $menu->addChild('Estadísticas', [
@@ -499,29 +490,29 @@ class Builder implements ContainerAwareInterface
                 'class' => 'treeview-menu',
             ],
         ])
-            ->setAttribute('class', 'treeview')
-            ->setAttribute('class', $this->activeRoute([
-	            'backend_report_pie_chart',
-	            'backend_report_combo_chart',
-            ]))
-            ->setAttribute('icon', 'fa-fw fa-bar-chart')
-            ->setDisplay($isGranted)
+        ->setAttribute('class', 'treeview')
+        ->setAttribute('class', $this->activeRoute([
+            'backend_report_pie_chart',
+            'backend_report_combo_chart',
+        ]))
+        ->setAttribute('icon', 'fa-fw fa-bar-chart')
+        ->setDisplay($isGranted)
         ;
         
 	    $menu['Estadísticas']->addChild('Combo chart', [
 		    'route' => 'backend_report_combo_chart'
 	    ])
-		    ->setAttribute('icon', self::CIRCLE_1)
-		    ->setAttribute('class', $this->activeRoute('backend_report_combo_chart'))
-		    ->setDisplay($isGranted)
+	    ->setAttribute('icon', self::CIRCLE_1)
+	    ->setAttribute('class', $this->activeRoute('backend_report_combo_chart'))
+	    ->setDisplay($isGranted)
 	    ;
      
 	    $menu['Estadísticas']->addChild('Pie chart', [
 		    'route' => 'backend_report_pie_chart'
 	    ])
-		    ->setAttribute('icon', self::CIRCLE_2)
-		    ->setAttribute('class', $this->activeRoute('backend_report_pie_chart'))
-		    ->setDisplay($isGranted)
+	    ->setAttribute('icon', self::CIRCLE_2)
+	    ->setAttribute('class', $this->activeRoute('backend_report_pie_chart'))
+	    ->setDisplay($isGranted)
 	    ;
         /**
          * STATISTICS
@@ -535,7 +526,7 @@ class Builder implements ContainerAwareInterface
 	     * SETTINGS
 	     */
 	    $isGranted = $this->isGranted([
-		    Role::ROLE_PDV_ADMIN,
+		    Role::ROLE_SETTINGS,
 	    ]);
 	
 	    $menu->addChild('Ajustes', [

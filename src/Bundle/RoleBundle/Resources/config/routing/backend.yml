@@ -8,6 +8,8 @@ backend_role_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
+            roles_allow:
+                - ROLE_PROFILE_VIEW
             vars:
                 subheader: sylius.ui.manage_your_role_catalog
                 icon: cube
@@ -31,6 +33,9 @@ backend_role_index:
                     table_button_header:
                         - create
                         - info
+                    table_option:
+                        pageLength: 20
+                        dom: "'<\"top\"iflp><\"clear\">rt<\"bottom\"iflp>'"
                     row_call_back:
                         - key: id
                           value: aData.id
@@ -39,18 +44,37 @@ backend_role_index:
                         - key: class
                           value: "'alert'"
                     columns:
-                        - name: '#'
-                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
-                        - name: Name
-                          obj: obj.name
-                        - name: Grupo de rol
-                          obj: obj.group_rol
-                        - name: Slug
-                          obj: " '<span class=\"badge bg-green\">' + obj.slug + '</span>' "
-                        - name: Creado
-                          obj: obj.created_at
-                          options:
-                              icon: calendar
+                        - obj: " '<span class=\"badge bg-light-blue-active\">' + obj.id + '</span>' "
+                          defs:
+                              targets: 0
+                              searchable: 1
+                              sorting: 1
+                              orderable: 1
+                              type: html
+                              width: 4%
+                              title: '#'
+                              className: modal-view text-center
+                        - obj: obj.name
+                          defs:
+                              targets: 1
+                              orderable: 1
+                              sorting: 1
+                              title: Nombre
+                              className: modal-edit
+                              filter: 1
+                        - obj: " '<span class=\"badge bg-green\">' + obj.slug + '</span>' "
+                          defs:
+                              targets: 2
+                              orderable: 1
+                              sorting: 1
+                              title: Slug
+                              className: text-center
+                              filter: 1
+                        - obj: obj.created_at
+                          defs:
+                              targets: 3
+                              title: '<i class="fa fa-fw fa-calendar"></i> Creado'
+                              className: text-center
             form:
                 type: Bundle\RoleBundle\Form\Type\RoleType
             repository:

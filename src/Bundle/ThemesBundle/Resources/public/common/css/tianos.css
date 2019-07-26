@@ -164,3 +164,7 @@ div.tianos-alert-error-2 .alert
     z-index: 100;
     width: 60%
 }
+
+input.width-100 {
+    width: 100% !important;
+}

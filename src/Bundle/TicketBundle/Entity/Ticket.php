@@ -13,7 +13,13 @@ use JMS\Serializer\Annotation\Type as TypeJMS;
  */
 class Ticket
 {
-
+	
+	const ROLE_TICKET_VIEW = 'ROLE_TICKET_VIEW';
+	const ROLE_TICKET_CREATE = 'ROLE_TICKET_CREATE';
+	const ROLE_TICKET_EDIT = 'ROLE_TICKET_EDIT';
+	const ROLE_TICKET_DELETE = 'ROLE_TICKET_DELETE';
+	
+	
     /**
      * @var integer
      *

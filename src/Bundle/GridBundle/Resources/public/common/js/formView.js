@@ -72,8 +72,8 @@
         return this.each(function(){
 
             var bp = new $.formView(this, options);
-
-            $(document).on('click', 'td.' + options.tableTdClass, function() {
+            
+            $(document).on('click', 'td.' + options.modalId, function() {
                 bp.openModal(event, this);
             });
 

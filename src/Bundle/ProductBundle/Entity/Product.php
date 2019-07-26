@@ -13,7 +13,12 @@ use JMS\Serializer\Annotation\Type as TypeJMS;
  */
 class Product
 {
-
+	
+	const ROLE_PRODUCT_VIEW = 'ROLE_PRODUCT_VIEW';
+	const ROLE_PRODUCT_CREATE = 'ROLE_PRODUCT_CREATE';
+	const ROLE_PRODUCT_EDIT = 'ROLE_PRODUCT_EDIT';
+	const ROLE_PRODUCT_DELETE = 'ROLE_PRODUCT_DELETE';
+	
     /**
      * @var integer
      *

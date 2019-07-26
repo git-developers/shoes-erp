@@ -22,7 +22,7 @@
         base.redirect = function(event, context) {
             // debug(e);
 
-            var id = $(context).parent().parent().data('id');
+            var id = $(context).parent().data('id');
 
             window.location.href = options.route.replace("/-1", "") + "/" + id;
 
@@ -42,7 +42,7 @@
 
             var bp = new $.formCog(this, options);
 
-            $(document).on('click', 'button.' + options.buttonId, function() {
+            $(document).on('click', 'td.' + options.buttonId, function() {
                 bp.redirect(event, this);
             });
 

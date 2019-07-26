@@ -8,6 +8,8 @@ backend_user_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
+            roles_allow:
+                - ROLE_USER_VIEW
             vars:
                 subheader: sylius.ui.manage_your_user_catalog
                 icon: cube
@@ -19,6 +21,10 @@ backend_user_index:
                 modal:
                     create:
                         title: Crear usuario
+                        size: modal-lg
+                    edit:
+                        title: Editar usuario
+                        size: modal-lg
                     change_password:
                         title: Cambiar password
                 data_table:
@@ -31,15 +37,16 @@ backend_user_index:
                         view_profile: backend_user_profile
                         change_password: backend_user_change_password
                     table_button:
-                        - edit
-                        - delete
-                        - view_profile
-                        - change_password
+                        #- edit
+                        #- delete
+                        #- view_profile
+                        #- change_password
                     table_button_header:
                         - create
                         - info
                     table_option:
                         pageLength: 50
+                        dom: "'<\"top\"iflp><\"clear\">rt<\"bottom\"iflp>'"
                     row_call_back:
                         - key: id
                           value: aData.id
@@ -50,24 +57,71 @@ backend_user_index:
                         - key: class
                           value: "'alert'"
                     columns:
-                        - name: '#'
-                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
-                        - name: Username
-                          obj: " '<span class=\"badge bg-green\">' + obj.username + '</span>' "
-                          options:
-                              icon: feed
-                        - name: Nombre
-                          obj: " obj.name + ' ' + obj.last_name "
-                        - name: Email
-                          obj: obj.email
-                          options:
-                              icon: envelope-o
+                        - obj: " '<span class=\"badge bg-light-blue-active\">' + obj.id + '</span>' "
+                          defs:
+                              targets: 0
+                              searchable: 1
+                              sorting: 1
+                              orderable: 1
+                              type: html
+                              width: 4%
+                              title: '#'
+                              className: modal-view text-center
+                        - obj: " obj.name + ' ' + obj.last_name "
+                          defs:
+                              targets: 1
+                              orderable: 1
+                              sorting: 1
+                              title: Nombre
+                              className: modal-edit
+                              filter: 1
+                        - obj: obj.email
+                          defs:
+                              targets: 2
+                              title: '<i class="fa fa-fw fa-envelope-o"></i> Email'
+                              filter: 1
+                        - obj: " '<span class=\"badge bg-green\">' + obj.username + '</span>' "
+                          defs:
+                              targets: 3
+                              title: '<i class="fa fa-fw fa-feed"></i> Username'
+                              className: text-center
+                              filter: 1
                         - name: Perfil
-                          obj: " '<span class=\"badge bg-teal\">' + obj.profile.name + '</span>' "
-                        - name: Creado
-                          obj: obj.created_at
-                          options:
-                              icon: calendar
+                          obj: " '<span class=\"badge bg-purple\">' + obj.profile.name + '</span>' "
+                          defs:
+                              targets: 4
+                              title: Profile
+                              className: text-center
+                              filter: 1
+                        - obj: obj.created_at
+                          defs:
+                              targets: 5
+                              title: '<i class="fa fa-fw fa-calendar"></i> Creado'
+                              className: text-center
+                        - obj: " '<button class=\"btn btn-xs bg-olive\"><i class=\"fa fa-fw fa-user\"></i></button>' "
+                          defs:
+                              targets: 6
+                              title: Perfil
+                              width: 4%
+                              sorting: 0
+                              orderable: 0
+                              className: profile-button-id text-center
+                        - obj: " '<button class=\"btn btn-xs btn-info\"><i class=\"fa fa-fw fa-lock\"></i></button>' "
+                          defs:
+                              targets: 7
+                              title: Password
+                              width: 4%
+                              sorting: 0
+                              orderable: 0
+                              className: change-password-id text-center
+                        - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
+                          defs:
+                              targets: 8
+                              title: Eliminar
+                              width: 4%
+                              sorting: 0
+                              orderable: 0
+                              className: modal-delete text-center
             form:
                 type: Bundle\UserBundle\Form\Type\UserType
             repository:

@@ -26,11 +26,85 @@
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
-    <style>
+
+    <style type="text/css">
+
         table#{{ dataTable.tableOptions.table_name }} tr.{{ dataTable.tableOptions.table_tr_class }}:hover{
-            background-color: #d2d6de;
+            background-color: #ECECEC;
+        }
+
+
+        {# ****** RIPPLE EFFECT ****** #}
+        td.{{ modal.view_id }},
+        td.{{ modal.edit_id }},
+        td.{{ modal.delete_id }},
+        td.{{ modal.profile_id }},
+        td.{{ modal.point_of_sale_cog }},
+        td.{{ modal.change_password_id }}
+        {
+            background-position: center;
+            transition: background 0.5s;
             cursor: pointer;
         }
+
+        td.{{ modal.view_id }}:active,
+        td.{{ modal.edit_id }}:active,
+        td.{{ modal.delete_id }}:active,
+        td.{{ modal.profile_id }}:active,
+        td.{{ modal.point_of_sale_cog }}:active,
+        td.{{ modal.change_password_id }}:active
+        {
+            background-color: #d2d6de;
+            background-size: 100%;
+            transition: background 0s;
+        }
+
+        td.{{ modal.view_id }}:hover
+        {
+            background: #3c8dbc radial-gradient(circle, transparent 1%, #3c8dbc 1%) center/20000%;
+            color: white;
+        }
+
+        td.{{ modal.edit_id }}:hover
+        {
+            background: #f39c12 radial-gradient(circle, transparent 1%, #f39c12 1%) center/20000%;
+            color: white;
+        }
+
+        td.{{ modal.delete_id }}:hover
+        {
+            background: #d73925 radial-gradient(circle, transparent 1%, #d73925 1%) center/20000%;
+            color: white;
+        }
+
+        td.{{ modal.change_password_id }}:hover
+        {
+            background: #00acd6 radial-gradient(circle, transparent 1%, #00acd6 1%) center/20000%;
+            color: white;
+        }
+
+        td.{{ modal.profile_id }}:hover
+        {
+            background: #3d9970 radial-gradient(circle, transparent 1%, #3d9970 1%) center/20000%;
+            color: white;
+        }
+
+        td.{{ modal.profile_id }}:hover
+        {
+            background: #3d9970 radial-gradient(circle, transparent 1%, #3d9970 1%) center/20000%;
+            color: white;
+        }
+
+        td.{{ modal.point_of_sale_cog }}:hover
+        {
+            background: #367fa9 radial-gradient(circle, transparent 1%, #367fa9 1%) center/20000%;
+            color: white;
+        }
+        {# ****** RIPPLE EFFECT ****** #}
+
+
+
+
         input[type=checkbox] {
             height: 20px;
             width: 20px;
@@ -70,7 +144,7 @@
 
         $(document).ready(function() {
 
-            var tableJson = $('#{{ dataTable.tableOptions.table_name }}').DataTable({
+            var dataTableObject = $('#{{ dataTable.tableOptions.table_name }}').DataTable({
                 {% for key, value in dataTable.options %}
                     '{{ key }}': {{ value|raw }},
                 {% endfor %}
@@ -102,28 +176,70 @@
                     },
                     {% endfor %}
 
+                    {# ********* TABLE BUTTON ********* #}
                     {% if dataTable.tableButton is not empty %}
                     {
                         'data' : function (obj) {
                             return '{% spaceless %}
                             {% for key, button in dataTable.tableButton %}
-                                {{ tianos_grid_render_button(button, '@Ui/Grid/Button/Header/_table_button.html.twig') }}
+                            {{ tianos_grid_render_button(button, '@Ui/Grid/Button/Header/_table_button.html.twig') }}
                             {% endfor %}
                             {% endspaceless %}';
                         }
                     },
                     {% endif %}
+                    {# ********* TABLE BUTTON ********* #}
+
                 ],
                 'columnDefs': [
+                    {% for key, value in grid.data_table.columns|default([]) %}
+
+                    {% set defs = value.defs %}
+
                     {
-                        {#'targets': '_all',#}
-                        'targets': {{ dataTable.columnsTargets }},
+                        'targets': {{ defs.targets|default() is empty ? "" : defs.targets }},
+                        'searchable': {{ defs.searchable|default(1) }},
+                        {#'sorting': {{ defs.sorting|default(1) }},#}
+                        'orderable': {{ defs.orderable|default(1) }},
+                        'type': '{{ defs.type|default("html") }}',
+                        'width': '{{ defs.width|default("") }}',
+                        'title': '{{ defs.title|default() is empty ? "" : defs.title|raw }}',
+                        visible: {{ defs.visible|default(true) }},
+                        className: '{{ defs.className|default("") }}',
+                        'render': function (row, type, val, meta) {
+                            return row;
+
+                            {#return type === 'display' && data.length > 40 ? '<span title="'+data+'">'+data.substr( 0, 38 )+'...</span>' : data;#}
+                        },
                         'createdCell':  function (td, cellData, rowData, row, col) {
+                            {% if defs.className|default() is not empty and modal.view_id in defs.className %}
+                            $(td).attr('title', 'ver');
                             $(td).attr('data-toggle', 'modal');
                             $(td).attr('data-target', '#{{ modal.view_id }}');
-                            $(td).attr('class', '{{ dataTable.tableOptions.table_td_class }}');
+                            {% elseif defs.className|default() is not empty and modal.edit_id in defs.className %}
+                            $(td).attr('title', 'editar');
+                            $(td).attr('data-toggle', 'modal');
+                            $(td).attr('data-target', '#{{ modal.edit_id }}');
+                            {% elseif defs.className|default() is not empty and modal.delete_id in defs.className %}
+                            $(td).attr('title', 'eliminar');
+                            $(td).attr('data-toggle', 'modal');
+                            $(td).attr('data-target', '#{{ modal.delete_id }}');
+                            {% elseif defs.className|default() is not empty and modal.profile_id in defs.className %}
+                            $(td).attr('title', 'ver perfil');
+                            $(td).attr('data-toggle', 'modal');
+                            $(td).attr('data-target', '#{{ modal.profile_id }}');
+                            {% elseif defs.className|default() is not empty and modal.change_password_id in defs.className %}
+                            $(td).attr('title', 'cambiar password');
+                            $(td).attr('data-toggle', 'modal');
+                            $(td).attr('data-target', '#{{ modal.change_password_id }}');
+                            {% elseif defs.className|default() is not empty and modal.point_of_sale_cog in defs.className %}
+                            $(td).attr('title', 'settings');
+                            $(td).attr('data-toggle', 'modal');
+                            $(td).attr('data-target', '#{{ modal.point_of_sale_cog }}');
+                            {% endif %}
                         }
-                    }
+                    },
+                    {% endfor %}
                 ],
                 'fnRowCallback': function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 
@@ -135,7 +251,41 @@
 
                     return nRow;
                 }
+            })
+            ;
+
+
+            {# ********* SEARCH FILTERS ********* #}
+            {% set filterIndexes = [] %}
+            {% for key, value in grid.data_table.columns|default([]) %}
+            {% if value.defs.filter|default(0) %}
+            {% set filterIndexes = filterIndexes|merge([value.defs.targets|default()]) %}
+            {% endif %}
+            {% endfor %}
+
+            $('#{{ dataTable.tableOptions.table_name }} thead tr').clone(true).appendTo( '#{{ dataTable.tableOptions.table_name }} thead' );
+            $('#{{ dataTable.tableOptions.table_name }} thead tr:eq(1) th').each( function (i) {
+
+                if ($.inArray(i, {{ filterIndexes|json_encode|raw }}) == -1) {
+                    return;
+                }
+
+                $(this).html( '<input type="text" class="form-control input-sm width-100" />' );
+
+                $('input', this ).on( 'keyup change', function () {
+                    if(dataTableObject.column(i).search() === this.value){
+                        return;
+                    }
+
+                    dataTableObject
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                });
             });
+            {# ********* SEARCH FILTERS ********* #}
+
+
 
             {{ tianos_grid_form_js(vars, modal, form_mapper, dataTable, '@Ui/Grid/FormJs/inventory.html.twig') }}
 
@@ -144,7 +294,7 @@
                 modalId: '{{ modal.create_id }}',
                 route: '{{ path(dataTable.route.create) }}',
                 formName: '{{ form_mapper.create_name }}',
-                tableJson: tableJson
+                dataTableObject: dataTableObject
             });
 
         });
@@ -254,7 +404,7 @@
                                                 {% if value.options.icon is defined %}
                                                     <i class="fa fa-fw fa-{{ value.options.icon|raw }}"></i>
                                                 {% endif %}
-                                                {{ value.name|raw }}
+                                                {#{{ value.name|raw }}#}
                                             </th>
                                         {% endfor %}
 
@@ -267,11 +417,14 @@
                                 <tfoot>
                                     <tr>
                                         {% for key, value in dataTable.columns|default([]) %}
+
+                                            {% set defs = value.defs %}
+
                                             <th>
                                                 {% if value.options.icon is defined %}
                                                     <i class="fa fa-fw fa-{{ value.options.icon|raw }}"></i>
                                                 {% endif %}
-                                                {{ value.name|raw }}
+                                                {{ defs.title|raw }}
                                             </th>
                                         {% endfor %}
 

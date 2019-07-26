@@ -8,6 +8,8 @@ backend_pointofsale_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
+            roles_allow:
+                - ROLE_PDV_VIEW
             vars:
                 subheader: sylius.ui.manage_your_pointofsale_catalog
                 icon: cube
@@ -34,9 +36,9 @@ backend_pointofsale_index:
                         delete: backend_pointofsale_delete
                         cog: backend_pointofsale_add_user_index
                     table_button:
-                        - edit
-                        - delete
-                        - cog
+                        #- edit
+                        #- delete
+                        #- cog
                     table_button_header:
                         - create
                         - info
@@ -51,22 +53,58 @@ backend_pointofsale_index:
                         - key: class
                           value: "'alert'"
                     columns:
-                        - name: '#'
-                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
-                        - name: Nombre
-                          obj: obj.name
-                        - name: Coordenadas
-                          obj: " '<span class=\"badge bg-green\">' + obj.latitude + ' :: ' + obj.longitude + '</span>' "
-                          options:
-                              icon: map-marker
-                        - name: Dias creado
-                          obj: " '<span class=\"badge bg-blue\">' + obj.created_at_diff + '</span>' "
-                          options:
-                              icon: clock-o
-                        - name: Creado
-                          obj: obj.created_at
-                          options:
-                              icon: calendar
+                        - obj: " '<span class=\"badge bg-light-blue-active\">' + obj.id + '</span>' "
+                          defs:
+                              targets: 0
+                              searchable: 1
+                              sorting: 1
+                              orderable: 1
+                              type: html
+                              width: 4%
+                              title: '#'
+                              className: modal-view
+                        - obj: obj.name
+                          defs:
+                              targets: 1
+                              orderable: 1
+                              sorting: 1
+                              title: Nombre
+                              className: modal-edit
+                              filter: 1
+                        - obj: " obj.latitude + ' __ ' + obj.longitude "
+                          defs:
+                              targets: 2
+                              orderable: 1
+                              sorting: 1
+                              title: '<i class="fa fa-fw fa-map-marker"></i> Coordenadas'
+                              className: text-center
+                              filter: 1
+                        - obj: " '<span class=\"badge bg-blue\">' + obj.created_at_diff + '</span>' "
+                          defs:
+                              targets: 3
+                              title: '<i class="fa fa-fw fa-clock-o"></i> Dias creado'
+                              className: text-center
+                        - obj: obj.created_at
+                          defs:
+                              targets: 4
+                              title: '<i class="fa fa-fw fa-calendar"></i> Creado'
+                              className: text-center
+                        - obj: " '<button class=\"btn btn-xs btn-primary\"><i class=\"fa fa-fw fa-cog\"></i></button>' "
+                          defs:
+                              targets: 5
+                              title: Settings
+                              width: 4%
+                              sorting: 0
+                              orderable: 0
+                              className: pointofsale-cog text-center
+                        - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
+                          defs:
+                              targets: 6
+                              title: Eliminar
+                              width: 4%
+                              sorting: 0
+                              orderable: 0
+                              className: modal-delete text-center
             form:
                 type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
             repository:

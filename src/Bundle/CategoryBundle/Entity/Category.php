@@ -20,6 +20,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Category
 {
+	
+	const ROLE_CATEGORY_VIEW = 'ROLE_CATEGORY_VIEW';
+	const ROLE_CATEGORY_CREATE = 'ROLE_CATEGORY_CREATE';
+	const ROLE_CATEGORY_EDIT = 'ROLE_CATEGORY_EDIT';
+	const ROLE_CATEGORY_DELETE = 'ROLE_CATEGORY_DELETE';
 
     const TYPE_PRODUCT_ID = 1;
     const TYPE_PRODUCT = 'PRODUCT';

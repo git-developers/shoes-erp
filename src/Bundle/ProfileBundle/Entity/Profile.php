@@ -23,7 +23,11 @@ class Profile
 
     const CLIENT = 'Cliente';
     const CLIENT_SLUG = 'client';
-
+	
+	const ROLE_PROFILE_VIEW = 'ROLE_PROFILE_VIEW';
+	const ROLE_PROFILE_CREATE = 'ROLE_PROFILE_CREATE';
+	const ROLE_PROFILE_EDIT = 'ROLE_PROFILE_EDIT';
+	const ROLE_PROFILE_DELETE = 'ROLE_PROFILE_DELETE';
 
     /**
      * @var integer

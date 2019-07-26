@@ -32,6 +32,11 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
 	const ROLE_USER_VIEW = 'ROLE_USER_VIEW';
 	const ROLE_USER_DELETE = 'ROLE_USER_DELETE';
 	
+	const ROLE_CLIENT_VIEW = 'ROLE_CLIENT_VIEW';
+	const ROLE_CLIENT_CREATE = 'ROLE_CLIENT_CREATE';
+	const ROLE_CLIENT_EDIT = 'ROLE_CLIENT_EDIT';
+	const ROLE_CLIENT_DELETE = 'ROLE_CLIENT_DELETE';
+	
 	const USER_BELONGS_TO_PDV = 'USER_BELONGS_TO_PDV';
 	
     /**

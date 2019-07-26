@@ -70,7 +70,7 @@
 
         $(document).ready(function() {
 
-            var tableJson = $('#{{ dataTable.tableOptions.table_name }}').DataTable({
+            var dataTableObject = $('#{{ dataTable.tableOptions.table_name }}').DataTable({
                 {% for key, value in dataTable.options %}
                     '{{ key }}': {{ value|raw }},
                 {% endfor %}
@@ -144,7 +144,7 @@
                 modalId: '{{ modal.create_id }}',
                 route: '{{ path(dataTable.route.create) }}',
                 formName: '{{ form_mapper.create_name }}',
-                tableJson: tableJson
+                dataTableObject: dataTableObject
             });
 
         });

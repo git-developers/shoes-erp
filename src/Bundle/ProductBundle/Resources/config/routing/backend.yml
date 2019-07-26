@@ -9,6 +9,8 @@ backend_product_index:
             section: admin
             permission: true
             template: GridBundle::index_inventory.html.twig
+            roles_allow:
+                - ROLE_PRODUCT_VIEW
             vars:
                 subheader: sylius.ui.manage_your_product_catalog
                 icon: cube
@@ -49,13 +51,14 @@ backend_product_index:
                         create: backend_product_create
                         delete: backend_product_delete
                     table_button:
-                        - edit
-                        - delete
+                        #- edit
+                        #- delete
                     table_button_header:
 #                        - create
                         - info
                     table_option:
                         pageLength: 10
+                        dom: "'<\"top\"iflp><\"clear\">rt<\"bottom\"iflp>'"
                     row_call_back:
                         - key: id
                           value: aData.id
@@ -64,16 +67,39 @@ backend_product_index:
                         - key: class
                           value: "'alert'"
                     columns:
-                        - name: '#'
-                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
-                        - name: Name
-                          obj: obj.name
-                        - name: Stock
-                          obj: obj.stock
-#                        - name: Creado
-#                          obj: obj.created_at
-#                          options:
-#                              icon: calendar
+                        - obj: " '<span class=\"badge bg-light-blue-active\">' + obj.id + '</span>' "
+                          defs:
+                              targets: 0
+                              searchable: 1
+                              sorting: 1
+                              orderable: 1
+                              type: html
+                              width: 7%
+                              title: '#'
+                              className: modal-view text-center
+                        - obj: obj.name
+                          defs:
+                              targets: 1
+                              orderable: 1
+                              sorting: 1
+                              title: Nombre
+                              className: modal-edit
+                              filter: 1
+                        - obj: obj.stock
+                          defs:
+                              targets: 2
+                              orderable: 1
+                              sorting: 1
+                              title: Stock
+                              className: text-center
+                        - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
+                          defs:
+                              targets: 3
+                              title: Eliminar
+                              width: 7%
+                              sorting: 0
+                              orderable: 0
+                              className: modal-delete text-center
             form:
                 type: Bundle\ProductBundle\Form\Type\ProductType
             repository:

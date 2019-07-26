@@ -25,7 +25,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Pointofsale
 {
-
+	
+	const ROLE_PDV_VIEW = 'ROLE_PDV_VIEW';
+	const ROLE_PDV_CREATE = 'ROLE_PDV_CREATE';
+	const ROLE_PDV_EDIT = 'ROLE_PDV_EDIT';
+	const ROLE_PDV_DELETE = 'ROLE_PDV_DELETE';
+	
     /**
      * @var integer
      *

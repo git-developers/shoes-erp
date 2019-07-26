@@ -38,7 +38,7 @@
             modalMsgText = modal.find('div#message p');
             modalRefresh = modal.find('i.fa-refresh');
 
-            var id = $(context).parent().parent().data('id');
+            var id = $(context).parent().data('id');
 
             modal.find('small.label').html('Item ' + id);
 
@@ -136,7 +136,7 @@
 
             var bp = new $.formChangePassword(this, options);
 
-            $(document).on('click', 'button.' + options.modalId, function() {
+            $(document).on('click', 'td.' + options.modalId, function() {
                 bp.openModal(event, this);
             });
 

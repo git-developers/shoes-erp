@@ -9,7 +9,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class Load_18_UnitData extends AbstractFixture implements OrderedFixtureInterface
+class Load_17_UnitData extends AbstractFixture implements OrderedFixtureInterface
 {
 
     protected $applicationUrl;
@@ -22,21 +22,38 @@ class Load_18_UnitData extends AbstractFixture implements OrderedFixtureInterfac
     public function load(ObjectManager $manager)
     {
 	
-	    $product_1 = $this->getReference('product-1');
-	    $product_2 = $this->getReference('product-2');
-        
+//	    $product_1 = $this->getReference('product-1');
+//	    $product_2 = $this->getReference('product-2');
+     
+	    
+	    //UNIT 1
         $entity = new Unit();
 	    $entity->setName('paquete');
 	    $entity->setIsActive(true);
         $manager->persist($entity);
 	
-	    $product_1->setUnit($entity);
-	    $manager->persist($product_1);
+//	    $product_1->setUnit($entity);
+//	    $manager->persist($product_1);
         
         $this->addReference('unit-1', $entity);
+	
+	
+	    //UNIT 2
+	    $entity = new Unit();
+	    $entity->setName('unidades');
+	    $entity->setIsActive(true);
+	    $manager->persist($entity);
+	
+//	    $product_2->setUnit($entity);
+//	    $manager->persist($product_2);
+	
+	    $this->addReference('unit-2', $entity);
         
-        
+	    
+	    
         /*
+         *
+        //UNIT 3
         $entity = new Unit();
 	    $entity->setName('gramos');
 	    $entity->setIsActive(true);
@@ -45,8 +62,10 @@ class Load_18_UnitData extends AbstractFixture implements OrderedFixtureInterfac
 	    $product_1->setUnit($entity);
 	    $manager->persist($product_1);
         
-        $this->addReference('unit-2', $entity);
+        $this->addReference('unit-3', $entity);
         
+        
+        //UNIT 4
         $entity = new Unit();
 	    $entity->setName('onzas');
 	    $entity->setIsActive(true);
@@ -55,8 +74,10 @@ class Load_18_UnitData extends AbstractFixture implements OrderedFixtureInterfac
 	    $product_1->setUnit($entity);
 	    $manager->persist($product_1);
         
-        $this->addReference('unit-3', $entity);
+        $this->addReference('unit-4', $entity);
         
+        
+        //UNIT 5
         $entity = new Unit();
 	    $entity->setName('mililitros');
 	    $entity->setIsActive(true);
@@ -65,21 +86,10 @@ class Load_18_UnitData extends AbstractFixture implements OrderedFixtureInterfac
 	    $product_2->setUnit($entity);
 	    $manager->persist($product_2);
         
-        $this->addReference('unit-4', $entity);
-        */
-        
-        $entity = new Unit();
-	    $entity->setName('unidades');
-	    $entity->setIsActive(true);
-        $manager->persist($entity);
-	
-	    $product_2->setUnit($entity);
-	    $manager->persist($product_2);
-        
         $this->addReference('unit-5', $entity);
+
         
-        
-        /*
+        //UNIT 6
         $entity = new Unit();
 	    $entity->setName('ampollas');
 	    $entity->setIsActive(true);
@@ -99,6 +109,6 @@ class Load_18_UnitData extends AbstractFixture implements OrderedFixtureInterfac
     {
         // the order in which fixtures will be loaded
         // the lower the number, the sooner that this fixture is loaded
-        return 18;
+        return 17;
     }
 }

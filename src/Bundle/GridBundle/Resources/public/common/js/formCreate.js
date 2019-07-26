@@ -86,7 +86,7 @@
                     modalRefresh.hide();
 
                     if(data.status){
-                        options.tableJson
+                        options.dataTableObject
                             .row
                             .add(data.entity)
                             .draw()

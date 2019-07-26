@@ -38,7 +38,8 @@
             modalMsgText = modal.find('div#message p');
             modalRefresh = modal.find('i.fa-refresh');
 
-            var id = $(context).parent().parent().data('id');
+            //var id = $(context).parent().parent().data('id');
+            var id = $(context).parent().data('id');
 
             modal.find('small.label').html('Item ' + id);
 
@@ -95,7 +96,7 @@
                     modalRefresh.hide();
 
                     if(data.status){
-                        var row = options.tableJson.row('[data-id="' + data.id + '"]');
+                        var row = options.dataTableObject.row('[data-id="' + data.id + '"]');
                         row.data(data.entity).draw();
                         modal.modal('hide');
                     }else{
@@ -139,7 +140,8 @@
 
             var bp = new $.formEdit(this, options);
 
-            $(document).on('click', 'button.' + options.modalId, function() {
+            //$(document).on('click', 'button.' + options.modalId, function() {
+            $(document).on('click', 'td.' + options.modalId, function() {
                 bp.openModal(event, this);
             });
 

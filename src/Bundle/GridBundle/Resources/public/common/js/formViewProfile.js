@@ -22,7 +22,7 @@
         base.redirect = function(event, context) {
             // debug(e);
 
-            var slug = $(context).parent().parent().data('slug');
+            var slug = $(context).parent().data('slug');
 
             window.location.href = options.route + "/" + slug;
 
@@ -42,7 +42,7 @@
 
             var bp = new $.formViewProfile(this, options);
 
-            $(document).on('click', 'button.' + options.buttonId, function() {
+            $(document).on('click', 'td.' + options.buttonId, function() {
                 bp.redirect(event, this);
             });
 

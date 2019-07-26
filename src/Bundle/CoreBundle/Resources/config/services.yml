@@ -42,11 +42,11 @@ services:
         arguments: [ '%application_url%' ]
         tags: [doctrine.fixture.orm]
 
-    Bundle\CoreBundle\DataFixtures\ORM\Load_17_ProductoData:
+    Bundle\CoreBundle\DataFixtures\ORM\Load_17_UnitData:
         arguments: [ '%application_url%' ]
         tags: [doctrine.fixture.orm]
 
-    Bundle\CoreBundle\DataFixtures\ORM\Load_18_UnitData:
+    Bundle\CoreBundle\DataFixtures\ORM\Load_18_ProductoData:
         arguments: [ '%application_url%' ]
         tags: [doctrine.fixture.orm]
 

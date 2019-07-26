@@ -64,7 +64,7 @@ class DashboardController extends BaseController
         Assert::notNull($template, 'Template is not configured.');
 	
 	
-	    if ($this->isGranted(Role::ROLE_SUPER_ADMIN)) {
+	    if ($this->isGranted(Role::ROLE_STADISTICS)) {
 		    $template = "BackendBundle:Default:dashboard_admin.html.twig";
 	    }
 

@@ -168,6 +168,8 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
             user_.enabled = :active
             ";
 
+	    //AND user_.isActive = :active
+	    
         $query = $em->createQuery($dql);
         $query->setParameter('active', 1);
         

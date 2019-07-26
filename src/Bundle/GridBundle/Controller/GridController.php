@@ -54,9 +54,10 @@ class GridController extends BaseController
         $grid = $configuration->getGrid();
         $vars = $configuration->getVars();
         $modal = $configuration->getModal();
+        $rolesAllow = $configuration->getRolesAllow();
 	
         //IS_GRANTED
-	    //$this->denyAccessUnlessGranted(User::ROLE_USER_VIEW, null, self::ACCESS_DENIED_MSG);
+	    $this->denyAccessUnlessGranted($rolesAllow, null, self::ACCESS_DENIED_MSG);
 	    
 	    /*
 	    if ($this->isGranted(User::ROLE_USER_VIEW)) {

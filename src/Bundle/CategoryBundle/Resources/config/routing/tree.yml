@@ -8,6 +8,8 @@ backend_category_tree_index:
             section: admin
             permission: true
             template: TreeBundle::index_inventory.html.twig
+            roles_allow:
+                - ROLE_CATEGORY_VIEW
             vars:
                 subheader: sylius.ui.manage_your_category_catalog
                 icon: dropbox

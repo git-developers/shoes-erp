@@ -8,6 +8,8 @@ backend_ticket_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
+            roles_allow:
+                - ROLE_TICKET_VIEW
             vars:
                 subheader: sylius.ui.manage_your_ticket_catalog
                 icon: cube
@@ -42,20 +44,37 @@ backend_ticket_index:
                         - key: class
                           value: "'alert'"
                     columns:
-                        - name: '#'
-                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
-                        - name: Nombre servicio
-                          obj: obj.name
-                        - name: Cliente
-                          obj: obj.client.name + ' ' + obj.client.last_name
-#                        - name: Total price
-#                          obj: obj.total_price
-#                          options:
-#                              icon: money
-                        - name: Creado
-                          obj: obj.created_at
-                          options:
-                              icon: calendar
+                        - obj: " '<span class=\"badge bg-light-blue-active\">' + obj.id + '</span>' "
+                          defs:
+                              targets: 0
+                              searchable: 1
+                              sorting: 1
+                              orderable: 1
+                              type: html
+                              width: 4%
+                              title: '#'
+                              className: modal-view text-center
+                        - obj: obj.name
+                          defs:
+                              targets: 1
+                              orderable: 1
+                              sorting: 1
+                              title: Nombre servicio
+                              className: modal-edit
+                              filter: 1
+                        - obj: obj.client.name + ' ' + obj.client.last_name
+                          defs:
+                              targets: 1
+                              orderable: 1
+                              sorting: 1
+                              title: Cliente
+                              className:
+                              filter: 1
+                        - obj: obj.created_at
+                          defs:
+                              targets: 5
+                              title: '<i class="fa fa-fw fa-calendar"></i> Creado'
+                              className: text-center
             form:
                 type: Bundle\TicketBundle\Form\Type\TicketType
             repository:

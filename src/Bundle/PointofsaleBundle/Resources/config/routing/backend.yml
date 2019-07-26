@@ -62,7 +62,7 @@ backend_pointofsale_index:
                               type: html
                               width: 4%
                               title: '#'
-                              className: modal-view
+                              className: modal-view text-center
                         - obj: obj.name
                           defs:
                               targets: 1

@@ -67,7 +67,7 @@ backend_user_index:
                               width: 4%
                               title: '#'
                               className: modal-view text-center
-                        - obj: " obj.name + ' ' + obj.last_name "
+                        - obj: obj.name_box
                           defs:
                               targets: 1
                               orderable: 1

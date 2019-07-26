@@ -182,7 +182,7 @@
                         'data' : function (obj) {
                             return '{% spaceless %}
                             {% for key, button in dataTable.tableButton %}
-                            {{ tianos_grid_render_button(button, '@Ui/Grid/Button/Header/_table_button.html.twig') }}
+                                {{ tianos_grid_render_button(button, '@Ui/Grid/Button/Header/_table_button.html.twig') }}
                             {% endfor %}
                             {% endspaceless %}';
                         }
@@ -213,29 +213,29 @@
                         },
                         'createdCell':  function (td, cellData, rowData, row, col) {
                             {% if defs.className|default() is not empty and modal.view_id in defs.className %}
-                            $(td).attr('title', 'ver');
-                            $(td).attr('data-toggle', 'modal');
-                            $(td).attr('data-target', '#{{ modal.view_id }}');
+                                $(td).attr('title', 'ver');
+                                $(td).attr('data-toggle', 'modal');
+                                $(td).attr('data-target', '#{{ modal.view_id }}');
                             {% elseif defs.className|default() is not empty and modal.edit_id in defs.className %}
-                            $(td).attr('title', 'editar');
-                            $(td).attr('data-toggle', 'modal');
-                            $(td).attr('data-target', '#{{ modal.edit_id }}');
+                                $(td).attr('title', 'editar');
+                                $(td).attr('data-toggle', 'modal');
+                                $(td).attr('data-target', '#{{ modal.edit_id }}');
                             {% elseif defs.className|default() is not empty and modal.delete_id in defs.className %}
-                            $(td).attr('title', 'eliminar');
-                            $(td).attr('data-toggle', 'modal');
-                            $(td).attr('data-target', '#{{ modal.delete_id }}');
+                                $(td).attr('title', 'eliminar');
+                                $(td).attr('data-toggle', 'modal');
+                                $(td).attr('data-target', '#{{ modal.delete_id }}');
                             {% elseif defs.className|default() is not empty and modal.profile_id in defs.className %}
-                            $(td).attr('title', 'ver perfil');
-                            $(td).attr('data-toggle', 'modal');
-                            $(td).attr('data-target', '#{{ modal.profile_id }}');
+                                $(td).attr('title', 'ver perfil');
+                                $(td).attr('data-toggle', 'modal');
+                                $(td).attr('data-target', '#{{ modal.profile_id }}');
                             {% elseif defs.className|default() is not empty and modal.change_password_id in defs.className %}
-                            $(td).attr('title', 'cambiar password');
-                            $(td).attr('data-toggle', 'modal');
-                            $(td).attr('data-target', '#{{ modal.change_password_id }}');
+                                $(td).attr('title', 'cambiar password');
+                                $(td).attr('data-toggle', 'modal');
+                                $(td).attr('data-target', '#{{ modal.change_password_id }}');
                             {% elseif defs.className|default() is not empty and modal.point_of_sale_cog in defs.className %}
-                            $(td).attr('title', 'settings');
-                            $(td).attr('data-toggle', 'modal');
-                            $(td).attr('data-target', '#{{ modal.point_of_sale_cog }}');
+                                $(td).attr('title', 'configurar punto de venta');
+                                $(td).attr('data-toggle', 'modal');
+                                $(td).attr('data-target', '#{{ modal.point_of_sale_cog }}');
                             {% endif %}
                         }
                     },
@@ -258,9 +258,9 @@
             {# ********* SEARCH FILTERS ********* #}
             {% set filterIndexes = [] %}
             {% for key, value in grid.data_table.columns|default([]) %}
-            {% if value.defs.filter|default(0) %}
-            {% set filterIndexes = filterIndexes|merge([value.defs.targets|default()]) %}
-            {% endif %}
+                {% if value.defs.filter|default(0) %}
+                    {% set filterIndexes = filterIndexes|merge([value.defs.targets|default()]) %}
+                {% endif %}
             {% endfor %}
 
             $('#{{ dataTable.tableOptions.table_name }} thead tr').clone(true).appendTo( '#{{ dataTable.tableOptions.table_name }} thead' );
@@ -400,7 +400,7 @@
                                 <thead>
                                     <tr>
                                         {% for key, value in dataTable.columns|default([]) %}
-                                            <th>
+                                            <th class="text-center">
                                                 {% if value.options.icon is defined %}
                                                     <i class="fa fa-fw fa-{{ value.options.icon|raw }}"></i>
                                                 {% endif %}
@@ -420,7 +420,7 @@
 
                                             {% set defs = value.defs %}
 
-                                            <th>
+                                            <th class="text-center">
                                                 {% if value.options.icon is defined %}
                                                     <i class="fa fa-fw fa-{{ value.options.icon|raw }}"></i>
                                                 {% endif %}

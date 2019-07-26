@@ -234,7 +234,7 @@
                                     $(td).attr('data-toggle', 'modal');
                                     $(td).attr('data-target', '#{{ modal.change_password_id }}');
                                 {% elseif defs.className|default() is not empty and modal.point_of_sale_cog in defs.className %}
-                                    $(td).attr('title', 'settings');
+                                    $(td).attr('title', 'configurar punto de venta');
                                     $(td).attr('data-toggle', 'modal');
                                     $(td).attr('data-target', '#{{ modal.point_of_sale_cog }}');
                                 {% endif %}
@@ -364,7 +364,7 @@
 
                                                 {% set defs = value.defs %}
 
-                                                <th>
+                                                <th class="text-center">
                                                     {% if value.options.icon is defined %}
                                                         <i class="fa fa-fw fa-{{ value.options.icon|raw }}"></i>
                                                     {% endif %}

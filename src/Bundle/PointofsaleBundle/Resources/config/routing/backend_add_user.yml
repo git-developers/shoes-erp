@@ -8,6 +8,8 @@ backend_pointofsale_add_user_index:
             section: admin
             permission: true
             template: GridBundle::index_add_user.html.twig
+            roles_allow:
+                - ROLE_PDV_VIEW
             vars:
                 subheader: sylius.ui.manage_your_pointofsale_catalog
                 icon: cube
@@ -36,10 +38,10 @@ backend_pointofsale_add_user_index:
                         add_user: backend_super_pointofsale_add_user
                         change_password: backend_super_user_change_password
                     table_button:
-                        - edit
-                        - delete
-                        - add_user
-                        - change_password
+                        #- edit
+                        #- delete
+                        #- add_user
+                        #- change_password
                     table_button_header:
 #                        - create_pdv_child
                         - create
@@ -55,19 +57,48 @@ backend_pointofsale_add_user_index:
                         - key: class
                           value: "'alert'"
                     columns:
-                        - name: '#'
-                          obj: " '<span class=\"badge bg-blue\">' + obj.id + '</span>' "
-                        - name: Perfil
-                          obj: obj.profile.name
+                        - obj: " '<span class=\"badge bg-light-blue-active\">' + obj.id + '</span>' "
+                          defs:
+                              targets: 0
+                              searchable: 1
+                              sorting: 1
+                              orderable: 1
+                              type: html
+                              width: 4%
+                              title: '#'
+                              className: modal-view text-center
+                        - obj: obj.name_box
+                          defs:
+                              targets: 1
+                              orderable: 1
+                              sorting: 1
+                              title: Nombre
+                              className: modal-edit text-center
+                              filter: 1
+                        - obj: obj.profile.name
                           options:
                               icon: imagen
                               property: " return (obj.profile.slug == 'client') ? '<span class=\"badge bg-teal\">' + obj.profile.name + '</span>' : '<span class=\"badge bg-purple\">' + obj.profile.name + '</span>' "
-                        - name: Nombre
-                          obj: obj.name_box
-                        - name: Creado
-                          obj: obj.created_at
-                          options:
-                              icon: calendar
+                          defs:
+                              targets: 2
+                              orderable: 1
+                              sorting: 1
+                              title: '<i class="fa fa-fw fa-user"></i> Perfil'
+                              className: text-center
+                              filter: 1
+                        - obj: obj.created_at
+                          defs:
+                              targets: 3
+                              title: '<i class="fa fa-fw fa-calendar"></i> Creado'
+                              className: text-center
+                        - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
+                          defs:
+                              targets: 4
+                              title: Eliminar
+                              width: 4%
+                              sorting: 0
+                              orderable: 0
+                              className: modal-delete text-center
             form:
                 type: Bundle\UserBundle\Form\Type\UserType
             repository:

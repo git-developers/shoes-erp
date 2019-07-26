@@ -14,27 +14,7 @@ backend_profile:
 backend_role:
     resource: '@RoleBundle/Resources/config/routing/backend.yml'
     prefix: /role
-backend_session:
-    resource: '@SessionBundle/Resources/config/routing/backend.yml'
-    prefix: /session
-backend_report:
-    resource: '@ReportBundle/Resources/config/routing/backend.yml'
-    prefix: /report
-backend_user_client:
-    resource: '@UserBundle/Resources/config/routing/backend_client.yml'
-    prefix: /user-client
-backend_user_employee:
-    resource: '@UserBundle/Resources/config/routing/backend_employee.yml'
-    prefix: /user-employee
-backend_services:
-    resource: '@ServicesBundle/Resources/config/routing/backend.yml'
-    prefix: /services
-backend_user:
-    resource: '@UserBundle/Resources/config/routing/backend.yml'
-    prefix: /user
-backend_report:
-    resource: '@ReportBundle/Resources/config/routing/backend.yml'
-    prefix: /report
+
 
 backend_category:
     resource: '@CategoryBundle/Resources/config/routing/tree.yml'
@@ -42,10 +22,17 @@ backend_category:
 backend_product:
     resource: '@ProductBundle/Resources/config/routing/backend.yml'
     prefix: /product
-
+backend_services:
+    resource: '@ServicesBundle/Resources/config/routing/backend.yml'
+    prefix: /services
 backend_ticket:
     resource: '@TicketBundle/Resources/config/routing/backend.yml'
     prefix: /ticket
+backend_report:
+    resource: '@ReportBundle/Resources/config/routing/backend.yml'
+    prefix: /report
+
+
 
 backend_pointofsale:
     resource: '@PointofsaleBundle/Resources/config/routing/backend.yml'
@@ -62,3 +49,20 @@ backend_pointofsale_add_user:
 backend_pointofsale_pdv_child:
     resource: '@PointofsaleBundle/Resources/config/routing/backend_pdv_child.yml'
     prefix: /point-of-sale/child
+
+
+backend_session:
+    resource: '@SessionBundle/Resources/config/routing/backend.yml'
+    prefix: /session
+backend_user:
+    resource: '@UserBundle/Resources/config/routing/backend.yml'
+    prefix: /user
+backend_user_client:
+    resource: '@UserBundle/Resources/config/routing/backend_client.yml'
+    prefix: /user-client
+backend_user_employee:
+    resource: '@UserBundle/Resources/config/routing/backend_employee.yml'
+    prefix: /user-employee
+backend_user_setting:
+    resource: '@UserBundle/Resources/config/routing/backend_setting.yml'
+    prefix: /user-setting

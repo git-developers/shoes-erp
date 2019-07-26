@@ -58,7 +58,7 @@ class BackendSettingController extends BaseController
 
 
         $formEdit = $this->createForm($boxLeft->form->type, $user,  [
-//            'action' => $this->generateUrl('backend_setting_user_index'),
+//            'action' => $this->generateUrl('backend_user_setting_index'),
 //            'method' => 'POST',
             'attr' => ['class' => '']
         ]);
@@ -93,7 +93,7 @@ class BackendSettingController extends BaseController
                     $this->persist($user);
                     $this->flashSuccess('Cambios guardados');
 
-                    return $this->redirectToRoute('backend_setting_user_index', ['active' => 2]);
+                    return $this->redirectToRoute('backend_user_setting_index', ['active' => 2]);
                 }
             }
 
@@ -118,7 +118,7 @@ class BackendSettingController extends BaseController
                     $this->persist($user);
                     $this->flashSuccess('Cambios guardados');
 
-                    return $this->redirectToRoute('backend_setting_user_index', ['active' => 1]);
+                    return $this->redirectToRoute('backend_user_setting_index', ['active' => 1]);
                 }
             }
 
@@ -136,7 +136,7 @@ class BackendSettingController extends BaseController
                     $this->persist($user);
                     $this->flashSuccess('Cambios guardados');
 
-                    return $this->redirectToRoute('backend_setting_user_index', ['active' => 3]);
+                    return $this->redirectToRoute('backend_user_setting_index', ['active' => 3]);
                 }
             }
 

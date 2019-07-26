@@ -12,7 +12,7 @@ backend_security_login_admin:
         _controller: tianos.security.controller.user:loginAction
         _tianos:
             action: create
-            template: UserBundle:Backend/Security:login.html.twig
+            template: UserBundle:Security/User:login.html.twig
 
 backend_security_login_pdv:
     path: /pdv/{slug}
@@ -22,4 +22,4 @@ backend_security_login_pdv:
         _controller: tianos.security.controller.pdv:loginAction
         _tianos:
             action: create
-            template: UserBundle:Backend/SecurityPdv:login.html.twig
+            template: UserBundle:Security/Pdv:login.html.twig

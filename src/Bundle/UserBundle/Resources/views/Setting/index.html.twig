@@ -1,4 +1,4 @@
-{% extends "ThemesBundle:Adminlte:1_template.html.twig" %}
+{% extends "ThemesBundle:Adminlte/Template:1_template.html.twig" %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -86,13 +86,13 @@
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane {{ (active == 1) ? 'active' : '' }}" id="tab_1">
-                                            {{ include("UserBundle:BackendUserSetting:Form/avatar/avatar.html.twig") }}
+                                            {{ include("UserBundle:Setting:Form/avatar/avatar.html.twig") }}
                                         </div>
                                         <div class="tab-pane {{ (active == 2) ? 'active' : '' }}" id="tab_2">
-                                            {{ include("UserBundle:BackendUserSetting:Form/form.html.twig") }}
+                                            {{ include("UserBundle:Setting:Form/form.html.twig") }}
                                         </div>
                                         <div class="tab-pane {{ (active == 3) ? 'active' : '' }}" id="tab_3">
-                                            {{ include("UserBundle:BackendUserSetting:Form/change_password.html.twig") }}
+                                            {{ include("UserBundle:Setting:Form/change_password.html.twig") }}
                                         </div>
                                     </div>
                                 </div>

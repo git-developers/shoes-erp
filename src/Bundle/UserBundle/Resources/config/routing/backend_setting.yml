@@ -1,4 +1,4 @@
-backend_setting_user_index:
+backend_user_setting_index:
     path: /{active}
     methods: [GET, POST]
     requirements:
@@ -8,7 +8,7 @@ backend_setting_user_index:
         _controller: tianos.backend.setting.controller.user:indexAction
         _tianos:
             action: view
-            template: UserBundle:BackendUserSetting:index.html.twig
+            template: UserBundle:Setting:index.html.twig
             grid:
 #                icon: cube
 #                box_class: primary
@@ -79,7 +79,7 @@ backend_setting_user_index:
                 vars:
                     serialize_group_name: crud
 
-backend_setting_user_info:
+backend_user_setting_info:
     path: /info
     methods: [POST]
     defaults:

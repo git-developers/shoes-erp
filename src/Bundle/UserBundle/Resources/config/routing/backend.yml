@@ -140,7 +140,7 @@ backend_user_create:
         _controller: tianos.backend.controller.user:createAction
         _tianos:
             action: create
-            template: UserBundle:BackendUser/Form:form.html.twig
+            template: UserBundle:Backend/Form:form.html.twig
             entity: Bundle\UserBundle\Entity\User
             form:
                 type: Bundle\UserBundle\Form\Type\UserType
@@ -155,7 +155,7 @@ backend_user_edit:
         _controller: tianos.backend.controller.user:editAction
         _tianos:
             action: edit
-            template: UserBundle:BackendUser/Form:form.html.twig
+            template: UserBundle:Backend/Form:form.html.twig
             form:
                 type: Bundle\UserBundle\Form\Type\UserType
             repository:
@@ -187,7 +187,7 @@ backend_user_change_password:
         _controller: tianos.backend.controller.user:changePasswordAction
         _tianos:
             action: edit
-            template: UserBundle:BackendUser/Form:change_password.html.twig
+            template: UserBundle:Backend/Form:change_password.html.twig
             entity: Bundle\UserBundle\Entity\ChangePassword2
             form:
                 type: Bundle\UserBundle\Form\Type\UserChangePasswordType2
@@ -205,7 +205,7 @@ backend_user_view:
         _controller: tianos.backend.controller.user:viewAction
         _tianos:
             action: view
-            template: UserBundle:BackendUser/Informative:view.html.twig
+            template: UserBundle:Backend/Informative:view.html.twig
             repository:
                 service: tianos.repository.user
                 method: find
@@ -220,7 +220,7 @@ backend_user_info:
         _controller: tianos.backend.controller.user:infoAction
         _tianos:
             action: info
-            template: UserBundle:BackendUser/Informative:info.html.twig
+            template: UserBundle:Backend/Informative:info.html.twig
 
 backend_user_profile:
     path: /{slug}
@@ -230,7 +230,7 @@ backend_user_profile:
         _controller: tianos.backend.controller.user:profileAction
         _tianos:
             action: edit
-            template: UserBundle:BackendUser/Profile:index.html.twig
+            template: UserBundle:Backend/Profile:index.html.twig
             vars:
                 body_css: tianos-profile-user
                 button_add_friend: add-friend

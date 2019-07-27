@@ -120,9 +120,9 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
 
     public function findAllObjects()
     {
-
         return $this->createQueryBuilder('a')
             ->where('a.enabled = :active')
+            ->andWhere('a.isActive = :active')
             ->orderBy('a.id', 'ASC')
             ->setParameter('active', true)
             ;

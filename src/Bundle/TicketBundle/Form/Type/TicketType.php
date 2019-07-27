@@ -6,7 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Doctrine\ORM\EntityManager;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
+use Bundle\UserBundle\Entity\User;
 
 
 class TicketType extends AbstractType
@@ -20,7 +24,8 @@ class TicketType extends AbstractType
     {
         $builder
             ->add('code', TextType::class, [
-                'label' =>' code',
+                'label' => 'Código',
+	            'required' => false,
                 'label_attr' => [
                     'class' => ''
                 ],
@@ -29,16 +34,35 @@ class TicketType extends AbstractType
                     'placeholder' => 'code',
                 ],
             ])
-//            ->add('name', TextType::class, [
-//                'label' =>' Nombre',
-//                'label_attr' => [
-//                    'class' => ''
-//                ],
-//                'attr' => [
-//                    'class' => 'form-control',
-//                    'placeholder' => 'nombre',
-//                ],
-//            ])
+            ->add('name', TextType::class, [
+                'label' => 'Descripción',
+	            'required' => false,
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'descripción',
+                ],
+            ])
+	        ->add('client', EntityType::class, array(
+		        'class' => User::class,
+		        'query_builder' => function(EntityRepository $er) {
+			        return $er->findAllObjects();
+		        },
+		        'placeholder' => '[ Escoge un cliente ]',
+		        'empty_data' => null,
+		        'required' => false,
+		        'label' => 'Cliente',
+		        'label_attr' => [
+			        'class' => ''
+		        ],
+		        'attr' => [
+			        'class' => 'form-control',
+			        'placeholder' => '',
+			        'style' => 'display: none',
+		        ],
+	        ))
         ;
     }
     

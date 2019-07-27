@@ -1,14 +1,14 @@
-Bundle\TicketBundle\Entity\TicketHasProducts:
+Bundle\TicketBundle\Entity\TicketHasServices:
     type: entity
-    table: ticket_has_products
-    repositoryClass: Bundle\TicketBundle\Doctrine\ORM\TicketHasProductsRepository
+    table: ticket_has_services
+    repositoryClass: Bundle\TicketBundle\Doctrine\ORM\TicketHasServicesRepository
     indexes:
-        fk_ticket_has_products_ticket1_idx:
+        fk_ticket_has_services_ticket1_idx:
             columns:
                 - ticket_id
-        fk_ticket_has_products_product1_idx:
+        fk_ticket_has_services_services1_idx:
             columns:
-                - product_id
+                - service_id
     id:
         id:
             type: integer
@@ -41,14 +41,14 @@ Bundle\TicketBundle\Entity\TicketHasProducts:
                 fixed: false
             column: sub_total
     manyToOne:
-        products:
-            targetEntity: Bundle\ProductBundle\Entity\Product
+        services:
+            targetEntity: Bundle\ServicesBundle\Entity\Services
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                product_id:
+                service_id:
                     referencedColumnName: id
             orphanRemoval: false
         ticket:

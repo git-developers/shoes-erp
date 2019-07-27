@@ -54,11 +54,12 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 //        $className = $entityManager->getClassMetadata(get_class($entity))->getName();
 
         if ($entity instanceof Ticket){
-
+        	
             $name = $entity->getName();
             $entity->setSlug($this->slugify($name));
             $entity->setCreatedAt($this->setupCreatedAt($entity));
-
+            $entity->setUserCreate($this->getUser()->getId());
+            
             return;
         }
     }
@@ -72,6 +73,7 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 
         if ($entity instanceof Ticket){
             $entity->setUpdatedAt($this->dateTime);
+	        $entity->setUserUpdate($this->getUser()->getId());
 
             return;
         }

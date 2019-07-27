@@ -12,6 +12,7 @@
 
         var msg_error = '<tr><td colspan="5"><p>INFO: Oops!, no se completo el proceso. Contacte a su proveedor (code 6060)</p></td></tr>';
         var msg_loading = '<div align="center"><i class="fa fa-2x fa-refresh fa-spin"></i></div>';
+        var msg_default = '<i class="icon fa fa-info"></i> Información.';
 
         base.$el = $(el);
         base.el = el;
@@ -23,7 +24,6 @@
         };
 
         base.submit = function(event) {
-            event.preventDefault();
 
             // var table = $('table.box-table-client tbody');
             var fields = $("form[name='" + options.formName + "']").serialize();
@@ -40,6 +40,18 @@
                 },
                 success: function(data, textStatus, jqXHR) {
 
+                    if (!data.status) {
+                        $('div.ticket-message p').html(data.message);
+                        $('div.ticket-message').removeClass("callout-info").addClass("callout-warning");
+
+                        setTimeout(function() {
+                            $('div.ticket-message').removeClass("callout-warning").addClass("callout-info");
+                            $('div.ticket-message p').html(msg_default);
+                        }, 2000);
+                    }
+
+                    
+                    /*
                     if (data.status) {
                         window.location.href = options.routeRedirect;
                     } else {
@@ -50,6 +62,7 @@
                             $('div.tianos-alert-warning-2').fadeOut('slow');
                         }, 2000);
                     }
+                    */
 
                 },
                 error: function(jqXHR, exception) {
@@ -78,6 +91,7 @@
             var bp = new $.formTicket(this, options);
 
             $(document).on('submit', "form[name='" + options.formName + "']" , function(event) {
+                event.preventDefault();
                 bp.submit(event);
             });
 

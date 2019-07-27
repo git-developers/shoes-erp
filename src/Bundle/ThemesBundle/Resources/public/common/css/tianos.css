@@ -51,7 +51,10 @@ div.tools i.fa-trash-o, div.input-group i.fa-trash-o {
 .x-move{
     cursor: move;
 }
-.margin-bottom-5{
+.padding-0 {
+    padding: 0px !important;
+}
+.margin-bottom-5 {
     margin-bottom: 5px;
 }
 .margin-left-5{
@@ -159,7 +162,7 @@ div.tianos-alert-warning-2 .alert,
 div.tianos-alert-error-2 .alert
 {
     position: absolute;
-    top: 0px;
+    top: 10px;
     left: 20%;
     z-index: 100;
     width: 60%
@@ -167,4 +170,10 @@ div.tianos-alert-error-2 .alert
 
 input.width-100 {
     width: 100% !important;
+}
+
+div.product-color {
+    border-radius: 0px !important;
+    display: block;
+    margin: 4px auto 0px auto !important;
 }

@@ -98,6 +98,14 @@
     {{ include("ThemesBundle:Adminlte/Template:3_left_main_sidebar.html.twig") }}
 
     <div class="content-wrapper">
+        {#{{ html.tianos_alert_success_2 }}#}
+        {#{{ html.tianos_alert_warning_2 }}#}
+        {#{{ html.tianos_alert_error_2 }}#}
+
+        {{ html.tianos_alert_success }}
+        {{ html.tianos_alert_warning }}
+        {{ html.tianos_alert_error }}
+
         {{ html.flash_message_success }}
         {{ html.flash_message_warning }}
         {{ html.flash_message_error }}

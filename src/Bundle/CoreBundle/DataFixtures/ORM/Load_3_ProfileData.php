@@ -112,6 +112,11 @@ class Load_3_ProfileData extends AbstractFixture implements OrderedFixtureInterf
         $entity->setName(Profile::PDV_ADMIN);
         $entity->setSlug(Profile::PDV_ADMIN_SLUG);
         $entity->addRole($roleUserView);
+        
+	    $entity->addRole($roleTicketView);
+	    $entity->addRole($roleTicketCreate);
+	    $entity->addRole($roleTicketEdit);
+	    $entity->addRole($roleTicketDelete);
         $manager->persist($entity);
         $this->addReference('profile-pdv-admin', $entity);
 

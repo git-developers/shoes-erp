@@ -18,7 +18,7 @@ backend_product_index:
                 serialize_group_name: crud
 #            grid: sylius_admin_product
             tree:
-                icon: dropbox
+                icon: cubes
                 box_class: primary
                 title: Gestionar servicios
                 main_div: box-main-div
@@ -33,7 +33,7 @@ backend_product_index:
                     create_child: backend_category_tree_create_child
                     delete: backend_category_tree_delete
             grid:
-                icon: dropbox
+                icon: cubes
                 box_class: primary
                 title: Gestionar inventario
                 modal:
@@ -82,19 +82,36 @@ backend_product_index:
                               targets: 1
                               orderable: 1
                               sorting: 1
-                              title: Nombre
+                              title: '<i class="fa fa-fw fa-align-left"></i> Nombre'
                               className: modal-edit
                               filter: 1
-                        - obj: obj.stock
+                        - obj: " '<div class=\"alert product-color\" style=\"background-color:' + obj.color + '\"></div>' "
                           defs:
                               targets: 2
                               orderable: 1
                               sorting: 1
+                              title: '<i class="fa fa-fw fa-adjust"></i> Color'
+                              className: padding-0 text-center
+                              filter: 0
+                        - obj: obj.size
+                          defs:
+                              targets: 3
+                              orderable: 1
+                              sorting: 1
+                              title: '<i class="fa fa-fw fa-arrows-h"></i> Talla'
+                              className: text-center
+                              filter: 0
+                        - obj: obj.stock
+                          defs:
+                              targets: 4
+                              orderable: 1
+                              sorting: 1
                               title: Stock
+                              filter: 0
                               className: text-center
                         - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
                           defs:
-                              targets: 3
+                              targets: 5
                               title: Eliminar
                               width: 7%
                               sorting: 0

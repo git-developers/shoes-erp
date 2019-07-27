@@ -9,10 +9,10 @@
             <div class="user-panel">
                 <div class="pull-left image">
                     <img
-                            src="{{ image_avatar }}"
-                            class="img-circle x-hand"
-                            alt="{{ app.user.name }} {{ app.user.lastName }}"
-                            onclick="location.href='';">
+                        src="{{ image_avatar }}"
+                        class="img-circle x-hand"
+                        alt="{{ app.user.name ~ ' ' ~ app.user.lastName }}"
+                        onclick="location.href='';">
 
 
                     {#{{ path('frontend_profile_index', {slug:app.user.slug}) }}#}

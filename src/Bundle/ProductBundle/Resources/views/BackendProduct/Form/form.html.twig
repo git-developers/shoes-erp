@@ -22,9 +22,9 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <i class="fa fa-fw fa-align-left"></i>
-                {{ form_label(form.name) }}
-                {{ form_widget(form.name) }}
+                <i class="fa fa-fw fa-arrows-h"></i>
+                {{ form_label(form.size) }}
+                {{ form_widget(form.size) }}
             </div>
         </div>
     </div>
@@ -42,6 +42,23 @@
                 <i class="fa fa-fw fa-code"></i>
                 {{ form_label(form.stock) }}
                 {{ form_widget(form.stock) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <i class="fa fa-fw fa-align-left"></i>
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <i class="fa fa-fw fa-adjust"></i>
+                {{ form_label(form.color) }}
+                {{ form_widget(form.color) }}
             </div>
         </div>
     </div>

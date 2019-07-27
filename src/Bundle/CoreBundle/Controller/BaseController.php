@@ -30,10 +30,6 @@ abstract class BaseController extends Controller
 //    }
 
 
-
-
-
-//    const TEMPLATE_ERROR = 'CoreBundle:Default:template_error.html.twig';
 //
     const ACCESS_DENIED_MSG = 'Tianos: Access Denied';
 //    const ACCESS_DENIED_ROLE_MSG = 'Tianos: no tiene permisos, contacte a su administrador.';

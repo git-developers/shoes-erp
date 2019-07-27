@@ -69,7 +69,7 @@ backend_friends_user_view:
         _controller: tianos.backend.controller.user:viewAction
         _tianos:
             action: view
-            template: UserBundle:BackendUser/Informative:view_anonymous.html.twig
+            template: UserBundle:Backend/Informative:view_anonymous.html.twig
             repository:
                 service: tianos.repository.user
                 method: find

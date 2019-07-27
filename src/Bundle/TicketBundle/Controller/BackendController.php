@@ -51,14 +51,15 @@ class BackendController extends GridController
 		//USER
 		$user = $this->getUser();
 		
-		//REPOSITORY TREE -- LO MODIFIQUE
+		
+		//CATEGORY AND PRODUCT - REPOSITORY TREE
 		//$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), Category::TYPE_SERVICE);
 		$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType(Category::TYPE_PRODUCT);
 		$objectsTree = $this->getTreeEntities($objectsTreeParent, $configuration, 'tree');https://www.youtube.com/feed/trending
 		
 		$servicesArray = [];
 		$productsObjs = $this->getProducts($objectsTreeParent, $configuration, 'ticket', $servicesArray);
-		//REPOSITORY TREE
+		//CATEGORY AND PRODUCT - REPOSITORY TREE
 		
 		
 		//SERVICES
@@ -66,7 +67,6 @@ class BackendController extends GridController
 		$session = $request->getSession();
 		$products = $session->get('products');
 		//$session->remove('products');
-		
 		
 		if (!empty($products)) {
 			foreach ($products as $key => $product) {
@@ -86,36 +86,31 @@ class BackendController extends GridController
 				$ticket = $request->get('ticket');
 				$ticket = json_decode(json_encode($ticket));
 				
+				
+//				echo "POLLO:: <pre>";
+//				print_r($ticket);
+//				exit;
+				
+				
+				
+				
 				$session = $request->getSession();
-				$idClient = $session->get('id_client');
-				$idEmployees = $session->get('id_employee');
+				//$idClient = $session->get('id_client');
+				//$idEmployees = $session->get('id_employee');
 				$products = $session->get('products');
 				
-				if (empty($idClient)) {
+				if (empty($ticket->client)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Seleccione un cliente.'
 					]);
 				}
 				
+				/*
 				if (empty($idEmployees)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Seleccione al menos un empleado.'
-					]);
-				}
-				
-				if (empty($products)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Seleccione al menos un servicio.'
-					]);
-				}
-				
-				if (empty($ticket->name)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Ingrese un nombre.'
 					]);
 				}
 				
@@ -125,18 +120,36 @@ class BackendController extends GridController
 						'message' => 'Ingrese la fecha.'
 					]);
 				}
+				*/
+				
+				if (empty($products)) {
+					return $this->json([
+						'status' => false,
+						'message' => 'Seleccione al menos un producto.'
+					]);
+				}
+				
+				if (empty($ticket->name)) {
+					return $this->json([
+						'status' => false,
+						'message' => 'Ingrese una descripcion.'
+					]);
+				}
+				
+
 				
 				
+				/**
+				 * SAVE OBJECT
+				 */
 				$entity->setName($ticket->name);
-				$entity->setDateTicket(new \DateTime($ticket->dateTicket));
+				$entity->setDateTicket(new \DateTime());
 				
-				$client = $this->get('tianos.repository.user')->find($idClient);
+				$client = $this->get('tianos.repository.user')->find($ticket->client);
 				$entity->setClient($client);
 				
-				foreach ($idEmployees as $key => $idEmployee) {
-					$employee = $this->get('tianos.repository.user')->find($idEmployee);
-					$entity->addEmployee($employee);
-				}
+				$employee = $this->get('tianos.repository.user')->find($user->getId());
+				$entity->addEmployee($employee);
 				
 				$this->persist($entity);
 				
@@ -164,8 +177,8 @@ class BackendController extends GridController
 				
 				//Remove session
 				$session = $request->getSession();
-				$session->remove('id_client');
-				$session->remove('id_employee');
+				//$session->remove('id_client');
+				//$session->remove('id_employee');
 				$session->remove('products');
 				
 				return $this->json([
@@ -189,8 +202,8 @@ class BackendController extends GridController
 				'action' => $action,
 				'productsObjs' => $productsObjs,
 				'objectsTree' => $objectsTree,
-				'products' => $productArray
-//				'form' => $form->createView(),
+				'products' => $productArray,
+				'form' => $form->createView()
 			]
 		);
 	}
@@ -224,22 +237,23 @@ class BackendController extends GridController
 		//USER
 		$user = $this->getUser();
 		
-		//REPOSITORY TREE -- LO MODIFIQUE
+		
+		//CATEGORY AND PRODUCT - REPOSITORY TREE
 		//$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), Category::TYPE_SERVICE);
 		$objectsTreeParent = $this->get('tianos.repository.category')->findAllParentsByType(Category::TYPE_PRODUCT);
 		$objectsTree = $this->getTreeEntities($objectsTreeParent, $configuration, 'tree');https://www.youtube.com/feed/trending
 		
 		$servicesArray = [];
 		$productsObjs = $this->getProducts($objectsTreeParent, $configuration, 'ticket', $servicesArray);
-		//REPOSITORY TREE
+		//CATEGORY AND PRODUCT - REPOSITORY TREE
 		
 		
-		//SESSION PRODUCTS
+		//SERVICES
 		$productArray = [];
 		$session = $request->getSession();
 		$products = $session->get('products');
 		//$session->remove('products');
-
+		
 		if (!empty($products)) {
 			foreach ($products as $key => $product) {
 				$serviceObj = $this->get('tianos.repository.product')->find($product['idItem']);
@@ -247,7 +261,7 @@ class BackendController extends GridController
 				$productArray[] = $this->getSerializeDecode($serviceObj, 'ticket');
 			}
 		}
-		//SESSION PRODUCTS
+		//SERVICES
 		
 		
 		
@@ -257,37 +271,32 @@ class BackendController extends GridController
 				
 				$ticket = $request->get('ticket');
 				$ticket = json_decode(json_encode($ticket));
+
+
+//				echo "POLLO:: <pre>";
+//				print_r($ticket);
+//				exit;
+				
+				
+				
 				
 				$session = $request->getSession();
-				$idClient = $session->get('id_client');
-				$idEmployees = $session->get('id_employee');
+				//$idClient = $session->get('id_client');
+				//$idEmployees = $session->get('id_employee');
 				$products = $session->get('products');
 				
-				if (empty($idClient)) {
+				if (empty($ticket->client)) {
 					return $this->json([
 						'status' => false,
-						'message' => 'Seleccione un cliente.'
+						'message' => '<i class="icon fa fa-warning"></i> Seleccione un cliente.'
 					]);
 				}
 				
+				/*
 				if (empty($idEmployees)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Seleccione al menos un empleado.'
-					]);
-				}
-				
-				if (empty($products)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Seleccione al menos un servicio.'
-					]);
-				}
-				
-				if (empty($ticket->name)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Ingrese un nombre.'
 					]);
 				}
 				
@@ -297,18 +306,36 @@ class BackendController extends GridController
 						'message' => 'Ingrese la fecha.'
 					]);
 				}
+				*/
+				
+				if (empty($products)) {
+					return $this->json([
+						'status' => false,
+						'message' => '<i class="icon fa fa-warning"></i> Seleccione al menos un producto.'
+					]);
+				}
+				
+				if (empty($ticket->name)) {
+					return $this->json([
+						'status' => false,
+						'message' => '<i class="icon fa fa-warning"></i> Ingrese una descripcion.'
+					]);
+				}
 				
 				
+				
+				
+				/**
+				 * SAVE OBJECT
+				 */
 				$entity->setName($ticket->name);
-				$entity->setDateTicket(new \DateTime($ticket->dateTicket));
+				$entity->setDateTicket(new \DateTime());
 				
-				$client = $this->get('tianos.repository.user')->find($idClient);
+				$client = $this->get('tianos.repository.user')->find($ticket->client);
 				$entity->setClient($client);
 				
-				foreach ($idEmployees as $key => $idEmployee) {
-					$employee = $this->get('tianos.repository.user')->find($idEmployee);
-					$entity->addEmployee($employee);
-				}
+				$employee = $this->get('tianos.repository.user')->find($user->getId());
+				$entity->addEmployee($employee);
 				
 				$this->persist($entity);
 				
@@ -336,8 +363,8 @@ class BackendController extends GridController
 				
 				//Remove session
 				$session = $request->getSession();
-				$session->remove('id_client');
-				$session->remove('id_employee');
+				//$session->remove('id_client');
+				//$session->remove('id_employee');
 				$session->remove('products');
 				
 				return $this->json([
@@ -361,8 +388,8 @@ class BackendController extends GridController
 				'action' => $action,
 				'productsObjs' => $productsObjs,
 				'objectsTree' => $objectsTree,
-				'products' => $productArray
-//				'form' => $form->createView(),
+				'products' => $productArray,
+				'form' => $form->createView()
 			]
 		);
 	}
@@ -600,6 +627,8 @@ class BackendController extends GridController
 		$formType = $configuration->getFormType();
 		$vars = $configuration->getVars();
 		$entity = $configuration->getEntity();
+		$repository = $configuration->getRepositoryService();
+		$method = $configuration->getRepositoryMethod();
 		$entity = new $entity();
 		
 		$form = $this->createForm($formType, $entity, ['form_data' => []]);
@@ -611,8 +640,8 @@ class BackendController extends GridController
 		
 		//BUSCA LOS CLIENTES DEL PDV
 		//$clients = $this->get('tianos.repository.user')->findAllClient($user->getPointOfSaleActiveId());
-		$clients = $this->get('tianos.repository.user')->findAllClient();
-		$clients = is_object($clients) ? $clients->getUser() : [];
+		$clients = $this->get($repository)->$method();
+		//$clients = is_object($clients) ? $clients->getUser() : [];
 		$clients = $this->getSerializeDecode($clients, 'ticket');
 		
 		if ($form->isSubmitted() && $form->isValid()) {
@@ -628,14 +657,10 @@ class BackendController extends GridController
 			/**
 			 * ID CLIENT SESSION
 			 */
+			/*
 			$session = $request->getSession();
-//			$idClient = $session->get('id_client');
 			$session->set('id_client', !is_null($client) ? $client['id'] : null);
-			
-//			if (is_null($idClient))
-//			{
-//				$session->set('id_client', $client['id']);
-//			}
+			*/
 			/**
 			 * ID CLIENT SESSION
 			 */
@@ -685,6 +710,8 @@ class BackendController extends GridController
 		$action = $configuration->getAction();
 		$formType = $configuration->getFormType();
 		$vars = $configuration->getVars();
+		$repository = $configuration->getRepositoryService();
+		$method = $configuration->getRepositoryMethod();
 		$entity = $configuration->getEntity();
 		$entity = new $entity();
 		
@@ -697,8 +724,8 @@ class BackendController extends GridController
 		
 		//BUSCAR EMPLEADOS DEDD
 		//$employees = $this->get('tianos.repository.user')->findAllEmployee($user->getPointOfSaleActiveId());
-		$employees = $this->get('tianos.repository.user')->findAllEmployee();
-		$employees = is_object($employees) ? $employees->getUser() : [];
+		$employees = $this->get($repository)->$method();
+		//$employees = is_object($employees) ? $employees->getUser() : [];
 		$employees = $this->getSerializeDecode($employees, 'ticket');
 		
 		if ($form->isSubmitted()) {
@@ -791,6 +818,7 @@ class BackendController extends GridController
 		$session = $request->getSession();
 		$action = $request->get('action');
 		
+		//GUARDAR SESSION PRODUCTS
 		$this->incrementDecrementSession($request, $action);
 		
 		$products = $session->get('products');
@@ -847,7 +875,7 @@ class BackendController extends GridController
 	
 	private function getTreeEntities($parents, $configuration, $serializeGroupName)
 	{
-		if(is_null($parents)){
+		if (is_null($parents)) {
 			$parents = [];
 		}
 		
@@ -863,7 +891,7 @@ class BackendController extends GridController
 	
 	private function getServices($parents, $configuration, $serializeGroupName, &$entity)
 	{
-		if(is_null($parents)){
+		if (is_null($parents)) {
 			$parents = [];
 		}
 		
@@ -883,7 +911,7 @@ class BackendController extends GridController
 	
 	private function getProducts($parents, $configuration, $serializeGroupName, &$entity)
 	{
-		if(is_null($parents)){
+		if (is_null($parents)) {
 			$parents = [];
 		}
 		
@@ -902,6 +930,12 @@ class BackendController extends GridController
 		return $entity;
 	}
 	
+	/**
+	 * Session products
+	 *
+	 * @param Request $request
+	 * @param string $action
+	 */
 	private function incrementDecrementSession(Request $request, $action = self::INCREMENT)
 	{
 		
@@ -912,8 +946,7 @@ class BackendController extends GridController
 		
 		$products = $session->get('products');
 		
-		if (is_null($products))
-		{
+		if (is_null($products)) {
 			$session->set('products', []);
 		}
 		

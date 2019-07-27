@@ -65,7 +65,7 @@ backend_user_employee_index:
                               type: html
                               width: 4%
                               title: '#'
-                              className: modal-view
+                              className: modal-view text-center
                         - obj: " obj.name + ' ' + obj.last_name "
                           defs:
                               targets: 1
@@ -130,7 +130,7 @@ backend_user_employee_create:
         _controller: tianos.backend.controller.user:createAction
         _tianos:
             action: create
-            template: UserBundle:BackendUser/Form:form.html.twig
+            template: UserBundle:Backend/Form:form.html.twig
             entity: Bundle\UserBundle\Entity\User
             form:
                 type: Bundle\UserBundle\Form\Type\UserEmployeeType
@@ -145,7 +145,7 @@ backend_user_employee_edit:
         _controller: tianos.backend.controller.user:editAction
         _tianos:
             action: edit
-            template: UserBundle:BackendUser/Form:form.html.twig
+            template: UserBundle:Backend/Form:form.html.twig
             form:
                 type: Bundle\UserBundle\Form\Type\UserEmployeeType
             repository:
@@ -177,7 +177,7 @@ backend_user_employee_view:
         _controller: tianos.backend.controller.user:viewAction
         _tianos:
             action: view
-            template: UserBundle:BackendUser/Informative:view_employee.html.twig
+            template: UserBundle:Backend/Informative:view_employee.html.twig
             repository:
                 service: tianos.repository.user
                 method: find

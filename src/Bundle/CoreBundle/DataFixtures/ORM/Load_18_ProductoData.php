@@ -34,6 +34,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     * CATEGORY 1
 	     */
         $entity = new Product();
+	    $entity->setColor('blue');
+	    $entity->setSize(10);
 	    $entity->setStock(35);
 	    $entity->setCode('111');
 	    $entity->setPrice(25.33);
@@ -44,6 +46,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-1', $entity);
 
         $entity = new Product();
+	    $entity->setColor('red');
+	    $entity->setSize(9);
 	    $entity->setStock(67);
 	    $entity->setCode('222');
 	    $entity->setPrice(67.77);
@@ -54,6 +58,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-2', $entity);
         
         $entity = new Product();
+	    $entity->setColor('green');
+	    $entity->setSize(8);
 	    $entity->setStock(25);
 	    $entity->setCode('333');
 	    $entity->setPrice(15.33);
@@ -64,6 +70,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-3', $entity);
         
         $entity = new Product();
+	    $entity->setColor('blue');
+	    $entity->setSize(10);
 	    $entity->setStock(98);
 	    $entity->setCode('444');
 	    $entity->setPrice(12.33);
@@ -74,6 +82,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-4', $entity);
         
         $entity = new Product();
+	    $entity->setColor('red');
+	    $entity->setSize(11);
 	    $entity->setStock(15);
 	    $entity->setCode('555');
 	    $entity->setPrice(43.33);
@@ -89,6 +99,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     * CATEGORY 2
 	     */
         $entity = new Product();
+	    $entity->setColor('green');
+	    $entity->setSize(12);
 	    $entity->setStock(35);
 	    $entity->setCode('666');
 	    $entity->setPrice(23.44);
@@ -99,6 +111,9 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-6', $entity);
 
         $entity = new Product();
+	    $entity->setColor('blue');
+	    $entity->setSize(9);
+	    $entity->setSize(10);
 	    $entity->setStock(67);
 	    $entity->setCode('777');
 	    $entity->setPrice(99.22);
@@ -109,6 +124,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-7', $entity);
         
         $entity = new Product();
+	    $entity->setColor('red');
+	    $entity->setSize(8);
 	    $entity->setStock(25);
 	    $entity->setCode('888');
 	    $entity->setPrice(77.88);
@@ -119,6 +136,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-8', $entity);
         
         $entity = new Product();
+	    $entity->setColor('blue');
+	    $entity->setSize(10);
 	    $entity->setStock(98);
 	    $entity->setCode('999');
 	    $entity->setPrice(41.66);
@@ -133,6 +152,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     * CATEGORY 3
 	     */
         $entity = new Product();
+	    $entity->setColor('red');
+	    $entity->setSize(12);
 	    $entity->setStock(78);
 	    $entity->setCode('1010');
 	    $entity->setPrice(67.55);
@@ -143,6 +164,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-10', $entity);
         
         $entity = new Product();
+	    $entity->setColor('blue');
+	    $entity->setSize(11);
 	    $entity->setStock(34);
 	    $entity->setCode('1111');
 	    $entity->setPrice(45.22);
@@ -153,6 +176,8 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-11', $entity);
         
         $entity = new Product();
+	    $entity->setColor('green');
+	    $entity->setSize(10);
 	    $entity->setStock(22);
 	    $entity->setCode('1212');
 	    $entity->setPrice(14.33);

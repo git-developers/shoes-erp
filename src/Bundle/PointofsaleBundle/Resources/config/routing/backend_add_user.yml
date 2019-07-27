@@ -135,7 +135,7 @@ backend_super_user_change_password:
         _controller: tianos.backend.controller.pointofsale.add.user:changePasswordAction
         _tianos:
             action: edit
-            template: UserBundle:BackendUser/Form:change_password.html.twig
+            template: UserBundle:Backend/Form:change_password.html.twig
             entity: Bundle\UserBundle\Entity\ChangePassword2
             form:
                 type: Bundle\UserBundle\Form\Type\UserChangePasswordType2
@@ -153,7 +153,7 @@ backend_super_pointofsale_add_user_create:
         _controller: tianos.backend.controller.pointofsale.add.user:createAction
         _tianos:
             action: create
-            template: UserBundle:BackendUser/Form:form.html.twig
+            template: UserBundle:Backend/Form:form.html.twig
             entity: Bundle\UserBundle\Entity\User
             form:
                 type: Bundle\UserBundle\Form\Type\UserType
@@ -168,7 +168,7 @@ backend_super_pointofsale_add_user_edit:
         _controller: tianos.backend.controller.pointofsale.add.user:editAction
         _tianos:
             action: edit
-            template: UserBundle:BackendUser/Form:form.html.twig
+            template: UserBundle:Backend/Form:form.html.twig
             form:
                 type: Bundle\UserBundle\Form\Type\UserType
             repository:
@@ -200,7 +200,7 @@ backend_super_pointofsale_add_user_view:
         _controller: tianos.backend.controller.pointofsale.add.user:viewAction
         _tianos:
             action: view
-            template: UserBundle:BackendUser/Informative:view.html.twig
+            template: UserBundle:Backend/Informative:view.html.twig
             repository:
                 service: tianos.repository.user
                 method: find
@@ -215,4 +215,4 @@ backend_super_pointofsale_add_user_info:
         _controller: tianos.backend.controller.pointofsale.add.user:infoAction
         _tianos:
             action: info
-            template: UserBundle:BackendUser/Informative:info.html.twig
+            template: UserBundle:Backend/Informative:info.html.twig

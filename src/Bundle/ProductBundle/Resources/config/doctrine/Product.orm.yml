@@ -21,6 +21,12 @@ Bundle\ProductBundle\Entity\Product:
         code:
             type: string
             nullable: true
+            length: 7
+            options:
+                fixed: false
+        color:
+            type: string
+            nullable: true
             length: 45
             options:
                 fixed: false
@@ -37,6 +43,13 @@ Bundle\ProductBundle\Entity\Product:
             length: 150
             options:
                 fixed: false
+        size:
+            type: integer
+            nullable: true
+            length: 11
+            options:
+                unsigned: false
+            column: size
         stock:
             type: integer
             nullable: true

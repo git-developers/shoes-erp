@@ -25,14 +25,14 @@ backend_ticket_index:
                         view: backend_ticket_view
                         create: backend_ticket_create_internal
                         ticket_edit: backend_ticket_edit
-#                        edit: backend_ticket_edit
-#                        delete: backend_ticket_delete
+                        #edit: backend_ticket_edit
+                        #delete: backend_ticket_delete
                     table_button:
-                        - ticket_edit
-#                        - edit
-#                        - delete
+                        #- ticket_edit
+                        #- edit
+                        #- delete
                     table_button_header:
-#                        - create
+                        #- create
                         - info
                     table_option:
                         pageLength: 10
@@ -60,11 +60,11 @@ backend_ticket_index:
                               orderable: 1
                               sorting: 1
                               title: Nombre servicio
-                              className: modal-edit
+                              className:
                               filter: 1
                         - obj: obj.client.name + ' ' + obj.client.last_name
                           defs:
-                              targets: 1
+                              targets: 2
                               orderable: 1
                               sorting: 1
                               title: Cliente
@@ -72,7 +72,7 @@ backend_ticket_index:
                               filter: 1
                         - obj: obj.created_at
                           defs:
-                              targets: 5
+                              targets: 3
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
             form:
@@ -181,6 +181,8 @@ backend_ticket_add_client:
             form:
                 type: Bundle\TicketBundle\Form\Type\ClientType
             repository:
+                service: tianos.repository.user
+                method: findAllClient
                 vars:
                     serialize_group_name: crud
 
@@ -199,6 +201,8 @@ backend_ticket_add_employee:
             form:
                 type: Bundle\TicketBundle\Form\Type\EmployeeType
             repository:
+                service: tianos.repository.user
+                method: findAllEmployee
                 vars:
                     serialize_group_name: crud
 

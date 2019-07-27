@@ -17,7 +17,7 @@
         var modalRefresh = null;
 
         var msg_error = '<tr><td colspan="5"><p>INFO: Oops!, no se completo el proceso. Contacte a su proveedor (code 5050)</p></td></tr>';
-        var msg_loading = '<div align="center"><i class="fa fa-2x fa-refresh fa-spin"></i></div>';
+        var msg_loading = '<tr><td colspan="5" align="center"><i class="fa fa-2x fa-refresh fa-spin"></i></td></tr>';
 
         base.$el = $(el);
         base.el = el;
@@ -54,7 +54,7 @@
             event.preventDefault();
 
             var table = $('table.box-table-client tbody');
-            var idClientInput = $('input[name="id_client"]');
+            var clientId = $("input[name='client[code]']:checked").val();
             var fields = $("form[name='" + options.formName + "']").serialize();
 
             $.ajax({
@@ -67,6 +67,8 @@
                 },
                 success: function(data, textStatus, jqXHR) {
                     table.html(data);
+
+                    $('select[name="' + options.clientId + '"]').val(clientId);
                     $('div#modal-create-client').modal('hide');
                 },
                 error: function(jqXHR, exception) {
@@ -79,7 +81,9 @@
 
             if (confirm('Esta seguro?')) {
                 $(context).parents('tr').remove();
-                $('table.box-table-client').html('<tr><td colspan="5">Seleccione un cliente.</td></tr>');
+
+                $('select[name="' + options.clientId + '"]').val('');
+                $('table.box-table-client tbody').html('<tr><td colspan="5">Seleccione un cliente.</td></tr>');
             }
 
             return false;

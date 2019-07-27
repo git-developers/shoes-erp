@@ -48,6 +48,7 @@
             $('body.{{ vars.body_css }}').formClient({
                 modalId: 'modal-create-client',
                 formName: 'form-create-client',
+                clientId: '{{ form.client.vars.full_name }}',
                 route: '{{ path('backend_ticket_add_client') }}'
             });
 
@@ -65,8 +66,8 @@
             });
 
             $('body.{{ vars.body_css }}').formTicket({
-                formName: 'form-ticket',
-                route: '{{ path('backend_ticket_create_internal') }}',
+                formName: '{{ form.vars.name }}',
+                route: '{{ path('backend_ticket_create_external') }}',
                 routeRedirect: '{{ path('backend_ticket_index') }}'
             });
 
@@ -99,9 +100,151 @@
 
         <div class="row">
 
+            {#CLIENT#}
+            <div class="col-md-4" style="padding-right: 0px">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-user"></i> Cliente
+                        </h4>
+                        <div class="box-tools pull-right">
+                            <span
+                                    class="badge bg-green x-hand add-client"
+                                    data-toggle="modal"
+                                    data-target="#modal-create-client">
+                                <i class="fa fa-plus"></i> Buscar
+                            </span>
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive"> {#no-padding#}
+
+                        <table class="table table-condensed table-striped box-table-client">
+                            <thead>
+                            <tr>
+                                <th style="width: 30px"></th>
+                                <th style="width: 30px"></th>
+                                <th class="text-left">Nombre</th>
+                                <th class="text-center">Miembro desde</th>
+                                <th class="text-right"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td colspan="5">
+                                    Seleccione un cliente.
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            {#CLIENT#}
+
+
+            {#PDV#}
+            <div class="col-md-4" style="padding-right: 0px">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-map-marker"></i> Punto de venta
+                        </h4>
+                        <div class="box-tools pull-right"></div>
+                    </div>
+                    <div class="box-body table-responsive"> {#no-padding#}
+
+                        <table class="table table-condensed table-striped">
+                            <thead>
+                            <tr>
+                                <th style="width: 30px"></th>
+                                <th style="width: 30px"></th>
+                                <th class="text-left">Nombre</th>
+                                <th class="text-center">Creado</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span class="badge bg-light-blue-active">
+                                        {{ app.user.pointOfSaleActive.id|default('') }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <img
+                                        src="{{ asset('bundles/themes/adminlte/images/icon-1-128x128.png') }}"
+                                        style="max-height: 30px"
+                                        class="img-circle">
+                                </td>
+                                <td>
+                                    {{ app.user.pointOfSaleActive.name|default('[ - no PDV - ]') }}
+                                </td>
+                                <td class="text-center">
+                                    {{ app.user.pointOfSaleActive != null ? app.user.pointOfSaleActive.createdAt|date('d, F Y') : "" }}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            {#PDV#}
+
+
+            {#EMPLOYEE#}
+            <div class="col-md-4">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-user"></i> Empleado logeado
+                        </h4>
+                        <div class="box-tools pull-right"></div>
+                    </div>
+                    <div class="box-body table-responsive"> {#no-padding#}
+
+                        <table class="table table-condensed table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30px"></th>
+                                    <th style="width: 30px"></th>
+                                    <th class="text-left">Nombre</th>
+                                    <th class="text-center">Miembro desde</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-yellow-active">
+                                            {{ app.user.id }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="{{ asset('bundles/themes/adminlte/images/icon-2-128x128.png') }}"
+                                            style="max-height: 30px"
+                                            class="img-circle">
+                                    </td>
+                                    <td>
+                                        {{ tianos_app_user_name(app.user, 0, 15) }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ app.user.createdAt|date('d, F Y')}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            {#EMPLOYEE#}
+
+
+            {#CATEGORY - PRODUCTS#}
             <div class="col-md-7" style="padding-right: 0px">
 
-                <div class="box box-success" style="margin-bottom: 15px">
+                <div class="box box-primary">
 
                     <div class="row">
                         <div class="col-md-5" style="padding-right: 0px">
@@ -130,7 +273,6 @@
 
                     <div class="box-body"> {#no-padding#}
 
-                        {#SERVICIOS#}
                         <div class="row">
                             <div class="col-md-5" style="padding-right: 0px">
                                 <div class="{{ tree.main_div }} box-body">
@@ -181,9 +323,9 @@
                                             </td>
                                             <td>
                                                 <button
-                                                        type="button"
-                                                        class="btn btn-success btn-xs increment-services"
-                                                        data-id-item="{{ product.id }}">
+                                                    type="button"
+                                                    class="btn btn-success btn-xs increment-services"
+                                                    data-id-item="{{ product.id }}">
                                                     <i class="fa fa-fw fa-plus-circle"></i>
                                                 </button>
                                             </td>
@@ -193,127 +335,60 @@
                                 </table>
                             </div>
                         </div>
-                        {#SERVICIOS#}
 
                     </div>
                 </div>
-
-                {#CLIENT#}
-                <div class="box box-success" style="margin-bottom: 15px">
-                    <div class="box-header with-border">
-                        <h4 class="box-title">
-                            <i class="fa fa-fw fa-user"></i> Cliente
-                        </h4>
-                        <div class="box-tools pull-right">
-                            <span
-                                    class="badge bg-green x-hand add-client"
-                                    data-toggle="modal"
-                                    data-target="#modal-create-client">
-                                <i class="fa fa-plus"></i> Buscar
-                            </span>
-                        </div>
-                    </div>
-                    <div class="box-body table-responsive"> {#no-padding#}
-
-                        <table class="table table-condensed table-striped box-table-client">
-                            <thead>
-                            <tr>
-                                <th style="width: 30px"></th>
-                                <th style="width: 30px"></th>
-                                <th class="text-left">Nombre</th>
-                                <th class="text-center">miembro</th>
-                                <th class="text-right"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td colspan="5">
-                                    Seleccione un cliente.
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-                {#CLIENT#}
-
-
-                {#EMPLOYEE#}
-                <div class="box box-success" style="margin-bottom: 15px">
-                    <div class="box-header with-border">
-                        <h4 class="box-title">
-                            <i class="fa fa-fw fa-user"></i> Empleado
-                        </h4>
-                        <div class="box-tools pull-right">
-                            <span
-                                    class="badge bg-green x-hand add-employee"
-                                    data-toggle="modal"
-                                    data-target="#modal-create-employee">
-                                <i class="fa fa-plus"></i> Buscar
-                            </span>
-                        </div>
-                    </div>
-                    <div class="box-body table-responsive"> {#no-padding#}
-
-                        <table class="table table-condensed table-striped box-table-employee">
-                            <thead>
-                            <tr>
-                                <th style="width: 30px"></th>
-                                <th style="width: 30px"></th>
-                                <th class="text-left">Nombre</th>
-                                <th class="text-center">miembro</th>
-                                <th class="text-right"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td colspan="5">
-                                    Seleccione un empleado.
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-                {#EMPLOYEE#}
 
             </div>
+            {#CATEGORY - PRODUCTS#}
 
+
+            {# COMPROBANTE #}
             <div class="col-md-5">
 
                 <div class="box box-primary">
 
-                    {# COMPROBANTE #}
-                    <form name="form-ticket">
-
-                        <div class="box-header with-border">
-                            <h4 class="box-title">
-                                <i class="fa fa-fw fa-file-o"></i> Comprobante
-                            </h4>
-                            <div class="box-tools pull-right">
-                                <span
-                                        class="badge bg-red x-hand remove-all-services"
-                                        data-toggle="tooltip"
-                                        data-original-title="Eliminar todos los servicios">
-                                    <i class="fa fa-minus-circle"></i> Eliminar
-                                </span>
-                            </div>
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-file-o"></i> Comprobante
+                        </h4>
+                        <div class="box-tools pull-right">
+                            <span
+                                class="badge bg-red x-hand remove-all-services"
+                                data-toggle="tooltip"
+                                data-original-title="Eliminar todos los servicios">
+                                <i class="fa fa-minus-circle"></i> Eliminar
+                            </span>
                         </div>
+                    </div>
+
+                    {{ form_start(form) }}
                         <div class="box-body box-table-items">
+
+                            <div class="callout callout-info ticket-message">
+                                {#<h4>I am a warning callout!</h4>#}
+                                <p style="font-size: 16px">
+                                    <i class="icon fa fa-info"></i> Información.
+                                </p>
+                            </div>
+
+                            {{ form_widget(form._token) }}
+
+                            {{ form_widget(form.client) }}
 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Fecha</label>
-                                        <input type="date" class="form-control" name="ticket[dateTicket]">
+                                        <i class="fa fa-fw fa-qrcode"></i>
+                                        {{ form_label(form.code) }}
+                                        {{ form_widget(form.code) }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Descripci&oacute;n</label>
-                                        <input type="text" class="form-control" name="ticket[name]" placeholder="Nombre del ticket">
+                                        <i class="fa fa-fw fa-align-left"></i>
+                                        {{ form_label(form.name) }}
+                                        {{ form_widget(form.name) }}
                                     </div>
                                 </div>
                             </div>
@@ -329,14 +404,11 @@
                                 Generar pedido
                             </button>
                         </div>
-
-                    </form>
-                    {# COMPROBANTE #}
-
+                    {{ form_end(form) }}
                 </div>
 
-
             </div>
+            {# COMPROBANTE #}
 
         </div>
 

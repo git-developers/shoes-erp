@@ -33,6 +33,16 @@ class Product
      * @var string
      */
     private $code;
+
+    /**
+     * @var string
+     *
+     * @JMSS\Groups({
+     *     "crud",
+     *     "ticket"
+     * })
+     */
+    private $color;
 	
 	/**
 	 * @var float
@@ -58,6 +68,16 @@ class Product
      * @var string
      */
     private $slug;
+
+    /**
+     * @var integer
+     *
+     * @JMSS\Groups({
+     *     "crud",
+     *     "ticket"
+     * })
+     */
+    private $size;
 
     /**
      * @var integer
@@ -166,6 +186,38 @@ class Product
     {
         return $this->code;
     }
+	
+	/**
+	 * @return string
+	 */
+	public function getColor()//: string
+	{
+		return $this->color;
+	}
+	
+	/**
+	 * @param string $color
+	 */
+	public function setColor(string $color)
+	{
+		$this->color = $color;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getSize() //: int
+	{
+		return $this->size;
+	}
+	
+	/**
+	 * @param int $size
+	 */
+	public function setSize(int $size)
+	{
+		$this->size = $size;
+	}
 	
 	/**
 	 * @return float

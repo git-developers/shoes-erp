@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
 class ProductType extends AbstractType
 {
@@ -22,6 +23,18 @@ class ProductType extends AbstractType
 
     public function __construct(EntityManager $em) {
         $this->em = $em;
+    }
+
+    public function getSizes() {
+        return [
+        	6 => 6,
+        	7 => 7,
+        	8 => 8,
+        	9 => 9,
+        	10 => 10,
+        	11 => 11,
+        	12 => 12,
+        ];
     }
 
     public function getCategory($id) {
@@ -105,6 +118,16 @@ class ProductType extends AbstractType
                     'placeholder' => 'code',
                 ],
             ])
+            ->add('color', ColorType::class, [
+                'label' =>' color',
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'color',
+                ],
+            ])
             ->add('name', TextType::class, [
                 'label' =>' Nombre',
                 'label_attr' => [
@@ -117,6 +140,17 @@ class ProductType extends AbstractType
             ])
             ->add('stock', IntegerType::class, [
                 'label' =>' Stock',
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => '##',
+                ],
+            ])
+            ->add('size', ChoiceType::class, [
+                'label' =>' Talla',
+	            'choices' => $this->getSizes(),
                 'label_attr' => [
                     'class' => ''
                 ],

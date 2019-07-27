@@ -258,7 +258,7 @@ class Builder implements ContainerAwareInterface
                 'backend_product_index',
                 'backend_category_tree_index',
             ]))
-            ->setAttribute('icon', 'fa-fw fa-dropbox')
+            ->setAttribute('icon', 'fa-fw fa-cubes')
             ->setDisplay($isGranted)
         ;
 
@@ -336,83 +336,6 @@ class Builder implements ContainerAwareInterface
         /**
          * SERVICES
          */
-
-
-
-
-
-
-
-        /**
-         * SECURITY
-         */
-        $isGranted = $this->isGranted([
-	        Profile::ROLE_PROFILE_VIEW
-        ]);
-
-        $menu->addChild('Seguridad', [
-            'route' => 'frontend_default_index',
-            'extras' => ['safe_label' => true],
-            'childrenAttributes' => [
-                'class' => 'treeview-menu',
-            ],
-        ])
-        ->setAttribute('allow_angle', true)
-        ->setAttribute('class', 'treeview')
-        ->setAttribute('class', $this->activeRoute([
-            'backend_role_index',
-            'backend_session_index',
-            'backend_profile_index',
-        ]))
-        ->setAttribute('icon', 'fa-fw fa-lock')
-        ->setDisplay($isGranted)
-        ;
-        $menu['Seguridad']->addChild('Perfil', [
-            'route' => 'backend_profile_index',
-            'extras' => ['safe_label' => true],
-            'childrenAttributes' => [
-                'class' => 'treeview-menu',
-            ],
-        ])
-        ->setAttribute('icon', 'fa-fw fa-user-secret')
-        ->setAttribute('class', $this->activeRoute([
-            'backend_profile_index',
-        ]))
-        ->setDisplay($isGranted)
-        ;
-        $menu['Seguridad']->addChild('Rol', [
-            'route' => 'backend_role_index',
-            'extras' => ['safe_label' => true],
-            'childrenAttributes' => [
-                'class' => 'treeview-menu',
-            ],
-        ])
-        ->setAttribute('icon', 'fa-fw fa-expeditedssl')
-        ->setAttribute('class', $this->activeRoute([
-            'backend_role_index',
-        ]))
-        ->setDisplay($isGranted)
-        ;
-        
-        /*
-        $menu['Seguridad']->addChild('Sesión', [
-            'route' => 'backend_session_index',
-            'extras' => ['safe_label' => true],
-            'childrenAttributes' => [
-                'class' => 'treeview-menu',
-            ],
-        ])
-            ->setAttribute('icon', 'fa-fw fa-history')
-            ->setAttribute('class', $this->activeRoute([
-                'backend_session_index',
-            ]))
-            ->setDisplay($isGranted)
-        ;
-        */
-        /**
-         * SECURITY
-         */
-	
 	
 
         
@@ -519,8 +442,80 @@ class Builder implements ContainerAwareInterface
          * STATISTICS
          */
 	
-	    
+        
 	
+	
+	    /**
+	     * SECURITY
+	     */
+	    $isGranted = $this->isGranted([
+		    Profile::ROLE_PROFILE_VIEW
+	    ]);
+	
+	    $menu->addChild('Seguridad', [
+		    'route' => 'frontend_default_index',
+		    'extras' => ['safe_label' => true],
+		    'childrenAttributes' => [
+			    'class' => 'treeview-menu',
+		    ],
+	    ])
+		    ->setAttribute('allow_angle', true)
+		    ->setAttribute('class', 'treeview')
+		    ->setAttribute('class', $this->activeRoute([
+			    'backend_role_index',
+			    'backend_session_index',
+			    'backend_profile_index',
+		    ]))
+		    ->setAttribute('icon', 'fa-fw fa-lock')
+		    ->setDisplay($isGranted)
+	    ;
+	    $menu['Seguridad']->addChild('Perfil', [
+		    'route' => 'backend_profile_index',
+		    'extras' => ['safe_label' => true],
+		    'childrenAttributes' => [
+			    'class' => 'treeview-menu',
+		    ],
+	    ])
+		    ->setAttribute('icon', 'fa-fw fa-user-secret')
+		    ->setAttribute('class', $this->activeRoute([
+			    'backend_profile_index',
+		    ]))
+		    ->setDisplay($isGranted)
+	    ;
+	    $menu['Seguridad']->addChild('Rol', [
+		    'route' => 'backend_role_index',
+		    'extras' => ['safe_label' => true],
+		    'childrenAttributes' => [
+			    'class' => 'treeview-menu',
+		    ],
+	    ])
+		    ->setAttribute('icon', 'fa-fw fa-expeditedssl')
+		    ->setAttribute('class', $this->activeRoute([
+			    'backend_role_index',
+		    ]))
+		    ->setDisplay($isGranted)
+	    ;
+	
+	    /*
+		$menu['Seguridad']->addChild('Sesión', [
+			'route' => 'backend_session_index',
+			'extras' => ['safe_label' => true],
+			'childrenAttributes' => [
+				'class' => 'treeview-menu',
+			],
+		])
+			->setAttribute('icon', 'fa-fw fa-history')
+			->setAttribute('class', $this->activeRoute([
+				'backend_session_index',
+			]))
+			->setDisplay($isGranted)
+		;
+		*/
+	    /**
+	     * SECURITY
+	     */
+	
+	    
 	
 	
 	    /**

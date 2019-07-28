@@ -23,3 +23,4 @@ imports:
     - { resource: '@AssociativeBundle/Resources/config/services.yml' }
     - { resource: '@PointofsaleBundle/Resources/config/services.yml' }
     - { resource: '@TreeOneToManyBundle/Resources/config/services.yml' }
+    - { resource: '@SettingsBundle/Resources/config/services.yml' }

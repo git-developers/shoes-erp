@@ -1,0 +1,19 @@
+frontend_settings_index:
+    path: /
+    methods: [GET]
+    defaults:
+        _controller: tianos.frontend.controller.settings:indexAction
+        _tianos:
+            section: admin
+            permission: true
+            grid: sylius_admin_settings
+            template: SettingsBundle:Settings:index.html.twig
+            vars:
+                subheader: sylius.ui.manage_your_settings_catalog
+                icon: cube
+            form:
+                type: Bundle\SettingsBundle\Form\Type\SettingsType
+            repository:
+                service: tianos.repository.settings
+                method: findAll
+                arguments: [$settingsId]

@@ -28,7 +28,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $entity = new Role();
 	    $entity->setName('Role stadistics');
 	    $entity->setSlug(Role::ROLE_STADISTICS);
-	    $entity->setGroupRol('stadistics');
+	    $entity->setGroupRol('Stadistics');
 	    $entity->setGroupRolTag('group-stadistics');
 	    $manager->persist($entity);
 	    $this->addReference('role-stadistics', $entity);
@@ -36,7 +36,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $entity = new Role();
 	    $entity->setName('Role settings');
 	    $entity->setSlug(Role::ROLE_SETTINGS);
-	    $entity->setGroupRol('settings');
+	    $entity->setGroupRol('Settings');
 	    $entity->setGroupRolTag('group-settings');
 	    $manager->persist($entity);
 	    $this->addReference('role-settings', $entity);
@@ -50,7 +50,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $entity = new Role();
 	    $entity->setName('Profile view');
 	    $entity->setSlug(Profile::ROLE_PROFILE_VIEW);
-	    $entity->setGroupRol('perfil');
+	    $entity->setGroupRol('Perfil');
 	    $entity->setGroupRolTag('group-profile');
 	    $manager->persist($entity);
 	    $this->addReference('role-profile-view', $entity);
@@ -58,7 +58,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Profile create');
         $entity->setSlug(Profile::ROLE_PROFILE_CREATE);
-        $entity->setGroupRol('perfil');
+        $entity->setGroupRol('Perfil');
         $entity->setGroupRolTag('group-profile');
         $manager->persist($entity);
         $this->addReference('role-profile-create', $entity);
@@ -66,7 +66,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Profile edit');
         $entity->setSlug(Profile::ROLE_PROFILE_EDIT);
-        $entity->setGroupRol('perfil');
+        $entity->setGroupRol('Perfil');
         $entity->setGroupRolTag('group-profile');
         $manager->persist($entity);
         $this->addReference('role-profile-edit', $entity);
@@ -74,7 +74,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Profile delete');
         $entity->setSlug(Profile::ROLE_PROFILE_DELETE);
-        $entity->setGroupRol('perfil');
+        $entity->setGroupRol('Perfil');
         $entity->setGroupRolTag('group-profile');
         $manager->persist($entity);
         $this->addReference('role-profile-delete', $entity);
@@ -89,7 +89,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $entity = new Role();
 	    $entity->setName('User view');
 	    $entity->setSlug(User::ROLE_USER_VIEW);
-	    $entity->setGroupRol('usuario');
+	    $entity->setGroupRol('Usuario');
 	    $entity->setGroupRolTag('group-user');
 	    $manager->persist($entity);
 	    $this->addReference('role-user-view', $entity);
@@ -97,7 +97,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $entity = new Role();
 	    $entity->setName('User create');
 	    $entity->setSlug(User::ROLE_USER_CREATE);
-	    $entity->setGroupRol('usuario');
+	    $entity->setGroupRol('Usuario');
 	    $entity->setGroupRolTag('group-user');
 	    $manager->persist($entity);
 	    $this->addReference('role-user-create', $entity);
@@ -105,7 +105,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $entity = new Role();
 	    $entity->setName('User edit');
 	    $entity->setSlug(User::ROLE_USER_EDIT);
-	    $entity->setGroupRol('usuario');
+	    $entity->setGroupRol('Usuario');
 	    $entity->setGroupRolTag('group-user');
 	    $manager->persist($entity);
 	    $this->addReference('role-user-edit', $entity);
@@ -113,20 +113,21 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $entity = new Role();
 	    $entity->setName('User delete');
 	    $entity->setSlug(User::ROLE_USER_DELETE);
-	    $entity->setGroupRol('usuario');
+	    $entity->setGroupRol('Usuario');
 	    $entity->setGroupRolTag('group-user');
 	    $manager->persist($entity);
 	    $this->addReference('role-user-delete', $entity);
         
         
 
+	    
         /**
          * CLIENT
          */
 	    $entity = new Role();
 	    $entity->setName('client view');
         $entity->setSlug(User::ROLE_CLIENT_VIEW);
-        $entity->setGroupRol('cliente');
+        $entity->setGroupRol('Cliente');
         $entity->setGroupRolTag('group-client');
         $manager->persist($entity);
         $this->addReference('role-client-view', $entity);
@@ -134,7 +135,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Client create');
         $entity->setSlug(User::ROLE_CLIENT_CREATE);
-        $entity->setGroupRol('cliente');
+        $entity->setGroupRol('Cliente');
         $entity->setGroupRolTag('group-client');
         $manager->persist($entity);
         $this->addReference('role-client-create', $entity);
@@ -142,7 +143,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('client edit');
         $entity->setSlug(User::ROLE_CLIENT_EDIT);
-        $entity->setGroupRol('cliente');
+        $entity->setGroupRol('Cliente');
         $entity->setGroupRolTag('group-client');
         $manager->persist($entity);
         $this->addReference('role-client-edit', $entity);
@@ -150,13 +151,14 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('client delete');
         $entity->setSlug(User::ROLE_CLIENT_DELETE);
-        $entity->setGroupRol('cliente');
+        $entity->setGroupRol('Cliente');
         $entity->setGroupRolTag('group-client');
         $manager->persist($entity);
         $this->addReference('role-client-delete', $entity);
         
         
 
+        
         /**
          * EMPLOYEE
          */
@@ -200,7 +202,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $entity = new Role();
 	    $entity->setName('Pdv view');
 	    $entity->setSlug(Pointofsale::ROLE_PDV_VIEW);
-        $entity->setGroupRol('pdv');
+        $entity->setGroupRol('Pdv');
         $entity->setGroupRolTag('group-pdv');
         $manager->persist($entity);
         $this->addReference('role-pdv-view', $entity);
@@ -208,7 +210,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Pdv create');
         $entity->setSlug(Pointofsale::ROLE_PDV_CREATE);
-        $entity->setGroupRol('pdv');
+        $entity->setGroupRol('Pdv');
         $entity->setGroupRolTag('group-pdv');
         $manager->persist($entity);
         $this->addReference('role-pdv-create', $entity);
@@ -216,7 +218,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Pdv edit');
         $entity->setSlug(Pointofsale::ROLE_PDV_EDIT);
-        $entity->setGroupRol('pdv');
+        $entity->setGroupRol('Pdv');
         $entity->setGroupRolTag('group-pdv');
         $manager->persist($entity);
         $this->addReference('role-pdv-edit', $entity);
@@ -224,20 +226,21 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Pdv delete');
         $entity->setSlug(Pointofsale::ROLE_PDV_DELETE);
-        $entity->setGroupRol('pdv');
+        $entity->setGroupRol('Pdv');
         $entity->setGroupRolTag('group-pdv');
         $manager->persist($entity);
         $this->addReference('role-pdv-delete', $entity);
 
 
 
+        
         /**
          * CATEGORY
          */
 	    $entity = new Role();
 	    $entity->setName('Category view');
 	    $entity->setSlug(Category::ROLE_CATEGORY_VIEW);
-	    $entity->setGroupRol('categoria');
+	    $entity->setGroupRol('Categoría');
 	    $entity->setGroupRolTag('group-category');
 	    $manager->persist($entity);
 	    $this->addReference('role-category-view', $entity);
@@ -245,7 +248,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Category create');
         $entity->setSlug(Category::ROLE_CATEGORY_CREATE);
-        $entity->setGroupRol('categoria');
+        $entity->setGroupRol('Categoría');
         $entity->setGroupRolTag('group-category');
         $manager->persist($entity);
         $this->addReference('role-category-create', $entity);
@@ -253,7 +256,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Category edit');
         $entity->setSlug(Category::ROLE_CATEGORY_EDIT);
-        $entity->setGroupRol('categoria');
+        $entity->setGroupRol('Categoría');
         $entity->setGroupRolTag('group-category');
         $manager->persist($entity);
         $this->addReference('role-category-edit', $entity);
@@ -261,7 +264,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Category delete');
         $entity->setSlug(Category::ROLE_CATEGORY_DELETE);
-        $entity->setGroupRol('categoria');
+        $entity->setGroupRol('Categoría');
         $entity->setGroupRolTag('group-category');
         $manager->persist($entity);
         $this->addReference('role-category-delete', $entity);
@@ -275,7 +278,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $entity = new Role();
 	    $entity->setName('Product view');
 	    $entity->setSlug(Product::ROLE_PRODUCT_VIEW);
-	    $entity->setGroupRol('producto');
+	    $entity->setGroupRol('Producto');
 	    $entity->setGroupRolTag('group-product');
 	    $manager->persist($entity);
 	    $this->addReference('role-product-view', $entity);
@@ -283,7 +286,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Product create');
         $entity->setSlug(Product::ROLE_PRODUCT_CREATE);
-        $entity->setGroupRol('producto');
+        $entity->setGroupRol('Producto');
         $entity->setGroupRolTag('group-product');
         $manager->persist($entity);
         $this->addReference('role-product-create', $entity);
@@ -291,7 +294,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Product edit');
         $entity->setSlug(Product::ROLE_PRODUCT_EDIT);
-        $entity->setGroupRol('producto');
+        $entity->setGroupRol('Producto');
         $entity->setGroupRolTag('group-product');
         $manager->persist($entity);
         $this->addReference('role-product-edit', $entity);
@@ -299,7 +302,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Product delete');
         $entity->setSlug(Product::ROLE_PRODUCT_DELETE);
-        $entity->setGroupRol('producto');
+        $entity->setGroupRol('Producto');
         $entity->setGroupRolTag('group-product');
         $manager->persist($entity);
         $this->addReference('role-product-delete', $entity);
@@ -351,7 +354,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $entity = new Role();
 	    $entity->setName('Ticket view');
 	    $entity->setSlug(Ticket::ROLE_TICKET_VIEW);
-	    $entity->setGroupRol('ticket');
+	    $entity->setGroupRol('Ticket');
 	    $entity->setGroupRolTag('group-ticket');
 	    $manager->persist($entity);
 	    $this->addReference('role-ticket-view', $entity);
@@ -359,7 +362,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Ticket create');
         $entity->setSlug(Ticket::ROLE_TICKET_CREATE);
-        $entity->setGroupRol('ticket');
+        $entity->setGroupRol('Ticket');
         $entity->setGroupRolTag('group-ticket');
         $manager->persist($entity);
         $this->addReference('role-ticket-create', $entity);
@@ -367,7 +370,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Ticket edit');
         $entity->setSlug(Ticket::ROLE_TICKET_EDIT);
-        $entity->setGroupRol('ticket');
+        $entity->setGroupRol('Ticket');
         $entity->setGroupRolTag('group-ticket');
         $manager->persist($entity);
         $this->addReference('role-ticket-edit', $entity);
@@ -375,7 +378,7 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity = new Role();
         $entity->setName('Ticket delete');
         $entity->setSlug(Ticket::ROLE_TICKET_DELETE);
-        $entity->setGroupRol('ticket');
+        $entity->setGroupRol('Ticket');
         $entity->setGroupRolTag('group-ticket');
         $manager->persist($entity);
         $this->addReference('role-ticket-delete', $entity);

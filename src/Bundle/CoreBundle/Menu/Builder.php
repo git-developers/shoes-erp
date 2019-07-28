@@ -541,20 +541,20 @@ class Builder implements ContainerAwareInterface
 			    'class' => 'treeview-menu',
 		    ],
 	    ])
-		    ->setAttribute('class', 'treeview')
-		    ->setAttribute('class', $this->activeRoute([
-			    'backend_pointofsale_per_user_index',
-		    ]))
-		    ->setAttribute('icon', 'fa-fw fa-cog')
-		    ->setDisplay($isGranted)
+	    ->setAttribute('class', 'treeview')
+	    ->setAttribute('class', $this->activeRoute([
+		    'backend_settings_index',
+	    ]))
+	    ->setAttribute('icon', 'fa-fw fa-cog')
+	    ->setDisplay($isGranted)
 	    ;
 	
 	    $menu['Ajustes']->addChild('Settings', [
-		    'route' => 'backend_pointofsale_per_user_index'
+		    'route' => 'backend_settings_index'
 	    ])
-		    ->setAttribute('icon', self::CIRCLE_1)
-		    ->setAttribute('class', $this->activeRoute('backend_pointofsale_per_user_index'))
-		    ->setDisplay($isGranted)
+	    ->setAttribute('icon', self::CIRCLE_1)
+	    ->setAttribute('class', $this->activeRoute('backend_settings_index'))
+	    ->setDisplay($isGranted)
 	    ;
 	    /**
 	     * SETTINGS

@@ -1,8 +1,8 @@
-input[type=radio]{
-    height: 17px;
-    width: 17px;
+input.ticket-client-radio {
+    height: 20px !important;
+    width: 20px !important;
 }
-input[type=checkbox]{
+input[type=checkbox] {
     height: 17px;
     width: 17px;
 }
@@ -44,7 +44,11 @@ table.products tbody
 }
 
 .table-client tbody tr td:nth-child(1),
-.table-client thead tr th:nth-child(1),
+.table-client thead tr th:nth-child(1)
+{
+    width: 50px;
+}
+
 .table-employee tbody tr td:nth-child(1),
 .table-employee thead tr th:nth-child(1),
 table.products tbody tr td:nth-child(1),

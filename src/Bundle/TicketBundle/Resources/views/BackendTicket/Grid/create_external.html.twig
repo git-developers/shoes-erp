@@ -10,15 +10,15 @@
     {{ parent() }}
 
     {% stylesheets
-        filter='cssrewrite'
-        '@TicketBundle/Resources/public/css/default.css'
+        '@TreeBundle/Resources/public/css/tree.css'
+        '@CoreBundle/Resources/public/css/tree.css'
     %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
     {% stylesheets
-        '@TreeBundle/Resources/public/css/tree.css'
-        '@CoreBundle/Resources/public/css/tree.css'
+        filter='cssrewrite'
+        '@TicketBundle/Resources/public/css/default.css'
     %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}

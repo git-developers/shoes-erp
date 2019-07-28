@@ -56,7 +56,6 @@ backend_ticket_index:
                               className: modal-view text-center
                         - obj: obj.ticket_type
                           options:
-                              icon: imagen
                               property: " return (obj.ticket_type == 'EXTERNO') ? '<span class=\"badge bg-green\">' + obj.ticket_type + '</span>' : '<span class=\"badge bg-orange\">' + obj.ticket_type + '</span>' "
                           defs:
                               targets: 1
@@ -64,7 +63,7 @@ backend_ticket_index:
                               sorting: 1
                               title: Tipo
                               width: 10%
-                              className:
+                              className: text-center
                               filter: 1
                         - obj: obj.name
                           defs:
@@ -74,9 +73,17 @@ backend_ticket_index:
                               title: Nombre servicio
                               className:
                               filter: 1
-                        - obj: obj.client.name_box
+                        - obj: obj.payment_type.name
                           defs:
                               targets: 3
+                              orderable: 1
+                              sorting: 1
+                              title: '<i class="fa fa-fw fa-money"></i> Tipo de pago'
+                              className:
+                              filter: 1
+                        - obj: obj.client.name_box
+                          defs:
+                              targets: 4
                               orderable: 1
                               sorting: 1
                               title: '<i class="fa fa-fw fa-feed"></i> Cliente'
@@ -84,7 +91,7 @@ backend_ticket_index:
                               filter: 1
                         - obj: obj.created_at
                           defs:
-                              targets: 4
+                              targets: 5
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
             form:

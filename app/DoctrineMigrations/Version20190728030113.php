@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20190728014303 extends AbstractMigration
+class Version20190728030113 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -23,7 +23,7 @@ class Version20190728014303 extends AbstractMigration
         $this->addSql('CREATE TABLE role (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(45) DEFAULT NULL, name VARCHAR(100) DEFAULT NULL, slug VARCHAR(100) NOT NULL, group_rol VARCHAR(100) DEFAULT NULL, group_rol_tag VARCHAR(100) DEFAULT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE files (id INT AUTO_INCREMENT NOT NULL, pk_file_item INT NOT NULL, mime_content_type VARCHAR(45) NOT NULL, file_type VARCHAR(45) NOT NULL, filter VARCHAR(100) NOT NULL, uniqid VARCHAR(45) DEFAULT NULL, name VARCHAR(150) NOT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE ticket_has_products (id INT AUTO_INCREMENT NOT NULL, product_id INT DEFAULT NULL, ticket_id INT DEFAULT NULL, quantity INT NOT NULL, unit_price DOUBLE PRECISION DEFAULT NULL, sub_total DOUBLE PRECISION DEFAULT NULL, INDEX fk_ticket_has_products_ticket1_idx (ticket_id), INDEX fk_ticket_has_products_product1_idx (product_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE ticket (id INT AUTO_INCREMENT NOT NULL, client_id INT DEFAULT NULL, point_of_sale_id INT DEFAULT NULL, code VARCHAR(45) DEFAULT NULL, ticket_type VARCHAR(45) DEFAULT NULL, name VARCHAR(150) NOT NULL, date_ticket DATETIME NOT NULL, slug VARCHAR(150) DEFAULT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', INDEX IDX_97A0ADA319EB6921 (client_id), INDEX IDX_97A0ADA36B7E9A73 (point_of_sale_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE ticket (id INT AUTO_INCREMENT NOT NULL, client_id INT DEFAULT NULL, point_of_sale_id INT DEFAULT NULL, payment_type_id INT DEFAULT NULL, code VARCHAR(45) DEFAULT NULL, ticket_type VARCHAR(45) DEFAULT NULL, name VARCHAR(150) NOT NULL, date_ticket DATETIME NOT NULL, slug VARCHAR(150) DEFAULT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', INDEX IDX_97A0ADA319EB6921 (client_id), INDEX IDX_97A0ADA36B7E9A73 (point_of_sale_id), INDEX IDX_97A0ADA3DC058279 (payment_type_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE ticket_has_employee (ticket_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_8C2F733E700047D2 (ticket_id), INDEX IDX_8C2F733EA76ED395 (user_id), PRIMARY KEY(ticket_id, user_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE ticket_has_services (id INT AUTO_INCREMENT NOT NULL, service_id INT DEFAULT NULL, ticket_id INT DEFAULT NULL, quantity INT NOT NULL, unit_price DOUBLE PRECISION DEFAULT NULL, sub_total DOUBLE PRECISION DEFAULT NULL, INDEX fk_ticket_has_services_ticket1_idx (ticket_id), INDEX fk_ticket_has_services_services1_idx (service_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE payment_type (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(45) DEFAULT NULL, name VARCHAR(45) DEFAULT NULL, slug VARCHAR(150) DEFAULT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, is_active TINYINT(1) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
@@ -48,6 +48,7 @@ class Version20190728014303 extends AbstractMigration
         $this->addSql('ALTER TABLE ticket_has_products ADD CONSTRAINT FK_620A5CC5700047D2 FOREIGN KEY (ticket_id) REFERENCES ticket (id)');
         $this->addSql('ALTER TABLE ticket ADD CONSTRAINT FK_97A0ADA319EB6921 FOREIGN KEY (client_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE ticket ADD CONSTRAINT FK_97A0ADA36B7E9A73 FOREIGN KEY (point_of_sale_id) REFERENCES point_of_sale (id)');
+        $this->addSql('ALTER TABLE ticket ADD CONSTRAINT FK_97A0ADA3DC058279 FOREIGN KEY (payment_type_id) REFERENCES payment_type (id)');
         $this->addSql('ALTER TABLE ticket_has_employee ADD CONSTRAINT FK_8C2F733E700047D2 FOREIGN KEY (ticket_id) REFERENCES ticket (id)');
         $this->addSql('ALTER TABLE ticket_has_employee ADD CONSTRAINT FK_8C2F733EA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE ticket_has_services ADD CONSTRAINT FK_A282E7F6ED5CA9E6 FOREIGN KEY (service_id) REFERENCES services (id)');
@@ -89,6 +90,7 @@ class Version20190728014303 extends AbstractMigration
         $this->addSql('ALTER TABLE ticket_has_products DROP FOREIGN KEY FK_620A5CC5700047D2');
         $this->addSql('ALTER TABLE ticket_has_employee DROP FOREIGN KEY FK_8C2F733E700047D2');
         $this->addSql('ALTER TABLE ticket_has_services DROP FOREIGN KEY FK_A282E7F6700047D2');
+        $this->addSql('ALTER TABLE ticket DROP FOREIGN KEY FK_97A0ADA3DC058279');
         $this->addSql('ALTER TABLE google_drive_file_vote DROP FOREIGN KEY FK_35D550BF77A02D92');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D649CCFA12B8');
         $this->addSql('ALTER TABLE profile_has_role DROP FOREIGN KEY FK_F35F3084CCFA12B8');

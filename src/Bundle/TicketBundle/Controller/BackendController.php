@@ -281,7 +281,7 @@ class BackendController extends GridController
 				
 				
 				
-				$session = $request->getSession();
+				//$session = $request->getSession();
 				$products = $session->get('products');
 				
 				if (empty($ticket->client)) {
@@ -305,12 +305,20 @@ class BackendController extends GridController
 					]);
 				}
 				
+				if (empty($ticket->paymentType)) {
+					return $this->json([
+						'status' => false,
+						'message' => '<i class="icon fa fa-warning"></i> Seleccione un tipo de pago.'
+					]);
+				}
+				
 				
 				
 				
 				/**
 				 * SAVE OBJECT
 				 */
+				$entity->setCode($ticket->code);
 				$entity->setName($ticket->name);
 				$entity->setDateTicket(new \DateTime());
 				$entity->setPointOfSale($user->getPointOfSaleActive());
@@ -321,6 +329,9 @@ class BackendController extends GridController
 				
 				$employee = $this->get('tianos.repository.user')->find($user->getId());
 				$entity->addEmployee($employee);
+				
+				$paymentType = $this->get('tianos.repository.payment.type')->find($ticket->paymentType);
+				$entity->setPaymentType($paymentType);
 				
 				$this->persist($entity);
 				
@@ -351,7 +362,6 @@ class BackendController extends GridController
 				$session->remove('products');
 				
 				$this->flashSuccess('Pedido creado.');
-				//$this->redirectUrl('backend_ticket_index');
 				
 				return $this->json([
 					'status' => true
@@ -637,21 +647,6 @@ class BackendController extends GridController
 			$client = $this->get('tianos.repository.user')->findOneById($client);
 			$client = $this->getSerializeDecode($client, 'ticket');
 			
-			
-			
-			/**
-			 * ID CLIENT SESSION
-			 */
-			/*
-			$session = $request->getSession();
-			$session->set('id_client', !is_null($client) ? $client['id'] : null);
-			*/
-			/**
-			 * ID CLIENT SESSION
-			 */
-			
-			
-			
 			return $this->render(
 				'TicketBundle:BackendTicket/Grid/Box:table_client.html.twig',
 				[
@@ -729,35 +724,6 @@ class BackendController extends GridController
 			
 			$employees = $this->get('tianos.repository.user')->findAllByIds($idEmployees);
 			$employees = $this->getSerializeDecode($employees, 'ticket');
-			
-			
-			/**
-			 * ID EMPLOYEE SESSION
-			 */
-			$session = $request->getSession();
-			$out = [];
-			$employees = is_array($employees) ? $employees : [];
-			foreach ($employees as $key => $employee) {
-				if (isset($employee['id'])) {
-					$out[] = $employee['id'];
-				}
-			}
-			$session->set('id_employee', $out);
-			/**
-			 * ID EMPLOYEE SESSION
-			 */
-
-//			$idEmployee = $session->get('id_employee');
-
-//			if (is_null($idEmployee))
-//			{
-//				$out = [];
-//				foreach ($employees as $key => $employee) {
-//					$out[] = $employee['id'];
-//				}
-//
-//				$session->set('id_employee', $out);
-//			}
 			
 			return $this->render(
 				'TicketBundle:BackendTicket/Grid/Box:table_employee.html.twig',
@@ -845,8 +811,6 @@ class BackendController extends GridController
 		$template = $configuration->getTemplate('');
 		
 		$session = $request->getSession();
-//		$session->remove('id_client');
-//		$session->remove('id_employee');
 		$session->remove('products');
 		
 		return $this->render(

@@ -98,6 +98,16 @@ Bundle\TicketBundle\Entity\Ticket:
                 point_of_sale_id:
                     referencedColumnName: id
             orphanRemoval: false
+        paymentType:
+            targetEntity: Bundle\TicketBundle\Entity\PaymentType
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                payment_type_id:
+                    referencedColumnName: id
+            orphanRemoval: false
     manyToMany:
         employee:
             targetEntity: Bundle\UserBundle\Entity\User

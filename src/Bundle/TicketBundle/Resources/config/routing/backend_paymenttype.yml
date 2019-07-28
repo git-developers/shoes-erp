@@ -73,7 +73,7 @@ backend_paymenttype_index:
                               orderable: 1
                               sorting: 1
                               title: Slug
-                              className: text-center
+                              className: text-left
                               filter: 1
                         - obj: obj.created_at
                           defs:

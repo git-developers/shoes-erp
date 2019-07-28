@@ -90,7 +90,6 @@ class Ticket
      */
     private $isActive = '1';
 	
-	
 	/**
 	 * @var \Bundle\TicketBundle\Entity\PaymentType
 	 *
@@ -102,7 +101,6 @@ class Ticket
 	 * @JMSS\Groups({"crud"})
 	 */
 	private $paymentType;
-	
 	
 	/**
 	 * @var \Bundle\UserBundle\Entity\User
@@ -428,6 +426,7 @@ class Ticket
 	 *
 	 * @return Ticket
 	 */
+	//public function setPaymentType(\Bundle\TicketBundle\Entity\PaymentType $paymentType)
 	public function setPaymentType(\Bundle\TicketBundle\Entity\PaymentType $paymentType)
 	{
 		$this->paymentType = $paymentType;

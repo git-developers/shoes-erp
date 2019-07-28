@@ -387,18 +387,11 @@
                             {{ form_widget(form.client) }}
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <i class="fa fa-fw fa-qrcode"></i>
-                                        {{ form_label(form.code) }}
-                                        {{ form_widget(form.code) }}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <i class="fa fa-fw fa-align-left"></i>
-                                        {{ form_label(form.name) }}
-                                        {{ form_widget(form.name) }}
+                                        <i class="fa fa-fw fa-money"></i>
+                                        {{ form_label(form.paymentType) }}
+                                        {{ form_widget(form.paymentType) }}
                                     </div>
                                 </div>
                             </div>

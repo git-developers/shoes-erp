@@ -50,6 +50,10 @@ services:
         arguments: [ '%application_url%' ]
         tags: [doctrine.fixture.orm]
 
+    Bundle\CoreBundle\DataFixtures\ORM\Load_19_PaymentTypeData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
     tianos.core.controller.default:
         class: Bundle\CoreBundle\Controller\DefaultController
         tags:

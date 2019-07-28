@@ -71,5 +71,36 @@ class BackendMapController extends GridController
 		    ]
 	    );
     }
+	
+	public function infoAction(Request $request): Response
+	{
+		
+		$parameters = [
+			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
+		];
+		$applicationName = $this->container->getParameter('application_name');
+		$this->metadata = new Metadata('tianos', $applicationName, $parameters);
+		
+		//CONFIGURATION
+		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
+		$template = $configuration->getTemplate('');
+		$action = $configuration->getAction();
+		$vars = $configuration->getVars();
+		
+		//REPOSITORY
+		$id = $request->get('id');
+		$repository = $configuration->getRepositoryService();
+		$method = $configuration->getRepositoryMethod();
+		$entity = $this->get($repository)->$method($id);
+		
+		return $this->render(
+			$template,
+			[
+				'vars' => $vars,
+				'entity' => $entity,
+				//'form' => $form->createView(),
+			]
+		);
+	}
 
 }

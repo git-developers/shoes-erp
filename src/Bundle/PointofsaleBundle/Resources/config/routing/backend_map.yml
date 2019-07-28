@@ -18,3 +18,24 @@ backend_pointofsale_map_index:
                 service: tianos.repository.pointofsale
                 method: findAll
                 arguments: [$pointofsaleId]
+
+backend_pointofsale_map_info:
+    path: /info
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.pointofsale.map:infoAction
+        _tianos:
+            action: index
+            template: PointofsaleBundle:BackendPointofsale/Map:info.html.twig
+            entity: Bundle\PointofsaleBundle\Entity\Pointofsale
+            vars:
+                subheader: sylius.ui.manage_your_pointofsale_catalog
+                icon: cube
+                body_css: grid-body-css
+                serialize_group_name: crud
+            form:
+                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
+            repository:
+                service: tianos.repository.pointofsale
+                method: find
+                arguments: [$pointofsaleId]

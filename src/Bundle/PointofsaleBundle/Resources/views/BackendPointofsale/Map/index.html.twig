@@ -4,11 +4,34 @@
     {{ parent() }}
 
     <style>
-        #map {
-            height: 1000px;
+        #container {
             width: 100%;
+            height: 1000px;
             margin: 0px;
-            padding: 0px
+            padding: 0px;
+            position: relative;
+        }
+        #map {
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #info {
+            z-index: 10;
+            width: 40%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: white;
+        }
+
+        .invoice {
+            margin: 0px !important;
+            height: 100%;
         }
     </style>
 
@@ -45,6 +68,7 @@
                         '<h1 id="firstHeading" class="firstHeading">{{ pdv.name }}</h1>'+
                         '<div id="bodyContent">'+
                         '<p>{{ pdv.address }}</p>'+
+                        '<p><button class="btn btn-default pull-right btn-pdv" data-id="{{ pdv.id }}">info</button></p>'+
                         '</div>'+
                         '</div>';
 
@@ -75,6 +99,44 @@
 
             {% endfor %}
         }
+
+        $(document).on('click', '.btn-close', function() {
+            $("#info").animate({ width: 'hide' });
+        });
+
+        $(document).on('click', '.btn-pdv', function() {
+
+            var info = $("#info");
+
+            $.ajax({
+                url: '{{ path('backend_pointofsale_map_info') }}',
+                type: 'POST',
+                dataType: 'html',
+                data: {
+                    id: $(this).data('id')
+                },
+                beforeSend: function(jqXHR, settings) {
+                    info.animate({ width: 'show' });
+                    info.html('<div style="position: absolute; top: 40%; left: 47%;"><i class="fa fa-3x fa-refresh fa-spin"></i></div>');
+                },
+                success: function(data, textStatus, jqXHR) {
+                    info.html(data);
+                },
+                error: function(jqXHR, exception) {
+                    info.html('<div style="position: absolute; top: 40%; left: 47%;"><i class="fa fa-2x fa-warning"></i> Volver a internar.</div>');
+                }
+            });
+
+            /*
+            if(info.is(':visible')) {
+                info.animate({ width: 'hide' });
+            } else {
+                info.animate({ width: 'show' });
+            }
+            */
+
+        });
+
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key={{ application_google_api_key }}&callback=initMap"></script>
@@ -83,7 +145,10 @@
 
 {% block content %}
 
-    <div id="map"></div>
+    <div id="container">
+        <div id="map"></div>
+        <div id="info" style="display: none"></div>
+    </div>
 
 {% endblock %}
 

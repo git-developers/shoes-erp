@@ -1,0 +1,93 @@
+<section class="invoice">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 class="page-header">
+                <i class="fa fa-globe"></i> Punto de venta
+                <small class="pull-right">Creado: {{ entity.createdAt|date('Y-m-d H:i') }}</small>
+            </h2>
+        </div>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row invoice-info">
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th style="width:50%">Id:</th>
+                            <td>
+                                <span class="badge bg-light-blue-active">
+                                    {{ entity.id }}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Nombre:</th>
+                            <td>{{ entity.nameBox }}</td>
+                        </tr>
+                        <tr>
+                            <th>Dirección:</th>
+                            <td>{{ entity.address }}</td>
+                        </tr>
+                        <tr>
+                            <th>Latitude:</th>
+                            <td>{{ entity.latitude }}</td>
+                        </tr>
+                        <tr>
+                            <th>Longitude:</th>
+                            <td>{{ entity.longitude }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Qty</th>
+                    <th>Producto</th>
+                    <th># Serie</th>
+                    <th>Descripcion</th>
+                    <th>Sub total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Producto 1</td>
+                    <td>455-981-221</td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                    <td>S/ 64.50</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Producto 2</td>
+                    <td>247-925-726</td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                    <td>S/ 50.00</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+    <div class="row no-print">
+        <div class="col-xs-12">
+            <button class="btn btn-default pull-right btn-close">
+                <i class="fa fa-close"></i> Cerrar
+            </button>
+        </div>
+    </div>
+</section>

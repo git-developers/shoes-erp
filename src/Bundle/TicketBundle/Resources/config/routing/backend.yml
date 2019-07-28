@@ -89,9 +89,19 @@ backend_ticket_index:
                               title: '<i class="fa fa-fw fa-feed"></i> Cliente'
                               className:
                               filter: 1
-                        - obj: obj.created_at
+                        - obj: obj.point_of_sale
+                          options:
+                              property: " return (obj.point_of_sale) ? obj.point_of_sale.name : '' "
                           defs:
                               targets: 5
+                              orderable: 1
+                              sorting: 1
+                              title: '<i class="fa fa-fw fa-map-marker"></i> Punto de venta'
+                              className:
+                              filter: 1
+                        - obj: obj.created_at
+                          defs:
+                              targets: 6
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
             form:
@@ -101,7 +111,7 @@ backend_ticket_index:
                 method: findAll
                 arguments: [$ticketId]
                 vars:
-                    serialize_group_name: crud
+                    serialize_group_name: ticket
 
 backend_ticket_create_internal:
     path: /create-internal

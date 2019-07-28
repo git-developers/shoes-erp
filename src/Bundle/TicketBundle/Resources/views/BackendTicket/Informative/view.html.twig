@@ -151,6 +151,39 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>
+                        <i class="fa fa-fw fa-map-marker margin-r-5"></i> Punto de venta
+                    </strong>
+
+                    <table class="table table-striped table-bordered no-padding">
+                        <thead>
+                            <tr class="bg-light-blue">
+                                <th class="text-center" style="width: 10px">#</th>
+                                <th class="text-center">Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if entity.pointOfSale is not null %}
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-blue">{{ entity.pointOfSale.id }}</span>
+                                    </td>
+                                    <td>
+                                        {{ entity.pointOfSale.name }}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="2">Sin PDV seleccionado.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 {% endblock %}

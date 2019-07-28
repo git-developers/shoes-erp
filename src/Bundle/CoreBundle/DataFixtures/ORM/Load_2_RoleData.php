@@ -14,6 +14,7 @@ use Bundle\PointofsaleBundle\Entity\Pointofsale;
 use Bundle\CategoryBundle\Entity\Category;
 use Bundle\TicketBundle\Entity\Ticket;
 use Bundle\ProductBundle\Entity\Product;
+use Bundle\TicketBundle\Entity\PaymentType;
 
 
 class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
@@ -302,6 +303,44 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setGroupRolTag('group-product');
         $manager->persist($entity);
         $this->addReference('role-product-delete', $entity);
+
+
+
+
+        /**
+         * PAYMENT TYPE
+         */
+	    $entity = new Role();
+	    $entity->setName('PaymentType view');
+	    $entity->setSlug(PaymentType::ROLE_PAYMENT_TYPE_VIEW);
+	    $entity->setGroupRol('Tipo de pago');
+	    $entity->setGroupRolTag('group-paymenttype');
+	    $manager->persist($entity);
+	    $this->addReference('role-paymenttype-view', $entity);
+        
+        $entity = new Role();
+        $entity->setName('PaymentType create');
+        $entity->setSlug(PaymentType::ROLE_PAYMENT_TYPE_CREATE);
+        $entity->setGroupRol('Tipo de pago');
+        $entity->setGroupRolTag('group-paymenttype');
+        $manager->persist($entity);
+        $this->addReference('role-paymenttype-create', $entity);
+
+        $entity = new Role();
+        $entity->setName('PaymentType edit');
+        $entity->setSlug(PaymentType::ROLE_PAYMENT_TYPE_EDIT);
+        $entity->setGroupRol('Tipo de pago');
+        $entity->setGroupRolTag('group-paymenttype');
+        $manager->persist($entity);
+        $this->addReference('role-paymenttype-edit', $entity);
+
+        $entity = new Role();
+        $entity->setName('PaymentType delete');
+        $entity->setSlug(PaymentType::ROLE_PAYMENT_TYPE_DELETE);
+        $entity->setGroupRol('Tipo de pago');
+        $entity->setGroupRolTag('group-paymenttype');
+        $manager->persist($entity);
+        $this->addReference('role-paymenttype-delete', $entity);
 
 
 

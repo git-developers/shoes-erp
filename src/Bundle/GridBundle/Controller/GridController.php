@@ -126,8 +126,19 @@ class GridController extends BaseController
         $action = $configuration->getAction();
         $formType = $configuration->getFormType();
         $vars = $configuration->getVars();
+	    $rolesAllow = $configuration->getRolesAllow();
         $entity = $configuration->getEntity();
         $entity = new $entity();
+	
+	    //IS_GRANTED
+	    if (!$this->isGranted($rolesAllow)) {
+		    return $this->render(
+			    "GridBundle::error.html.twig",
+			    [
+				    'message' => self::ACCESS_DENIED_MSG,
+			    ]
+		    );
+	    }
 
         $form = $this->createForm($formType, $entity, ['form_data' => []]);
         $form->handleRequest($request);
@@ -199,8 +210,19 @@ class GridController extends BaseController
         $method = $configuration->getRepositoryMethod();
         $template = $configuration->getTemplate('');
         $action = $configuration->getAction();
+	    $rolesAllow = $configuration->getRolesAllow();
         $formType = $configuration->getFormType();
         $vars = $configuration->getVars();
+	
+	    //IS_GRANTED
+	    if (!$this->isGranted($rolesAllow)) {
+		    return $this->render(
+			    "GridBundle::error.html.twig",
+			    [
+				    'message' => self::ACCESS_DENIED_MSG,
+			    ]
+		    );
+	    }
 
         //REPOSITORY
         $id = $request->get('id');
@@ -279,7 +301,18 @@ class GridController extends BaseController
         $configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
         $template = $configuration->getTemplate('');
         $action = $configuration->getAction();
-
+	    $rolesAllow = $configuration->getRolesAllow();
+	
+	    //IS_GRANTED
+	    if (!$this->isGranted($rolesAllow)) {
+		    return $this->render(
+			    "GridBundle::error.html.twig",
+			    [
+				    'message' => self::ACCESS_DENIED_MSG,
+			    ]
+		    );
+	    }
+	    
         $errors = [];
         $status = self::STATUS_ERROR;
         $id = $request->get('id');
@@ -338,6 +371,17 @@ class GridController extends BaseController
         $configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
         $template = $configuration->getTemplate('');
         $action = $configuration->getAction();
+	    $rolesAllow = $configuration->getRolesAllow();
+	
+	    //IS_GRANTED
+	    if (!$this->isGranted($rolesAllow)) {
+		    return $this->render(
+			    "GridBundle::error.html.twig",
+			    [
+				    'message' => self::ACCESS_DENIED_MSG,
+			    ]
+		    );
+	    }
 
         //REPOSITORY
         $id = $request->get('id');
@@ -473,40 +517,3 @@ class GridController extends BaseController
 }
 
 
-/*
-Component\Resource\Metadata\Metadata Object
-(
-[name:Component\Resource\Metadata\Metadata:private] => product
-[applicationName:Component\Resource\Metadata\Metadata:private] => sylius
-[driver:Component\Resource\Metadata\Metadata:private] => doctrine/orm
-[templatesNamespace:Component\Resource\Metadata\Metadata:private] =>
-[parameters:Component\Resource\Metadata\Metadata:private] => Array
-(
-    [driver] => doctrine/orm
-    [classes] => Array
-        (
-            [model] => Component\Core\Model\CRUD_DUMMY
-            [repository] => Bundle\CoreBundle\Doctrine\ORM\CRUD_DUMMYRepository
-            [interface] => Component\CRUD_DUMMY\Model\CRUD_DUMMYInterface
-            [controller] => Bundle\ResourceBundle\Controller\ResourceController
-            [factory] => Component\Resource\Factory\TranslatableFactory
-            [form] => Bundle\CRUDDUMMYBundle\Form\Type\CRUD_DUMMYType
-        )
-
-    [translation] => Array
-        (
-            [classes] => Array
-                (
-                    [model] => Component\Core\Model\CRUD_DUMMYTranslation
-                    [interface] => Component\CRUD_DUMMY\Model\CRUD_DUMMYTranslationInterface
-                    [controller] => Bundle\ResourceBundle\Controller\ResourceController
-                    [factory] => Component\Resource\Factory\Factory
-                    [form] => Bundle\CRUDDUMMYBundle\Form\Type\CRUD_DUMMYTranslationType
-                )
-
-        )
-
-)
-
-)
- */

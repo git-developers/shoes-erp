@@ -93,7 +93,7 @@
                             .node();
 
                         modal.modal('hide');
-                    }else{
+                    } else {
                         var items = [];
                         $(data.errors).each(function(key, value) {
                             items.push($('<li/>').text(value));
@@ -102,7 +102,6 @@
                         modalMsgText.html(items);
                         modalMsgDiv.show();
                     }
-
                 },
                 error: function(jqXHR, exception) {
                     $('button[type="submit"]').prop('disabled', false);

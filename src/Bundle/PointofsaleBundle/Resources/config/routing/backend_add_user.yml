@@ -137,6 +137,8 @@ backend_super_user_change_password:
             action: edit
             template: UserBundle:Backend/Form:change_password.html.twig
             entity: Bundle\UserBundle\Entity\ChangePassword2
+            roles_allow:
+                - ROLE_PDV_VIEW
             form:
                 type: Bundle\UserBundle\Form\Type\UserChangePasswordType2
             repository:
@@ -155,6 +157,8 @@ backend_super_pointofsale_add_user_create:
             action: create
             template: UserBundle:Backend/Form:form.html.twig
             entity: Bundle\UserBundle\Entity\User
+            roles_allow:
+                - ROLE_PDV_CREATE
             form:
                 type: Bundle\UserBundle\Form\Type\UserType
             repository:
@@ -169,6 +173,8 @@ backend_super_pointofsale_add_user_edit:
         _tianos:
             action: edit
             template: UserBundle:Backend/Form:form.html.twig
+            roles_allow:
+                - ROLE_PDV_EDIT
             form:
                 type: Bundle\UserBundle\Form\Type\UserType
             repository:
@@ -186,6 +192,8 @@ backend_super_pointofsale_add_user_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
+            roles_allow:
+                - ROLE_PDV_DELETE
             repository:
                 service: tianos.repository.user
                 method: find
@@ -201,6 +209,8 @@ backend_super_pointofsale_add_user_view:
         _tianos:
             action: view
             template: UserBundle:Backend/Informative:view.html.twig
+            roles_allow:
+                - ROLE_PDV_VIEW
             repository:
                 service: tianos.repository.user
                 method: find

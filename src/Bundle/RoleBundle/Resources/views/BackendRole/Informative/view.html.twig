@@ -18,29 +18,13 @@
 
             <hr>
 
-            {#
             <strong>
-                <i class="fa fa-pencil margin-r-5"></i> Skills
+                <i class="fa fa-calendar margin-r-5"></i> Creado
             </strong>
 
-            <p>
-                <span class="label label-danger">UI Design</span>
-                <span class="label label-success">Coding</span>
-                <span class="label label-info">Javascript</span>
-                <span class="label label-warning">PHP</span>
-                <span class="label label-primary">Node.js</span>
+            <p class="text-muted">
+                {{ entity.createdAt|date('Y-m-d H:i') }}
             </p>
-
-            <hr>
-
-
-            <strong>
-                <i class="fa fa-file-text-o margin-r-5"></i> Notes
-            </strong>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-
-            #}
 
         </div>
     </div>

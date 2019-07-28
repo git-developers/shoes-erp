@@ -39,7 +39,7 @@ class Load_19_PaymentTypeData extends AbstractFixture implements OrderedFixtureI
         
         $entity = new PaymentType();
 	    $entity->setCode('004');
-	    $entity->setName('Creedito');
+	    $entity->setName('Credito');
         $manager->persist($entity);
         
         $entity = new PaymentType();

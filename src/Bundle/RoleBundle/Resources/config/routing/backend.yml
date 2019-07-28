@@ -93,6 +93,8 @@ backend_role_create:
             action: create
             template: RoleBundle:BackendRole/Form:form.html.twig
             entity: Bundle\RoleBundle\Entity\Role
+            roles_allow:
+                - ROLE_PROFILE_CREATE
             form:
                 type: Bundle\RoleBundle\Form\Type\RoleType
             repository:
@@ -107,6 +109,8 @@ backend_role_edit:
         _tianos:
             action: edit
             template: RoleBundle:BackendRole/Form:form.html.twig
+            roles_allow:
+                - ROLE_PROFILE_EDIT
             form:
                 type: Bundle\RoleBundle\Form\Type\RoleType
             repository:
@@ -124,6 +128,8 @@ backend_role_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
+            roles_allow:
+                - ROLE_PROFILE_DELETE
             repository:
                 service: tianos.repository.role
                 method: find
@@ -139,6 +145,8 @@ backend_role_view:
         _tianos:
             action: view
             template: RoleBundle:BackendRole/Informative:view.html.twig
+            roles_allow:
+                - ROLE_PROFILE_VIEW
             repository:
                 service: tianos.repository.role
                 method: find

@@ -89,6 +89,8 @@ backend_profile_create:
             action: create
             template: ProfileBundle:BackendProfile/Form:form.html.twig
             entity: Bundle\ProfileBundle\Entity\Profile
+            roles_allow:
+                - ROLE_PROFILE_CREATE
             form:
                 type: Bundle\ProfileBundle\Form\Type\ProfileType
             repository:
@@ -103,6 +105,8 @@ backend_profile_edit:
         _tianos:
             action: edit
             template: ProfileBundle:BackendProfile/Form:form.html.twig
+            roles_allow:
+                - ROLE_PROFILE_EDIT
             form:
                 type: Bundle\ProfileBundle\Form\Type\ProfileType
             repository:
@@ -120,6 +124,8 @@ backend_profile_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
+            roles_allow:
+                - ROLE_PROFILE_DELETE
             repository:
                 service: tianos.repository.profile
                 method: find
@@ -135,6 +141,8 @@ backend_profile_view:
         _tianos:
             action: view
             template: ProfileBundle:BackendProfile/Informative:view.html.twig
+            roles_allow:
+                - ROLE_PROFILE_VIEW
             repository:
                 service: tianos.repository.profile
                 method: find

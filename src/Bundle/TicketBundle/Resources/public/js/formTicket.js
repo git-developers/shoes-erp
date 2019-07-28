@@ -22,21 +22,63 @@
             var totalButtons = 0;
         };
 
+
+        /*
+        ticket[_token]:q_2W_fdTbTrZ87qtxNREklx3WMLQy0V3JCBdART3Jf8
+        cc5dc98_formTicket_4.js:30 ticket[client]:
+        cc5dc98_formTicket_4.js:30 ticket[paymentType]:4
+        cc5dc98_formTicket_4.js:30 ticket[code]:
+        cc5dc98_formTicket_4.js:30 ticket[name]:
+        */
+
+
+
+
         base.validate = function() {
 
+            var msg;
+            var errors = 0;
+            var message = $('div.ticket-message');
             var fields = $("form[name='" + options.formName + "']").serializeArray();
 
-            $.each(fields, function(i, field){
-                console.dir(field.name + ":" + field.value + " ");
+            $.each(fields, function(i, field) {
+
+                if (field.value == "") {
+
+                    errors++;
+
+                    switch(field.name) {
+                        case "ticket[client]":
+                            msg = 'Seleccione un cliente.';
+                            break;
+                        case "ticket[paymentType]":
+                            msg = 'Seleccione un tipo de pago.';
+                            break;
+                        case "ticket[code]":
+                            msg = 'Ingrese un código.';
+                            break;
+                        case "ticket[name]":
+                            msg = 'Ingrese una descripción.';
+                            break;
+                    }
+
+                    message.find('p').html('<i class="icon fa fa-warning"></i> ' + msg);
+                    message.removeClass("callout-primary").addClass("callout-warning");
+
+                    setTimeout(function() {
+                        message.removeClass("callout-warning").addClass("callout-primary");
+                        message.find('p').html(msg_default);
+                    }, 2000);
+                }
             });
+
+            return errors;
         }
 
         base.submit = function(event) {
 
             var message = $('div.ticket-message');
             var fields = $("form[name='" + options.formName + "']").serialize();
-
-            console.dir("fields ::: " + fields);
 
             $.ajax({
                 url: options.route,
@@ -87,8 +129,13 @@
 
             $(document).on('submit', "form[name='" + options.formName + "']" , function(event) {
                 event.preventDefault();
-                bp.validate();
-                //bp.submit(event);
+
+                var validate = bp.validate();
+
+                if (validate <= 0) {
+                    bp.submit(event);
+                }
+
             });
 
         });

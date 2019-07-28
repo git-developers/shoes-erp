@@ -9,7 +9,7 @@ backend_paymenttype_index:
             permission: true
             template: GridBundle::index.html.twig
             roles_allow:
-                - ROLE_PROFILE_VIEW
+                - ROLE_PAYMENT_TYPE_VIEW
             vars:
                 subheader: sylius.ui.manage_your_role_catalog
                 icon: cube
@@ -106,6 +106,8 @@ backend_paymenttype_create:
             action: create
             template: TicketBundle:PaymentType/Form:form.html.twig
             entity: Bundle\TicketBundle\Entity\PaymentType
+            roles_allow:
+                - ROLE_PAYMENT_TYPE_CREATE
             form:
                 type: Bundle\TicketBundle\Form\Type\PaymentType
             repository:
@@ -120,6 +122,8 @@ backend_paymenttype_edit:
         _tianos:
             action: edit
             template: TicketBundle:PaymentType/Form:form.html.twig
+            roles_allow:
+                - ROLE_PAYMENT_TYPE_EDIT
             form:
                 type: Bundle\TicketBundle\Form\Type\PaymentType
             repository:
@@ -137,6 +141,8 @@ backend_paymenttype_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
+            roles_allow:
+                - ROLE_PAYMENT_TYPE_DELETE
             repository:
                 service: tianos.repository.payment.type
                 method: find
@@ -152,6 +158,8 @@ backend_paymenttype_view:
         _tianos:
             action: view
             template: TicketBundle:PaymentType/Informative:view.html.twig
+            roles_allow:
+                - ROLE_PAYMENT_TYPE_VIEW
             repository:
                 service: tianos.repository.payment.type
                 method: find

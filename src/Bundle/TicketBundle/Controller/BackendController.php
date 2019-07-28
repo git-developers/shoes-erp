@@ -287,28 +287,28 @@ class BackendController extends GridController
 				if (empty($ticket->client)) {
 					return $this->json([
 						'status' => false,
-						'message' => '<i class="icon fa fa-warning"></i> Seleccione un cliente.'
+						'message' => 'Seleccione un cliente.'
 					]);
 				}
 				
 				if (empty($products)) {
 					return $this->json([
 						'status' => false,
-						'message' => '<i class="icon fa fa-warning"></i> Seleccione al menos un producto.'
+						'message' => 'Agrege un producto.'
 					]);
 				}
 				
 				if (empty($ticket->name)) {
 					return $this->json([
 						'status' => false,
-						'message' => '<i class="icon fa fa-warning"></i> Ingrese una descripcion.'
+						'message' => 'Ingrese una descripcion.'
 					]);
 				}
 				
 				if (empty($ticket->paymentType)) {
 					return $this->json([
 						'status' => false,
-						'message' => '<i class="icon fa fa-warning"></i> Seleccione un tipo de pago.'
+						'message' => 'Seleccione un tipo de pago.'
 					]);
 				}
 				

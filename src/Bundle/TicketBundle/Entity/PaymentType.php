@@ -11,10 +11,16 @@ use JMS\Serializer\Annotation\Type as TypeJMS;
 /**
  * PaymentType
  *
- * @ORM\Entity
  */
 class PaymentType
 {
+	
+	const ROLE_PAYMENT_TYPE_VIEW = 'ROLE_PAYMENT_TYPE_VIEW';
+	const ROLE_PAYMENT_TYPE_CREATE = 'ROLE_PAYMENT_TYPE_CREATE';
+	const ROLE_PAYMENT_TYPE_EDIT = 'ROLE_PAYMENT_TYPE_EDIT';
+	const ROLE_PAYMENT_TYPE_DELETE = 'ROLE_PAYMENT_TYPE_DELETE';
+	
+	
     /**
      * @var integer
      *
@@ -37,7 +43,10 @@ class PaymentType
     /**
      * @var string
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "ticket"
+     * })
      */
     private $name;
 

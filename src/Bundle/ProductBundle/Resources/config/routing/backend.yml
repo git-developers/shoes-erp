@@ -136,6 +136,8 @@ backend_product_create:
             action: create
             template: ProductBundle:BackendProduct/Form:form.html.twig
             entity: Bundle\ProductBundle\Entity\Product
+            roles_allow:
+                - ROLE_PRODUCT_CREATE
             form:
                 type: Bundle\ProductBundle\Form\Type\ProductType
             repository:
@@ -150,6 +152,8 @@ backend_product_edit:
         _tianos:
             action: edit
             template: ProductBundle:BackendProduct/Form:form.html.twig
+            roles_allow:
+                - ROLE_PRODUCT_EDIT
             form:
                 type: Bundle\ProductBundle\Form\Type\ProductType
             repository:
@@ -167,6 +171,8 @@ backend_product_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
+            roles_allow:
+                - ROLE_PRODUCT_DELETE
             repository:
                 service: tianos.repository.product
                 method: find
@@ -182,6 +188,8 @@ backend_product_view:
         _tianos:
             action: view
             template: ProductBundle:BackendProduct/Informative:view.html.twig
+            roles_allow:
+                - ROLE_PRODUCT_VIEW
             repository:
                 service: tianos.repository.product
                 method: find

@@ -26,7 +26,7 @@ class Ticket
     /**
      * @var integer
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({"ticket"})
      */
     private $id;
 
@@ -38,7 +38,7 @@ class Ticket
 	/**
 	 * @var \DateTime
 	 *
-	 * @JMSS\Groups({"crud"})
+	 * @JMSS\Groups({"ticket"})
 	 * @JMSS\Type("DateTime<'Y-m-d H:i'>")
 	 */
 	private $dateTicket;
@@ -46,7 +46,7 @@ class Ticket
     /**
      * @var string
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({"ticket"})
      */
     private $name;
 
@@ -58,14 +58,14 @@ class Ticket
     /**
      * @var string
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({"ticket"})
      */
     private $ticketType;
 
     /**
      * @var \DateTime
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({"ticket"})
      * @JMSS\Type("DateTime<'Y-m-d H:i'>")
      */
     private $createdAt;
@@ -98,7 +98,7 @@ class Ticket
 	 *   @ORM\JoinColumn(name="payment_type_id", referencedColumnName="id")
 	 * })
 	 *
-	 * @JMSS\Groups({"crud"})
+	 * @JMSS\Groups({"ticket"})
 	 */
 	private $paymentType;
 	
@@ -110,7 +110,7 @@ class Ticket
 	 *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
 	 * })
 	 *
-	 * @JMSS\Groups({"crud"})
+	 * @JMSS\Groups({"ticket"})
 	 */
 	private $client;
 	
@@ -127,7 +127,7 @@ class Ticket
 	 *   }
 	 * )
 	 *
-	 * @JMSS\Groups({"crud"})
+	 * @JMSS\Groups({"ticket"})
 	 */
 	private $employee;
 	
@@ -138,6 +138,8 @@ class Ticket
 	 * @ORM\JoinColumns({
 	 *   @ORM\JoinColumn(name="point_of_sale_id", referencedColumnName="id")
 	 * })
+	 *
+	 * @JMSS\Groups({"ticket"})
 	 */
 	private $pointOfSale;
 	

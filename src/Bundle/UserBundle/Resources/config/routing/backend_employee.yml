@@ -132,6 +132,8 @@ backend_user_employee_create:
             action: create
             template: UserBundle:Backend/Form:form.html.twig
             entity: Bundle\UserBundle\Entity\User
+            roles_allow:
+                - ROLE_EMPLOYEE_CREATE
             form:
                 type: Bundle\UserBundle\Form\Type\UserEmployeeType
             repository:
@@ -146,6 +148,8 @@ backend_user_employee_edit:
         _tianos:
             action: edit
             template: UserBundle:Backend/Form:form.html.twig
+            roles_allow:
+                - ROLE_EMPLOYEE_EDIT
             form:
                 type: Bundle\UserBundle\Form\Type\UserEmployeeType
             repository:
@@ -163,6 +167,8 @@ backend_user_employee_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
+            roles_allow:
+                - ROLE_EMPLOYEE_DELETE
             repository:
                 service: tianos.repository.user
                 method: find
@@ -178,6 +184,8 @@ backend_user_employee_view:
         _tianos:
             action: view
             template: UserBundle:Backend/Informative:view_employee.html.twig
+            roles_allow:
+                - ROLE_EMPLOYEE_VIEW
             repository:
                 service: tianos.repository.user
                 method: find

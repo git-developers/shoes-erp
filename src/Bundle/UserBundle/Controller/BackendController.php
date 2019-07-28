@@ -51,8 +51,19 @@ class BackendController extends GridController
 		$action = $configuration->getAction();
 		$formType = $configuration->getFormType();
 		$vars = $configuration->getVars();
+		$rolesAllow = $configuration->getRolesAllow();
 		$entity = $configuration->getEntity();
 		$entity = new $entity();
+		
+		//IS_GRANTED
+		if (!$this->isGranted($rolesAllow)) {
+			return $this->render(
+				"GridBundle::error.html.twig",
+				[
+					'message' => self::ACCESS_DENIED_MSG,
+				]
+			);
+		}
 		
 		$form = $this->createForm($formType, $entity, ['form_data' => []]);
 		$form->handleRequest($request);

@@ -55,6 +55,11 @@ class Load_3_ProfileData extends AbstractFixture implements OrderedFixtureInterf
 	    $roleEmployeeCreate = $this->getReference('role-employee-create');
 	    $roleEmployeeEdit = $this->getReference('role-employee-edit');
 	    $roleEmployeeDelete = $this->getReference('role-employee-delete');
+	
+	    $rolePaymentTypeView = $this->getReference('role-paymenttype-view');
+	    $rolePaymentTypeCreate = $this->getReference('role-paymenttype-create');
+	    $rolePaymentTypeEdit = $this->getReference('role-paymenttype-edit');
+	    $rolePaymentTypeDelete = $this->getReference('role-paymenttype-delete');
 
 
         $entity = new Profile();
@@ -102,6 +107,11 @@ class Load_3_ProfileData extends AbstractFixture implements OrderedFixtureInterf
         $entity->addRole($roleEmployeeCreate);
         $entity->addRole($roleEmployeeEdit);
         $entity->addRole($roleEmployeeDelete);
+        
+        $entity->addRole($rolePaymentTypeView);
+        $entity->addRole($rolePaymentTypeCreate);
+        $entity->addRole($rolePaymentTypeEdit);
+        $entity->addRole($rolePaymentTypeDelete);
         
         
         $manager->persist($entity);

@@ -22,6 +22,15 @@
             var totalButtons = 0;
         };
 
+        base.validate = function() {
+
+            var fields = $("form[name='" + options.formName + "']").serializeArray();
+
+            $.each(fields, function(i, field){
+                console.dir(field.name + ":" + field.value + " ");
+            });
+        }
+
         base.submit = function(event) {
 
             var message = $('div.ticket-message');
@@ -78,7 +87,8 @@
 
             $(document).on('submit', "form[name='" + options.formName + "']" , function(event) {
                 event.preventDefault();
-                bp.submit(event);
+                bp.validate();
+                //bp.submit(event);
             });
 
         });

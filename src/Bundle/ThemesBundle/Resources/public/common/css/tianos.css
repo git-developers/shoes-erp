@@ -177,3 +177,17 @@ div.product-color {
     display: block;
     margin: 4px auto 0px auto !important;
 }
+
+.fa-1-4x {
+    font-size: 1.4em;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.callout.callout-primary {
+    background-color: #3c8dbc;
+    border-color: #367fa9;
+    color: #fff !important;
+}

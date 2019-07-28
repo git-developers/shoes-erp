@@ -22,11 +22,22 @@ services:
         tags:
             - { name: tianos.backend.controller.ticket, alias: tianos.backend.controller.ticket }
 
+    tianos.backend.controller.payment.type:
+        class: Bundle\TicketBundle\Controller\PaymentTypeController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.paymentType, alias: tianos.backend.controller.paymentType }
+
     tianos.frontend.controller.ticket:
         class: Bundle\TicketBundle\Controller\FrontendController
         arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
         tags:
             - { name: tianos.frontend.controller.ticket, alias: tianos.frontend.controller.ticket }
+
+    tianos.repository.payment.type:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\TicketBundle\Entity\PaymentType ]
 
     tianos.repository.ticket:
         class: Dummy

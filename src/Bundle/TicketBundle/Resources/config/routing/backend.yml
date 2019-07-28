@@ -54,25 +54,37 @@ backend_ticket_index:
                               width: 4%
                               title: '#'
                               className: modal-view text-center
-                        - obj: obj.name
+                        - obj: obj.ticket_type
+                          options:
+                              icon: imagen
+                              property: " return (obj.ticket_type == 'EXTERNO') ? '<span class=\"badge bg-green\">' + obj.ticket_type + '</span>' : '<span class=\"badge bg-orange\">' + obj.ticket_type + '</span>' "
                           defs:
                               targets: 1
+                              orderable: 1
+                              sorting: 1
+                              title: Tipo
+                              width: 10%
+                              className:
+                              filter: 1
+                        - obj: obj.name
+                          defs:
+                              targets: 2
                               orderable: 1
                               sorting: 1
                               title: Nombre servicio
                               className:
                               filter: 1
-                        - obj: obj.client.name + ' ' + obj.client.last_name
+                        - obj: obj.client.name_box
                           defs:
-                              targets: 2
+                              targets: 3
                               orderable: 1
                               sorting: 1
-                              title: Cliente
+                              title: '<i class="fa fa-fw fa-feed"></i> Cliente'
                               className:
                               filter: 1
                         - obj: obj.created_at
                           defs:
-                              targets: 3
+                              targets: 4
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
             form:

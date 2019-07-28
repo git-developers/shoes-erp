@@ -28,6 +28,9 @@ backend_services:
 backend_ticket:
     resource: '@TicketBundle/Resources/config/routing/backend.yml'
     prefix: /ticket
+backend_paymenttype:
+    resource: '@TicketBundle/Resources/config/routing/backend_paymenttype.yml'
+    prefix: /payment-type
 backend_report:
     resource: '@ReportBundle/Resources/config/routing/backend.yml'
     prefix: /report

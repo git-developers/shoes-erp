@@ -19,6 +19,9 @@ class Ticket
 	const ROLE_TICKET_EDIT = 'ROLE_TICKET_EDIT';
 	const ROLE_TICKET_DELETE = 'ROLE_TICKET_DELETE';
 	
+	const INTERNO = 'INTERNO';
+	const EXTERNO = 'EXTERNO';
+	
 	
     /**
      * @var integer
@@ -53,6 +56,13 @@ class Ticket
     private $slug;
 
     /**
+     * @var string
+     *
+     * @JMSS\Groups({"crud"})
+     */
+    private $ticketType;
+
+    /**
      * @var \DateTime
      *
      * @JMSS\Groups({"crud"})
@@ -82,6 +92,19 @@ class Ticket
 	
 	
 	/**
+	 * @var \Bundle\TicketBundle\Entity\PaymentType
+	 *
+	 * @ORM\ManyToOne(targetEntity="Bundle\TicketBundle\Entity\PaymentType")
+	 * @ORM\JoinColumns({
+	 *   @ORM\JoinColumn(name="payment_type_id", referencedColumnName="id")
+	 * })
+	 *
+	 * @JMSS\Groups({"crud"})
+	 */
+	private $paymentType;
+	
+	
+	/**
 	 * @var \Bundle\UserBundle\Entity\User
 	 *
 	 * @ORM\ManyToOne(targetEntity="Bundle\UserBundle\Entity\User")
@@ -105,8 +128,20 @@ class Ticket
 	 *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
 	 *   }
 	 * )
+	 *
+	 * @JMSS\Groups({"crud"})
 	 */
 	private $employee;
+	
+	/**
+	 * @var \Bundle\PointofsaleBundle\Entity\Pointofsale
+	 *
+	 * @ORM\ManyToOne(targetEntity="Bundle\PointofsaleBundle\Entity\Pointofsale")
+	 * @ORM\JoinColumns({
+	 *   @ORM\JoinColumn(name="point_of_sale_id", referencedColumnName="id")
+	 * })
+	 */
+	private $pointOfSale;
 	
 	/**
 	 * Constructor
@@ -173,6 +208,22 @@ class Ticket
     {
         return $this->name;
     }
+	
+	/**
+	 * @return string
+	 */
+	public function getTicketType() //: string
+	{
+		return $this->ticketType;
+	}
+	
+	/**
+	 * @param string $ticketType
+	 */
+	public function setTicketType(string $ticketType)
+	{
+		$this->ticketType = $ticketType;
+	}
 
     /**
      * Set slug
@@ -361,6 +412,28 @@ class Ticket
 	}
 	
 	/**
+	 * @return PaymentType
+	 *
+	 * @return \Bundle\TicketBundle\Entity\PaymentType
+	 */
+	public function getPaymentType() //: PaymentType
+	{
+		return $this->paymentType;
+	}
+	
+	/**
+	 * @param PaymentType $paymentType
+	 *
+	 * @param \Bundle\TicketBundle\Entity\PaymentType $paymentType
+	 *
+	 * @return Ticket
+	 */
+	public function setPaymentType(\Bundle\TicketBundle\Entity\PaymentType $paymentType)
+	{
+		$this->paymentType = $paymentType;
+	}
+	
+	/**
 	 * Add employee
 	 *
 	 * @param \Bundle\UserBundle\Entity\User $employee
@@ -394,5 +467,28 @@ class Ticket
 		return $this->employee;
 	}
 	
+	/**
+	 * Set pointOfSale
+	 *
+	 * @param \Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale
+	 *
+	 * @return Ticket
+	 */
+	public function setPointOfSale(\Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale = null)
+	{
+		$this->pointOfSale = $pointOfSale;
+		
+		return $this;
+	}
+	
+	/**
+	 * Get pointOfSale
+	 *
+	 * @return \Bundle\PointofsaleBundle\Entity\Pointofsale
+	 */
+	public function getPointOfSale()
+	{
+		return $this->pointOfSale;
+	}
 }
 

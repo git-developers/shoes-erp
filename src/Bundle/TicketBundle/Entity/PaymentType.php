@@ -2,17 +2,18 @@
 	
 declare(strict_types=1);
 
-namespace Bundle\ProductBundle\Entity;
+namespace Bundle\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMSS;
 use JMS\Serializer\Annotation\Type as TypeJMS;
 
 /**
- * Unit
+ * PaymentType
  *
+ * @ORM\Entity
  */
-class Unit
+class PaymentType
 {
     /**
      * @var integer
@@ -20,6 +21,18 @@ class Unit
      * @JMSS\Groups({"crud"})
      */
     private $id;
+	
+	/**
+	 * @var string
+	 */
+	private $code;
+	
+	/**
+	 * @var string
+	 *
+	 * @JMSS\Groups({"crud"})
+	 */
+	private $slug;
 
     /**
      * @var string
@@ -31,6 +44,8 @@ class Unit
     /**
      * @var \DateTime
      *
+     * @JMSS\Groups({"crud"})
+     * @JMSS\Type("DateTime<'Y-m-d H:i'>")
      */
     private $createdAt;
 
@@ -44,7 +59,7 @@ class Unit
      * @var boolean
      *
      */
-    private $isActive;
+	private $isActive = true;
 	
 	public function __toString() {
 		return sprintf('(%s) %s', $this->id, $this->name);
@@ -65,7 +80,7 @@ class Unit
      *
      * @param string $name
      *
-     * @return Unit
+     * @return PaymentType
      */
     public function setName($name)
     {
@@ -83,13 +98,45 @@ class Unit
     {
         return $this->name;
     }
-
+	
+	/**
+	 * @return string
+	 */
+	public function getCode() //: string
+	{
+		return $this->code;
+	}
+	
+	/**
+	 * @param string $code
+	 */
+	public function setCode(string $code)
+	{
+		$this->code = $code;
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getSlug() //: string
+	{
+		return $this->slug;
+	}
+	
+	/**
+	 * @param string $slug
+	 */
+	public function setSlug(string $slug)
+	{
+		$this->slug = $slug;
+	}
+    
     /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
      *
-     * @return Unit
+     * @return PaymentType
      */
     public function setCreatedAt($createdAt)
     {
@@ -113,7 +160,7 @@ class Unit
      *
      * @param \DateTime $updatedAt
      *
-     * @return Unit
+     * @return PaymentType
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -137,7 +184,7 @@ class Unit
      *
      * @param boolean $isActive
      *
-     * @return Unit
+     * @return PaymentType
      */
     public function setIsActive($isActive)
     {

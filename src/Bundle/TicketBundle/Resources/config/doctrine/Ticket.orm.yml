@@ -20,6 +20,12 @@ Bundle\TicketBundle\Entity\Ticket:
             length: 45
             options:
                 fixed: false
+        ticketType:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
         name:
             type: string
             nullable: false
@@ -80,6 +86,16 @@ Bundle\TicketBundle\Entity\Ticket:
             inversedBy: null
             joinColumns:
                 client_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        pointOfSale:
+            targetEntity: Bundle\PointofsaleBundle\Entity\Pointofsale
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                point_of_sale_id:
                     referencedColumnName: id
             orphanRemoval: false
     manyToMany:

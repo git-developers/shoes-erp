@@ -10,6 +10,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Bundle\TicketBundle\Entity\Ticket;
+use Bundle\TicketBundle\Entity\PaymentType;
 use Cocur\Slugify\Slugify;
 use Bundle\CoreBundle\EventListener\BaseDoctrineListenerService;
 
@@ -53,7 +54,7 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 //        $entityManager = $args->getEntityManager();
 //        $className = $entityManager->getClassMetadata(get_class($entity))->getName();
 
-        if ($entity instanceof Ticket){
+        if ($entity instanceof Ticket) {
         	
             $name = $entity->getName();
             $entity->setSlug($this->slugify($name));
@@ -61,6 +62,10 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
             $entity->setUserCreate($this->getUser()->getId());
             
             return;
+        } elseif ($entity instanceof PaymentType) {
+	        $name = $entity->getName();
+	        $entity->setSlug($this->slugify($name));
+	        $entity->setCreatedAt($this->setupCreatedAt($entity));
         }
     }
 

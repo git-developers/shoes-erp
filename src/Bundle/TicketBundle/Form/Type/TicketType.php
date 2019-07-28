@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Bundle\UserBundle\Entity\User;
+use Bundle\TicketBundle\Entity\PaymentType;
 
 
 class TicketType extends AbstractType
@@ -61,6 +62,23 @@ class TicketType extends AbstractType
 			        'class' => 'form-control',
 			        'placeholder' => '',
 			        'style' => 'display: none',
+		        ],
+	        ))
+	        ->add('paymentType', EntityType::class, array(
+		        'class' => PaymentType::class,
+		        'query_builder' => function(EntityRepository $er) {
+			        return $er->findAllObjects();
+		        },
+		        'placeholder' => '[ Escoge tipo de pago ]',
+		        'empty_data' => null,
+		        'required' => false,
+		        'label' => 'Tipo de pago',
+		        'label_attr' => [
+			        'class' => ''
+		        ],
+		        'attr' => [
+			        'class' => 'form-control',
+			        'placeholder' => '',
 		        ],
 	        ))
         ;

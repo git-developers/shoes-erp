@@ -23,7 +23,7 @@ input[type=checkbox]{
 }
 
 .table-scroll thead {
-    width: calc( 100% - 12px )
+    width: calc( 100% - 15px )
 }
 /**
     TABLE SCROLL
@@ -38,7 +38,7 @@ input[type=checkbox]{
     height: 300px;
 }
 
-.table-services tbody
+table.products tbody
 {
     height: 300px;
 }
@@ -47,10 +47,16 @@ input[type=checkbox]{
 .table-client thead tr th:nth-child(1),
 .table-employee tbody tr td:nth-child(1),
 .table-employee thead tr th:nth-child(1),
-.table-services tbody tr td:nth-child(1),
-.table-services thead tr th:nth-child(1)
+table.products tbody tr td:nth-child(1),
+table.products thead tr th:nth-child(1)
 {
     width: 30px;
+}
+
+table.products tbody tr td:nth-child(2),
+table.products thead tr th:nth-child(2)
+{
+    width: 80px;
 }
 
 .table-client tbody tr td:nth-child(2),
@@ -73,9 +79,20 @@ input[type=checkbox]{
     width: 120px;
 }
 
-.table-services tbody tr td:nth-child(4),
-.table-services thead tr th:nth-child(4)
+table.products tbody tr td:nth-child(4),
+table.products thead tr th:nth-child(4)
 {
-    width: 50px;
+    width: 100px;
+}
+
+table.products tbody tr td:nth-child(5),
+table.products thead tr th:nth-child(5)
+{
+    width: 80px;
+}
+
+div.ticket-product-color
+{
+    margin-bottom: 0px !important;
 }
 

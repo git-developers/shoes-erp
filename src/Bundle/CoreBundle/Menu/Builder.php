@@ -360,6 +360,7 @@ class Builder implements ContainerAwareInterface
             'backend_ticket_create_internal',
             'backend_ticket_create_external',
             'backend_ticket_edit',
+            'backend_paymenttype_index',
         ]))
         ->setAttribute('icon', 'fa-fw fa-ticket')
         ->setDisplay($isGranted)
@@ -389,6 +390,14 @@ class Builder implements ContainerAwareInterface
 	    ])
 	    ->setAttribute('icon', self::CIRCLE_3)
 	    ->setAttribute('class', $this->activeRoute('backend_ticket_create_external'))
+	    ->setDisplay($isGranted)
+	    ;
+     
+	    $menu['Pedidos']->addChild('Tipos de pago', [
+		    'route' => 'backend_paymenttype_index'
+	    ])
+	    ->setAttribute('icon', self::CIRCLE_4)
+	    ->setAttribute('class', $this->activeRoute('backend_paymenttype_index'))
 	    ->setDisplay($isGranted)
 	    ;
 	    

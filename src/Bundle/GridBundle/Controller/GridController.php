@@ -63,7 +63,10 @@ class GridController extends BaseController
         $objects = $this->get($repository)->$method();
         $varsRepository = $configuration->getRepositoryVars();
         $objects = $this->getSerialize($objects, $varsRepository->serialize_group_name);
-        
+	
+//	    echo "POLLO:: <pre>";
+//	    print_r($objects);
+//	    exit;
         
         //GRID
         $gridService = $this->get('tianos.grid');

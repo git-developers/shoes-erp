@@ -15,6 +15,7 @@ use JMS\Serializer\SerializationContext;
 use Bundle\CategoryBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Bundle\TicketBundle\Entity\TicketHasProducts;
+use Bundle\TicketBundle\Entity\Ticket;
 
 class BackendController extends GridController
 {
@@ -281,8 +282,6 @@ class BackendController extends GridController
 				
 				
 				$session = $request->getSession();
-				//$idClient = $session->get('id_client');
-				//$idEmployees = $session->get('id_employee');
 				$products = $session->get('products');
 				
 				if (empty($ticket->client)) {
@@ -291,22 +290,6 @@ class BackendController extends GridController
 						'message' => '<i class="icon fa fa-warning"></i> Seleccione un cliente.'
 					]);
 				}
-				
-				/*
-				if (empty($idEmployees)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Seleccione al menos un empleado.'
-					]);
-				}
-				
-				if (empty($ticket->dateTicket)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Ingrese la fecha.'
-					]);
-				}
-				*/
 				
 				if (empty($products)) {
 					return $this->json([
@@ -330,6 +313,8 @@ class BackendController extends GridController
 				 */
 				$entity->setName($ticket->name);
 				$entity->setDateTicket(new \DateTime());
+				$entity->setPointOfSale($user->getPointOfSaleActive());
+				$entity->setTicketType(Ticket::EXTERNO);
 				
 				$client = $this->get('tianos.repository.user')->find($ticket->client);
 				$entity->setClient($client);
@@ -341,7 +326,7 @@ class BackendController extends GridController
 				
 				
 				/**
-				 * SAVE TICKET
+				 * SAVE TICKET PRODUCTS
 				 */
 				foreach ($products as $key => $product) {
 					$product = $this->get('tianos.repository.product')->find($product['idItem']);
@@ -355,17 +340,18 @@ class BackendController extends GridController
 					$this->persist($ticketHasService);
 				}
 				/**
-				 * SAVE TICKET
+				 * SAVE TICKET PRODUCTS
 				 */
 				
 				
-				$this->flashAlertSuccess('Se creo el ticket.');
-				
-				//Remove session
+				/**
+				 * Remove session
+				 */
 				$session = $request->getSession();
-				//$session->remove('id_client');
-				//$session->remove('id_employee');
 				$session->remove('products');
+				
+				$this->flashSuccess('Pedido creado.');
+				//$this->redirectUrl('backend_ticket_index');
 				
 				return $this->json([
 					'status' => true
@@ -377,7 +363,6 @@ class BackendController extends GridController
 					'message' => $e->getMessage()
 				]);
 			}
-			
 		}
 		
 		return $this->render(

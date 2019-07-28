@@ -20,12 +20,11 @@
 
         base.init = function(){
             var totalButtons = 0;
-
         };
 
         base.submit = function(event) {
 
-            // var table = $('table.box-table-client tbody');
+            var message = $('div.ticket-message');
             var fields = $("form[name='" + options.formName + "']").serialize();
 
             console.dir("fields ::: " + fields);
@@ -40,30 +39,17 @@
                 },
                 success: function(data, textStatus, jqXHR) {
 
-                    if (!data.status) {
-                        $('div.ticket-message p').html(data.message);
-                        $('div.ticket-message').removeClass("callout-info").addClass("callout-warning");
-
-                        setTimeout(function() {
-                            $('div.ticket-message').removeClass("callout-warning").addClass("callout-info");
-                            $('div.ticket-message p').html(msg_default);
-                        }, 2000);
-                    }
-
-                    
-                    /*
                     if (data.status) {
                         window.location.href = options.routeRedirect;
                     } else {
-                        $('div.tianos-alert-warning-2 span').html(data.message);
-                        $('div.tianos-alert-warning-2').show();
+                        message.find('p').html(data.message);
+                        message.removeClass("callout-primary").addClass("callout-warning");
 
                         setTimeout(function() {
-                            $('div.tianos-alert-warning-2').fadeOut('slow');
+                            message.removeClass("callout-warning").addClass("callout-primary");
+                            message.find('p').html(msg_default);
                         }, 2000);
                     }
-                    */
-
                 },
                 error: function(jqXHR, exception) {
                     console.log('ERROR');

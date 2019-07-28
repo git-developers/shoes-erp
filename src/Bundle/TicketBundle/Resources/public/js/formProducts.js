@@ -42,7 +42,7 @@
                     action: 'INCREMENT'
                 },
                 beforeSend: function(jqXHR, settings) {
-                    div.html(msg_loading);
+                    //div.html(msg_loading);
                 },
                 success: function(data, textStatus, jqXHR) {
                     div.html(data);
@@ -67,7 +67,7 @@
                     action: 'DECREMENT'
                 },
                 beforeSend: function(jqXHR, settings) {
-                    div.html(msg_loading);
+                    //div.html(msg_loading);
                 },
                 success: function(data, textStatus, jqXHR) {
                     div.html(data);
@@ -110,8 +110,8 @@
             $('span.li-span').removeClass('bg-gray');
             $('span.li-span-' + idCategory).addClass('bg-gray');
 
-            $('table.service > tbody > .tr-service').hide();
-            $('table.service > tbody > .tr-service-' + idCategory).show();
+            $('table.products > tbody > .tr-product').hide();
+            $('table.products > tbody > .tr-product-' + idCategory).show();
         };
 
         // Private Functions
@@ -139,7 +139,6 @@
 
             $(document).on('click', 'li.category-ticket', function(event) {
                 event.stopPropagation();
-
                 bp.selectCategoryTicket(this);
             });
 

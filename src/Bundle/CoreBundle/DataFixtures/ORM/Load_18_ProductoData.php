@@ -34,7 +34,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     * CATEGORY 1
 	     */
         $entity = new Product();
-	    $entity->setColor('blue');
+	    $entity->setColor('#0000FF');
 	    $entity->setSize(10);
 	    $entity->setStock(35);
 	    $entity->setCode('111');
@@ -46,7 +46,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-1', $entity);
 
         $entity = new Product();
-	    $entity->setColor('red');
+	    $entity->setColor('#FF0000');
 	    $entity->setSize(9);
 	    $entity->setStock(67);
 	    $entity->setCode('222');
@@ -58,7 +58,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-2', $entity);
         
         $entity = new Product();
-	    $entity->setColor('green');
+	    $entity->setColor('#00FF00');
 	    $entity->setSize(8);
 	    $entity->setStock(25);
 	    $entity->setCode('333');
@@ -70,7 +70,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-3', $entity);
         
         $entity = new Product();
-	    $entity->setColor('blue');
+	    $entity->setColor('#0000FF');
 	    $entity->setSize(10);
 	    $entity->setStock(98);
 	    $entity->setCode('444');
@@ -82,7 +82,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-4', $entity);
         
         $entity = new Product();
-	    $entity->setColor('red');
+	    $entity->setColor('#FF0000');
 	    $entity->setSize(11);
 	    $entity->setStock(15);
 	    $entity->setCode('555');
@@ -99,7 +99,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     * CATEGORY 2
 	     */
         $entity = new Product();
-	    $entity->setColor('green');
+	    $entity->setColor('#00FF00');
 	    $entity->setSize(12);
 	    $entity->setStock(35);
 	    $entity->setCode('666');
@@ -111,7 +111,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-6', $entity);
 
         $entity = new Product();
-	    $entity->setColor('blue');
+	    $entity->setColor('#0000FF');
 	    $entity->setSize(9);
 	    $entity->setSize(10);
 	    $entity->setStock(67);
@@ -124,7 +124,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-7', $entity);
         
         $entity = new Product();
-	    $entity->setColor('red');
+	    $entity->setColor('#FF0000');
 	    $entity->setSize(8);
 	    $entity->setStock(25);
 	    $entity->setCode('888');
@@ -136,7 +136,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-8', $entity);
         
         $entity = new Product();
-	    $entity->setColor('blue');
+	    $entity->setColor('#0000FF');
 	    $entity->setSize(10);
 	    $entity->setStock(98);
 	    $entity->setCode('999');
@@ -152,7 +152,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     * CATEGORY 3
 	     */
         $entity = new Product();
-	    $entity->setColor('red');
+	    $entity->setColor('#FF0000');
 	    $entity->setSize(12);
 	    $entity->setStock(78);
 	    $entity->setCode('1010');
@@ -164,7 +164,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-10', $entity);
         
         $entity = new Product();
-	    $entity->setColor('blue');
+	    $entity->setColor('#0000FF');
 	    $entity->setSize(11);
 	    $entity->setStock(34);
 	    $entity->setCode('1111');
@@ -176,7 +176,7 @@ class Load_18_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-11', $entity);
         
         $entity = new Product();
-	    $entity->setColor('green');
+	    $entity->setColor('#00FF00');
 	    $entity->setSize(10);
 	    $entity->setStock(22);
 	    $entity->setCode('1212');

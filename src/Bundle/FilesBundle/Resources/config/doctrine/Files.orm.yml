@@ -21,6 +21,13 @@ Bundle\FilesBundle\Entity\Files:
             options:
                 fixed: false
             column: pk_file_item
+        className:
+            type: string
+            nullable: false
+            length: 150
+            options:
+                fixed: false
+            column: class_name
         mimeContentType:
             type: string
             nullable: false

@@ -61,3 +61,6 @@ backend_user_setting:
 backend_settings:
     resource: '@SettingsBundle/Resources/config/routing/backend.yml'
     prefix: /settings
+backend_files:
+    resource: '@FilesBundle/Resources/config/routing/backend.yml'
+    prefix: /files

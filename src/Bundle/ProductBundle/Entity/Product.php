@@ -153,6 +153,16 @@ class Product
 	 */
 	private $quantity;
 	
+	/**
+	 * @var array
+	 *
+	 * @JMSS\Groups({
+	 *     "crud",
+	 *     "ticket"
+	 * })
+	 */
+	private $files;
+	
     /**
      * Get id
      *
@@ -482,5 +492,22 @@ class Product
 	{
 		$this->quantity = $quantity;
 	}
+	
+	/**
+	 * @return array
+	 */
+	public function getFiles(): array
+	{
+		return $this->files;
+	}
+	
+	/**
+	 * @param array $files
+	 */
+	public function setFiles(array $files) //: void
+	{
+		$this->files = $files;
+	}
+	
 }
 

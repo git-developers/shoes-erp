@@ -101,6 +101,7 @@
 {% if vars.files_upload.route.open_modal is defined and vars.files_upload.route.create is defined %}
     $('body.{{ vars.body_css }}').formUploadFile({
         modalId: '{{ modal.image_upload_id }}',
+        className: '{{ vars.files_upload.class_name }}',
         filter: '{{ vars.files_upload.filter }}',
         fileType: '{{ vars.files_upload.file_type }}',
         formName: '{{ form_mapper.image_upload_name }}',

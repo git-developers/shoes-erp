@@ -22,18 +22,6 @@
             var totalButtons = 0;
         };
 
-
-        /*
-        ticket[_token]:q_2W_fdTbTrZ87qtxNREklx3WMLQy0V3JCBdART3Jf8
-        cc5dc98_formTicket_4.js:30 ticket[client]:
-        cc5dc98_formTicket_4.js:30 ticket[paymentType]:4
-        cc5dc98_formTicket_4.js:30 ticket[code]:
-        cc5dc98_formTicket_4.js:30 ticket[name]:
-        */
-
-
-
-
         base.validate = function() {
 
             var msg;
@@ -108,6 +96,27 @@
             });
         };
 
+        base.productThumbnail = function(context) {
+
+
+            console.log("URL::: " + $(context).data("url") + '?' + Math.random());
+
+
+            var image = new Image();
+            image.src = $(context).data("url") + '?' + Math.random();
+            image.onload = function () {
+                $('div.box-thumbnail').empty().append(image);
+            };
+
+            image.onerror = function () {
+                $('div.box-thumbnail').empty().html('That image is not available.');
+            };
+
+            $('div.box-thumbnail').empty().html('Loading...');
+
+            return false;
+        };
+
         // Private Functions
         function debug(e) {
             console.log(e);
@@ -127,7 +136,7 @@
 
             var bp = new $.formTicket(this, options);
 
-            $(document).on('submit', "form[name='" + options.formName + "']" , function(event) {
+            $("form[name='" + options.formName + "']").submit(function(event) {
                 event.preventDefault();
 
                 var validate = bp.validate();
@@ -136,6 +145,17 @@
                     bp.submit(event);
                 }
 
+            });
+
+            $("img.product-thumbnail").click(function(event) {
+                bp.productThumbnail(this);
+            });
+
+            $('#modal-product-thumbnail').on('hidden.bs.modal', function () {
+
+                console.log("WWWWWWWWWWW");
+
+                $('div.box-thumbnail').empty().html('');
             });
 
         });

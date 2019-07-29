@@ -13,7 +13,7 @@ class FilesRepository extends TianosEntityRepository implements FilesRepositoryI
 	/**
 	 * {@inheritdoc}
 	 */
-	public function findAllFilesByPk(int $pkFileItem)
+	public function findAllFiles($entity)
 	{
 		$em = $this->getEntityManager();
 		$dql = "
@@ -21,12 +21,14 @@ class FilesRepository extends TianosEntityRepository implements FilesRepositoryI
             FROM FilesBundle:Files files
             WHERE
             files.isActive = :active AND
-            files.pkFileItem = :pkFileItem
+            files.pkFileItem = :pkFileItem AND
+            files.className = :className
             ";
 		
 		$query = $em->createQuery($dql);
 		$query->setParameter('active', 1);
-		$query->setParameter('pkFileItem', $pkFileItem);
+		$query->setParameter('className', (new \ReflectionClass($entity))->getShortName());
+		$query->setParameter('pkFileItem', $entity->getId());
 		
 		return $query->getResult();
 	}
@@ -55,7 +57,7 @@ class FilesRepository extends TianosEntityRepository implements FilesRepositoryI
     /**
      * {@inheritdoc}
      */
-    public function findByPk($pkFileItem, $fileType)
+    public function findOneByEntity($entity)
     {
         $em = $this->getEntityManager();
         $dql = "
@@ -64,15 +66,44 @@ class FilesRepository extends TianosEntityRepository implements FilesRepositoryI
             WHERE
             files.isActive = :active AND
             files.fileType = :fileType AND
-            files.pkFileItem = :pkFileItem
+            files.pkFileItem = :pkFileItem AND
+            files.className = :className
             ORDER BY files.id DESC
             ";
 
         $query = $em->createQuery($dql);
         $query->setMaxResults(1);
         $query->setParameter('active', 1);
-        $query->setParameter('fileType', $fileType);
-        $query->setParameter('pkFileItem', $pkFileItem);
+        $query->setParameter('fileType', $entity->fileType);
+	    $query->setParameter('className', $entity->className);
+        $query->setParameter('pkFileItem', $entity->id);
+
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneByEntity2($entity)
+    {
+        $em = $this->getEntityManager();
+        $dql = "
+            SELECT files
+            FROM FilesBundle:Files files
+            WHERE
+            files.isActive = :active AND
+            files.fileType = :fileType AND
+            files.pkFileItem = :pkFileItem AND
+            files.className = :className
+            ORDER BY files.id DESC
+            ";
+
+        $query = $em->createQuery($dql);
+        $query->setMaxResults(1);
+        $query->setParameter('active', 1);
+        $query->setParameter('fileType', $entity->getFileType());
+	    $query->setParameter('className', $entity->getClassName());
+        $query->setParameter('pkFileItem', $entity->getPkFileItem());
 
         return $query->getOneOrNullResult();
     }

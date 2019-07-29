@@ -13,13 +13,14 @@ class Load_3_ProfileData extends AbstractFixture implements OrderedFixtureInterf
 {
     public function load(ObjectManager $manager)
     {
+	    $roleStadistics = $this->getReference('role-stadistics');
+	    $roleSettings = $this->getReference('role-settings');
+	    $roleUploadImage = $this->getReference('role-upload-image');
+    	
 	    $roleUserView = $this->getReference('role-user-view');
 	    $roleUserCreate = $this->getReference('role-user-create');
 	    $roleUserEdit = $this->getReference('role-user-edit');
         $roleUserDelete = $this->getReference('role-user-delete');
-        
-        $roleStadistics = $this->getReference('role-stadistics');
-	    $roleSettings = $this->getReference('role-settings');
 	
 	    $roleProfileView = $this->getReference('role-profile-view');
 	    $roleProfileCreate = $this->getReference('role-profile-create');
@@ -67,6 +68,7 @@ class Load_3_ProfileData extends AbstractFixture implements OrderedFixtureInterf
 	
 	    $entity->addRole($roleStadistics);
 	    $entity->addRole($roleSettings);
+	    $entity->addRole($roleUploadImage);
         
         $entity->addRole($roleUserView);
         $entity->addRole($roleUserCreate);

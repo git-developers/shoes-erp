@@ -21,55 +21,66 @@ class Files
     /**
      * @var integer
      *
-     * @JMSS\Groups({"crud"})
      */
     private $id;
 
     /**
      * @var string
      *
-     * @JMSS\Groups({"crud"})
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     */
+    private $className;
 	
 	/**
 	 * @var integer
 	 *
-	 * @JMSS\Groups({"crud"})
 	 */
 	private $pkFileItem;
 	
 	/**
 	 * @var string
 	 *
+	 * @JMSS\Groups({
+	 *     "crud",
+	 *     "ticket"
+	 * })
 	 */
 	private $filter;
 	
 	/**
 	 * @var string
 	 *
-	 * @JMSS\Groups({"crud"})
+	 * @JMSS\Groups({
+	 *     "crud",
+	 *     "ticket"
+	 * })
 	 */
 	private $fileType;
 	
 	/**
 	 * @var string
 	 *
-	 * @JMSS\Groups({"crud"})
 	 */
 	private $mimeContentType;
 	
 	/**
 	 * @var string
 	 *
-	 * @JMSS\Groups({"crud"})
+	 * @JMSS\Groups({
+	 *     "crud",
+	 *     "ticket"
+	 * })
 	 */
 	private $uniqid;
 
     /**
      * @var \DateTime
      *
-     * @JMSS\Groups({"crud"})
      * @JMSS\Type("DateTime<'Y-m-d H:i'>")
      */
     private $createdAt;
@@ -136,6 +147,22 @@ class Files
     {
         return $this->name;
     }
+	
+	/**
+	 * @return string
+	 */
+	public function getClassName() //: string
+	{
+		return $this->className;
+	}
+	
+	/**
+	 * @param string $className
+	 */
+	public function setClassName(string $className)
+	{
+		$this->className = $className;
+	}
 
     /**
      * Set createdAt

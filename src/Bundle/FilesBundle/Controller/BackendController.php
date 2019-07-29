@@ -55,7 +55,7 @@ class BackendController extends GridController
 		$this->createUploadFolder($all->fileType);
 		
 		//REPOSITORY
-		$entity = $this->get($repository)->$method($all->id, $all->fileType);
+		$entity = $this->get($repository)->$method($all);
 		
 		if ($entity) {
 			$ext = '.jpg';
@@ -142,6 +142,7 @@ class BackendController extends GridController
 				
 				$entity->setUniqid($uniqid);
 				$entity->setFilter($all->filter);
+				$entity->setClassName($all->className);
 				$entity->setMimeContentType($type);
 				$entity->setFileType($all->fileType);
 				$entity->setPkFileItem((int) $all->id);
@@ -163,7 +164,7 @@ class BackendController extends GridController
 	private function upsert($repository, Files $newFile)
 	{
 		$entitySave = clone $newFile;
-		$oldFile = $this->get($repository)->findByPk($newFile->getPkFileItem(), $newFile->getFileType());
+		$oldFile = $this->get($repository)->findOneByEntity2($newFile);
 		
 		if ($oldFile) {
 			$this->deleteFile($oldFile);
@@ -199,6 +200,5 @@ class BackendController extends GridController
 			unlink($targetPath2);
 		}
 	}
-	
 	
 }

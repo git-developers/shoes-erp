@@ -16,8 +16,10 @@ class Role
 	const ROLE_CREATE = 'ROLE_CREATE';
 	const ROLE_EDIT = 'ROLE_EDIT';
 	const ROLE_DELETE = 'ROLE_DELETE';
+	
 	const ROLE_STADISTICS = 'ROLE_STADISTICS';
 	const ROLE_SETTINGS = 'ROLE_SETTINGS';
+	const ROLE_UPLOAD_IMAGE = 'ROLE_UPLOAD_IMAGE';
 
     /**
      * @var integer

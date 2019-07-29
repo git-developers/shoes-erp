@@ -249,6 +249,14 @@ class BackendController extends GridController
 		//CATEGORY AND PRODUCT - REPOSITORY TREE
 		
 		
+		
+//		echo "POLLO:: <pre>";
+//		print_r($productsObjs);
+//		exit;
+		
+		
+		
+		
 		//SERVICES
 		$productArray = [];
 		$session = $request->getSession();
@@ -272,16 +280,7 @@ class BackendController extends GridController
 				
 				$ticket = $request->get('ticket');
 				$ticket = json_decode(json_encode($ticket));
-
-
-//				echo "POLLO:: <pre>";
-//				print_r($ticket);
-//				exit;
 				
-				
-				
-				
-				//$session = $request->getSession();
 				$products = $session->get('products');
 				
 				if (empty($ticket->client)) {
@@ -311,8 +310,6 @@ class BackendController extends GridController
 						'message' => 'Seleccione un tipo de pago.'
 					]);
 				}
-				
-				
 				
 				
 				/**
@@ -867,6 +864,7 @@ class BackendController extends GridController
 		foreach ($parents as $key => $parent) {
 			
 			$products = $this->get('tianos.repository.product')->findAllByCategory($parent);
+			$products = $this->rowImages($products);
 			$result_1 = $this->getSerializeDecode($products, $serializeGroupName);
 			
 			$children = $this->get('tianos.repository.category')->findAllByParent($parent);

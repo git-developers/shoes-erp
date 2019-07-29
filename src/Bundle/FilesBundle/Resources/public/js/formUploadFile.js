@@ -36,7 +36,7 @@
 
         base.openModal = function(event, context) {
 
-            var id = $(context).parent().parent().data('id');
+            var id = $(context).parent().data('id');
 
             modal.find('small.label').html('Item ' + id);
 
@@ -49,7 +49,8 @@
                     id: id,
                     filter: options.filter,
                     fileType: options.fileType,
-                    form_data: options.form_data
+                    form_data: options.form_data,
+                    className: options.className
                 },
                 beforeSend: function(jqXHR, settings) {
                     buttonSubmit.prop('disabled', true);
@@ -99,6 +100,7 @@
                 data: {
                     id: id,
                     filter: options.filter,
+                    className: options.className,
                     fileType: options.fileType
                 },
                 beforeSubmit: function(arr, $form, options) {
@@ -118,7 +120,7 @@
                     var message = 'Volver a intentar (007).';
 
                     if (data.status == 413) {
-                        message = 'El archivo es mayor a los esperado.';
+                        message = 'El archivo tiene un tamaño mayor a los esperado.';
                     }
 
                     progress.width('0%');
@@ -161,7 +163,7 @@
                             //console.log(this.width + 'x' + this.height);
                         });
                         img2.src = response.imagePath;
-                        $(img2).addClass("img-thumbnail img-responsive");
+                        $(img2).addClass("img-circle img-thumbnail");
                         $(img2).appendTo("tr#" + id + " td:nth-child(2)");
                         /**
                          * end
@@ -198,7 +200,7 @@
 
             var bp = new $.formUploadFile(this, options);
 
-            $(document).on('click', 'button.' + options.modalId, function() {
+            $(document).on('click', 'td.' + options.modalId, function() {
                 bp.openModal(event, this);
             });
 

@@ -39,6 +39,7 @@
         td.{{ modal.edit_id }},
         td.{{ modal.delete_id }},
         td.{{ modal.profile_id }},
+        td.{{ modal.image_upload_id }},
         td.{{ modal.point_of_sale_cog }},
         td.{{ modal.change_password_id }}
         {
@@ -51,6 +52,7 @@
         td.{{ modal.edit_id }}:active,
         td.{{ modal.delete_id }}:active,
         td.{{ modal.profile_id }}:active,
+        td.{{ modal.image_upload_id }}:active,
         td.{{ modal.point_of_sale_cog }}:active,
         td.{{ modal.change_password_id }}:active
         {
@@ -100,6 +102,12 @@
             background: #367fa9 radial-gradient(circle, transparent 1%, #367fa9 1%) center/20000%;
             color: white;
         }
+
+        td.{{ modal.image_upload_id }}:hover
+        {
+            background: #605ca8 radial-gradient(circle, transparent 1%, #605ca8 1%) center/20000%;
+            color: white;
+        }
         {# ****** RIPPLE EFFECT ****** #}
 
 
@@ -121,11 +129,12 @@
     {{ parent() }}
 
     {% javascripts
+        '@FilesBundle/Resources/public/js/formUploadFile.js'
         '@GridBundle/Resources/public/common/js/formEdit.js'
         '@GridBundle/Resources/public/common/js/formView.js'
         '@GridBundle/Resources/public/common/js/formInfo.js'
-        '@GridBundle/Resources/public/common/js/formCreateCategoryProduct.js'
         '@GridBundle/Resources/public/common/js/formDelete.js'
+        '@GridBundle/Resources/public/common/js/formCreateCategoryProduct.js'
         '@GridBundle/Resources/public/plugins/datatables/jquery.dataTables.min.js'
         '@GridBundle/Resources/public/plugins/datatables/dataTables.bootstrap.min.js'
     %}
@@ -234,6 +243,10 @@
                                 $(td).attr('title', 'configurar punto de venta');
                                 $(td).attr('data-toggle', 'modal');
                                 $(td).attr('data-target', '#{{ modal.point_of_sale_cog }}');
+                            {% elseif defs.className|default() is not empty and modal.image_upload_id in defs.className %}
+                                $(td).attr('title', 'agregar imagen');
+                                $(td).attr('data-toggle', 'modal');
+                                $(td).attr('data-target', '#{{ modal.image_upload_id }}');
                             {% endif %}
                         }
                     },
@@ -298,6 +311,10 @@
         });
 
     </script>
+
+    {% if vars.files_upload.route.open_modal is defined and vars.files_upload.route.create is defined %}
+        <script src='{{ asset('bundles/files/js/jqueryFormSubmit.js') }}'></script>
+    {% endif %}
 
 {% endblock %}
 
@@ -449,5 +466,6 @@
     {{ include('GridBundle:Modal:delete.html.twig') }}
     {{ include('GridBundle:Modal:view.html.twig') }}
     {{ include('GridBundle:Modal:info.html.twig') }}
+    {{ include('FilesBundle:BackendFiles/Modal:image_upload.html.twig') }}
 
 {% endblock %}

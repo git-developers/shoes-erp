@@ -14,6 +14,13 @@ backend_user_index:
                 subheader: sylius.ui.manage_your_user_catalog
                 icon: cube
                 body_css: grid-body-css
+                files_upload:
+                    class_name: User
+                    file_type: images
+                    filter: file_thumb_500_417
+                    route:
+                        create: backend_files_create
+                        open_modal: backend_files_open_modal
             grid:
                 icon: user
                 box_class: primary
@@ -67,9 +74,19 @@ backend_user_index:
                               width: 4%
                               title: '#'
                               className: modal-view text-center
-                        - obj: obj.name_box
+                        - obj: obj.files
+                          options:
+                              property: " return (obj.files[0] != null) ? '<img src=\"' + obj.files[0] + '\" class=\"img-circle img-thumbnail\">' : '<img src=\"/bundles/themes/adminlte/images/image-icon.png\" class=\"img-circle img-thumbnail\">' "
                           defs:
                               targets: 1
+                              title: '<i class="fa fa-fw fa-image"></i> Thumb'
+                              width: 5.5%
+                              sorting: 0
+                              orderable: 0
+                              className: image-upload text-center
+                        - obj: obj.name_box
+                          defs:
+                              targets: 2
                               orderable: 1
                               sorting: 1
                               title: Nombre
@@ -77,12 +94,12 @@ backend_user_index:
                               filter: 1
                         - obj: obj.email
                           defs:
-                              targets: 2
+                              targets: 3
                               title: '<i class="fa fa-fw fa-envelope-o"></i> Email'
                               filter: 1
                         - obj: " '<span class=\"badge bg-green\">' + obj.username + '</span>' "
                           defs:
-                              targets: 3
+                              targets: 4
                               title: '<i class="fa fa-fw fa-feed"></i> Username'
                               className: text-center
                               filter: 1
@@ -91,18 +108,18 @@ backend_user_index:
                               icon: imagen
                               property: " return (obj.profile.slug == 'client') ? '<span class=\"badge bg-navy\">' + obj.profile.name + '</span>' : '<span class=\"badge bg-purple\">' + obj.profile.name + '</span>' "
                           defs:
-                              targets: 4
+                              targets: 5
                               title: '<i class="fa fa-fw fa-user"></i> Profile'
                               className: text-center
                               filter: 1
                         - obj: obj.created_at
                           defs:
-                              targets: 5
+                              targets: 6
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
                         - obj: " '<button class=\"btn btn-xs bg-olive\"><i class=\"fa fa-fw fa-user\"></i></button>' "
                           defs:
-                              targets: 6
+                              targets: 7
                               title: Perfil
                               width: 4%
                               sorting: 0
@@ -110,7 +127,7 @@ backend_user_index:
                               className: profile-button-id text-center
                         - obj: " '<button class=\"btn btn-xs btn-info\"><i class=\"fa fa-fw fa-lock\"></i></button>' "
                           defs:
-                              targets: 7
+                              targets: 8
                               title: Password
                               width: 4%
                               sorting: 0
@@ -118,7 +135,7 @@ backend_user_index:
                               className: change-password-id text-center
                         - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
                           defs:
-                              targets: 8
+                              targets: 9
                               title: Eliminar
                               width: 4%
                               sorting: 0

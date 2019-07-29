@@ -95,11 +95,11 @@
                     $('button[type="submit"]').prop('disabled', false);
                     modalRefresh.hide();
 
-                    if(data.status){
+                    if (data.status) {
                         var row = options.dataTableObject.row('[data-id="' + data.id + '"]');
                         row.data(data.entity).draw();
                         modal.modal('hide');
-                    }else{
+                    } else {
 
                         var items = [];
                         $(data.errors).each(function(key, value) {

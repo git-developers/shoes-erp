@@ -172,32 +172,53 @@ abstract class BaseController extends Controller
     protected function isPost() {
         return $_SERVER['REQUEST_METHOD'] === self::POST;
     }
-
-    protected function rowImages($objects): array
-    {
-    	
-	    $imagineCacheManager = $this->get('liip_imagine.cache.manager');
 	
-	    $out = [];
-	    foreach ($objects as $i => $object) {
+	protected function rowImages($objects): array
+	{
 		
-		    $files = $this->get("tianos.repository.files")->findAllFilesByPk($object->getId());
+		$imagineCacheManager = $this->get('liip_imagine.cache.manager');
 		
-		    $imagePath = [];
-		    foreach ($files as $j => $file) {
-			    $imagePath[] = $imagineCacheManager->getBrowserPath(
-			    	'/upload/' . $file->getFileType() . '/' . $file->getUniqid() . '.jpg',
-				    $file->getFilter()
-			    );
-		    }
-		    
-		    $object->setFiles($imagePath);
-		    
-		    $out[] = $object;
-	    }
+		$out = [];
+		foreach ($objects as $i => $object) {
+			
+			$files = $this->get("tianos.repository.files")->findAllFiles($object);
+			
+			$imagePath = [];
+			foreach ($files as $j => $file) {
+				$imagePath[] = $imagineCacheManager->getBrowserPath(
+					'/upload/' . $file->getFileType() . '/' . $file->getUniqid() . '.jpg',
+					$file->getFilter()
+				);
+			}
+			
+			if (method_exists($object,'setFiles')) {
+				$object->setFiles($imagePath);
+			}
+			
+			$out[] = $object;
+		}
+		
+		return $out;
+	}
 	
-	    return $out;
-	    
-    }
-    
+	protected function rowImage($entity) //: array
+	{
+		
+		$imagineCacheManager = $this->get('liip_imagine.cache.manager');
+		
+		$files = $this->get("tianos.repository.files")->findAllFiles($entity);
+		
+		$imagePath = [];
+		foreach ($files as $j => $file) {
+			$imagePath[] = $imagineCacheManager->getBrowserPath(
+				'/upload/' . $file->getFileType() . '/' . $file->getUniqid() . '.jpg',
+				$file->getFilter()
+			);
+		}
+		
+		$entity->setFiles($imagePath);
+		
+		return $entity;
+	}
+	
 }

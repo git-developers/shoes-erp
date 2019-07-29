@@ -16,7 +16,13 @@ backend_product_index:
                 icon: cube
                 body_css: grid-body-css
                 serialize_group_name: crud
-#            grid: sylius_admin_product
+                files_upload:
+                    class_name: Product
+                    file_type: images
+                    filter: file_thumb_500_417
+                    route:
+                        create: backend_files_create
+                        open_modal: backend_files_open_modal
             tree:
                 icon: cubes
                 box_class: primary
@@ -77,9 +83,19 @@ backend_product_index:
                               width: 7%
                               title: '#'
                               className: modal-view text-center
-                        - obj: obj.name
+                        - obj: obj.files
+                          options:
+                              property: " return (obj.files[0] != null) ? '<img src=\"' + obj.files[0] + '\" class=\"img-circle img-thumbnail\">' : '<img src=\"/bundles/themes/adminlte/images/image-icon.png\" class=\"img-circle img-thumbnail\">' "
                           defs:
                               targets: 1
+                              title: 'Thumb'
+                              width: 5.5%
+                              sorting: 0
+                              orderable: 0
+                              className: image-upload text-center
+                        - obj: obj.name
+                          defs:
+                              targets: 2
                               orderable: 1
                               sorting: 1
                               title: '<i class="fa fa-fw fa-align-left"></i> Nombre'
@@ -87,7 +103,7 @@ backend_product_index:
                               filter: 1
                         - obj: " '<div class=\"alert product-color\" style=\"background-color:' + obj.color + '\"></div>' "
                           defs:
-                              targets: 2
+                              targets: 3
                               orderable: 1
                               sorting: 1
                               title: '<i class="fa fa-fw fa-adjust"></i> Color'
@@ -95,7 +111,7 @@ backend_product_index:
                               filter: 0
                         - obj: obj.size
                           defs:
-                              targets: 3
+                              targets: 4
                               orderable: 1
                               sorting: 1
                               title: '<i class="fa fa-fw fa-arrows-h"></i> Talla'
@@ -103,7 +119,7 @@ backend_product_index:
                               filter: 0
                         - obj: obj.stock
                           defs:
-                              targets: 4
+                              targets: 5
                               orderable: 1
                               sorting: 1
                               title: Stock
@@ -111,7 +127,7 @@ backend_product_index:
                               className: text-center
                         - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
                           defs:
-                              targets: 5
+                              targets: 6
                               title: Eliminar
                               width: 7%
                               sorting: 0

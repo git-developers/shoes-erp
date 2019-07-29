@@ -58,6 +58,8 @@ class BackendController extends GridController
         //REPOSITORY
         $categoryId = $request->get('categoryId');
         $objects = $this->get($repository)->$method($categoryId);
+	    $objects = $this->rowImages($objects);
+	    
         $varsRepository = $configuration->getRepositoryVars();
         $objects = $this->getSerialize($objects, $varsRepository->serialize_group_name);
         

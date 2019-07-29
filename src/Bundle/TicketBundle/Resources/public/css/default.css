@@ -40,7 +40,7 @@ input[type=checkbox] {
 
 table.products tbody
 {
-    height: 300px;
+    height: 100%;
 }
 
 .table-client tbody tr td:nth-child(1),
@@ -54,11 +54,17 @@ table.products tbody
 table.products tbody tr td:nth-child(1),
 table.products thead tr th:nth-child(1)
 {
-    width: 30px;
+    width: 35px;
 }
 
 table.products tbody tr td:nth-child(2),
 table.products thead tr th:nth-child(2)
+{
+    width: 70px;
+}
+
+table.products tbody tr td:nth-child(3),
+table.products thead tr th:nth-child(3)
 {
     width: 80px;
 }
@@ -83,14 +89,14 @@ table.products thead tr th:nth-child(2)
     width: 120px;
 }
 
-table.products tbody tr td:nth-child(4),
-table.products thead tr th:nth-child(4)
+table.products tbody tr td:nth-child(5),
+table.products thead tr th:nth-child(5)
 {
     width: 100px;
 }
 
-table.products tbody tr td:nth-child(5),
-table.products thead tr th:nth-child(5)
+table.products tbody tr td:nth-child(6),
+table.products thead tr th:nth-child(6)
 {
     width: 80px;
 }
@@ -100,3 +106,23 @@ div.ticket-product-color
     margin-bottom: 0px !important;
 }
 
+
+
+/* PRODUCT THUMBNAIL */
+td.product-thumbnail
+{
+    background-position: center;
+    transition: background 0.5s;
+    cursor: pointer;
+}
+td.product-thumbnail:active
+{
+    background-color: #d2d6de;
+    background-size: 100%;
+    transition: background 0s;
+}
+td.product-thumbnail:hover
+{
+    background: #605ca8 radial-gradient(circle, transparent 1%, #605ca8 1%) center/20000%;
+}
+/* PRODUCT THUMBNAIL */

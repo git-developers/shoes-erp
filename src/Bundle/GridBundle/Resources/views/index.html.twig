@@ -30,6 +30,7 @@
         td.{{ modal.edit_id }},
         td.{{ modal.delete_id }},
         td.{{ modal.profile_id }},
+        td.{{ modal.image_upload_id }},
         td.{{ modal.point_of_sale_cog }},
         td.{{ modal.change_password_id }}
         {
@@ -42,6 +43,7 @@
         td.{{ modal.edit_id }}:active,
         td.{{ modal.delete_id }}:active,
         td.{{ modal.profile_id }}:active,
+        td.{{ modal.image_upload_id }}:active,
         td.{{ modal.point_of_sale_cog }}:active,
         td.{{ modal.change_password_id }}:active
         {
@@ -89,6 +91,12 @@
         td.{{ modal.point_of_sale_cog }}:hover
         {
            background: #367fa9 radial-gradient(circle, transparent 1%, #367fa9 1%) center/20000%;
+           color: white;
+        }
+
+        td.{{ modal.image_upload_id }}:hover
+        {
+           background: #605ca8 radial-gradient(circle, transparent 1%, #605ca8 1%) center/20000%;
            color: white;
         }
         {# ****** RIPPLE EFFECT ****** #}
@@ -159,7 +167,7 @@
                     {
                         'data' : function (obj) {
 
-                            if({{ value.obj|raw }} != null){
+                            if ({{ value.obj|raw }} != null) {
 
                                 {% set obj = value.obj %}
                                 {% set property = value.options.property|default() %}
@@ -235,6 +243,10 @@
                                     $(td).attr('title', 'configurar punto de venta');
                                     $(td).attr('data-toggle', 'modal');
                                     $(td).attr('data-target', '#{{ modal.point_of_sale_cog }}');
+                                {% elseif defs.className|default() is not empty and modal.image_upload_id in defs.className %}
+                                    $(td).attr('title', 'agregar imagen');
+                                    $(td).attr('data-toggle', 'modal');
+                                    $(td).attr('data-target', '#{{ modal.image_upload_id }}');
                                 {% endif %}
                             }
                         },

@@ -61,6 +61,8 @@ class GridController extends BaseController
 
         //REPOSITORY
         $objects = $this->get($repository)->$method();
+	    $objects = $this->rowImages($objects);
+	    
         $varsRepository = $configuration->getRepositoryVars();
         $objects = $this->getSerialize($objects, $varsRepository->serialize_group_name);
 	
@@ -227,6 +229,7 @@ class GridController extends BaseController
         //REPOSITORY
         $id = $request->get('id');
         $entity = $this->get($repository)->$method($id);
+	    $entity = $this->rowImage($entity);
 
         if (!$entity) {
             throw $this->createNotFoundException('CRUD: Unable to find entity.');

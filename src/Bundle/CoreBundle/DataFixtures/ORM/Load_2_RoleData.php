@@ -41,6 +41,14 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
 	    $manager->persist($entity);
 	    $this->addReference('role-settings', $entity);
 	    
+	    $entity = new Role();
+	    $entity->setName('Role upload image');
+	    $entity->setSlug(Role::ROLE_UPLOAD_IMAGE);
+	    $entity->setGroupRol('Upload image');
+	    $entity->setGroupRolTag('group-upload-image');
+	    $manager->persist($entity);
+	    $this->addReference('role-upload-image', $entity);
+	    
 	    
 	
 

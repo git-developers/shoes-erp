@@ -9,7 +9,7 @@ BRANCH_NAME := master
 run:
 	@echo Domain: $(HOST_PROJECT)
 	make ssh
-	make nginx
+	make nginx env=$(env)
 	make hosts
 	make restart_services
 	#make websocket
@@ -116,8 +116,13 @@ endif
 
 nginx:
 	@echo ---;
-	@echo ===========se copiara la configuracion del NGINX===========;
+	@echo ===========se copiara la configuracion del NGINX - env: $(env)===========;
+ifeq ($(env), prod)
+	cp /shoes-erp/app/config/docker/nginx.conf.prod.dist /etc/nginx/sites-enabled/shoes-erp-nginx
+else
 	cp /shoes-erp/app/config/docker/nginx.conf.dist /etc/nginx/sites-enabled/shoes-erp-nginx
+endif
+
 	@echo ---;
 	@echo ===========validando el sintax de la configuracion del NGINX===========;
 	nginx -t

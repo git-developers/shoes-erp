@@ -1,1 +1,1 @@
-mysqldump -h localhost -u root -proot tianos_beauty > tianos_beauty_backup.sql
+mysqldump -h localhost -u root -proot shoes_erp_db > shoes_erp_db_backup.sql

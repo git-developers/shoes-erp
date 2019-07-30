@@ -1,0 +1,22 @@
+server {
+    listen 80;
+    root /shoes-erp/web/;
+    server_name shoes-erp.com;
+
+    location / {
+        try_files $uri /app.php$is_args$args;
+    }
+
+    location ~ ^/(app|config)\.php(/|$) {
+        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        include fastcgi_params;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+    }
+
+    keepalive_timeout 10;
+    error_log /var/log/nginx/shoes_erp_error.log;
+    access_log /var/log/nginx/shoes_erp_access.log;
+}
+

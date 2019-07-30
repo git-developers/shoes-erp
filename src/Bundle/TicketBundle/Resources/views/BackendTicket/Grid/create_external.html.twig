@@ -34,9 +34,10 @@
 
     {% javascripts
         '@TicketBundle/Resources/public/js/formClient.js'
+        '@TicketBundle/Resources/public/js/formTicket.js'
         '@TicketBundle/Resources/public/js/formEmployee.js'
         '@TicketBundle/Resources/public/js/formProducts.js'
-        '@TicketBundle/Resources/public/js/formTicket.js'
+        '@TicketBundle/Resources/public/js/barcodeScanner.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -71,6 +72,10 @@
                 routeRedirect: '{{ path('backend_ticket_index') }}'
             });
 
+
+            $(function () {
+                $('#code-scan').codeScanner();
+            });
         });
 
     </script>
@@ -369,6 +374,7 @@
                     </div>
                 </div>
 
+                <input class="form-control" id="code-scan" type="text" />
             </div>
             {#CATEGORY - PRODUCTS#}
 

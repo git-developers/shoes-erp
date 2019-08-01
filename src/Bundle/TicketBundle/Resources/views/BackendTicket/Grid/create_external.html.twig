@@ -338,12 +338,12 @@
                                                     {% if product.files|first %}
                                                         <img
                                                             src="{{ product.files|first }}"
-                                                            data-url="{{ product.files|first }}"
+                                                            data-thumb="{{ product.files|first }}"
                                                             class="product-thumbnail img-circle img-thumbnail">
                                                     {% else %}
                                                         <img
                                                             src="{{ asset('bundles/themes/adminlte/images/image-icon.png') }}"
-                                                            data-url="{{ asset('bundles/themes/adminlte/images/image-icon.png') }}"
+                                                            data-thumb="{{ asset('bundles/themes/adminlte/images/image-icon.png') }}"
                                                             class="product-thumbnail img-circle img-thumbnail">
                                                     {% endif %}
                                                 </td>

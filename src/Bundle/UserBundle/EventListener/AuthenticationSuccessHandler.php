@@ -17,6 +17,7 @@ use Bundle\RoleBundle\Entity\Role;
 use Bundle\UserBundle\Entity\User;
 use Bundle\PointofsaleBundle\Entity\Pointofsale;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 
 class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterface
@@ -97,9 +98,9 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
 	    }
 	    */
 	
-	    $referer = $this->router->generate('backend_dashboard_index');
+	    //$referer = $this->router->generate('backend_dashboard_index', [], UrlGeneratorInterface::ABSOLUTE_PATH);
 	    
-	    return $this->httpUtils->createRedirectResponse($request, $referer);
+	    return $this->httpUtils->createRedirectResponse($request, 'backend_dashboard_index');
     }
 
     private function isGranted($attributes, $object = null)

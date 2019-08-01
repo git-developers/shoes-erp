@@ -98,12 +98,8 @@
 
         base.productThumbnail = function(context) {
 
-
-            console.log("URL::: " + $(context).data("url") + '?' + Math.random());
-
-
             var image = new Image();
-            image.src = $(context).data("url") + '?' + Math.random();
+            image.src = $(context).data("thumb") + '?' + Math.random();
             image.onload = function () {
                 $('div.box-thumbnail').empty().append(image);
             };
@@ -152,9 +148,6 @@
             });
 
             $('#modal-product-thumbnail').on('hidden.bs.modal', function () {
-
-                console.log("WWWWWWWWWWW");
-
                 $('div.box-thumbnail').empty().html('');
             });
 

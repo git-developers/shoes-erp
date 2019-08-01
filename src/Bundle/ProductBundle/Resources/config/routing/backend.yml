@@ -85,7 +85,7 @@ backend_product_index:
                               className: modal-view text-center
                         - obj: obj.files
                           options:
-                              property: " return (obj.files[0] != null) ? '<img src=\"' + obj.files[0] + '\" class=\"img-circle img-thumbnail\">' : '<img src=\"/bundles/themes/adminlte/images/image-icon.png\" class=\"img-circle img-thumbnail\">' "
+                              property: " return (obj.files[0] != null) ? '<img src=\"' + obj.files[0] + '\" class=\"img-circle img-thumbnail\">' : '<i class=\"fa fa-2x fa-fw fa-image \"></i>' "
                           defs:
                               targets: 1
                               title: 'Thumb'

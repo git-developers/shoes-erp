@@ -216,7 +216,9 @@ abstract class BaseController extends Controller
 			);
 		}
 		
-		$entity->setFiles($imagePath);
+		if (method_exists($entity,'setFiles')) {
+			$entity->setFiles($imagePath);
+		}
 		
 		return $entity;
 	}

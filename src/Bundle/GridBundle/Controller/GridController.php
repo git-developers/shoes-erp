@@ -328,7 +328,14 @@ class GridController extends BaseController
 
             try {
                 if($entity){
-                    $entity->setIsActive(false);
+	
+	
+	                echo "POLLO xxx:: <pre>";
+//	                print_r($entity);
+	                exit;
+	
+	
+	                $entity->setIsActive(false);
                     //$this->remove($entity);
                     $this->persist($entity);
                     $status = self::STATUS_SUCCESS;

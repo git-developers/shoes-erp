@@ -112,6 +112,30 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
      * })
      */
     protected $username;
+	
+	/**
+	 * @var string
+	 *
+	 * @Assert\Length(
+	 *      min = 8,
+	 *      max = 8,
+	 *      minMessage = "Minimo caracteres {{ limit }} para el Dni",
+	 *      maxMessage = "Maximo caracteres {{ limit }} para el Dni"
+	 * )
+	 */
+	private $dni;
+	
+	/**
+	 * @var int|null
+	 *
+	 * @Assert\Length(
+	 *      min = 11,
+	 *      max = 11,
+	 *      minMessage = "Minimo caracteres {{ limit }} para el Ruc",
+	 *      maxMessage = "Maximo caracteres {{ limit }} para el Ruc"
+	 * )
+	 */
+	private $ruc;
 
     /**
      * @var string
@@ -163,12 +187,6 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
      *
      */
     private $deviceCode;
-
-    /**
-     * @var string|null
-     *
-     */
-    private $dni;
 
     /**
      * @var string|null
@@ -430,6 +448,24 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
     {
         return $this->dni;
     }
+	
+	/**
+	 * @return int|null
+	 */
+	public function getRuc() //: int
+	{
+		return $this->ruc;
+	}
+	
+	/**
+	 * @param int|null $ruc
+	 */
+	public function setRuc(int $ruc)
+	{
+		$this->ruc = $ruc;
+		
+		return $this;
+	}
 
     /**
      * @return null|string

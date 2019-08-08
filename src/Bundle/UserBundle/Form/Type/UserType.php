@@ -44,35 +44,6 @@ class UserType extends AbstractType
     {
 
         $builder
-
-            /*
-            ->add('university', EntityType::class, array(
-                'class' => University::class,
-                'query_builder' => function(EntityRepository $a) {
-                    return $a->createQueryBuilder('a')
-                        ->where('a.isActive = :active')
-                        ->orderBy('a.id', 'DESC')
-                        ->setParameter('active', true)
-                        ;
-//                        ->add('orderBy', 's.sort_order ASC')
-//                        ->innerJoin('a.languages', 'b')
-//                        ->addSelect('b')
-                },
-                'placeholder' => '[ Escoge una opción ]',
-                'empty_data' => null,
-                'required' => true,
-                'label' => 'Universidad',
-                'label_attr' => [
-                    'class' => ''
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => '',
-                ],
-            ))
-            */
-
-
             ->add('profile', EntityType::class, array(
                 'class' => Profile::class,
                 'query_builder' => function(EntityRepository $er) {
@@ -120,25 +91,6 @@ class UserType extends AbstractType
                 ],
                 'error_bubbling' => true
             ])
-//            ->add('password', PasswordType::class, array(
-//                'label' => 'Password',
-//                'required' => false,
-//                'label_attr' => array('class' => ''),
-//                'attr' => array(
-//                    'class' => 'form-control',
-//                    'placeholder' => 'password',
-//                ),
-//            ))
-//            ->add('username', TextType::class, array(
-//                'label' => 'Username',
-//                'required' => false,
-//                'label_attr' => array('class' => ''),
-//                'attr' => array(
-//                    'class' => 'form-control',
-//                    'placeholder' => 'username',
-//                ),
-//                'error_bubbling' => true
-//            ))
 //            ->add('image', FileType::class , [
 //                'label' => 'Selecciona tu foto',
 //                'required' => true,
@@ -150,21 +102,35 @@ class UserType extends AbstractType
 //                'data_class' => null,
 //                'error_bubbling' => true
 //            ])
-//            ->add('dni', TextType::class, [
-//                'label' => 'Dni',
-//                'label_attr' => [
-//                    'class' => ''
-//                ],
-//                'attr' => [
-//                    'class' => 'form-control',
-//                    'placeholder' => 'dni (8 caracteres)',
-//                    'pattern'=>'[0-9]{8}',
-//                    'maxlength'=>'8',
-//                    'minlength'=>'8',
-////                    'form'=>'user-form',
-//                ],
-//                'error_bubbling' => true
-//            ])
+            ->add('dni', TextType::class, [
+                'label' => 'Dni',
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => '8 caracteres',
+                    'pattern'=>'[0-9]{8}',
+                    'maxlength'=>'8',
+                    'minlength'=>'8',
+//                    'form'=>'user-form',
+                ],
+                'error_bubbling' => true
+            ])
+            ->add('ruc', TextType::class, [
+                'label' => 'Ruc',
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => '11 caracteres',
+                    'pattern'=>'[0-9]{11}',
+                    'maxlength'=>'11',
+                    'minlength'=>'11',
+                ],
+                'error_bubbling' => true
+            ])
             ->add('name', TextType::class, [
                 'label' =>' Nombres',
                 'label_attr' => [

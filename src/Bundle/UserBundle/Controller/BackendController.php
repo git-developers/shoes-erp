@@ -172,5 +172,75 @@ class BackendController extends GridController
 			]
 		);
 	}
-
+	
+	/**
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function deleteAction(Request $request): Response
+	{
+		if (!$this->isXmlHttpRequest()) {
+			throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
+		}
+		
+		$parameters = [
+			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
+		];
+		$applicationName = $this->container->getParameter('application_name');
+		$this->metadata = new Metadata('tianos', $applicationName, $parameters);
+		
+		//CONFIGURATION
+		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
+		$template = $configuration->getTemplate('');
+		$action = $configuration->getAction();
+		$rolesAllow = $configuration->getRolesAllow();
+		
+		//IS_GRANTED
+		if (!$this->isGranted($rolesAllow)) {
+			return $this->render(
+				"GridBundle::error.html.twig",
+				[
+					'message' => self::ACCESS_DENIED_MSG,
+				]
+			);
+		}
+		
+		$errors = [];
+		$status = self::STATUS_ERROR;
+		$id = $request->get('id');
+		
+		if ($request->isMethod('DELETE')) {
+			
+			//REPOSITORY
+			$repository = $configuration->getRepositoryService();
+			$method = $configuration->getRepositoryMethod();
+			$entity = $this->get($repository)->$method($id);
+			
+			try {
+				if($entity){
+					$entity->setEnabled(false);
+					//$this->remove($entity);
+					$this->persist($entity);
+					$status = self::STATUS_SUCCESS;
+				}
+			}catch (\Exception $e){
+				$errors[] = $e->getMessage();
+			}
+			
+			return $this->json([
+				'id' => $id,
+				'status' => $status,
+				'errors' => $errors,
+			]);
+		}
+		
+		return $this->render(
+			$template,
+			[
+				'id' => $id,
+				'action' => $action,
+			]
+		);
+	}
+	
 }

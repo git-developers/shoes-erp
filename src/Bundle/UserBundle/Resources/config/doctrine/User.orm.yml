@@ -54,6 +54,20 @@ Bundle\UserBundle\Entity\User:
             options:
                 fixed: false
             column: last_name
+        dni:
+            type: string
+            nullable: true
+            length: 8
+            options:
+                fixed: false
+            column: dni
+        ruc:
+            type: integer
+            nullable: true
+            length: 11
+            options:
+                fixed: false
+            column: ruc
         headline:
             type: string
             nullable: true
@@ -74,7 +88,7 @@ Bundle\UserBundle\Entity\User:
         address:
             type: string
             nullable: true
-            length: 100
+            length: 150
             options:
                 fixed: false
         phone:
@@ -146,12 +160,6 @@ Bundle\UserBundle\Entity\User:
 #            type: string
 #            nullable: true
 #            length: 45
-#            options:
-#                fixed: false
-#        dni:
-#            type: string
-#            nullable: true
-#            length: 8
 #            options:
 #                fixed: false
 #        email:

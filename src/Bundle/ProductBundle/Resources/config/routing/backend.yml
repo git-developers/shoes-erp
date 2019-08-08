@@ -93,22 +93,23 @@ backend_product_index:
                               sorting: 0
                               orderable: 0
                               className: image-upload text-center
-                        - obj: obj.name
+                        - obj: " '<div class=\"alert product-color\" style=\"background-color:' + obj.color.prefix + '\"></div>' + obj.color.name "
                           defs:
                               targets: 2
+                              orderable: 1
+                              sorting: 1
+                              width: 8%
+                              title: '<i class="fa fa-fw fa-adjust"></i> Color'
+                              className: padding-0 text-center
+                              filter: 0
+                        - obj: obj.name
+                          defs:
+                              targets: 3
                               orderable: 1
                               sorting: 1
                               title: '<i class="fa fa-fw fa-align-left"></i> Nombre'
                               className: modal-edit
                               filter: 1
-                        - obj: " '<div class=\"alert product-color\" style=\"background-color:' + obj.color + '\"></div>' "
-                          defs:
-                              targets: 3
-                              orderable: 1
-                              sorting: 1
-                              title: '<i class="fa fa-fw fa-adjust"></i> Color'
-                              className: padding-0 text-center
-                              filter: 0
                         - obj: obj.size
                           defs:
                               targets: 4

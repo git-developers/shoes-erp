@@ -64,3 +64,7 @@ backend_settings:
 backend_files:
     resource: '@FilesBundle/Resources/config/routing/backend.yml'
     prefix: /files
+
+backend_color:
+    resource: '@ProductBundle/Resources/config/routing/color.yml'
+    prefix: /color

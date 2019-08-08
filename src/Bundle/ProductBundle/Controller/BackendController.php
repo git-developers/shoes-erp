@@ -62,8 +62,15 @@ class BackendController extends GridController
 	    
         $varsRepository = $configuration->getRepositoryVars();
         $objects = $this->getSerialize($objects, $varsRepository->serialize_group_name);
-        
-        //GRID
+	
+	
+//	    echo "POLLO:: <pre>";
+//	    print_r($objects);
+//	    exit;
+	
+	
+	
+	    //GRID
         $gridService = $this->get('tianos.grid');
         $modal = $gridService->getModalMapper()->getDefaults($modal);
         $formMapper = $gridService->getFormMapper()->getDefaults();
@@ -81,9 +88,6 @@ class BackendController extends GridController
             ->setColumnsTargets()
             ->resetGridVariable()
         ;
-        
-        //USER
-	    $user = $this->getUser();
 	    
 
         //REPOSITORY TREE

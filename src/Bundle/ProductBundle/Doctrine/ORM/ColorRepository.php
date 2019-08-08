@@ -6,7 +6,7 @@ namespace Bundle\ProductBundle\Doctrine\ORM;
 
 use Bundle\CoreBundle\Doctrine\ORM\EntityRepository as TianosEntityRepository;
 
-class UnitRepository extends TianosEntityRepository
+class ColorRepository extends TianosEntityRepository
 {
 
     /**
@@ -16,11 +16,11 @@ class UnitRepository extends TianosEntityRepository
     {
         $em = $this->getEntityManager();
         $dql = "
-            SELECT unit
-            FROM ProductBundle:Unit unit
+            SELECT color
+            FROM ProductBundle:Color color
             WHERE
-            unit.id = :id AND
-            unit.isActive = :active
+            color.id = :id AND
+            color.isActive = :active
             ";
 
         $query = $em->createQuery($dql);

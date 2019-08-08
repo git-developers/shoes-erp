@@ -76,6 +76,7 @@
             '@ThemesBundle/Resources/public/adminlte/plugins/daterangepicker/daterangepicker.css'
             '@ThemesBundle/Resources/public/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
             '@ThemesBundle/Resources/public/adminlte/plugins/pace/pace.min.css'
+            '@ThemesBundle/Resources/public/adminlte/bower_components/select2/dist/css/select2.min.css'
         %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -145,6 +146,7 @@
         '@ThemesBundle/Resources/public/adminlte/dist/js/app.min.js'
         '@ThemesBundle/Resources/public/adminlte/plugins/iCheck/icheck.min.js'
         '@ThemesBundle/Resources/public/adminlte/bower_components/PACE/pace.min.js'
+        '@ThemesBundle/Resources/public/adminlte/bower_components/select2/dist/js/select2.full.min.js'
 
     %}
         <script src="{{ asset_url }}"></script>
@@ -158,6 +160,13 @@
     <![endif]-->
 
     <script type="text/javascript">
+
+        {#Initialize Select2 Elements#}
+        $('.select2').select2();
+
+        // $(".select2").select2({
+        //     dropdownParent: $("#modal-create .modal-content")
+        // });
 
         {#Resolve conflict in jQuery UI tooltip with Bootstrap tooltip#}
         $.widget.bridge('uibutton', $.ui.button);

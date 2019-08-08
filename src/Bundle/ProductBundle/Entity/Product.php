@@ -7,6 +7,7 @@ namespace Bundle\ProductBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMSS;
 use JMS\Serializer\Annotation\Type as TypeJMS;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
@@ -31,18 +32,15 @@ class Product
 
     /**
      * @var string
+     *
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 7,
+     *      minMessage = "Minimo caracteres {{ limit }} para el codigo",
+     *      maxMessage = "Maximo caracteres {{ limit }} para el codigo"
+     * )
      */
     private $code;
-
-    /**
-     * @var string
-     *
-     * @JMSS\Groups({
-     *     "crud",
-     *     "ticket"
-     * })
-     */
-    private $color;
 	
 	/**
 	 * @var float
@@ -145,6 +143,20 @@ class Product
 	private $unit;
 	
 	/**
+	 * @var \Bundle\ProductBundle\Entity\Color
+	 *
+	 * @ORM\ManyToOne(targetEntity="Bundle\ProductBundle\Entity\Color")
+	 * @ORM\JoinColumns({
+	 *   @ORM\JoinColumn(name="color_id", referencedColumnName="id")
+	 * })
+	 *
+	 * @JMSS\Groups({
+	 *     "crud",
+	 * })
+	 */
+	private $color;
+	
+	/**
 	 * @var integer
 	 *
 	 * @JMSS\Groups({
@@ -196,22 +208,6 @@ class Product
     {
         return $this->code;
     }
-	
-	/**
-	 * @return string
-	 */
-	public function getColor()//: string
-	{
-		return $this->color;
-	}
-	
-	/**
-	 * @param string $color
-	 */
-	public function setColor(string $color)
-	{
-		$this->color = $color;
-	}
 	
 	/**
 	 * @return int
@@ -491,6 +487,8 @@ class Product
 	public function setQuantity(int $quantity)
 	{
 		$this->quantity = $quantity;
+		
+		return $this;
 	}
 	
 	/**
@@ -507,7 +505,28 @@ class Product
 	public function setFiles(array $files) //: void
 	{
 		$this->files = $files;
+		
+		return $this;
 	}
+	
+	/**
+	 * @return Color
+	 */
+	public function getColor() //: Color
+	{
+		return $this->color;
+	}
+	
+	/**
+	 * @param Color $color
+	 */
+	public function setColor(\Bundle\ProductBundle\Entity\Color $color) //: void
+	{
+		$this->color = $color;
+		
+		return $this;
+	}
+	
 	
 }
 

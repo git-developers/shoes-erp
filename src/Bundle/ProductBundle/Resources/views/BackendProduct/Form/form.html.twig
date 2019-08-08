@@ -58,9 +58,91 @@
             <div class="form-group">
                 <i class="fa fa-fw fa-adjust"></i>
                 {{ form_label(form.color) }}
+
+                <div class="dropdown">
+
+                    {% if form.color.vars.choices[form.color.vars.value] is defined %}
+
+                        {% set color = form.color.vars.choices[form.color.vars.value] %}
+
+                        <button
+                            class="btn btn-default dropdown-toggle"
+                            type="button"
+                            style="color: black; width: 100%; background-color: {{ color.data.prefix }}"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="true">
+                            <span class="selected">{{ color.label }}</span> &nbsp;
+                            <span class="caret"></span>
+                        </button>
+                    {% else %}
+                        <button
+                            class="btn btn-default dropdown-toggle"
+                            type="button"
+                            style="color: black; width: 100%;"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="true">
+                            <span class="selected">[ Seleccionar ]</span> &nbsp; 
+                            <span class="caret"></span>
+                        </button>
+                    {% endif %}
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="width: 100%">
+
+                        <li>
+                            <a href="#">
+                                [ Seleccionar ]
+                            </a>
+                        </li>
+
+                        {% for key, val in form.color.vars.choices %}
+                            <li>
+                                <a
+                                    href="#"
+                                    data-value="{{ val.value }}"
+                                    data-prefix="{{ val.data.prefix }}">
+                                    <button
+                                        type="button"
+                                        class="btn btn-flat"
+                                        style="color: #343434; width: 100%; background-color: {{ val.data.prefix }}">
+                                        {{ val.label }}
+                                    </button>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
                 {{ form_widget(form.color) }}
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $('.dropdown').on('show.bs.dropdown', function () {
+
+
+        });
+
+        $('.dropdown-menu a').click(function() {
+
+            var value = $(this).data("value");
+            var prefix = $(this).data("prefix");
+            var button = $("button.dropdown-toggle");
+            var select = $("select[name='{{ form.color.vars.full_name }}']");
+
+            if (typeof value == "undefined") {
+                select.prop("selectedIndex", 0);
+                button.css("background-color", "");
+                button.find("span.selected").text($(this).text());
+                return false;
+            }
+
+            button.find("span.selected").text($(this).text());
+            button.css("background-color", prefix);
+            select.val(value);
+        });
+    </script>
 
 {% endblock %}

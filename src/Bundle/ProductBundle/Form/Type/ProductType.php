@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Bundle\CategoryBundle\Entity\Category;
 use Bundle\ProductBundle\Entity\Unit;
+use Bundle\ProductBundle\Entity\Color;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -108,6 +109,26 @@ class ProductType extends AbstractType
                 ],
                 $this->getDataType($options)
             ))
+            ->add('color', EntityType::class, array_merge(
+                [
+                    'class' => Color::class,
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllObjects();
+                    },
+                    'placeholder' => '[ Escoge un color ]',
+                    'empty_data' => null,
+                    'required' => true,
+                    'label' => 'Color',
+                    'label_attr' => [
+                        'class' => ''
+                    ],
+                    'attr' => [
+                        'class' => 'form-control hide',
+                        'placeholder' => '',
+                    ],
+                ],
+                $this->getDataType($options)
+            ))
             ->add('code', TextType::class, [
                 'label' =>' code',
                 'label_attr' => [
@@ -116,16 +137,6 @@ class ProductType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'code',
-                ],
-            ])
-            ->add('color', ColorType::class, [
-                'label' =>' color',
-                'label_attr' => [
-                    'class' => ''
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'color',
                 ],
             ])
             ->add('name', TextType::class, [

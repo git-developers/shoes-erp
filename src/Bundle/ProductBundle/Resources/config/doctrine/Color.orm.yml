@@ -1,0 +1,45 @@
+Bundle\ProductBundle\Entity\Color:
+    type: entity
+    table: color
+    repositoryClass: Bundle\ProductBundle\Doctrine\ORM\ColorRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        prefix:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: true
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        isActive:
+            type: boolean
+            nullable: true
+            column: is_active
+    lifecycleCallbacks: {  }

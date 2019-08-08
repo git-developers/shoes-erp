@@ -181,6 +181,12 @@ abstract class BaseController extends Controller
 		$out = [];
 		foreach ($objects as $i => $object) {
 			
+			
+			if (!method_exists($object,'setFiles')) {
+				$out[] = $object;
+				continue;
+			}
+			
 			$files = $this->get("tianos.repository.files")->findAllFiles($object);
 			
 			$imagePath = [];
@@ -191,9 +197,7 @@ abstract class BaseController extends Controller
 				);
 			}
 			
-			if (method_exists($object,'setFiles')) {
-				$object->setFiles($imagePath);
-			}
+			$object->setFiles($imagePath);
 			
 			$out[] = $object;
 		}
@@ -201,8 +205,12 @@ abstract class BaseController extends Controller
 		return $out;
 	}
 	
-	protected function rowImage($entity) //: array
+	protected function rowImage($entity)
 	{
+		
+		if (!method_exists($entity,'setFiles')) {
+			return $entity;
+		}
 		
 		$imagineCacheManager = $this->get('liip_imagine.cache.manager');
 		

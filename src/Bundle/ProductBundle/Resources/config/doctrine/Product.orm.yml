@@ -8,6 +8,9 @@ Bundle\ProductBundle\Entity\Product:
         fk_product_category1_idx:
             columns:
                 - category_id
+        fk_product_color1_idx:
+            columns:
+                - color_id
     id:
         id:
             type: integer
@@ -22,12 +25,6 @@ Bundle\ProductBundle\Entity\Product:
             type: string
             nullable: true
             length: 7
-            options:
-                fixed: false
-        color:
-            type: string
-            nullable: true
-            length: 45
             options:
                 fixed: false
         price:
@@ -117,6 +114,16 @@ Bundle\ProductBundle\Entity\Product:
             inversedBy: null
             joinColumns:
                 unit_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        color:
+            targetEntity: Bundle\ProductBundle\Entity\Color
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                color_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

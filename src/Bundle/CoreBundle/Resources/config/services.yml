@@ -46,11 +46,15 @@ services:
         arguments: [ '%application_url%' ]
         tags: [doctrine.fixture.orm]
 
-    Bundle\CoreBundle\DataFixtures\ORM\Load_18_ProductoData:
+    Bundle\CoreBundle\DataFixtures\ORM\Load_18_ColorData:
         arguments: [ '%application_url%' ]
         tags: [doctrine.fixture.orm]
 
-    Bundle\CoreBundle\DataFixtures\ORM\Load_19_PaymentTypeData:
+    Bundle\CoreBundle\DataFixtures\ORM\Load_19_ProductoData:
+        arguments: [ '%application_url%' ]
+        tags: [doctrine.fixture.orm]
+
+    Bundle\CoreBundle\DataFixtures\ORM\Load_20_PaymentTypeData:
         arguments: [ '%application_url%' ]
         tags: [doctrine.fixture.orm]
 

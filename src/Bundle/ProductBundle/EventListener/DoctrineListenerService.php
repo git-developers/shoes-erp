@@ -7,6 +7,7 @@ namespace Bundle\ProductBundle\EventListener;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\EventSubscriber;
 use Bundle\ProductBundle\Entity\Unit;
+use Bundle\ProductBundle\Entity\Color;
 use Bundle\ProductBundle\Entity\Product;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -59,7 +60,13 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 
             return;
         } elseif ($entity instanceof Unit) {
-	       
+        
+        } elseif ($entity instanceof Color) {
+	        $name = $entity->getName();
+	        $entity->setSlug($this->slugify($name));
+	        $entity->setCreatedAt($this->setupCreatedAt($entity));
+	
+	        return;
         }
     }
 

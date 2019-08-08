@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Component\Resource\Metadata\Metadata;
 use Bundle\ResourceBundle\ResourceBundle;
 use JMS\Serializer\SerializationContext;
-use Bundle\UserBundle\Entity\User;
 
 class GridController extends BaseController
 {
@@ -230,7 +229,7 @@ class GridController extends BaseController
         $id = $request->get('id');
         $entity = $this->get($repository)->$method($id);
 	    $entity = $this->rowImage($entity);
-
+	    
         if (!$entity) {
             throw $this->createNotFoundException('CRUD: Unable to find entity.');
         }

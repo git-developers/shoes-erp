@@ -19,7 +19,17 @@ backend_user_client_index:
                 box_class: primary
                 title: Listado de clientes
                 modal:
-                    title: Crear usuario
+                    create:
+                        title: Crear cliente
+                        size: modal-lg
+                    edit:
+                        title: Editar cliente
+                        size: modal-lg
+                    view:
+                        title: Ver cliente
+                        size: modal-lg
+                    change_password:
+                        title: Cambiar password
                 data_table:
                     route:
                         info: backend_user_client_info

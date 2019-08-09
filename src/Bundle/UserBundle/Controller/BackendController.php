@@ -94,6 +94,7 @@ class BackendController extends GridController
 					}
 					
 					$varsRepository = $configuration->getRepositoryVars();
+					$entity = $this->rowImage($entity);
 					$entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
 					$status = self::STATUS_SUCCESS;
 				}else{

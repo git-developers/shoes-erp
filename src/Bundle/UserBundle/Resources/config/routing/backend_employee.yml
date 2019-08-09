@@ -20,10 +20,14 @@ backend_user_employee_index:
                 title: Listado de empleados
                 modal:
                     create:
-                        title: Crear usuario
-                        size:
+                        title: Crear empleado
+                        size: modal-lg
                     edit:
-                        size:
+                        title: Editar empleado
+                        size: modal-lg
+                    view:
+                        title: Ver empleado
+                        size: modal-lg
                     change_password:
                         title: Cambiar password
                 data_table:

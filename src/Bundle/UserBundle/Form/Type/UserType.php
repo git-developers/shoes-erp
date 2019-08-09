@@ -79,7 +79,7 @@ class UserType extends AbstractType
                 'required' => false,
                 'widget' => 'single_text',
                 'label_attr' => [
-                    'class' => 'black-3'
+                    'class' => ''
                 ],
 //                'format' => 'dd-MM-yyyy',
 //                'years' => range(date('Y') -18, date('Y') -80),
@@ -138,7 +138,7 @@ class UserType extends AbstractType
                 'label' => 'Dirección',
 	            'required' => false,
                 'label_attr' => [
-                    'class' => 'black-3'
+                    'class' => ''
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -170,7 +170,7 @@ class UserType extends AbstractType
                 'label' => 'Sitio web',
 	            'required' => false,
                 'label_attr' => [
-                    'class' => 'black-3'
+                    'class' => ''
                 ],
                 'attr' => [
                     'class' => 'form-control required',
@@ -181,7 +181,7 @@ class UserType extends AbstractType
                 'label' => 'Descripción',
 		        'required' => false,
                 'label_attr' => [
-                    'class' => 'black-3',
+                    'class' => '',
                 ],
                 'attr' => [
                     'class' => 'form-control',

@@ -196,9 +196,7 @@ div.product-color {
 }
 
 
-/**
-    NAV TABS
- */
+/** NAV TABS */
 .nav-tabs-custom-form > .nav-tabs > li.active {
     border-top-color: #555 !important;
 }
@@ -206,3 +204,44 @@ div.product-color {
     background-color: #ddd !important;
 }
 
+/*EDIT*/
+.nav-tabs-custom-edit {
+    background: transparent !important;
+}
+.nav-tabs-custom-edit > .tab-content {
+    background: #db8b0b !important;
+}
+.nav-tabs-custom-edit > .nav-tabs > li.active {
+    background-color: #db8b0b !important;
+    border-top-color: #ddd !important;
+}
+.nav-tabs-custom-edit > .nav-tabs > li.active > a,
+.nav-tabs-custom-edit > .nav-tabs > li.active:hover > a {
+    background-color: #db8b0b !important;
+    color: white !important;
+}
+.nav-tabs-custom-edit > .nav-tabs > li > a {
+    color: #555 !important;
+    background-color: #ddd !important;
+}
+
+/*CREATE*/
+.nav-tabs-custom-create {
+    background: transparent !important;
+}
+.nav-tabs-custom-create > .tab-content {
+    background: #008d4c !important;
+}
+.nav-tabs-custom-create > .nav-tabs > li.active {
+    background-color: #008d4c !important;
+    border-top-color: #ddd !important;
+}
+.nav-tabs-custom-create > .nav-tabs > li.active > a,
+.nav-tabs-custom-create > .nav-tabs > li.active:hover > a {
+    background-color: #008d4c !important;
+    color: white !important;
+}
+.nav-tabs-custom-create > .nav-tabs > li > a {
+    color: #555 !important;
+    background-color: #ddd !important;
+}

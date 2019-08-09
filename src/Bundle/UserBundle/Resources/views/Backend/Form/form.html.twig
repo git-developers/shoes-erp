@@ -26,7 +26,7 @@
 
                 <label class="switch">
                     {{ form_widget(form.isActive) }}
-                    <span class="slider round bg-green-slider"></span>
+                    <span class="slider round bg-{{ action }}-slider"></span>
                 </label>
 
             </div>
@@ -81,36 +81,38 @@
         </div>
     </div>
 
+    <hr>
+
     <div class="row">
         <div class="col-md-12">
-            <div class="nav-tabs-custom nav-tabs-custom-form">
+            <div class="nav-tabs-custom nav-tabs-custom-{{ action }}">
 
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a href="#tab-create-1" data-toggle="tab" aria-expanded="true">
+                        <a href="#tab-{{ action }}-1" data-toggle="tab" aria-expanded="true">
                             Contacto y direcciones
                         </a>
                     </li>
                     <li class="">
-                        <a href="#tab-create-2" data-toggle="tab" aria-expanded="false">
+                        <a href="#tab-{{ action }}-2" data-toggle="tab" aria-expanded="false">
                             Notas internas
                         </a>
                     </li>
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab-create-1">
+                    <div class="tab-pane active" id="tab-{{ action }}-1">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <i class="fa fa-fw fa-align-justify black-3"></i>
+                                    <i class="fa fa-fw fa-align-justify"></i>
                                     {{ form_label(form.address) }}
                                     {{ form_widget(form.address) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <i class="fa fa-fw fa-unlink black-3"></i>
+                                    <i class="fa fa-fw fa-unlink"></i>
                                     {{ form_label(form.webSite) }}
                                     {{ form_widget(form.webSite) }}
                                 </div>
@@ -118,18 +120,18 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="tab-create-2">
+                    <div class="tab-pane" id="tab-{{ action }}-2">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <i class="fa fa-fw fa-align-justify black-3"></i>
+                                    <i class="fa fa-fw fa-align-justify"></i>
                                     {{ form_label(form.aboutMe) }}
                                     {{ form_widget(form.aboutMe) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <i class="fa fa-fw fa-calendar black-3"></i>
+                                    <i class="fa fa-fw fa-calendar"></i>
                                     {{ form_label(form.dob) }}
                                     {{ form_widget(form.dob) }}
                                 </div>

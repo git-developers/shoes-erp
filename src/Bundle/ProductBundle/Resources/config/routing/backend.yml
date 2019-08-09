@@ -96,9 +96,9 @@ backend_product_index:
                         - obj: " '<div class=\"alert product-color\" style=\"background-color:' + obj.color.prefix + '\"></div>' + obj.color.name "
                           defs:
                               targets: 2
-                              orderable: 1
-                              sorting: 1
-                              width: 8%
+                              orderable: 0
+                              sorting: 0
+                              width: 10%
                               title: '<i class="fa fa-fw fa-adjust"></i> Color'
                               className: padding-0 text-center
                               filter: 0

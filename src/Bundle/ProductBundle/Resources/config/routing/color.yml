@@ -21,9 +21,9 @@ backend_color_index:
                 modal:
                     create:
                         title: Crear color
-                        size: modal-lg
+                        size: modal-
                     edit:
-                        size: modal-lg
+                        size: modal-
                 data_table:
                     route:
                         info: backend_color_info

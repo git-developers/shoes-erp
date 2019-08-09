@@ -1,51 +1,69 @@
 {% extends 'GridBundle::Template/crud_modal_content.html.twig' %}
 
 {% block crud_modal_content %}
-    <div class="box box-solid">
+    <div class="box box-solid" style="box-shadow: 0 0px 0px rgba(0,0,0,0.0);">
+
         {#<div class="box-header with-border">#}
             {#<h3 class="box-title">About Me</h3>#}
         {#</div>#}
 
         <div class="box-body">
 
-            <strong>
-                <i class="fa fa-book margin-r-5"></i> Nombre
-            </strong>
-
-            <p class="text-muted">
-                {{ entity.name ~' '~ entity.lastName }}
-            </p>
-
-            <hr>
-
-            <strong>
-                <i class="fa fa-fw fa-envelope-o"></i> Email
-            </strong>
-
-            <p class="text-muted">
-                <div class="row">
-                    <div class="col-md-10">
-                        <p class="text-muted">
-                            <input
-                                value="{{ entity.email }}"
-                                class="form-control copy-to-clipboard-text"
-                                readonly>
-                        </p>
-                    </div>
-
-                    <div class="col-md-1">
-                        <i
-                            class="fa fa-lg fa-fw fa-copy x-hand copy-to-clipboard"
-                            data-toggle="tooltip"
-                            data-original-title="Click para copiar"></i>
-                    </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <strong>
+                        <i class="fa fa-book margin-r-5"></i> Nombre
+                    </strong>
+                    <p class="text-muted">
+                        {{ entity.nameBox }}
+                    </p>
                 </div>
-            </p>
+                <div class="col-md-6">
+                    <strong>
+                        <i class="fa fa-fw fa-envelope-o"></i> Email
+                    </strong>
+
+                    <p class="text-muted">
+                        <div class="row">
+                            <div class="col-md-11" style="padding-right: 0px;">
+                                <input
+                                    value="{{ entity.email }}"
+                                    class="form-control copy-to-clipboard-text"
+                                    readonly>
+                            </div>
+                            <div class="col-md-1" style="padding-left: 0px;">
+                                <i
+                                    style="margin-top: 10px;"
+                                    class="fa fa-lg fa-fw fa-copy x-hand copy-to-clipboard"
+                                    data-toggle="tooltip"
+                                    data-original-title="Click para copiar"></i>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+
+                <div class="col-md-2">
+                    <strong>
+                        <i class="fa fa-fw fa-check-square-o"></i> Activo
+                    </strong>
+                    <p class="text-muted">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% if entity.isActive %}
+                                    <button class="btn bg-olive btn-flat" style="width: 100%">si</button>
+                                {% else %}
+                                    <button class="btn bg-maroon btn-flat" style="width: 100%">no</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
 
             <hr>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <strong>
                         <i class="fa fa-fw fa-user"></i> Username
                     </strong>
@@ -53,7 +71,7 @@
                         {{ entity.username }}
                     </p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-2">
                     <strong>
                         <i class="fa fa-fw fa-user-secret"></i> Perfil
                     </strong>
@@ -61,44 +79,90 @@
                         <span class="badge bg-blue">{{ entity.profile.name }}</span>
                     </p>
                 </div>
+                <div class="col-md-2">
+                    <strong>
+                        <i class="fa fa-fw fa-gg"></i> DNI
+                    </strong>
+                    <p class="text-muted">
+                        {{ entity.dni }}
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <strong>
+                        <i class="fa fa-fw fa-gg-circle"></i> Ruc
+                    </strong>
+                    <p class="text-muted">
+                        {{ entity.ruc }}
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <strong>
+                        <i class="fa fa-calendar margin-r-5"></i> Creado
+                    </strong>
+                    <p class="text-muted">
+                        {{ entity.createdAt|date('Y-m-d H:i') }}
+                    </p>
+                </div>
             </div>
 
             <hr>
 
-            <strong>
-                <i class="fa fa-calendar margin-r-5"></i> Creado
-            </strong>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nav-tabs-custom">
 
-            <p class="text-muted">
-                {{ entity.createdAt|date('Y-m-d H:i') }}
-            </p>
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#tab-view-1" data-toggle="tab" aria-expanded="true">
+                                    Contacto y direcciones
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#tab-view-2" data-toggle="tab" aria-expanded="false">
+                                    Notas internas
+                                </a>
+                            </li>
+                        </ul>
 
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-view-1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <strong>
+                                            <i class="fa fa-fw fa-align-justify"></i> Dirección
+                                        </strong>
+                                        <p class="text-muted">
+                                            {{ entity.address }}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>
+                                            <i class="fa fa-fw fa-unlink"></i> Sitio web
+                                        </strong>
+                                        <p class="text-muted">
+                                            {{ entity.webSite }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
 
-            {#
-            <hr>
+                            <div class="tab-pane" id="tab-view-2">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <strong>
+                                            <i class="fa fa-fw fa-align-justify"></i> Descripción
+                                        </strong>
+                                        <p class="text-muted">
+                                            {{ entity.aboutMe }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <strong>
-                <i class="fa fa-pencil margin-r-5"></i> Skills
-            </strong>
-
-            <p>
-                <span class="label label-danger">UI Design</span>
-                <span class="label label-success">Coding</span>
-                <span class="label label-info">Javascript</span>
-                <span class="label label-warning">PHP</span>
-                <span class="label label-primary">Node.js</span>
-            </p>
-
-            <hr>
-
-
-            <strong>
-                <i class="fa fa-file-text-o margin-r-5"></i> Notes
-            </strong>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-
-            #}
 
         </div>
     </div>

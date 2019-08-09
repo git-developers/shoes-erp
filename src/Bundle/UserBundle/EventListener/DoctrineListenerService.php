@@ -71,7 +71,7 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
             $entity->setEnabled(true);
             $entity->setUsernameCanonical($uniqid);
             $entity->setHeadline('Soy parte de Tianos!');
-            $entity->setAboutMe('Aún no he ingresado mi descripción.');
+            $entity->setAboutMe(is_null($entity->getAboutMe()) ? 'Soy parte de Tianos ERP.' : $entity->getAboutMe());
 
 
             //password

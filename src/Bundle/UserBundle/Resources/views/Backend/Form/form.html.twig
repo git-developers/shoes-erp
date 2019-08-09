@@ -2,8 +2,6 @@
 
 {% block crud_modal_content %}
 
-    {#{{ form_start(form) }}#}
-
     {% if id is defined %}
         <input type="hidden" value="{{ id }}" name="id">
     {% endif %}
@@ -20,6 +18,38 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
+
+                <i class="fa fa-fw fa-check-square-o"></i>
+                {{ form_label(form.isActive) }}
+
+                <div class="clearfix"></div>
+
+                <label class="switch">
+                    {{ form_widget(form.isActive) }}
+                    <span class="slider round bg-green-slider"></span>
+                </label>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <i class="fa fa-fw fa-align-left"></i>
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <i class="fa fa-fw fa-align-left"></i>
+                {{ form_label(form.lastName) }}
+                {{ form_widget(form.lastName) }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
                 <i class="fa fa-fw fa-envelope-o"></i>
                 {{ form_label(form.email) }}
                 {{ form_widget(form.email) }}
@@ -28,98 +58,89 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <i class="fa fa-fw fa-align-left"></i>
-                {{ form_label(form.name) }}
-                {{ form_widget(form.name) }}
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <i class="fa fa-fw fa-align-left"></i>
-                {{ form_label(form.lastName) }}
-                {{ form_widget(form.lastName) }}
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
                 <i class="fa fa-fw fa-phone"></i>
                 {{ form_label(form.phone) }}
                 {{ form_widget(form.phone) }}
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
-                <i class="fa fa-fw fa-calendar"></i>
-                {{ form_label(form.dob) }}
-                {{ form_widget(form.dob) }}
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <i class="fa fa-fw fa-phone"></i>
+                <i class="fa fa-fw fa-gg"></i>
                 {{ form_label(form.dni) }}
                 {{ form_widget(form.dni) }}
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
-                <i class="fa fa-fw fa-calendar"></i>
+                <i class="fa fa-fw fa-gg-circle"></i>
                 {{ form_label(form.ruc) }}
                 {{ form_widget(form.ruc) }}
             </div>
         </div>
     </div>
 
-    {#<div class="row">#}
-        {#<div class="col-md-6">#}
-            {#<div class="form-group">#}
-                {#<i class="fa fa-fw fa-align-left"></i>#}
-                {#{{ form_label(form.headline) }}#}
-                {#{{ form_widget(form.headline) }}#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
-
     <div class="row">
-        <div class="col-md-10">
-            <div class="form-group">
-                <i class="fa fa-fw fa-align-justify"></i>
-                {{ form_label(form.aboutMe) }}
-                {{ form_widget(form.aboutMe) }}
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
+        <div class="col-md-12">
+            <div class="nav-tabs-custom nav-tabs-custom-form">
 
-                <i class="fa fa-fw fa-check-square-o"></i>
-                {{ form_label(form.isActive) }}
-                {{ form_widget(form.isActive) }}
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab-create-1" data-toggle="tab" aria-expanded="true">
+                            Contacto y direcciones
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#tab-create-2" data-toggle="tab" aria-expanded="false">
+                            Notas internas
+                        </a>
+                    </li>
+                </ul>
 
-                {#
-                <i class="fa fa-fw fa-check-square-o"></i>
-                {{ form_label(form.isActive) }}
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab-create-1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <i class="fa fa-fw fa-align-justify black-3"></i>
+                                    {{ form_label(form.address) }}
+                                    {{ form_widget(form.address) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <i class="fa fa-fw fa-unlink black-3"></i>
+                                    {{ form_label(form.webSite) }}
+                                    {{ form_widget(form.webSite) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="clearfix"></div>
-
-                <label class="switch">
-                    {{ form_widget(form.isActive) }}
-                    <span class="slider round {{ sliderBgColor() }}"></span>
-                </label>
-                #}
-
+                    <div class="tab-pane" id="tab-create-2">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <i class="fa fa-fw fa-align-justify black-3"></i>
+                                    {{ form_label(form.aboutMe) }}
+                                    {{ form_widget(form.aboutMe) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <i class="fa fa-fw fa-calendar black-3"></i>
+                                    {{ form_label(form.dob) }}
+                                    {{ form_widget(form.dob) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     {{ form_widget(form) }}
-    {#{{ form_end(form) }}#}
 
 {% endblock %}

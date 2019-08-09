@@ -1,6 +1,6 @@
 {% spaceless %}
     <div class="modal fade in" id="{{ modal.view_id }}">
-        <div class="modal-dialog {{ modal.view_size }}">
+        <div class="modal-dialog {{ modal.view.size|default() }}">
 
             <div class="modal-content">
 
@@ -9,12 +9,11 @@
                         <span aria-hidden="true">×</span>
                     </button>
                     <h4 class="modal-title">
-                        <i class="fa fa-fw fa-file-text"></i> Datos
+                        <i class="fa fa-fw fa-file-text"></i>
+                        {{ modal.view.title|default("Datos") }}
                     </h4>
                 </div>
-
                 <div class="crud-modal-content"></div>
-
             </div>
 
         </div>

@@ -47,6 +47,10 @@ input:checked + .bg-blue-slider {
     background-color: #357ca5;
 }
 
+input:checked + .bg-red-slider {
+    background-color: #dd4b39;
+}
+
 input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
 }

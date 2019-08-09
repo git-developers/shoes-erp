@@ -54,6 +54,13 @@ Bundle\UserBundle\Entity\User:
             options:
                 fixed: false
             column: last_name
+        webSite:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: false
+            column: web_site
         dni:
             type: string
             nullable: true
@@ -62,7 +69,7 @@ Bundle\UserBundle\Entity\User:
                 fixed: false
             column: dni
         ruc:
-            type: integer
+            type: string
             nullable: true
             length: 11
             options:

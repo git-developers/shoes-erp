@@ -327,14 +327,7 @@ class GridController extends BaseController
             $entity = $this->get($repository)->$method($id);
 
             try {
-                if($entity){
-	
-	
-	                echo "POLLO xxx:: <pre>";
-//	                print_r($entity);
-	                exit;
-	
-	
+                if ($entity) {
 	                $entity->setIsActive(false);
                     //$this->remove($entity);
                     $this->persist($entity);

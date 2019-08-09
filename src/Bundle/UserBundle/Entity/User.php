@@ -216,6 +216,12 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
      * @var string|null
      *
      */
+    private $webSite;
+
+    /**
+     * @var string|null
+     *
+     */
     private $phone;
 
     /**
@@ -432,7 +438,7 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
      *
      * @return User
      */
-    public function setDni($dni)
+    public function setDni(string $dni)
     {
         $this->dni = $dni;
 
@@ -460,7 +466,7 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
 	/**
 	 * @param int|null $ruc
 	 */
-	public function setRuc(int $ruc)
+	public function setRuc(string $ruc)
 	{
 		$this->ruc = $ruc;
 		
@@ -594,7 +600,23 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
     {
         return $this->address;
     }
-
+	
+	/**
+	 * @return null|string
+	 */
+	public function getWebSite() //: string
+	{
+		return $this->webSite;
+	}
+	
+	/**
+	 * @param null|string $webSite
+	 */
+	public function setWebSite(string $webSite)
+	{
+		$this->webSite = $webSite;
+	}
+    
     /**
      * Set phone
      *

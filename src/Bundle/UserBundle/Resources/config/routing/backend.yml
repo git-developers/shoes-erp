@@ -14,6 +14,7 @@ backend_user_index:
                 subheader: sylius.ui.manage_your_user_catalog
                 icon: cube
                 body_css: grid-body-css
+                copy_clipboard: true
                 files_upload:
                     class_name: User
                     file_type: images
@@ -31,6 +32,9 @@ backend_user_index:
                         size: modal-lg
                     edit:
                         title: Editar usuario
+                        size: modal-lg
+                    view:
+                        title: Ver usuario
                         size: modal-lg
                     change_password:
                         title: Cambiar password

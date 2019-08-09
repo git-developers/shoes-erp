@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -78,7 +79,7 @@ class UserType extends AbstractType
                 'required' => false,
                 'widget' => 'single_text',
                 'label_attr' => [
-                    'class' => ''
+                    'class' => 'black-3'
                 ],
 //                'format' => 'dd-MM-yyyy',
 //                'years' => range(date('Y') -18, date('Y') -80),
@@ -104,6 +105,7 @@ class UserType extends AbstractType
 //            ])
             ->add('dni', TextType::class, [
                 'label' => 'Dni',
+		        'required' => false,
                 'label_attr' => [
                     'class' => ''
                 ],
@@ -119,6 +121,7 @@ class UserType extends AbstractType
             ])
             ->add('ruc', TextType::class, [
                 'label' => 'Ruc',
+	            'required' => false,
                 'label_attr' => [
                     'class' => ''
                 ],
@@ -128,6 +131,18 @@ class UserType extends AbstractType
                     'pattern'=>'[0-9]{11}',
                     'maxlength'=>'11',
                     'minlength'=>'11',
+                ],
+                'error_bubbling' => true
+            ])
+            ->add('address', TextareaType::class, [
+                'label' => 'Dirección',
+	            'required' => false,
+                'label_attr' => [
+                    'class' => 'black-3'
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Dirección',
                 ],
                 'error_bubbling' => true
             ])
@@ -151,25 +166,26 @@ class UserType extends AbstractType
                     'placeholder' => 'apellidos',
                 ],
             ])
-//            ->add('headline', TextType::class, [
-//                'label' => 'Introducción',
-//                'label_attr' => [
-//                    'class' => ''
-//                ],
-//                'attr' => [
-//                    'class' => 'form-control',
-//                    'placeholder' => 'Introducción',
-//                ],
-//            ])
+            ->add('webSite', UrlType::class, [
+                'label' => 'Sitio web',
+	            'required' => false,
+                'label_attr' => [
+                    'class' => 'black-3'
+                ],
+                'attr' => [
+                    'class' => 'form-control required',
+                    'placeholder' => 'http://...',
+                ],
+            ])
             ->add('aboutMe', TextareaType::class, [
-                'label' => 'Descripcion',
+                'label' => 'Descripción',
 		        'required' => false,
                 'label_attr' => [
-                    'class' => ''
+                    'class' => 'black-3',
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Sobre mi',
+                    'placeholder' => 'Sobre el usuario',
                 ],
             ])
             ->add('email', EmailType::class, [

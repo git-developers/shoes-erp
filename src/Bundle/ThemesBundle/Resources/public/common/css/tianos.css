@@ -78,14 +78,17 @@ div.tools i.fa-trash-o, div.input-group i.fa-trash-o {
 .show{
     display: block;
 }*/
-.white{
+.white {
     color: #fff !important;
 }
-.black-1{
+.black-1 {
     color: #333 !important;
 }
-.black-2{
+.black-2 {
     color: #444 !important;
+}
+.black-3 {
+    color: #555 !important;
 }
 .gray{
     color: #b5bbc8 !important;
@@ -191,3 +194,15 @@ div.product-color {
     border-color: #367fa9;
     color: #fff !important;
 }
+
+
+/**
+    NAV TABS
+ */
+.nav-tabs-custom-form > .nav-tabs > li.active {
+    border-top-color: #555 !important;
+}
+.nav-tabs-custom-form > .nav-tabs {
+    background-color: #ddd !important;
+}
+

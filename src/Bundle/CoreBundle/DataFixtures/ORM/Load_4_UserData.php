@@ -33,6 +33,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('12345688');
+        $entity->setRuc('12345688457');
         $entity->setPassword('123');
         $entity->setName('Carlos');
         $entity->setLastName('Carlos');
@@ -43,6 +44,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('87654321');
+	    $entity->setRuc('87654321111');
         $entity->setPassword('123');
         $entity->setName('Albert');
         $entity->setLastName('Einstein');
@@ -58,6 +60,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 	     */
         $entity = new User();
         $entity->setDni('22334455');
+	    $entity->setRuc('22334455334');
         $entity->setPassword('1q2w3e4r');
         $entity->setName('Bill');
         $entity->setLastName('Gates');
@@ -72,6 +75,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('99887766');
+	    $entity->setRuc('99887766556');
         $entity->setPassword('123');
         $entity->setName('Isaac');
         $entity->setLastName('Newton');
@@ -86,6 +90,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('67572335');
+	    $entity->setRuc('67572335556');
         $entity->setPassword('123');
         $entity->setName('Marco');
         $entity->setLastName('Polo');
@@ -100,6 +105,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('99887766');
+	    $entity->setRuc('99887766778');
         $entity->setPassword('123');
         $entity->setName('Theodore');
         $entity->setLastName('Roosevelt');
@@ -114,6 +120,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('99887766');
+	    $entity->setRuc('99887766666');
         $entity->setPassword('123');
         $entity->setName('Karl');
         $entity->setLastName('Marx');
@@ -128,6 +135,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('99887766');
+	    $entity->setRuc('99887766221');
         $entity->setPassword('123');
         $entity->setName('Frederick');
         $entity->setLastName('Douglass');
@@ -142,6 +150,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('99887766');
+	    $entity->setRuc('99887766222');
         $entity->setPassword('123');
         $entity->setName('John');
         $entity->setLastName('Lennon');
@@ -162,6 +171,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 	     */
         $entity = new User();
         $entity->setDni('88889999');
+	    $entity->setRuc('88889999333');
         $entity->setPassword('123');
         $entity->setName('Steve');
         $entity->setLastName('Jobs');
@@ -176,6 +186,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('65765757');
+	    $entity->setRuc('65765757444');
         $entity->setPassword('123');
         $entity->setName('Roger');
         $entity->setLastName('Federer');
@@ -190,6 +201,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('65765567');
+	    $entity->setRuc('65765567778');
         $entity->setPassword('123');
         $entity->setName('Neymar');
         $entity->setLastName('Junior');
@@ -204,6 +216,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('35462333');
+	    $entity->setRuc('35462333665');
         $entity->setPassword('123');
         $entity->setName('Keiko');
         $entity->setLastName('Garcia');
@@ -218,6 +231,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('55566644');
+	    $entity->setRuc('55566644444');
         $entity->setPassword('123');
         $entity->setName('Juan');
         $entity->setLastName('Lopez');
@@ -232,6 +246,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('35462333');
+	    $entity->setRuc('35462333222');
         $entity->setPassword('123');
         $entity->setName('Renee');
         $entity->setLastName('Medina');
@@ -246,6 +261,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('65645656');
+	    $entity->setRuc('65645656999');
         $entity->setPassword('123');
         $entity->setName('Katherine');
         $entity->setLastName('Johnson');
@@ -256,6 +272,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('13123344');
+	    $entity->setRuc('13123344888');
         $entity->setPassword('123');
         $entity->setName('Margaret');
         $entity->setLastName('Hamilton');
@@ -270,6 +287,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('78978956');
+	    $entity->setRuc('78978956777');
         $entity->setPassword('123');
         $entity->setName('Katharine');
         $entity->setLastName('Hepburn');
@@ -284,6 +302,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('78976432');
+	    $entity->setRuc('78976432666');
         $entity->setPassword('123');
         $entity->setName('Dorothy');
         $entity->setLastName('Parker');
@@ -298,6 +317,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('12312314');
+	    $entity->setRuc('12312314333');
         $entity->setPassword('123');
         $entity->setName('Abraham');
         $entity->setLastName('Lincoln');
@@ -312,6 +332,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('89087564');
+	    $entity->setRuc('89087564456');
         $entity->setPassword('123');
         $entity->setName('Walt');
         $entity->setLastName('Disney');
@@ -326,6 +347,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('07890890');
+	    $entity->setRuc('07890890678');
         $entity->setPassword('123');
         $entity->setName('Napoleon');
         $entity->setLastName('Bonaparte');
@@ -340,6 +362,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('07890890');
+	    $entity->setRuc('07890890567');
         $entity->setPassword('123');
         $entity->setName('Abraham');
         $entity->setLastName('Elizabeth');
@@ -354,6 +377,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('35353452');
+	    $entity->setRuc('35353452345');
         $entity->setPassword('123');
         $entity->setName('Benjamin');
         $entity->setLastName('Franklin');
@@ -368,6 +392,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
 
         $entity = new User();
         $entity->setDni('76455456');
+	    $entity->setRuc('76455456876');
         $entity->setPassword('123');
         $entity->setName('Wright');
         $entity->setLastName('Brothers');

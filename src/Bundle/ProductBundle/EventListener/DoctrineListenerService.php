@@ -60,7 +60,11 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 
             return;
         } elseif ($entity instanceof Unit) {
-        
+	        $name = $entity->getName();
+	        $entity->setSlug($this->slugify($name));
+	        $entity->setCreatedAt($this->setupCreatedAt($entity));
+	
+	        return;
         } elseif ($entity instanceof Color) {
 	        $name = $entity->getName();
 	        $entity->setSlug($this->slugify($name));

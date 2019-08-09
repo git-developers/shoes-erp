@@ -26,15 +26,44 @@ class ProductType extends AbstractType
         $this->em = $em;
     }
 
-    public function getSizes() {
+    public function getSize() {
         return [
-        	6 => 6,
-        	7 => 7,
-        	8 => 8,
-        	9 => 9,
-        	10 => 10,
-        	11 => 11,
-        	12 => 12,
+        	17 => 17,
+        	18 => 18,
+        	19 => 19,
+        	20 => 20,
+        	21 => 21,
+        	22 => 22,
+        	23 => 23,
+        	24 => 24,
+        	25 => 25,
+        	26 => 26,
+        	27 => 27,
+        	28 => 28,
+        	29 => 29,
+        	30 => 30,
+        	31 => 31,
+        	32 => 32,
+        	33 => 33,
+        	34 => 34,
+        	35 => 35,
+        	36 => 36,
+        	37 => 37,
+        	38 => 38,
+        	39 => 39,
+        	40 => 40,
+        	41 => 41,
+        	42 => 42,
+        	43 => 43,
+        ];
+    }
+
+    public function getSizeRange() {
+        return [
+        	"17 -- 21" => 1721,
+        	"21 -- 25" => 2125,
+        	"25 -- 32" => 2532,
+        	"32 -- 37" => 3237,
         ];
     }
 
@@ -130,7 +159,7 @@ class ProductType extends AbstractType
                 $this->getDataType($options)
             ))
             ->add('code', TextType::class, [
-                'label' =>' code',
+                'label' => 'code',
                 'label_attr' => [
                     'class' => ''
                 ],
@@ -140,7 +169,7 @@ class ProductType extends AbstractType
                 ],
             ])
             ->add('name', TextType::class, [
-                'label' =>' Nombre',
+                'label' => 'Nombre',
                 'label_attr' => [
                     'class' => ''
                 ],
@@ -150,7 +179,7 @@ class ProductType extends AbstractType
                 ],
             ])
             ->add('stock', IntegerType::class, [
-                'label' =>' Stock',
+                'label' => 'Stock',
                 'label_attr' => [
                     'class' => ''
                 ],
@@ -160,14 +189,25 @@ class ProductType extends AbstractType
                 ],
             ])
             ->add('size', ChoiceType::class, [
-                'label' =>' Talla',
-	            'choices' => $this->getSizes(),
+                'label' => 'Talla',
+	            'choices' => $this->getSize(),
                 'label_attr' => [
                     'class' => ''
                 ],
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => '##',
+                ],
+            ])
+            ->add('sizeRange', ChoiceType::class, [
+                'label' => false,
+	            'choices' => $this->getSizeRange(),
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'style' => 'display:none;',
                 ],
             ])
         ;

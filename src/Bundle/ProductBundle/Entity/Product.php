@@ -85,6 +85,16 @@ class Product
      *     "ticket"
      * })
      */
+    private $sizeRange;
+
+    /**
+     * @var integer
+     *
+     * @JMSS\Groups({
+     *     "crud",
+     *     "ticket"
+     * })
+     */
     private $stock;
 
     /**
@@ -223,6 +233,22 @@ class Product
 	public function setSize(int $size)
 	{
 		$this->size = $size;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getSizeRange() //: int
+	{
+		return $this->sizeRange;
+	}
+	
+	/**
+	 * @param int $sizeRange
+	 */
+	public function setSizeRange(int $sizeRange)
+	{
+		$this->sizeRange = $sizeRange;
 	}
 	
 	/**

@@ -43,10 +43,17 @@ Bundle\ProductBundle\Entity\Product:
         size:
             type: integer
             nullable: true
-            length: 11
+            length: 2
             options:
                 unsigned: false
             column: size
+        sizeRange:
+            type: integer
+            nullable: true
+            length: 4
+            options:
+                unsigned: false
+            column: size_range
         stock:
             type: integer
             nullable: true

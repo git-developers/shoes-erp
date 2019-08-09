@@ -25,6 +25,7 @@
                 <i class="fa fa-fw fa-arrows-h"></i>
                 {{ form_label(form.size) }}
                 {{ form_widget(form.size) }}
+                {{ form_widget(form.sizeRange) }}
             </div>
         </div>
     </div>
@@ -122,12 +123,11 @@
     </div>
 
     <script type="text/javascript">
-        $('.dropdown').on('show.bs.dropdown', function () {
-
+        $(".dropdown").on("show.bs.dropdown", function () {
 
         });
 
-        $('.dropdown-menu a').click(function() {
+        $(".dropdown-menu a").click(function() {
 
             var value = $(this).data("value");
             var prefix = $(this).data("prefix");
@@ -145,6 +145,18 @@
             button.css("background-color", prefix);
             select.val(value);
         });
+
+        $("select[name='{{ form.unit.vars.full_name }}']").change(function() {
+
+            $("select[name='{{ form.size.vars.full_name }}']").show();
+            $("select[name='{{ form.sizeRange.vars.full_name }}']").hide();
+
+            if ("{{ constant('Bundle\\ProductBundle\\Entity\\Unit::PAQUETE') }}" == $(this).find("option:selected").text().trim()) {
+                $("select[name='{{ form.size.vars.full_name }}']").hide();
+                $("select[name='{{ form.sizeRange.vars.full_name }}']").show();
+            }
+        });
+
     </script>
 
 {% endblock %}

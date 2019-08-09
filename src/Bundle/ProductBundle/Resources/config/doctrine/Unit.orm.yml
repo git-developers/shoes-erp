@@ -18,6 +18,14 @@ Bundle\ProductBundle\Entity\Unit:
             length: 45
             options:
                 fixed: false
+            column: name
+        slug:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: slug
         createdAt:
             type: datetime
             nullable: true

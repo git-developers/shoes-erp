@@ -77,6 +77,7 @@
             '@ThemesBundle/Resources/public/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
             '@ThemesBundle/Resources/public/adminlte/plugins/pace/pace.min.css'
             '@ThemesBundle/Resources/public/adminlte/bower_components/select2/dist/css/select2.min.css'
+            '@ThemesBundle/Resources/public/adminlte/plugins/bootstrap-slider/slider.css'
         %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -147,6 +148,7 @@
         '@ThemesBundle/Resources/public/adminlte/plugins/iCheck/icheck.min.js'
         '@ThemesBundle/Resources/public/adminlte/bower_components/PACE/pace.min.js'
         '@ThemesBundle/Resources/public/adminlte/bower_components/select2/dist/js/select2.full.min.js'
+        '@ThemesBundle/Resources/public/adminlte/plugins/bootstrap-slider/bootstrap-slider.js'
 
     %}
         <script src="{{ asset_url }}"></script>
@@ -167,6 +169,11 @@
         // $(".select2").select2({
         //     dropdownParent: $("#modal-create .modal-content")
         // });
+
+        {#BOOTSTRAP SLIDER#}
+        $(function () {
+            // $('.slider').slider();
+        });
 
         {#Resolve conflict in jQuery UI tooltip with Bootstrap tooltip#}
         $.widget.bridge('uibutton', $.ui.button);

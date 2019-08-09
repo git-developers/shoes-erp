@@ -14,6 +14,12 @@ use JMS\Serializer\Annotation\Type as TypeJMS;
  */
 class Unit
 {
+	
+	
+	const PAQUETE = 'paquete';
+	const UNIDAD = 'unidad';
+	
+	
     /**
      * @var integer
      *
@@ -27,6 +33,11 @@ class Unit
      * @JMSS\Groups({"crud"})
      */
     private $name;
+	
+	/**
+	 * @var string
+	 */
+	private $slug;
 
     /**
      * @var \DateTime
@@ -47,7 +58,7 @@ class Unit
     private $isActive;
 	
 	public function __toString() {
-		return sprintf('(%s) %s', $this->id, $this->name);
+		return sprintf('%s', $this->name);
 	}
 
     /**
@@ -83,7 +94,23 @@ class Unit
     {
         return $this->name;
     }
-
+	
+	/**
+	 * @return string
+	 */
+	public function getSlug() //: string
+	{
+		return $this->slug;
+	}
+	
+	/**
+	 * @param string $slug
+	 */
+	public function setSlug(string $slug)
+	{
+		$this->slug = $slug;
+	}
+    
     /**
      * Set createdAt
      *

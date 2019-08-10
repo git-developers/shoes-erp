@@ -677,5 +677,6 @@ class Pointofsale
 	{
 		return $this->category;
 	}
+	
 }
 

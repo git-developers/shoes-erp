@@ -54,25 +54,12 @@ Bundle\ProductBundle\Entity\Product:
             options:
                 unsigned: false
             column: size_range
-        stock:
-            type: integer
-            nullable: true
-            length: 11
-            options:
-                unsigned: false
-            column: stock
         slug:
             type: string
             nullable: true
             length: 150
             options:
                 fixed: false
-#        image:
-#            type: string
-#            nullable: true
-#            length: 45
-#            options:
-#                fixed: false
         createdAt:
             type: datetime
             nullable: false

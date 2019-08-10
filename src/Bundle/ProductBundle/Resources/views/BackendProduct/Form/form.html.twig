@@ -12,52 +12,49 @@
         {{ form_widget(form.category) }}
     </div>
 
+
     <div class="row">
+
+        {#LEFT#}
         <div class="col-md-6">
             <div class="form-group">
                 <i class="fa fa-fw fa-qrcode"></i>
                 {{ form_label(form.unit) }}
                 {{ form_widget(form.unit) }}
             </div>
-        </div>
-        <div class="col-md-6">
+
             <div class="form-group">
                 <i class="fa fa-fw fa-arrows-h"></i>
                 {{ form_label(form.size) }}
                 {{ form_widget(form.size) }}
                 {{ form_widget(form.sizeRange) }}
             </div>
-        </div>
-    </div>
 
-    <hr>
+            <hr>
 
-    <div class="row">
-        <div class="col-md-6">
             <div class="form-group">
                 <i class="fa fa-fw fa-qrcode"></i>
                 {{ form_label(form.code) }}
-                {{ form_widget(form.code) }}
+                <div class="input-group">
+                    {{ form_widget(form.code) }}
+                    <span class="input-group-addon random">
+                        <i class="fa fa-random"></i>
+                    </span>
+                </div>
             </div>
-        </div>
-        <div class="col-md-6">
+
             <div class="form-group">
                 <i class="fa fa-fw fa-align-left"></i>
                 {{ form_label(form.name) }}
                 {{ form_widget(form.name) }}
             </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <i class="fa fa-fw fa-code"></i>
-                {{ form_label(form.stock) }}
-                {{ form_widget(form.stock) }}
-            </div>
-        </div>
-        <div class="col-md-6">
+            {#<div class="form-group">#}
+                {#<i class="fa fa-fw fa-code"></i>#}
+                {#{{ form_label(form.stock) }}#}
+                {#{{ form_widget(form.stock) }}#}
+            {#</div>#}
+
             <div class="form-group">
                 <i class="fa fa-fw fa-adjust"></i>
                 {{ form_label(form.color) }}
@@ -86,7 +83,7 @@
                             data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="true">
-                            <span class="selected">[ Seleccionar ]</span> &nbsp; 
+                            <span class="selected">[ Seleccionar ]</span> &nbsp;
                             <span class="caret"></span>
                         </button>
                     {% endif %}
@@ -119,8 +116,71 @@
 
                 {{ form_widget(form.color) }}
             </div>
+
         </div>
+        {#LEFT#}
+
+        {#RIGHT#}
+        <div class="col-md-6">
+            <div class="box box-solid box-pdv black-3">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <i class="fa fa-fw fa-map-marker"></i> {{ form_label(form.pointOfSale) }}
+                    </h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+
+                    {#{{ form_widget(form.pointOfSale) }}#}
+
+                    <div class="table-responsive">
+                        <table class="table no-margin">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for key, val in form.pointOfSale.children %}
+                                    <tr>
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                value="{{ val.vars.value }}"
+                                                name="product[pointOfSale][]"
+                                                {{ val.vars.data ? 'checked' : '' }}>
+                                        </td>
+                                        <td>
+                                            <span class="label label-success">
+                                                {{ val.vars.value }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            {{ val.vars.label }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+                {#<div class="box-footer clearfix"></div>#}
+            </div>
+        </div>
+        {#RIGHT#}
+
     </div>
+
 
     <script type="text/javascript">
         $(".dropdown").on("show.bs.dropdown", function () {

@@ -1,7 +1,8 @@
 backend_product_index:
-    path: /{categoryId}
+    path: /{pdvId}/{categoryId}
     methods: [GET]
     defaults:
+        pdvId: 0
         categoryId: null
         _controller: tianos.backend.controller.product:indexAction
         _tianos:
@@ -16,6 +17,7 @@ backend_product_index:
                 icon: cube
                 body_css: grid-body-css
                 serialize_group_name: crud
+                random_code: true
                 files_upload:
                     class_name: Product
                     file_type: images
@@ -45,9 +47,12 @@ backend_product_index:
                 modal:
                     create:
                         title: Crear producto
-                        size: modal-
+                        size: modal-lg
                     edit:
                         title: Editar producto
+                        size: modal-lg
+                    view:
+                        title: Ver producto
                         size: modal-
                 data_table:
                     route:
@@ -138,7 +143,7 @@ backend_product_index:
                 type: Bundle\ProductBundle\Form\Type\ProductType
             repository:
                 service: tianos.repository.product
-                method: findAllByCategoryId
+                method: findAllByCategoryAndPdv
                 arguments: [$productId]
                 vars:
                     serialize_group_name: crud

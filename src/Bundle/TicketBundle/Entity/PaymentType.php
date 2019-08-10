@@ -30,6 +30,8 @@ class PaymentType
 	
 	/**
 	 * @var string
+	 *
+	 * @JMSS\Groups({"crud"})
 	 */
 	private $code;
 	

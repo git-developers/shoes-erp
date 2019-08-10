@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Bundle\GridBundle\Controller\GridController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Bundle\PointofsaleBundle\Entity\PointOfSaleHasProduct;
 
 class BackendController extends GridController
 {
@@ -38,7 +39,10 @@ class BackendController extends GridController
     public function indexAction(Request $request): Response
     {
 //        $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
-
+	
+	    $pdvId = $request->get('pdvId');
+	    $categoryId = $request->get('categoryId');
+	    
         $parameters = [
             'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
         ];
@@ -56,19 +60,19 @@ class BackendController extends GridController
         $modal = $configuration->getModal();
 
         //REPOSITORY
-        $categoryId = $request->get('categoryId');
-        $objects = $this->get($repository)->$method($categoryId);
+        $objects = $this->get($repository)->$method($pdvId, $categoryId);
 	    $objects = $this->rowImages($objects);
 	    
         $varsRepository = $configuration->getRepositoryVars();
         $objects = $this->getSerialize($objects, $varsRepository->serialize_group_name);
 	
-	
+        
+        
 //	    echo "POLLO:: <pre>";
 //	    print_r($objects);
 //	    exit;
-	
-	
+	    
+	    
 	
 	    //GRID
         $gridService = $this->get('tianos.grid');
@@ -94,7 +98,9 @@ class BackendController extends GridController
         //$objectsTree = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), $varsRepository->entity_type);
         $objectsTree = $this->get('tianos.repository.category')->findAllParentsByType($varsRepository->entity_type);
         $objectsTree = $this->getTreeEntities($objectsTree, $configuration, 'tree');
-
+	
+	    $pointOfSales = $this->get('tianos.repository.pointofsale')->findAll();
+        
         return $this->render(
             $template,
             [
@@ -102,9 +108,11 @@ class BackendController extends GridController
                 'tree' => $tree,
                 'grid' => $grid,
                 'modal' => $modal,
+                'pointOfSales' => $pointOfSales,
                 'objectsTree' => $objectsTree,
                 'dataTable' => $dataTable,
                 'form_mapper' => $formMapper,
+                'pdvId' => $pdvId,
                 'categoryId' => $categoryId,
             ]
         );
@@ -170,8 +178,22 @@ class BackendController extends GridController
             try{
 
                 if ($form->isValid()) {
+	
+	                $this->persist($entity);
+	
+	                /**
+	                 * SAVE producto TO pdv
+	                 */
+                    $pointOfSales = is_array($request->get('product')) ? $request->get('product')['pointOfSale'] : [];
 
-                    $this->persist($entity);
+                    foreach ($pointOfSales as $key => $pointOfSale) {
+	                    $pdv = $this->get('tianos.repository.pointofsale')->find($pointOfSale);
+	                    
+	                    $pdvHasProduct = new PointOfSaleHasProduct();
+	                    $pdvHasProduct->setPointOfSale($pdv);
+	                    $pdvHasProduct->setPointOfSale($pdv);
+	                    $this->persist($pdvHasProduct);
+                    }
 
                     $varsRepository = $configuration->getRepositoryVars();
                     $entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
@@ -205,5 +227,111 @@ class BackendController extends GridController
             ]
         );
     }
-
+	
+	
+	/**
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function editAction(Request $request): Response
+	{
+		if (!$this->isXmlHttpRequest()) {
+			throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
+		}
+		
+		$parameters = [
+			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
+		];
+		$applicationName = $this->container->getParameter('application_name');
+		$this->metadata = new Metadata('tianos', $applicationName, $parameters);
+		
+		//CONFIGURATION
+		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
+		$repository = $configuration->getRepositoryService();
+		$method = $configuration->getRepositoryMethod();
+		$template = $configuration->getTemplate('');
+		$action = $configuration->getAction();
+		$rolesAllow = $configuration->getRolesAllow();
+		$formType = $configuration->getFormType();
+		$vars = $configuration->getVars();
+		
+		//IS_GRANTED
+		if (!$this->isGranted($rolesAllow)) {
+			return $this->render(
+				"GridBundle::error.html.twig",
+				[
+					'message' => self::ACCESS_DENIED_MSG,
+				]
+			);
+		}
+		
+		//REPOSITORY
+		$id = $request->get('id');
+		$entity = $this->get($repository)->$method($id);
+		$entity = $this->rowImage($entity);
+		
+		if (!$entity) {
+			throw $this->createNotFoundException('CRUD: Unable to find entity.');
+		}
+		
+		$form = $this->createForm($formType, $entity, ['form_data' => []]);
+		$form->handleRequest($request);
+		
+		if ($form->isSubmitted()) {
+			
+			$errors = [];
+			$status = self::STATUS_ERROR;
+			
+			try {
+				
+				if ($form->isValid()) {
+					
+					$this->persist($entity);
+					
+					/**
+					 * SAVE producto TO pdv
+					 */
+//					$this->get('tianos.repository.product')->deleteAssociativeTableById($entity->getId());
+//					$pointOfSales = is_array($request->get('product')) ? $request->get('product')['pointOfSale'] : [];
+//
+//					foreach ($pointOfSales as $key => $pointOfSale) {
+//						$pdv = $this->get('tianos.repository.pointofsale')->find($pointOfSale);
+//						$pdv->addProduct($entity);
+//						$this->persist($pdv);
+//					}
+					
+					$varsRepository = $configuration->getRepositoryVars();
+					$entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
+					$status = self::STATUS_SUCCESS;
+				}else{
+					foreach ($form->getErrors(true) as $key => $error) {
+						if ($form->isRoot()) {
+							$errors[] = $error->getMessage();
+						} else {
+							$errors[] = $error->getMessage();
+						}
+					}
+				}
+				
+			}catch (\Exception $e){
+				$errors[] = $e->getMessage();
+			}
+			
+			return $this->json([
+				'id' => $id,
+				'status' => $status,
+				'errors' => $errors,
+				'entity' => $entity,
+			]);
+		}
+		
+		return $this->render(
+			$template,
+			[
+				'id' => $id,
+				'action' => $action,
+				'form' => $form->createView(),
+			]
+		);
+	}
 }

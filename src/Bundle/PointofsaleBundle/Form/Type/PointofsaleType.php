@@ -53,7 +53,7 @@ class PointofsaleType extends AbstractType
                     'class' => ''
                 ],
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control random',
                     'placeholder' => 'code',
                 ],
             ])

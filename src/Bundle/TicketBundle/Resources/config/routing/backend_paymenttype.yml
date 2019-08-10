@@ -14,6 +14,7 @@ backend_paymenttype_index:
                 subheader: sylius.ui.manage_your_role_catalog
                 icon: cube
                 body_css: grid-body-css
+                random_code: true
             grid:
                 icon: money
                 box_class: primary
@@ -59,9 +60,19 @@ backend_paymenttype_index:
                               width: 4%
                               title: '#'
                               className: modal-view text-center
-                        - obj: obj.name
+                        - obj: obj.code
                           defs:
                               targets: 1
+                              orderable: 1
+                              sorting: 1
+                              title: Code
+                              type: html
+                              width: 10%
+                              className:
+                              filter: 1
+                        - obj: obj.name
+                          defs:
+                              targets: 2
                               orderable: 1
                               sorting: 1
                               title: Nombre
@@ -69,7 +80,7 @@ backend_paymenttype_index:
                               filter: 1
                         - obj: " '<span class=\"badge bg-green\">' + obj.slug + '</span>' "
                           defs:
-                              targets: 2
+                              targets: 3
                               orderable: 1
                               sorting: 1
                               title: Slug
@@ -77,12 +88,12 @@ backend_paymenttype_index:
                               filter: 1
                         - obj: obj.created_at
                           defs:
-                              targets: 3
+                              targets: 4
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
                         - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
                           defs:
-                              targets: 4
+                              targets: 5
                               title: Eliminar
                               width: 4%
                               sorting: 0

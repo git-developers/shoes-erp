@@ -24,12 +24,6 @@
     });
 {% endif %}
 
-{% if dataTable.route.info is defined %}
-    $('body.{{ vars.body_css }}').formInfo({
-        modalId: '{{ modal.info_id }}',
-        route: '{{ path(dataTable.route.info) }}'
-    });
-{% endif %}
 
 {% if vars.files_upload.route.open_modal is defined and vars.files_upload.route.create is defined %}
     $('body.{{ vars.body_css }}').formUploadFile({
@@ -40,5 +34,18 @@
         formName: '{{ form_mapper.image_upload_name }}',
         routeModal: '{{ path(vars.files_upload.route.open_modal) }}',
         routeCreate: '{{ path(vars.files_upload.route.create) }}'
+    });
+{% endif %}
+
+{% if dataTable.route.info is defined %}
+    $('body.{{ vars.body_css }}').formInfo({
+        modalId: '{{ modal.info_id }}',
+        route: '{{ path(dataTable.route.info) }}'
+    });
+{% endif %}
+
+{% if vars.random_code|default() %}
+    $(document).on('click', 'span.random', function() {
+    $('input.random').val(Math.random().toString(36).substring(7).toUpperCase());
     });
 {% endif %}

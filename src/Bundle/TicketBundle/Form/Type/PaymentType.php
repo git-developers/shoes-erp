@@ -20,17 +20,17 @@ class PaymentType extends AbstractType
     {
         $builder
             ->add('code', TextType::class, [
-                'label' =>' code',
+                'label' => 'code',
                 'label_attr' => [
                     'class' => ''
                 ],
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control random',
                     'placeholder' => 'code',
                 ],
             ])
 	        ->add('name', TextType::class, [
-		        'label' =>' Nombre perfil',
+		        'label' => 'Nombre',
 		        'label_attr' => [
 			        'class' => ''
 		        ],

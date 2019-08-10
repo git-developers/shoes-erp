@@ -308,6 +308,14 @@
                 dataTableObject: dataTableObject
             });
 
+            $("select.pdv").change(function() {
+
+                var pdvId = $(this).val();
+
+                console.log("XXX :: " + pdvId);
+
+                window.location.href = "{{ path('backend_product_index') }}/" + pdvId;
+            });
         });
 
     </script>
@@ -341,6 +349,37 @@
 
         <div class="row">
 
+            <div class="col-md-12">
+                <div class="info-box bg-light-blue">
+                    <span class="info-box-icon">
+                        <i class="fa fa-map-marker"></i>
+                    </span>
+
+                    <div class="info-box-pdv info-box-content">
+                        {#<span class="info-box-text">Likes</span>#}
+                        <span class="info-box-number">
+                            <select class="pdv form-control">
+                                <option value="">[ Seleccione un punto de venta ]</option>
+                                {% for pointOfSale in pointOfSales %}
+                                    <option
+                                        value="{{ pointOfSale.id }}"
+                                        {{ pdvId == pointOfSale.id ? "selected" : "" }}>
+                                        {{ '(' ~ pointOfSale.id ~ ') ' ~ pointOfSale.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-description">
+                            Punto de venta
+                        </span>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-md-4">
                 <div class="box box-solid">
                     <div class="box-header with-border">
@@ -368,6 +407,7 @@
                                         -1,
                                         'TreeBundle::Template/li_inventory.html.twig',
                                         'backend_product_index',
+                                        pdvId,
                                         categoryId) }}
                                 {% else %}
                                     <p>No hay items que mostrar</p>

@@ -16,12 +16,6 @@ class PointofsaleAddUser
 
     private $userTagUsername;
 
-//    /**
-//     * @var \Bundle\ProfileBundle\Entity\Profile
-//     *
-//     */
-//    private $profile;
-
     private $profile;
 
     /**

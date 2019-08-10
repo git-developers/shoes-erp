@@ -16,6 +16,7 @@ backend_pointofsale_index:
                 body_css: grid-body-css
                 google_maps: true
                 copy_clipboard: true
+                random_code: true
             grid:
                 icon: map-marker
                 box_class: primary

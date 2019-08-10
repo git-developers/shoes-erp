@@ -88,16 +88,6 @@ class Product
     private $sizeRange;
 
     /**
-     * @var integer
-     *
-     * @JMSS\Groups({
-     *     "crud",
-     *     "ticket"
-     * })
-     */
-    private $stock;
-
-    /**
      * @var \DateTime
      *
      * @JMSS\Groups({
@@ -184,6 +174,20 @@ class Product
 	 * })
 	 */
 	private $files;
+	
+	/**
+	 * @var \Doctrine\Common\Collections\Collection
+	 *
+	 */
+	private $pointOfSale;
+	
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		$this->pointOfSale = new \Doctrine\Common\Collections\ArrayCollection();
+	}
 	
     /**
      * Get id
@@ -313,22 +317,6 @@ class Product
     public function getSlug()
     {
         return $this->slug;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStock()
-    {
-        return $this->stock;
-    }
-
-    /**
-     * @param int $stock
-     */
-    public function setStock(int $stock)
-    {
-        $this->stock = $stock;
     }
 
     /**
@@ -553,6 +541,39 @@ class Product
 		return $this;
 	}
 	
+	/**
+	 * Add pointOfSale
+	 *
+	 * @param \Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale
+	 *
+	 * @return Product
+	 */
+	public function addPointOfSale(\Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale)
+	{
+		$this->pointOfSale[] = $pointOfSale;
+		
+		return $this;
+	}
+	
+	/**
+	 * Remove pointOfSale
+	 *
+	 * @param \Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale
+	 */
+	public function removePointOfSale(\Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale)
+	{
+		$this->pointOfSale->removeElement($pointOfSale);
+	}
+	
+	/**
+	 * Get pointOfSale
+	 *
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getPointOfSale()
+	{
+		return $this->pointOfSale;
+	}
 	
 }
 

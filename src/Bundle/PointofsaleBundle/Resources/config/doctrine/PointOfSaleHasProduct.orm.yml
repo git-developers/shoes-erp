@@ -1,0 +1,50 @@
+Bundle\PointofsaleBundle\Entity\PointOfSaleHasProduct:
+    type: entity
+    table: point_of_sale_has_product
+    indexes:
+        fk_point_of_sale_has_product_point_of_sale1_idx:
+            columns:
+                - point_of_sale_id
+        fk_point_of_sale_has_product_product1_idx:
+            columns:
+                - product_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        stock:
+            type: integer
+            nullable: true
+            length: 5
+            options:
+                unsigned: false
+            column: stock
+
+    manyToOne:
+        pointOfSale:
+            targetEntity: Bundle\PointofsaleBundle\Entity\Pointofsale
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                point_of_sale_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        product:
+            targetEntity: Bundle\ProductBundle\Entity\Product
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                product_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

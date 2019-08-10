@@ -32,16 +32,6 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('code', TextType::class, [
-//                'label' =>' code',
-//                'label_attr' => [
-//                    'class' => ''
-//                ],
-//                'attr' => [
-//                    'class' => 'form-control',
-//                    'placeholder' => 'code',
-//                ],
-//            ])
             ->add('name', TextType::class, [
                 'label' =>' Nombre perfil',
                 'label_attr' => [

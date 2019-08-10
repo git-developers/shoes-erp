@@ -1,7 +1,7 @@
 {% spaceless %}
     <span
         class="{{ tree.li_span }} {{ category_id == entity.id ? 'bg-teal' : '' }}"
-        onclick="location.href='{{ path(route_path, {categoryId: entity.id}) }}'"
+        onclick="location.href='{{ path(route_path, {pdvId: pdv_id, categoryId: entity.id}) }}'"
         style="height: 30px;"
     >
         <span class="badge {{ badge_color }}">

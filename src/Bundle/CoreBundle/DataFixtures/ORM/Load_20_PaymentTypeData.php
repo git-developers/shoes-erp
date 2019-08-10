@@ -24,7 +24,7 @@ class Load_20_PaymentTypeData extends AbstractFixture implements OrderedFixtureI
     	
         $entity = new PaymentType();
 	    $entity->setCode('001');
-	    $entity->setName('Abono por cuenta');
+	    $entity->setName('Abono por parte');
         $manager->persist($entity);
 
         $entity = new PaymentType();
@@ -32,10 +32,12 @@ class Load_20_PaymentTypeData extends AbstractFixture implements OrderedFixtureI
 	    $entity->setName('Adelanto por mercadería');
         $manager->persist($entity);
         
+        /*
         $entity = new PaymentType();
 	    $entity->setCode('003');
 	    $entity->setName('Descuento');
         $manager->persist($entity);
+        */
         
         $entity = new PaymentType();
 	    $entity->setCode('004');

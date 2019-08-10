@@ -16,6 +16,7 @@ backend_pointofsale_pdv_child_index:
                 body_css: grid-body-css
                 box_class: primary
                 copy_clipboard: true
+                random_code: true
             grid:
                 icon: map-marker
                 box_class: primary

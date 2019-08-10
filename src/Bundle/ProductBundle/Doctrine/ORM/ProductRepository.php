@@ -9,6 +9,28 @@ use Component\Product\Repository\ProductRepositoryInterface;
 
 class ProductRepository extends TianosEntityRepository implements ProductRepositoryInterface
 {
+	
+	/**
+	 * {@inheritdoc}
+	 */
+	public function deleteAssociativeTableById($id): bool
+	{
+//        return $em->getConnection()
+//            ->prepare('DELETE FROM profile_has_role WHERE profile_id = :id;')
+//            ->bindValue('id', $id)
+//            ->execute()
+//            ;
+		
+		$em = $this->getEntityManager();
+		$sql = "DELETE FROM point_of_sale_has_product WHERE product_id = :id;";
+		$params = ['id' => $id];
+		
+		$stmt = $em->getConnection()->prepare($sql);
+		$stmt->execute($params);
+		
+		// puesto provisional
+		return true;
+	}
 
     /**
      * {@inheritdoc}
@@ -47,6 +69,40 @@ class ProductRepository extends TianosEntityRepository implements ProductReposit
         $query = $em->createQuery($dql);
         $query->setParameter('active', 1);
 
+        return $query->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByCategoryAndPdv($pdvId, $categoryId): array
+    {
+	
+	
+//	    LEFT JOIN product.pointOfSale pointOfSale
+//	    pointOfSale.id = :pdvId
+
+        $em = $this->getEntityManager();
+        $dql = "
+            SELECT product
+            FROM ProductBundle:Product product
+            WHERE
+            product.isActive = :active AND
+            product.category = :categoryId
+            
+            ";
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('active', 1);
+//        $query->setParameter('pdvId', $pdvId);
+        $query->setParameter('categoryId', $categoryId);
+	
+	
+//	    echo "POLLO:: <pre>";
+//	    print_r($query->getSQL());
+//	    exit;
+        
+        
         return $query->getResult();
     }
 

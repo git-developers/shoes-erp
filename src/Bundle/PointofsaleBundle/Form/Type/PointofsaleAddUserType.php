@@ -19,13 +19,6 @@ use Doctrine\ORM\EntityManagerInterface;
 class PointofsaleAddUserType extends AbstractType
 {
 
-//    private $entityManager;
-//
-//    public function __construct(EntityManagerInterface $entityManager)
-//    {
-//        $this->entityManager = $entityManager;
-//    }
-
     protected function findProfilesBySlugs($entityManager)
     {
         $objects = $entityManager->getRepository(Profile::class)->findProfilesBySlugs([
@@ -65,27 +58,6 @@ class PointofsaleAddUserType extends AbstractType
                     'placeholder' => '',
                 ],
             ))
-//            ->add('profile', EntityType::class, array(
-//                'class' => Profile::class,
-//                'query_builder' => function(EntityRepository $a) {
-//                    return $a->createQueryBuilder('a')
-//                        ->where('a.isActive = :active')
-//                        ->orderBy('a.id', 'DESC')
-//                        ->setParameter('active', true)
-//                        ;
-//                },
-//                'placeholder' => '[ Escoge una opción ]',
-//                'empty_data' => null,
-//                'required' => true,
-//                'label' => 'Perfil',
-//                'label_attr' => [
-//                    'class' => ''
-//                ],
-//                'attr' => [
-//                    'class' => 'form-control',
-//                    'placeholder' => '',
-//                ],
-//            ))
             ->add('userTag', TextType::class, [
                 'label' => false,
                 'label_attr' => [

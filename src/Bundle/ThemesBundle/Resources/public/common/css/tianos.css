@@ -195,6 +195,13 @@ div.product-color {
     color: #fff !important;
 }
 
+span.random:hover {
+    color: white;
+    cursor: pointer;
+    border-color: #d2d6de;
+    background-color: #b5bbc8 !important;
+}
+
 
 /** NAV TABS */
 .nav-tabs-custom-form > .nav-tabs > li.active {

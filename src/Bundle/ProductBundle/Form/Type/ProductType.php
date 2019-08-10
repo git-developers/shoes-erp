@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Bundle\CategoryBundle\Entity\Category;
 use Bundle\ProductBundle\Entity\Unit;
+use Bundle\PointofsaleBundle\Entity\Pointofsale;
 use Bundle\ProductBundle\Entity\Color;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class ProductType extends AbstractType
 {
@@ -118,53 +120,67 @@ class ProductType extends AbstractType
                 ],
                 $this->getDataType($options)
             ))
-            ->add('unit', EntityType::class, array_merge(
-                [
-                    'class' => Unit::class,
-                    'query_builder' => function(EntityRepository $er) {
-                        return $er->findAllObjects();
-                    },
-                    'placeholder' => '[ Escoge una opción ]',
-                    'empty_data' => null,
-                    'required' => true,
-                    'label' => 'Unidad de uso',
-                    'label_attr' => [
-                        'class' => ''
-                    ],
-                    'attr' => [
-                        'class' => 'form-control',
-                        'placeholder' => '',
-                    ],
-                ],
-                $this->getDataType($options)
-            ))
-            ->add('color', EntityType::class, array_merge(
-                [
-                    'class' => Color::class,
-                    'query_builder' => function(EntityRepository $er) {
-                        return $er->findAllObjects();
-                    },
-                    'placeholder' => '[ Escoge un color ]',
-                    'empty_data' => null,
-                    'required' => true,
-                    'label' => 'Color',
-                    'label_attr' => [
-                        'class' => ''
-                    ],
-                    'attr' => [
-                        'class' => 'form-control hide',
-                        'placeholder' => '',
-                    ],
-                ],
-                $this->getDataType($options)
-            ))
+            ->add('unit', EntityType::class, [
+	            'class' => Unit::class,
+	            'query_builder' => function(EntityRepository $er) {
+		            return $er->findAllObjects();
+	            },
+	            'placeholder' => '[ Escoge una opción ]',
+	            'empty_data' => null,
+	            'required' => true,
+	            'label' => 'Unidad de uso',
+	            'label_attr' => [
+		            'class' => ''
+	            ],
+	            'attr' => [
+		            'class' => 'form-control',
+		            'placeholder' => '',
+	            ],
+            ])
+            ->add('color', EntityType::class, [
+	            'class' => Color::class,
+	            'query_builder' => function(EntityRepository $er) {
+		            return $er->findAllObjects();
+	            },
+	            'placeholder' => '[ Escoge un color ]',
+	            'empty_data' => null,
+	            'required' => true,
+	            'label' => 'Color',
+	            'label_attr' => [
+		            'class' => ''
+	            ],
+	            'attr' => [
+		            'class' => 'form-control hide',
+		            'placeholder' => '',
+	            ],
+            ])
+            ->add('pointOfSale', EntityType::class, [
+	            'class' => Pointofsale::class,
+	            'query_builder' => function(EntityRepository $er) {
+		            return $er->findAllObjects();
+	            },
+	            'placeholder' => '[ Escoge un pdv ]',
+	            'empty_data' => null,
+	            'required' => false,
+                'expanded' => true,
+                'multiple' => true,
+//	                'empty_data' => [],
+	            'label' => 'Punto de venta',
+	            'label_attr' => [
+		            'class' => ''
+	            ],
+	            'attr' => [
+		            'class' => 'form-control ',
+		            'placeholder' => '',
+	            ],
+            ])
             ->add('code', TextType::class, [
                 'label' => 'code',
                 'label_attr' => [
                     'class' => ''
                 ],
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control random',
                     'placeholder' => 'code',
                 ],
             ])
@@ -178,16 +194,16 @@ class ProductType extends AbstractType
                     'placeholder' => 'nombre',
                 ],
             ])
-            ->add('stock', IntegerType::class, [
-                'label' => 'Stock',
-                'label_attr' => [
-                    'class' => ''
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => '##',
-                ],
-            ])
+//            ->add('stock', IntegerType::class, [
+//                'label' => 'Stock',
+//                'label_attr' => [
+//                    'class' => ''
+//                ],
+//                'attr' => [
+//                    'class' => 'form-control',
+//                    'placeholder' => '##',
+//                ],
+//            ])
             ->add('size', ChoiceType::class, [
                 'label' => 'Talla',
 	            'choices' => $this->getSize(),

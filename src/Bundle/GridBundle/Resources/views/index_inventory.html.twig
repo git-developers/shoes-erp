@@ -309,12 +309,14 @@
             });
 
             $("select.pdv").change(function() {
-
                 var pdvId = $(this).val();
-
-                console.log("XXX :: " + pdvId);
-
                 window.location.href = "{{ path('backend_product_index') }}/" + pdvId;
+            });
+
+            $(document).on('click', 'td.pdv', function() {
+                $(this).closest('tr').find('[type=checkbox]').prop('checked', function (i, value) {
+                    return !value;
+                });
             });
         });
 

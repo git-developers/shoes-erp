@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Bundle\GridBundle\Controller\GridController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Bundle\PointofsaleBundle\Entity\PointOfSaleHasProduct;
+use Bundle\PointofsaleBundle\Entity\PointofsaleHasProduct;
 
 class BackendController extends GridController
 {
@@ -71,7 +71,7 @@ class BackendController extends GridController
 //	    echo "POLLO:: <pre>";
 //	    print_r($objects);
 //	    exit;
-	    
+//
 	    
 	
 	    //GRID
@@ -174,26 +174,34 @@ class BackendController extends GridController
             $errors = [];
             $entityJson = null;
             $status = self::STATUS_ERROR;
-
-            try{
+	
+	        try {
 
                 if ($form->isValid()) {
-	
+                	
 	                $this->persist($entity);
 	
 	                /**
 	                 * SAVE producto TO pdv
 	                 */
-                    $pointOfSales = is_array($request->get('product')) ? $request->get('product')['pointOfSale'] : [];
+	                $pdvHasProducts = $this->pointofsaleHasProduct($request);
 
-                    foreach ($pointOfSales as $key => $pointOfSale) {
-	                    $pdv = $this->get('tianos.repository.pointofsale')->find($pointOfSale);
+                    foreach ($pdvHasProducts as $key => $pdvHasProduct) {
+	                    $pdvId = isset($pdvHasProduct['pdv']) ? $pdvHasProduct['pdv'] : null;
+	                    $stock = isset($pdvHasProduct['stock']) ? (int) $pdvHasProduct['stock'] : 0;
+	                    $pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
+	
+	                    if (!$pdv) {
+	                    	continue;
+	                    }
 	                    
-	                    $pdvHasProduct = new PointOfSaleHasProduct();
-	                    $pdvHasProduct->setPointOfSale($pdv);
-	                    $pdvHasProduct->setPointOfSale($pdv);
-	                    $this->persist($pdvHasProduct);
+	                    $o = new PointofsaleHasProduct();
+	                    $o->setPointOfSale($pdv);
+	                    $o->setProduct($entity);
+	                    $o->setStock($stock);
+	                    $this->persist($o);
                     }
+                    /** */
 
                     $varsRepository = $configuration->getRepositoryVars();
                     $entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
@@ -227,7 +235,6 @@ class BackendController extends GridController
             ]
         );
     }
-	
 	
 	/**
 	 * @param Request $request
@@ -274,6 +281,15 @@ class BackendController extends GridController
 			throw $this->createNotFoundException('CRUD: Unable to find entity.');
 		}
 		
+		/**
+		 * PDV HAS PRODUCT
+		 */
+		$pdvHasproductIds = [];
+		$pdvHasproducts = $this->get('tianos.repository.pointofsale.has.product')->findAllByProduct($id);
+		foreach ($pdvHasproducts as $k => $pdvHasproduct) {
+			$pdvHasproductIds[$pdvHasproduct->getPointOfSale()->getId()] = $pdvHasproduct->getStock();
+		}
+		
 		$form = $this->createForm($formType, $entity, ['form_data' => []]);
 		$form->handleRequest($request);
 		
@@ -288,22 +304,34 @@ class BackendController extends GridController
 					
 					$this->persist($entity);
 					
+					
 					/**
 					 * SAVE producto TO pdv
 					 */
-//					$this->get('tianos.repository.product')->deleteAssociativeTableById($entity->getId());
-//					$pointOfSales = is_array($request->get('product')) ? $request->get('product')['pointOfSale'] : [];
-//
-//					foreach ($pointOfSales as $key => $pointOfSale) {
-//						$pdv = $this->get('tianos.repository.pointofsale')->find($pointOfSale);
-//						$pdv->addProduct($entity);
-//						$this->persist($pdv);
-//					}
+					$this->get('tianos.repository.pointofsale.has.product')->deletePdvHasProduct($entity->getId());
+					$pdvHasProducts = $this->pointofsaleHasProduct($request);
+					
+					foreach ($pdvHasProducts as $key => $pdvHasProduct) {
+						$pdvId = isset($pdvHasProduct['pdv']) ? $pdvHasProduct['pdv'] : null;
+						$stock = isset($pdvHasProduct['stock']) ? (int) $pdvHasProduct['stock'] : 0;
+						$pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
+						
+						if (!$pdv) {
+							continue;
+						}
+						
+						$o = new PointofsaleHasProduct();
+						$o->setPointOfSale($pdv);
+						$o->setProduct($entity);
+						$o->setStock($stock);
+						$this->persist($o);
+					}
+					/** */
 					
 					$varsRepository = $configuration->getRepositoryVars();
 					$entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
 					$status = self::STATUS_SUCCESS;
-				}else{
+				} else {
 					foreach ($form->getErrors(true) as $key => $error) {
 						if ($form->isRoot()) {
 							$errors[] = $error->getMessage();
@@ -331,6 +359,69 @@ class BackendController extends GridController
 				'id' => $id,
 				'action' => $action,
 				'form' => $form->createView(),
+				'pdvHasproductIds' => $pdvHasproductIds,
+			]
+		);
+	}
+	
+	public function pointofsaleHasProduct(Request $request): array
+	{
+		return is_array($request->get('pdvHasproduct')) ? $request->get('pdvHasproduct') : [];
+	}
+	
+	/**
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function viewAction(Request $request): Response
+	{
+		if (!$this->isXmlHttpRequest()) {
+			throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
+		}
+		
+		$parameters = [
+			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
+		];
+		$applicationName = $this->container->getParameter('application_name');
+		$this->metadata = new Metadata('tianos', $applicationName, $parameters);
+		
+		//CONFIGURATION
+		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
+		$template = $configuration->getTemplate('');
+		$action = $configuration->getAction();
+		$rolesAllow = $configuration->getRolesAllow();
+		
+		//IS_GRANTED
+		if (!$this->isGranted($rolesAllow)) {
+			return $this->render(
+				"GridBundle::error.html.twig",
+				[
+					'message' => self::ACCESS_DENIED_MSG,
+				]
+			);
+		}
+		
+		//REPOSITORY
+		$id = $request->get('id');
+		$repository = $configuration->getRepositoryService();
+		$method = $configuration->getRepositoryMethod();
+		$entity = $this->get($repository)->$method($id);
+		
+		/**
+		 * PDV HAS PRODUCT
+		 */
+		$pdvHasproducts = $this->get('tianos.repository.pointofsale.has.product')->findAllByProduct($id);
+		
+		if (!$entity) {
+			throw $this->createNotFoundException('CRUD: Unable to find  entity.');
+		}
+		
+		return $this->render(
+			$template,
+			[
+				'action' => $action,
+				'entity' => $entity,
+				'pdvHasproducts' => $pdvHasproducts,
 			]
 		);
 	}

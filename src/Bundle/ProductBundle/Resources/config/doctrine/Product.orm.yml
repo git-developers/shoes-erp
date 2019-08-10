@@ -48,9 +48,9 @@ Bundle\ProductBundle\Entity\Product:
                 unsigned: false
             column: size
         sizeRange:
-            type: integer
+            type: string
             nullable: true
-            length: 4
+            length: 10
             options:
                 unsigned: false
             column: size_range

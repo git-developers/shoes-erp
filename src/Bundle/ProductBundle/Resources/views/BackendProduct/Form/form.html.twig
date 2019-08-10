@@ -49,15 +49,10 @@
                 {{ form_widget(form.name) }}
             </div>
 
-            {#<div class="form-group">#}
-                {#<i class="fa fa-fw fa-code"></i>#}
-                {#{{ form_label(form.stock) }}#}
-                {#{{ form_widget(form.stock) }}#}
-            {#</div>#}
-
             <div class="form-group">
                 <i class="fa fa-fw fa-adjust"></i>
                 {{ form_label(form.color) }}
+                {{ form_widget(form.color) }}
 
                 <div class="dropdown">
 
@@ -113,8 +108,6 @@
                         {% endfor %}
                     </ul>
                 </div>
-
-                {{ form_widget(form.color) }}
             </div>
 
         </div>
@@ -125,7 +118,7 @@
             <div class="box box-solid box-pdv black-3">
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        <i class="fa fa-fw fa-map-marker"></i> {{ form_label(form.pointOfSale) }}
+                        <i class="fa fa-fw fa-map-marker"></i> {{ form_label(form.pdvHasproduct) }}
                     </h3>
 
                     <div class="box-tools pull-right">
@@ -136,7 +129,7 @@
                 </div>
                 <div class="box-body">
 
-                    {#{{ form_widget(form.pointOfSale) }}#}
+                    {#{{ form_widget(form.pdvHasproduct) }}#}
 
                     <div class="table-responsive">
                         <table class="table no-margin">
@@ -145,34 +138,40 @@
                                     <th></th>
                                     <th>#</th>
                                     <th>Nombre</th>
+                                    <th>Stock</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for key, val in form.pointOfSale.children %}
-                                    <tr>
-                                        <td>
-                                            <input
-                                                type="checkbox"
-                                                value="{{ val.vars.value }}"
-                                                name="product[pointOfSale][]"
-                                                {{ val.vars.data ? 'checked' : '' }}>
-                                        </td>
-                                        <td>
-                                            <span class="label label-success">
-                                                {{ val.vars.value }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            {{ val.vars.label }}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+                            {% for key, val in form.pdvHasproduct.children %}
+                                <tr>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            value="{{ val.vars.value }}"
+                                            name="pdvHasproduct[{{ key }}][pdv]"
+                                            {{ pdvHasproductIds[val.vars.value] is defined ? 'checked' : '' }}>
+                                    </td>
+                                    <td>
+                                        <span class="label label-success">
+                                            {{ val.vars.value }}
+                                        </span>
+                                    </td>
+                                    <td class="pdv">
+                                        {{ val.vars.label }}
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="number"
+                                            value="{{ pdvHasproductIds[val.vars.value] is defined ? pdvHasproductIds[val.vars.value] : '' }}"
+                                            class="form-control"
+                                            name="pdvHasproduct[{{ key }}][stock]"
+                                            style="width: 100px">
+                                    </td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
-
-
-
                 </div>
                 {#<div class="box-footer clearfix"></div>#}
             </div>

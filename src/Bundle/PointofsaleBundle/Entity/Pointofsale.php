@@ -158,7 +158,11 @@ class Pointofsale
      * @JMSS\Groups({"crud"})
      */
     private $pointOfSale;
-    
+	
+	/**
+	 * @var \Bundle\PointofsaleBundle\Entity\Pointofsale
+	 *
+	 */
     private $pointOfSaleChildren;
 
     /**

@@ -25,7 +25,10 @@ class Color
     /**
      * @var string
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "pdv_product",
+     * })
      */
     private $name;
 	
@@ -34,6 +37,7 @@ class Color
 	 *
 	 * @JMSS\Groups({
 	 *     "crud",
+	 *     "pdv_product",
 	 * })
 	 */
 	private $prefix;

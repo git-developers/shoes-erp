@@ -15,17 +15,18 @@ div.tools i.fa-pencil {
     color: #ff851b;
 }
 /*div.box-main-div ul div.tools i.fa-trash-o {*/
-div.tools i.fa-trash-o, div.input-group i.fa-trash-o {
+div.tools i.fa-trash-o,
+div.input-group i.fa-trash-o {
     color: #dd4b39;
 }
-.flashbag{
+.flashbag {
     padding: 20px 30px;
     z-index: 999999;
     font-size: 16px;
     font-weight: 600;
     color: white
 }
-.flashbag a{
+.flashbag a {
     color: rgb(255, 255, 255);
     font-size: 20px;
 }
@@ -72,12 +73,6 @@ div.tools i.fa-trash-o, div.input-group i.fa-trash-o {
 .word-wrap{
     word-wrap: break-word;
 }
-/*.hidden{
-    display: none;
-}
-.show{
-    display: block;
-}*/
 .white {
     color: #fff !important;
 }

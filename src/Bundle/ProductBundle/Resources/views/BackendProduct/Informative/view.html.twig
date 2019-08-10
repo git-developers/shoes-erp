@@ -8,23 +8,146 @@
 
         <div class="box-body">
 
-            <strong>
-                <i class="fa fa-book margin-r-5"></i> Nombre
-            </strong>
+            <div class="row">
 
-            <p class="text-muted">
-                {{ entity.name }}
-            </p>
+                {#LEFT#}
+                <div class="col-md-6">
 
-            <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>
+                                <i class="fa fa-qrcode margin-r-5"></i> Id
+                            </strong>
 
-            <strong>
-                <i class="fa fa-calendar margin-r-5"></i> Creado
-            </strong>
+                            <p class="text-muted">
+                                <span class="badge bg-light-blue-active">
+                                    {{ entity.id }}
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>
+                                <i class="fa fa-qrcode margin-r-5"></i> Code
+                            </strong>
 
-            <p class="text-muted">
-                {{ entity.createdAt|date('Y-m-d H:i') }}
-            </p>
+                            <p class="text-muted">
+                                {{ entity.code }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <strong>
+                        <i class="fa fa-book margin-r-5"></i> Nombre
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.name }}
+                    </p>
+
+                    <hr>
+
+                    <strong>
+                        <i class="fa fa-qrcode margin-r-5"></i> Unidad de uso
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.unit.name }}
+                    </p>
+
+                    <hr>
+
+                    <strong>
+                        <i class="fa fa-adjust margin-r-5"></i> Color
+                    </strong>
+
+                    <p class="text-muted">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button
+                                    type="button"
+                                    class="btn btn-flat"
+                                    style="color: #343434; width: 100%; background-color: {{ entity.color.prefix }}">
+                                    &nbsp;
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                {{ entity.color.name }}
+                            </div>
+                        </div>
+                    </p>
+
+                    <hr>
+
+                    <strong>
+                        <i class="fa fa-calendar margin-r-5"></i> Creado
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.createdAt|date('Y-m-d H:i') }}
+                    </p>
+
+                </div>
+                {#LEFT#}
+
+                {#RIGHT#}
+                <div class="col-md-6">
+                    <div class="box box-solid box-pdv black-3">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <i class="fa fa-fw fa-map-marker"></i> Puntos de venta
+                            </h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+
+                            <div class="table-responsive">
+                                <table class="table no-margin">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th class="text-center">Stock</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for key, pdvHasproduct in pdvHasproducts %}
+                                        <tr>
+                                            <td>
+                                                <span class="label label-success">
+                                                    {{ pdvHasproduct.pointOfSale.id }}
+                                                </span>
+                                            </td>
+                                            <td class="pdv">
+                                                {{ pdvHasproduct.pointOfSale.name }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ pdvHasproduct.stock }}
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td>
+                                                No hay punto de venta asignado.
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {#<div class="box-footer clearfix"></div>#}
+                    </div>
+                </div>
+                {#RIGHT#}
+
+            </div>
 
         </div>
     </div>

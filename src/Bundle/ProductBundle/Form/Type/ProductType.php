@@ -62,10 +62,10 @@ class ProductType extends AbstractType
 
     public function getSizeRange() {
         return [
-        	"17 -- 21" => 1721,
-        	"21 -- 25" => 2125,
-        	"25 -- 32" => 2532,
-        	"32 -- 37" => 3237,
+        	"17 -- 21" => "17 - 21",
+        	"21 -- 25" => "21 - 25",
+        	"25 -- 32" => "25 - 32",
+        	"32 -- 37" => "32 - 37",
         ];
     }
 
@@ -144,7 +144,7 @@ class ProductType extends AbstractType
 	            },
 	            'placeholder' => '[ Escoge un color ]',
 	            'empty_data' => null,
-	            'required' => true,
+	            'required' => false,
 	            'label' => 'Color',
 	            'label_attr' => [
 		            'class' => ''
@@ -154,7 +154,7 @@ class ProductType extends AbstractType
 		            'placeholder' => '',
 	            ],
             ])
-            ->add('pointOfSale', EntityType::class, [
+            ->add('pdvHasproduct', EntityType::class, [
 	            'class' => Pointofsale::class,
 	            'query_builder' => function(EntityRepository $er) {
 		            return $er->findAllObjects();

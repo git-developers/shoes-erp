@@ -24,7 +24,7 @@ class Product
      * @var integer
      *
      * @JMSS\Groups({
-     *     "crud",
+     *     "pdv_product",
      *     "ticket"
      * })
      */
@@ -46,7 +46,7 @@ class Product
 	 * @var float
 	 *
 	 * @JMSS\Groups({
-	 *     "crud",
+	 *     "pdv_product",
 	 *     "ticket"
 	 * })
 	 */
@@ -56,7 +56,7 @@ class Product
      * @var string
      *
      * @JMSS\Groups({
-     *     "crud",
+     *     "pdv_product",
      *     "ticket"
      * })
      */
@@ -71,17 +71,16 @@ class Product
      * @var integer
      *
      * @JMSS\Groups({
-     *     "crud",
-     *     "ticket"
+     *     "ticket",
+     *     "pdv_product"
      * })
      */
     private $size;
 
     /**
-     * @var integer
+     * @var string
      *
      * @JMSS\Groups({
-     *     "crud",
      *     "ticket"
      * })
      */
@@ -91,7 +90,6 @@ class Product
      * @var \DateTime
      *
      * @JMSS\Groups({
-     *     "crud",
      *     "ticket"
      * })
      * @JMSS\Type("DateTime<'Y-m-d H:i'>")
@@ -151,8 +149,10 @@ class Product
 	 * })
 	 *
 	 * @JMSS\Groups({
-	 *     "crud",
+	 *     "pdv_product",
 	 * })
+	 *
+	 * * @Assert\NotBlank(message="Agregue un color")
 	 */
 	private $color;
 	
@@ -169,7 +169,7 @@ class Product
 	 * @var array
 	 *
 	 * @JMSS\Groups({
-	 *     "crud",
+	 *     "pdv_product",
 	 *     "ticket"
 	 * })
 	 */
@@ -178,15 +178,16 @@ class Product
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
 	 *
+	 * * @Assert\NotBlank(message="Agregue puntos de venta")
 	 */
-	private $pointOfSale;
+	private $pdvHasproduct;
 	
 	/**
 	 * Constructor
 	 */
 	public function __construct()
 	{
-		$this->pointOfSale = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->pdvHasproduct = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 	
     /**
@@ -240,17 +241,17 @@ class Product
 	}
 	
 	/**
-	 * @return int
+	 * @return string
 	 */
-	public function getSizeRange() //: int
+	public function getSizeRange() //: string
 	{
 		return $this->sizeRange;
 	}
 	
 	/**
-	 * @param int $sizeRange
+	 * @param string $sizeRange
 	 */
-	public function setSizeRange(int $sizeRange)
+	public function setSizeRange(string $sizeRange)
 	{
 		$this->sizeRange = $sizeRange;
 	}
@@ -542,37 +543,19 @@ class Product
 	}
 	
 	/**
-	 * Add pointOfSale
-	 *
-	 * @param \Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale
-	 *
-	 * @return Product
-	 */
-	public function addPointOfSale(\Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale)
-	{
-		$this->pointOfSale[] = $pointOfSale;
-		
-		return $this;
-	}
-	
-	/**
-	 * Remove pointOfSale
-	 *
-	 * @param \Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale
-	 */
-	public function removePointOfSale(\Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale)
-	{
-		$this->pointOfSale->removeElement($pointOfSale);
-	}
-	
-	/**
-	 * Get pointOfSale
-	 *
 	 * @return \Doctrine\Common\Collections\Collection
 	 */
-	public function getPointOfSale()
+	public function getPdvHasproduct() //: \Doctrine\Common\Collections\Collection
 	{
-		return $this->pointOfSale;
+		return $this->pdvHasproduct;
+	}
+	
+	/**
+	 * @param \Doctrine\Common\Collections\Collection $pdvHasproduct
+	 */
+	public function setPdvHasproduct(\Doctrine\Common\Collections\Collection $pdvHasproduct)
+	{
+		$this->pdvHasproduct = $pdvHasproduct;
 	}
 	
 }

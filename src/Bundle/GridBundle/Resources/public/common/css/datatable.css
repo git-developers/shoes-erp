@@ -1,4 +1,7 @@
-.dataTables_info, .dataTables_filter, .dataTables_length, .dataTables_paginate {
+.dataTables_info,
+.dataTables_filter,
+.dataTables_length,
+.dataTables_paginate {
     width: 50%;
     float: left;
     margin-bottom: 5px;
@@ -25,4 +28,9 @@ div.box-pdv > .box-body {
     max-height: 400px;
     overflow-y: scroll;
     min-height: 400px;
+}
+
+td.pdv:hover {
+    background-color: #EBEBEB;
+    cursor: pointer;
 }

@@ -9,10 +9,10 @@ use JMS\Serializer\Annotation as JMSS;
 use JMS\Serializer\Annotation\Type as TypeJMS;
 
 /**
- * PointOfSaleHasProduct
+ * PointofsaleHasProduct
  *
  */
-class PointOfSaleHasProduct
+class PointofsaleHasProduct
 {
     /**
      * @var integer
@@ -27,7 +27,7 @@ class PointOfSaleHasProduct
      * @var integer
      *
      * @JMSS\Groups({
-     *     "crud",
+     *     "pdv_product",
      * })
      */
     private $stock;
@@ -39,6 +39,7 @@ class PointOfSaleHasProduct
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="point_of_sale_id", referencedColumnName="id")
      * })
+     *
      */
     private $pointOfSale;
 
@@ -48,6 +49,10 @@ class PointOfSaleHasProduct
      * @ORM\ManyToOne(targetEntity="Bundle\ProductBundle\Entity\Product")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * })
+     *
+     * @JMSS\Groups({
+     *     "pdv_product",
      * })
      */
     private $product;
@@ -69,7 +74,7 @@ class PointOfSaleHasProduct
      *
      * @param integer $stock
      *
-     * @return PointOfSaleHasProduct
+     * @return PointofsaleHasProduct
      */
     public function setStock($stock)
     {
@@ -93,7 +98,7 @@ class PointOfSaleHasProduct
      *
      * @param \Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale
      *
-     * @return PointOfSaleHasProduct
+     * @return PointofsaleHasProduct
      */
     public function setPointOfSale(\Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale = null)
     {
@@ -117,7 +122,7 @@ class PointOfSaleHasProduct
      *
      * @param \Bundle\ProductBundle\Entity\Product $product
      *
-     * @return PointOfSaleHasProduct
+     * @return PointofsaleHasProduct
      */
     public function setProduct(\Bundle\ProductBundle\Entity\Product $product = null)
     {

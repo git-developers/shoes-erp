@@ -1,6 +1,7 @@
-Bundle\PointofsaleBundle\Entity\PointOfSaleHasProduct:
+Bundle\PointofsaleBundle\Entity\PointofsaleHasProduct:
     type: entity
     table: point_of_sale_has_product
+    repositoryClass: Bundle\PointofsaleBundle\Doctrine\ORM\PointofsaleHasProductRepository
     indexes:
         fk_point_of_sale_has_product_point_of_sale1_idx:
             columns:

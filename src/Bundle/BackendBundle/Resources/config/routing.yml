@@ -19,9 +19,6 @@ backend_product:
 backend_services:
     resource: '@ServicesBundle/Resources/config/routing/backend.yml'
     prefix: /services
-backend_ticket:
-    resource: '@TicketBundle/Resources/config/routing/backend.yml'
-    prefix: /ticket
 backend_paymenttype:
     resource: '@TicketBundle/Resources/config/routing/backend_paymenttype.yml'
     prefix: /payment-type
@@ -68,3 +65,9 @@ backend_files:
 backend_color:
     resource: '@ProductBundle/Resources/config/routing/color.yml'
     prefix: /color
+backend_ticket:
+    resource: '@TicketBundle/Resources/config/routing/backend.yml'
+    prefix: /ticket
+backend_sales:
+    resource: '@TicketBundle/Resources/config/routing/sales.yml'
+    prefix: /sales

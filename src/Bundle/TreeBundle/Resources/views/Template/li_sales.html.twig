@@ -1,0 +1,45 @@
+{% spaceless %}
+    <span
+        class="{{ tree.li_span }} li-span li-span-{{ entity.id }}"
+        style="height: 30px;"
+    >
+        <span class="badge {{ badge_color }}">
+            {{ entity.id }}
+        </span>
+
+        <span>
+            <span class="label label-default">
+                {{ entity.code }}
+            </span>
+
+            <span class="text">
+                {{ entity.name }}
+            </span>
+        </span>
+
+        <div
+            class="tools"
+            data-toggle="tooltip"
+            data-original-title="Category {{ entity.id }}"
+            style="display: none">
+            {#<i#}
+                {#class="fa fa-1x fa-fw fa-plus {{ modal.create_child_id }}"#}
+                {#alt="Agregar child"#}
+                {#title="Agregar child"#}
+                {#data-toggle="modal"#}
+                {#data-target="#{{ modal.create_child_id }}"></i>#}
+            {#<i#}
+                {#class="fa fa-1x fa-fw fa-pencil {{ modal.edit_id }}"#}
+                {#alt="Editar"#}
+                {#title="Editar"#}
+                {#data-toggle="modal"#}
+                {#data-target="#{{ modal.edit_id }}"></i>#}
+            {#<i#}
+                {#class="fa fa-1x fa-fw fa-trash-o {{ modal.delete_id }}"#}
+                {#alt="Eliminar"#}
+                {#title="Eliminar"#}
+                {#data-toggle="modal"#}
+                {#data-target="#{{ modal.delete_id }}"></i>#}
+        </div>
+    </span>
+{% endspaceless %}

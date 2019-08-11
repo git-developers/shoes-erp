@@ -1,0 +1,70 @@
+{% spaceless %}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th style="width: 5%">cant.</th>
+                <th class="text-center">nombre</th>
+                <th class="text-right">precio unit.</th>
+                <th class="text-right">sub total</th>
+                <th class="text-center">acci&oacute;n</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% set subTotal = 0 %}
+            {% set totalPrice = 0 %}
+
+            {% for product in productSession %}
+
+                {% set subTotal = product.price * product.quantity %}
+
+                <tr>
+                    <td class="text-center bg-gray">
+                        {{ product.quantity }}
+                    </td>
+                    <td>
+                        {{ product.name }}
+                    </td>
+                    <td class="text-right">
+                        {{ product.price }}
+                    </td>
+                    <td class="text-right">
+                        {{ subTotal }}
+                    </td>
+                    <td class="text-center">
+                        <button
+                            type="button"
+                            class="btn btn-danger btn-sm decrement-services"
+                            data-id-item="{{ product.id }}">
+                            <i class="fa fa-fw fa-minus"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                {% set totalPrice = totalPrice + subTotal %}
+
+            {% else %}
+                <tr>
+                    <td colspan="5">
+                        Agregue un producto de la izquierda.
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+
+        <tfoot>
+            <tr class="bg-gray">
+                <td></td>
+                <td colspan="2" class="text-left">Total</td>
+                <td class="text-right text-bold">
+                    {{ totalPrice }}
+                    {#<span class="badge bg-gray-active">#}
+                        {#{{ totalPrice }}#}
+                    {#</span>#}
+                </td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+{% endspaceless %}

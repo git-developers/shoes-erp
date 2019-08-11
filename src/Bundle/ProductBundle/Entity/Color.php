@@ -37,6 +37,7 @@ class Color
 	 *
 	 * @JMSS\Groups({
 	 *     "crud",
+	 *     "sales",
 	 *     "pdv_product",
 	 * })
 	 */

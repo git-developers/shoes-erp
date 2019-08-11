@@ -1,0 +1,431 @@
+{% extends "ThemesBundle:Adminlte/Template:1_template.html.twig" %}
+
+{% import "TreeBundle::Macro/tree_sales.html.twig" as macro %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        '@TreeBundle/Resources/public/css/tree.css'
+        '@CoreBundle/Resources/public/css/tree.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    {% stylesheets
+        filter='cssrewrite'
+        '@TicketBundle/Resources/public/css/default.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <style>
+
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@TicketBundle/Resources/public/js/formClient.js'
+        '@TicketBundle/Resources/public/js/formTicket.js'
+        '@TicketBundle/Resources/public/js/formProducts.js'
+        '@TicketBundle/Resources/public/js/barcodeScanner.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            $('body.{{ vars.body_css }}').formClient({
+                modalId: 'modal-create-client',
+                formName: 'form-create-client',
+                clientId: '{{ form.client.vars.full_name }}',
+                route: '{{ path('backend_sales_add_client') }}'
+            });
+
+            $('body.{{ vars.body_css }}').formProducts({
+                modalId: 'modal-create-services',
+                routeIncrement: '{{ path('backend_sales_increment_item') }}',
+                routeDecrement: '{{ path('backend_sales_decrement_item') }}',
+                routeRemoveAll: '{{ path('backend_sales_remove_all_item') }}'
+            });
+
+            $('body.{{ vars.body_css }}').formTicket({
+                formName: '{{ form.vars.name }}',
+                route: '{{ path('backend_sales_create') }}',
+                routeRedirect: '{{ path('backend_sales_index') }}'
+            });
+
+            $(function () {
+                $('#code-scan').codeScanner();
+            });
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-shopping-cart"></i> Crear venta
+            <small>products</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{{ path('backend_dashboard_index') }}">
+                    <i class="fa fa-dashboard"></i> Home
+                </a>
+            </li>
+            <li class="active">
+                Crear venta
+            </li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            {#CLIENT#}
+            <div class="col-md-4" style="padding-right: 0px">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-user"></i> Cliente
+                        </h4>
+                        <div class="box-tools pull-right">
+                            <span
+                                class="badge bg-green x-hand add-client"
+                                data-toggle="modal"
+                                data-target="#modal-create-client">
+                                <i class="fa fa-plus"></i> Buscar
+                            </span>
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive"> {#no-padding#}
+
+                        <table class="table table-condensed table-striped box-table-client">
+                            <tbody>
+                                <tr>
+                                    <td colspan="5">
+                                        Seleccione un cliente.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            {#CLIENT#}
+
+
+            {#PDV#}
+            <div class="col-md-4" style="padding-right: 0px">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-map-marker"></i> Punto de venta
+                        </h4>
+                        <div class="box-tools pull-right"></div>
+                    </div>
+                    <div class="box-body table-responsive"> {#no-padding#}
+
+                        <table class="table table-condensed table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-light-blue-active">
+                                            {{ app.user.pointOfSaleActive.id|default('') }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="{{ asset('bundles/themes/adminlte/images/icon-1-128x128.png') }}"
+                                            style="max-height: 30px"
+                                            class="img-circle">
+                                    </td>
+                                    <td>
+                                        {{ app.user.pointOfSaleActive.name|default('[ - no PDV - ]') }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ app.user.pointOfSaleActive != null ? app.user.pointOfSaleActive.createdAt|date('d, F Y') : "" }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            {#PDV#}
+
+
+            {#EMPLOYEE#}
+            <div class="col-md-4">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-user"></i> Empleado logeado
+                        </h4>
+                        <div class="box-tools pull-right"></div>
+                    </div>
+                    <div class="box-body table-responsive"> {#no-padding#}
+
+                        <table class="table table-condensed table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-yellow-active">
+                                            {{ app.user.id }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <img
+                                            src="{{ asset('bundles/themes/adminlte/images/icon-2-128x128.png') }}"
+                                            style="max-height: 30px"
+                                            class="img-circle">
+                                    </td>
+                                    <td>
+                                        {{ tianos_app_user_name(app.user, 0, 15) }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ app.user.createdAt|date('d, F Y')}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            {#EMPLOYEE#}
+
+
+            {#CATEGORY - PRODUCTS#}
+            <div class="col-md-7" style="padding-right: 0px">
+
+                <div class="box box-primary">
+
+                    <div class="row">
+                        <div class="col-md-5" style="padding-right: 0px">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">
+                                    <i class="fa fa-fw fa-sitemap"></i> Categorías
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col-md-7" style="padding-left: 0px;">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">
+                                    <i class="fa fa-fw fa-file-text-o"></i> Productos
+                                </h4>
+
+                                <div class="box-tools pull-right" data-toggle="tooltip" data-original-title="Agregar nuevos productos">
+                                    <a href="{{ path('backend_product_index') }}">
+                                        <span class="badge bg-green x-hand">
+                                            <i class="fa fa-plus"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-body"> {#no-padding#}
+
+                        <div class="row">
+                            <div class="col-md-5" style="padding-right: 0px">
+                                <div class="{{ tree.main_div }} box-body">
+                                    <ul id="{{ tree.main_ul }}">
+                                        {% if categoryTree is not empty %}
+                                            {{ macro.tree(categoryTree, tree, -1) }}
+                                        {% else %}
+                                            <p>No hay items que mostrar</p>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-7" style="padding-left: 0px;">
+
+                                <table class="table table-bordered products table-scroll">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center"></th>
+                                            <th class="text-center"></th>
+                                            <th class="text-center">nombre</th>
+                                            <th class="text-center">
+                                                <i class="fa fa-fw fa-money"></i> precio
+                                            </th>
+                                            <th class="text-center">stock</th>
+                                            <th class="text-center"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="tr-product">
+                                            <td colspan="3">
+                                                Seleccione una categor&iacute;a.
+                                            </td>
+                                        </tr>
+                                        {#{% for product in productsObjs %}#}
+                                        {% for obj in products %}
+
+                                            {% set product = obj.product %}
+
+                                            <tr class="tr-product tr-product-{{ product.category.id }}" style="display: none">
+                                                <td class="text-center">
+                                                    <span class="badge bg-light-blue-active">
+                                                        {{ product.id }}
+                                                    </span>
+                                                </td>
+                                                <td title="ver thumbnail"
+                                                    data-toggle="modal"
+                                                    data-target="#modal-product-thumbnail"
+                                                    class="text-center product-thumbnail">
+                                                    {% if product.files|first %}
+                                                        <img
+                                                            src="{{ product.files|first }}"
+                                                            data-thumb="{{ product.files|first }}"
+                                                            class="product-thumbnail img-circle img-thumbnail">
+                                                    {% else %}
+                                                        <img
+                                                            src="{{ asset('bundles/themes/adminlte/images/image-icon.png') }}"
+                                                            data-thumb="{{ asset('bundles/themes/adminlte/images/image-icon.png') }}"
+                                                            class="product-thumbnail img-circle img-thumbnail">
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    <div
+                                                        class="alert ticket-product-color"
+                                                        style="background-color: {{ product.color.prefix }}">
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ product.name }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ product.price }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ obj.stock }}
+                                                </td>
+                                                <td class="text-center">
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-success btn-sm increment-services"
+                                                        data-id-item="{{ product.id }}">
+                                                        <i class="fa fa-fw fa-plus"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <input class="form-control" id="code-scan" type="text" />
+            </div>
+            {#CATEGORY - PRODUCTS#}
+
+
+            {# COMPROBANTE #}
+            <div class="col-md-5">
+
+                <div class="box box-primary">
+
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <i class="fa fa-fw fa-file-o"></i> Comprobante
+                        </h4>
+                        <div class="box-tools pull-right">
+                            <span
+                                class="badge bg-red x-hand remove-all-services"
+                                data-toggle="tooltip"
+                                data-original-title="Eliminar todos los servicios">
+                                <i class="fa fa-minus-circle"></i> Eliminar
+                            </span>
+                        </div>
+                    </div>
+
+                    {{ form_start(form) }}
+                        <div class="box-body box-table-items">
+
+                            <div class="callout callout-primary ticket-message" style="background-color: #3c8dbc">
+                                <p style="font-size: 16px">
+                                    <i class="icon fa fa-info"></i> Información.
+                                </p>
+                            </div>
+
+                            {{ form_widget(form._token) }}
+
+                            {{ form_widget(form.client) }}
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <i class="fa fa-fw fa-money"></i>
+                                        {{ form_label(form.paymentType) }}
+                                        {{ form_widget(form.paymentType) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <i class="fa fa-fw fa-qrcode"></i>
+                                        {{ form_label(form.code) }}
+                                        {{ form_widget(form.code) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <i class="fa fa-fw fa-align-left"></i>
+                                        {{ form_label(form.name) }}
+                                        {{ form_widget(form.name) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="items">
+                                {{ include('TicketBundle:Sales/Grid/Box:table_product.html.twig') }}
+                            </div>
+
+                        </div>
+
+                        <div class="box-footer text-center">
+                            <button type="submit" class="btn btn-primary">
+                                Generar pedido
+                            </button>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+
+            </div>
+            {# COMPROBANTE #}
+
+        </div>
+
+    </section>
+
+    {{ include('TicketBundle:BackendTicket/Modal/Product:thumbnail.html.twig') }}
+    {{ include('TicketBundle:BackendTicket/Modal/Client:create.html.twig') }}
+    {{ include('TicketBundle:BackendTicket/Modal/Employee:create.html.twig') }}
+
+{% endblock %}

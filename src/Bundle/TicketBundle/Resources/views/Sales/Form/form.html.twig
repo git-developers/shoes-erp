@@ -1,0 +1,16 @@
+{% extends 'GridBundle::Template/crud_modal_content.html.twig' %}
+
+{% block crud_modal_content %}
+
+    {{ form_start(form) }}
+
+    {% if id is defined %}
+        <input type="hidden" value="{{ id }}" name="id">
+    {% endif %}
+
+    {{ form_widget(form._token) }}
+
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}

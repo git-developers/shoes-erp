@@ -307,7 +307,7 @@ class Builder implements ContainerAwareInterface
 	        Ticket::ROLE_TICKET_VIEW,
         ]);
 
-        $menu->addChild('Pedidos', [
+        $menu->addChild('Ventas', [
             'route' => 'backend_ticket_index',
             'extras' => ['safe_label' => true],
             'childrenAttributes' => [
@@ -316,28 +316,38 @@ class Builder implements ContainerAwareInterface
         ])
         ->setAttribute('class', 'treeview')
         ->setAttribute('class', $this->activeRoute([
-            'backend_ticket_index',
-            'backend_ticket_create_internal',
-            'backend_ticket_create_external',
-            'backend_ticket_edit',
+	        'backend_sales_edit',
+	        'backend_sales_index',
+	        'backend_sales_create',
             'backend_paymenttype_index',
         ]))
-        ->setAttribute('icon', 'fa-fw fa-ticket')
+        ->setAttribute('icon', 'fa-fw fa-shopping-cart')
         ->setDisplay($isGranted)
         ;
-	
-	    $menu['Pedidos']->addChild('Gestionar', [
-		    'route' => 'backend_ticket_index'
+        
+	    $menu['Ventas']->addChild('Crear venta', [
+		    'route' => 'backend_sales_create'
+	    ])
+		    ->setAttribute('icon', self::CIRCLE_2)
+		    ->setAttribute('class', $this->activeRoute('backend_sales_create'))
+		    ->setDisplay($isGranted)
+	    ;
+	    
+	    $menu['Ventas']->addChild('Gestionar ventas', [
+		    'route' => 'backend_sales_index'
 	    ])
 	    ->setAttribute('icon', self::CIRCLE_1)
 	    ->setAttribute('class', $this->activeRoute([
-		    'backend_ticket_index',
-		    'backend_ticket_edit'
+		    'backend_sales_index',
+		    'backend_sales_edit'
 	    ]))
 	    ->setDisplay($isGranted)
 	    ;
-        
-	    $menu['Pedidos']->addChild('Crear pedido interno', [
+	
+
+	    
+/*
+        $menu['Ventas']->addChild('Crear pedido interno', [
 		    'route' => 'backend_ticket_create_internal'
 	    ])
 	    ->setAttribute('icon', self::CIRCLE_2)
@@ -345,15 +355,15 @@ class Builder implements ContainerAwareInterface
 	    ->setDisplay($isGranted)
 	    ;
      
-	    $menu['Pedidos']->addChild('Crear pedido externo', [
+	    $menu['Ventas']->addChild('Crear pedido externo', [
 		    'route' => 'backend_ticket_create_external'
 	    ])
 	    ->setAttribute('icon', self::CIRCLE_3)
 	    ->setAttribute('class', $this->activeRoute('backend_ticket_create_external'))
 	    ->setDisplay($isGranted)
-	    ;
+	    ;*/
      
-	    $menu['Pedidos']->addChild('Tipos de pago', [
+	    $menu['Ventas']->addChild('Tipos de pago', [
 		    'route' => 'backend_paymenttype_index'
 	    ])
 	    ->setAttribute('icon', self::CIRCLE_4)

@@ -45,7 +45,7 @@ class Category
      *     "tree",
      *     "tree-one-to-many-left",
      *     "api",
-     *     "ticket"
+     *     "sales"
      * })
      */
     private $id;

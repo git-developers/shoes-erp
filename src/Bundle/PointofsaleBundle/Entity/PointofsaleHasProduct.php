@@ -27,6 +27,7 @@ class PointofsaleHasProduct
      * @var integer
      *
      * @JMSS\Groups({
+     *     "sales",
      *     "pdv_product",
      * })
      */
@@ -53,11 +54,11 @@ class PointofsaleHasProduct
      *
      * @JMSS\Groups({
      *     "pdv_product",
+     *     "sales",
      * })
      */
     private $product;
-
-
+    
 
     /**
      * Get id

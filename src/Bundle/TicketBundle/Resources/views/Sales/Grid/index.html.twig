@@ -1,0 +1,37 @@
+{% extends "CoreBundle:Theme/adminlte:1_template.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {#AdminLTE dashboard demo (This is only for demo purposes)#}
+    {#<script src="{{ asset('bundles/backend/dist/js/pages/dashboard.js')}}"></script>#}
+
+    {#AdminLTE for demo purposes#}
+    {#<script src="{{ asset('bundles/backend/dist/js/demo.js')}}"></script>#}
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            Dashboard
+            <small>Control panel</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+
+    </section>
+
+{% endblock %}

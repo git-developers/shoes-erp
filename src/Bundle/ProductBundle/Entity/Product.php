@@ -25,7 +25,7 @@ class Product
      *
      * @JMSS\Groups({
      *     "pdv_product",
-     *     "ticket"
+     *     "sales"
      * })
      */
     private $id;
@@ -51,27 +51,30 @@ class Product
 	 *
 	 * @JMSS\Groups({
 	 *     "pdv_product",
-	 *     "ticket"
+	 *     "sales"
 	 * })
+	 *
 	 */
-	private $price;
+	private $price = 0;
+	//* @Assert\Type(type="float", message="Validar precio")
 	
 	/**
 	 * @var float
 	 *
 	 * @JMSS\Groups({
 	 *     "pdv_product",
-	 *     "ticket"
+	 *     "sales"
 	 * })
+	 *
 	 */
-	private $cost;
+	private $cost = 0;
     
     /**
      * @var string
      *
      * @JMSS\Groups({
      *     "pdv_product",
-     *     "ticket"
+     *     "sales"
      * })
      */
     private $name;
@@ -81,7 +84,7 @@ class Product
      *
      * @JMSS\Groups({
      *     "pdv_product",
-     *     "ticket"
+     *     "sales"
      * })
      */
     private $reference;
@@ -95,7 +98,7 @@ class Product
      * @var string
      *
      * @JMSS\Groups({
-     *     "ticket",
+     *     "sales",
      *     "pdv_product"
      * })
      */
@@ -105,7 +108,7 @@ class Product
      * @var string
      *
      * @JMSS\Groups({
-     *     "ticket"
+     *     "sales"
      * })
      */
     private $sizeRange;
@@ -114,7 +117,7 @@ class Product
      * @var \DateTime
      *
      * @JMSS\Groups({
-     *     "ticket"
+     *     "sales"
      * })
      * @JMSS\Type("DateTime<'Y-m-d H:i'>")
      */
@@ -149,7 +152,7 @@ class Product
      * })
      *
      * @JMSS\Groups({
-     *     "ticket"
+     *     "sales"
      * })
      */
     private $category;
@@ -173,6 +176,7 @@ class Product
 	 * })
 	 *
 	 * @JMSS\Groups({
+	 *     "sales",
 	 *     "pdv_product",
 	 * })
 	 *
@@ -184,7 +188,7 @@ class Product
 	 * @var integer
 	 *
 	 * @JMSS\Groups({
-	 *     "ticket"
+	 *     "sales"
 	 * })
 	 */
 	private $quantity;
@@ -194,7 +198,7 @@ class Product
 	 *
 	 * @JMSS\Groups({
 	 *     "pdv_product",
-	 *     "ticket"
+	 *     "sales"
 	 * })
 	 */
 	private $barcode;
@@ -204,7 +208,7 @@ class Product
 	 *
 	 * @JMSS\Groups({
 	 *     "pdv_product",
-	 *     "ticket"
+	 *     "sales"
 	 * })
 	 */
 	private $files;
@@ -301,9 +305,9 @@ class Product
 	/**
 	 * @param float $price
 	 */
-	public function setPrice(float $price)
+	public function setPrice($price)
 	{
-		$this->price = $price;
+		$this->price = empty($price) ? 0 : $price;
 	}
 	
 	/**
@@ -317,9 +321,9 @@ class Product
 	/**
 	 * @param float $cost
 	 */
-	public function setCost(float $cost)
+	public function setCost($cost)
 	{
-		$this->cost = $cost;
+		$this->cost = empty($cost) ? 0 : $cost;
 	}
 	
     /**
@@ -561,14 +565,14 @@ class Product
 	{
 		return $this->quantity;
 	}
-	
+
 	/**
 	 * @param int $quantity
 	 */
 	public function setQuantity(int $quantity)
 	{
 		$this->quantity = $quantity;
-		
+
 		return $this;
 	}
 	

@@ -43,7 +43,30 @@ class PointofsaleHasProductRepository extends TianosEntityRepository
     /**
      * {@inheritdoc}
      */
-    public function findAllByPdv($pdvId, $categoryId)
+    public function findByPdv($pdvId = null)
+    {
+	    $em = $this->getEntityManager();
+        $dql = "
+            SELECT pdvHasProduct, pdv, product
+            FROM PointofsaleBundle:PointofsaleHasProduct pdvHasProduct
+            LEFT JOIN pdvHasProduct.pointOfSale pdv
+            LEFT JOIN pdvHasProduct.product product
+            WHERE
+            pdv.id = :pdvId AND
+            product.isActive = :active
+            ";
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('pdvId', $pdvId);
+	    $query->setParameter('active', 1);
+		
+        return $query->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByPdvAndCategory($pdvId, $categoryId)
     {
 	    $em = $this->getEntityManager();
         $dql = "

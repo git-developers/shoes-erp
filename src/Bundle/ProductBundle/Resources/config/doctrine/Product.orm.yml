@@ -34,16 +34,40 @@ Bundle\ProductBundle\Entity\Product:
             scale: 2
             options:
                 fixed: false
+            column: price
+        cost:
+            type: float
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                fixed: false
+            column: cost
         name:
             type: string
             nullable: false
             length: 150
             options:
                 fixed: false
-        size:
-            type: integer
+            column: name
+        reference:
+            type: string
             nullable: true
-            length: 2
+            length: 150
+            options:
+                fixed: false
+            column: reference
+        barcode:
+            type: string
+            nullable: true
+            length: 11
+            options:
+                fixed: false
+            column: barcode
+        size:
+            type: string
+            nullable: true
+            length: 10
             options:
                 unsigned: false
             column: size

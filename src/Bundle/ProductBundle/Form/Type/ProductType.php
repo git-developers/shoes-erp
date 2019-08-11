@@ -9,6 +9,8 @@ use Bundle\CategoryBundle\Entity\Category;
 use Bundle\ProductBundle\Entity\Unit;
 use Bundle\PointofsaleBundle\Entity\Pointofsale;
 use Bundle\ProductBundle\Entity\Color;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 class ProductType extends AbstractType
 {
@@ -30,6 +33,7 @@ class ProductType extends AbstractType
 
     public function getSize() {
         return [
+	        "[ Seleccionar ]" => "",
         	17 => 17,
         	18 => 18,
         	19 => 19,
@@ -62,6 +66,7 @@ class ProductType extends AbstractType
 
     public function getSizeRange() {
         return [
+	        "[ Seleccionar ]" => "",
         	"17 -- 21" => "17 - 21",
         	"21 -- 25" => "21 - 25",
         	"25 -- 32" => "25 - 32",
@@ -106,7 +111,7 @@ class ProductType extends AbstractType
                     'query_builder' => function(EntityRepository $er) {
                         return $er->findAllObjects();
                     },
-                    'placeholder' => '[ Escoge una opción ]',
+                    'placeholder' => '[ Seleccionar ]',
                     'empty_data' => null,
                     'required' => false,
                     'label' => 'Categoría',
@@ -114,7 +119,7 @@ class ProductType extends AbstractType
                         'class' => ''
                     ],
                     'attr' => [
-                        'class' => 'form-control',
+                        'class' => 'form-control hide',
                         'placeholder' => '',
                     ],
                 ],
@@ -125,10 +130,10 @@ class ProductType extends AbstractType
 	            'query_builder' => function(EntityRepository $er) {
 		            return $er->findAllObjects();
 	            },
-	            'placeholder' => '[ Escoge una opción ]',
+	            'placeholder' => '[ Seleccionar ]',
 	            'empty_data' => null,
 	            'required' => true,
-	            'label' => 'Unidad de uso',
+	            'label' => 'Tipo de uso',
 	            'label_attr' => [
 		            'class' => ''
 	            ],
@@ -142,7 +147,7 @@ class ProductType extends AbstractType
 	            'query_builder' => function(EntityRepository $er) {
 		            return $er->findAllObjects();
 	            },
-	            'placeholder' => '[ Escoge un color ]',
+	            'placeholder' => '[ Seleccionar ]',
 	            'empty_data' => null,
 	            'required' => false,
 	            'label' => 'Color',
@@ -159,7 +164,7 @@ class ProductType extends AbstractType
 	            'query_builder' => function(EntityRepository $er) {
 		            return $er->findAllObjects();
 	            },
-	            'placeholder' => '[ Escoge un pdv ]',
+	            'placeholder' => '[ Seleccionar ]',
 	            'empty_data' => null,
 	            'required' => false,
                 'expanded' => true,
@@ -194,30 +199,70 @@ class ProductType extends AbstractType
                     'placeholder' => 'nombre',
                 ],
             ])
-//            ->add('stock', IntegerType::class, [
-//                'label' => 'Stock',
-//                'label_attr' => [
-//                    'class' => ''
-//                ],
-//                'attr' => [
-//                    'class' => 'form-control',
-//                    'placeholder' => '##',
-//                ],
-//            ])
-            ->add('size', ChoiceType::class, [
-                'label' => 'Talla',
-	            'choices' => $this->getSize(),
+            ->add('price', TextType::class, [
+                'label' => 'Precio de venta',
+	            'required' => false,
                 'label_attr' => [
                     'class' => ''
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => '##',
+                    'placeholder' => '##.##',
+                    'onkeyup' => "this.value = this.value.replace(/[^0-9\.]/g,'');",
+                ],
+            ])
+            ->add('cost', TextType::class, [
+                'label' => 'Costo',
+	            'required' => false,
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => '##.##',
+                    'onkeyup' => "this.value = this.value.replace(/[^0-9\.]/g,'');",
+                ],
+            ])
+            ->add('barcode', TextType::class, [
+                'label' => 'Barcode',
+	            'required' => false,
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'barcode',
+	                'maxlength' => '11',
+	                'onkeyup' => "this.value = this.value.replace(/[^0-9\.]/g,'');",
+                ],
+            ])
+            ->add('reference', TextareaType::class, [
+                'label' => 'Referencia interna',
+	            'required' => false,
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'referencia',
+                ],
+            ])
+            ->add('size', ChoiceType::class, [
+                'label' => 'Talla',
+	            'choices' => $this->getSize(),
+	            'required' => false,
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+	                'style' => 'display:none;',
                 ],
             ])
             ->add('sizeRange', ChoiceType::class, [
                 'label' => false,
 	            'choices' => $this->getSizeRange(),
+	            'required' => false,
                 'label_attr' => [
                     'class' => ''
                 ],

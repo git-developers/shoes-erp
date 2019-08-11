@@ -44,6 +44,7 @@
                 type: 'POST',
                 dataType: 'html',
                 data: {
+                    pdv_id: options.pdvId,
                     category_id: options.categoryId
                 },
                 cache: true,

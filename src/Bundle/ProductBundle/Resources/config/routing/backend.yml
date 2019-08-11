@@ -52,7 +52,7 @@ backend_product_index:
                         title: Editar producto
                         size: modal-lg
                     view:
-                        title: Ver producto
+                        title: Info de producto
                         size: modal-lg
                 data_table:
                     route:
@@ -72,9 +72,9 @@ backend_product_index:
                         dom: "'<\"top\"iflp><\"clear\">rt<\"bottom\"iflp>'"
                     row_call_back:
                         - key: id
-                          value: aData.id
+                          value: aData.product.id
                         - key: data-id
-                          value: aData.id
+                          value: aData.product.id
                         - key: class
                           value: "'alert'"
                     columns:
@@ -88,9 +88,9 @@ backend_product_index:
                               width: 7%
                               title: '#'
                               className: modal-view text-center
-                        - obj: obj.files
+                        - obj: obj.product.files
                           options:
-                              property: " return (obj.files[0] != null) ? '<img src=\"' + obj.files[0] + '\" class=\"img-circle img-thumbnail\">' : '<i class=\"fa fa-2x fa-fw fa-image \"></i>' "
+                              property: " return (obj.product.files[0] != null) ? '<img src=\"' + obj.product.files[0] + '\" class=\"img-circle img-thumbnail\">' : '<i class=\"fa fa-2x fa-fw fa-image \"></i>' "
                           defs:
                               targets: 1
                               title: 'Thumb'
@@ -103,34 +103,50 @@ backend_product_index:
                               targets: 2
                               orderable: 0
                               sorting: 0
-                              width: 10%
+                              width: 12%
                               title: '<i class="fa fa-fw fa-adjust"></i> Color'
                               className: padding-0 text-center
                               filter: 0
-                        - obj: obj.product.name
+                        - obj: obj.product.code
                           defs:
                               targets: 3
+                              orderable: 1
+                              sorting: 1
+                              title: Codigo
+                              filter: 0
+                              className: text-center
+                        - obj: obj.product.name
+                          defs:
+                              targets: 4
                               orderable: 1
                               sorting: 1
                               title: '<i class="fa fa-fw fa-align-left"></i> Nombre'
                               className: modal-edit
                               filter: 1
-                        - obj: obj.product.size
-                          defs:
-                              targets: 4
-                              orderable: 1
-                              sorting: 1
-                              title: '<i class="fa fa-fw fa-arrows-h"></i> Talla'
-                              className: text-center
-                              filter: 0
-                        - obj: obj.stock
+                        - obj: obj.product.price
                           defs:
                               targets: 5
                               orderable: 1
                               sorting: 1
-                              title: Stock
-                              filter: 0
+                              title: '<i class="fa fa-fw fa-money"></i> Precio venta'
                               className: text-center
+                              filter: 1
+#                        - obj: obj.product.size
+#                          defs:
+#                              targets: 4
+#                              orderable: 1
+#                              sorting: 1
+#                              title: '<i class="fa fa-fw fa-arrows-h"></i> Talla'
+#                              className: text-center
+#                              filter: 0
+#                        - obj: obj.stock
+#                          defs:
+#                              targets: 5
+#                              orderable: 1
+#                              sorting: 1
+#                              title: Stock
+#                              filter: 0
+#                              className: text-center
                         - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
                           defs:
                               targets: 6
@@ -164,7 +180,7 @@ backend_product_create:
                 type: Bundle\ProductBundle\Form\Type\ProductType
             repository:
                 vars:
-                    serialize_group_name: crud
+                    serialize_group_name: pdv_product
 
 backend_product_edit:
     path: /edit
@@ -183,7 +199,7 @@ backend_product_edit:
                 method: find
                 arguments: [$productId]
                 vars:
-                    serialize_group_name: crud
+                    serialize_group_name: pdv_product
 
 backend_product_delete:
     path: /delete
@@ -214,10 +230,10 @@ backend_product_view:
                 - ROLE_PRODUCT_VIEW
             repository:
                 service: tianos.repository.product
-                method: find
+                method: findOne
                 arguments: [$productId]
                 vars:
-                    serialize_group_name: crud
+                    serialize_group_name: pdv_product
 
 backend_product_info:
     path: /info

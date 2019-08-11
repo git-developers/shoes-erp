@@ -61,7 +61,7 @@ class BackendController extends GridController
 
         //REPOSITORY
         $objects = $this->get($repository)->$method($pdvId, $categoryId);
-	    $objects = $this->rowImages($objects);
+	    $objects = $this->rowImagesProduct($objects);
 	    
         $varsRepository = $configuration->getRepositoryVars();
         $objects = $this->getSerialize($objects, $varsRepository->serialize_group_name);
@@ -71,7 +71,7 @@ class BackendController extends GridController
 //	    echo "POLLO:: <pre>";
 //	    print_r($objects);
 //	    exit;
-//
+
 	    
 	
 	    //GRID
@@ -92,13 +92,13 @@ class BackendController extends GridController
             ->setColumnsTargets()
             ->resetGridVariable()
         ;
-	    
-
+        
         //REPOSITORY TREE
         //$objectsTree = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), $varsRepository->entity_type);
         $objectsTree = $this->get('tianos.repository.category')->findAllParentsByType($varsRepository->entity_type);
         $objectsTree = $this->getTreeEntities($objectsTree, $configuration, 'tree');
 	
+        //POINTS OF SALE
 	    $pointOfSales = $this->get('tianos.repository.pointofsale')->findAll();
         
         return $this->render(
@@ -144,6 +144,9 @@ class BackendController extends GridController
         if (!$this->isXmlHttpRequest()) {
             throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
         }
+	
+	    $pdvId = $request->get('pdv_id');
+	    $categoryId = $request->get('category_id');
 
         $parameters = [
             'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
@@ -159,8 +162,6 @@ class BackendController extends GridController
         $vars = $configuration->getVars();
         $entity = $configuration->getEntity();
         $entity = new $entity();
-
-        $categoryId = $request->get('category_id');
 
         $form = $this->createForm($formType, $entity, [
             'form_data' => [
@@ -204,7 +205,10 @@ class BackendController extends GridController
                     /** */
 
                     $varsRepository = $configuration->getRepositoryVars();
+	                $entity = $this->rowImage($entity);
                     $entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
+	                $entity = ["product" => $entity];
+	                
                     $status = self::STATUS_SUCCESS;
                 }else{
                     foreach ($form->getErrors(true) as $key => $error) {
@@ -230,6 +234,7 @@ class BackendController extends GridController
         return $this->render(
             $template,
             [
+                'pdvId' => $pdvId,
                 'action' => $action,
                 'form' => $form->createView(),
             ]
@@ -330,6 +335,8 @@ class BackendController extends GridController
 					
 					$varsRepository = $configuration->getRepositoryVars();
 					$entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
+					$entity = ["product" => $entity];
+					
 					$status = self::STATUS_SUCCESS;
 				} else {
 					foreach ($form->getErrors(true) as $key => $error) {
@@ -375,6 +382,7 @@ class BackendController extends GridController
 	 */
 	public function viewAction(Request $request): Response
 	{
+		
 		if (!$this->isXmlHttpRequest()) {
 			throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
 		}

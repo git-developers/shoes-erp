@@ -39,7 +39,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     * CATEGORY 1
 	     */
         $entity = new Product();
-	    $entity->setSize(10);
+	    $entity->setSize("10");
 	    $entity->setCode('111');
 	    $entity->setPrice(25.33);
 	    $entity->setName('Producto 1');
@@ -50,7 +50,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-1', $entity);
 
         $entity = new Product();
-	    $entity->setSize(9);
+	    $entity->setSize("9");
 	    $entity->setCode('222');
 	    $entity->setPrice(67.77);
 	    $entity->setName('Producto 2');
@@ -62,7 +62,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         
         $entity = new Product();
 //	    $entity->setColor('#00FF00');
-	    $entity->setSize(8);
+	    $entity->setSize("8");
 	    $entity->setCode('333');
 	    $entity->setPrice(15.33);
 	    $entity->setName('Producto 3');
@@ -74,7 +74,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         
         $entity = new Product();
 //	    $entity->setColor('#0000FF');
-	    $entity->setSize(10);
+	    $entity->setSize("13");
 	    $entity->setCode('444');
 	    $entity->setPrice(12.33);
 	    $entity->setName('Producto 4');
@@ -86,7 +86,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         
         $entity = new Product();
 //	    $entity->setColor('#FF0000');
-	    $entity->setSize(11);
+	    $entity->setSize("11");
 	    $entity->setCode('555');
 	    $entity->setPrice(43.33);
 	    $entity->setName('Producto 5');
@@ -103,7 +103,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     */
         $entity = new Product();
 //	    $entity->setColor('#00FF00');
-	    $entity->setSize(12);
+	    $entity->setSize("12");
 	    $entity->setCode('666');
 	    $entity->setPrice(23.44);
 	    $entity->setName('Producto 6');
@@ -115,8 +115,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 
         $entity = new Product();
 //	    $entity->setColor('#0000FF');
-	    $entity->setSize(9);
-	    $entity->setSize(10);
+	    $entity->setSize("45");
 	    $entity->setCode('777');
 	    $entity->setPrice(99.22);
 	    $entity->setName('Producto 7');
@@ -128,7 +127,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         
         $entity = new Product();
 //	    $entity->setColor('#FF0000');
-	    $entity->setSize(8);
+	    $entity->setSize("67");
 	    $entity->setCode('888');
 	    $entity->setPrice(77.88);
 	    $entity->setName('Producto 8');
@@ -140,7 +139,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         
         $entity = new Product();
 //	    $entity->setColor('#0000FF');
-	    $entity->setSize(10);
+	    $entity->setSize("78");
 	    $entity->setCode('999');
 	    $entity->setPrice(41.66);
 	    $entity->setName('Producto 9');
@@ -156,7 +155,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     */
         $entity = new Product();
 //	    $entity->setColor('#FF0000');
-	    $entity->setSize(12);
+	    $entity->setSize("34");
 	    $entity->setCode('1010');
 	    $entity->setPrice(67.55);
 	    $entity->setName('Producto 10');
@@ -168,7 +167,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         
         $entity = new Product();
 //	    $entity->setColor('#0000FF');
-	    $entity->setSize(11);
+	    $entity->setSize("13");
 	    $entity->setCode('1111');
 	    $entity->setPrice(45.22);
 	    $entity->setName('Producto 11');
@@ -180,7 +179,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         
         $entity = new Product();
 //	    $entity->setColor('#00FF00');
-	    $entity->setSize(10);
+	    $entity->setSize("433");
 	    $entity->setCode('1212');
 	    $entity->setPrice(14.33);
 	    $entity->setName('Producto 12');

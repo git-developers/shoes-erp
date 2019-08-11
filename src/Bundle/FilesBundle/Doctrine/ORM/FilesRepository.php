@@ -13,7 +13,7 @@ class FilesRepository extends TianosEntityRepository implements FilesRepositoryI
 	/**
 	 * {@inheritdoc}
 	 */
-	public function findAllFiles($entity)
+	public function findAllByEntity($entity)
 	{
 		$em = $this->getEntityManager();
 		$dql = "
@@ -29,6 +29,29 @@ class FilesRepository extends TianosEntityRepository implements FilesRepositoryI
 		$query->setParameter('active', 1);
 		$query->setParameter('className', (new \ReflectionClass($entity))->getShortName());
 		$query->setParameter('pkFileItem', $entity->getId());
+		
+		return $query->getResult();
+	}
+	
+	/**
+	 * {@inheritdoc}
+	 */
+	public function findAllByClass($className, $pkFileItem)
+	{
+		$em = $this->getEntityManager();
+		$dql = "
+            SELECT files
+            FROM FilesBundle:Files files
+            WHERE
+            files.isActive = :active AND
+            files.pkFileItem = :pkFileItem AND
+            files.className = :className
+            ";
+		
+		$query = $em->createQuery($dql);
+		$query->setParameter('active', 1);
+		$query->setParameter('className', $className);
+		$query->setParameter('pkFileItem', $pkFileItem);
 		
 		return $query->getResult();
 	}

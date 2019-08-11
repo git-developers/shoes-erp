@@ -112,7 +112,6 @@
 
 
 
-
         input[type=checkbox] {
             height: 20px;
             width: 20px;
@@ -301,6 +300,7 @@
             {{ tianos_grid_form_js(vars, modal, form_mapper, dataTable, '@Ui/Grid/FormJs/inventory.html.twig') }}
 
             $('body.{{ vars.body_css }}').formCreateCategoryProduct({
+                pdvId: '{{ pdvId }}',
                 categoryId: '{{ categoryId }}',
                 modalId: '{{ modal.create_id }}',
                 route: '{{ path(dataTable.route.create) }}',
@@ -310,7 +310,10 @@
 
             $("select.pdv").change(function() {
                 var pdvId = $(this).val();
-                window.location.href = "{{ path('backend_product_index') }}/" + pdvId;
+
+                if (pdvId > 0) {
+                    window.location.href = "{{ path('backend_product_index') }}/" + pdvId;
+                }
             });
 
             $(document).on('click', 'td.pdv', function() {
@@ -407,8 +410,6 @@
                                         tree,
                                         modal,
                                         -1,
-                                        'TreeBundle::Template/li_inventory.html.twig',
-                                        'backend_product_index',
                                         pdvId,
                                         categoryId) }}
                                 {% else %}
@@ -429,14 +430,13 @@
                             <i class="fa fa-fw fa-cube"></i> Productos
                         </h4>
                         <div class="box-tools pull-right">
-                            {% if categoryId is not null %}
+                            {% if categoryId > 0 and pdvId > 0 %}
                                 <button
                                     class="btn btn-xs btn-sm btn-success modal-create"
                                     alt="Crear item"
                                     title="Crear item"
                                     data-toggle="modal"
-                                    data-target="#modal-create"
-                                    style="margin-right: 5px">
+                                    data-target="#modal-create">
                                         <i class="fa fa-fw fa-plus"></i> Crear item
                                 </button>
                             {% endif %}
@@ -444,10 +444,10 @@
                     </div>
                     <div class="box-body table-responsive"> {#no-padding#}
 
-                        {% if categoryId is null %}
+                        {% if categoryId <= 0 or pdvId <= 0 %}
                             <div class="alert alert-warning alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <i class="icon fa fa-warning"></i> Seleccione una categoria.
+                                <i class="icon fa fa-warning"></i> Seleccione un punto de venta y una categor&iacute;a.
                             </div>
                         {% else %}
                             <table id="{{ dataTable.tableOptions.table_name }}"

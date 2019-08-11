@@ -25,9 +25,9 @@ input[type=checkbox] {
 }
 
 div.box-pdv > .box-body {
-    max-height: 400px;
-    overflow-y: scroll;
-    min-height: 400px;
+    /*max-height: 400px;*/
+    /*overflow-y: scroll;*/
+    /*min-height: 400px;*/
 }
 
 td.pdv:hover {

@@ -27,6 +27,7 @@ class Load_21_PdvHasProductData extends AbstractFixture implements OrderedFixtur
 	    $product_3 = $this->getReference('product-3');
 	    
 	    $pointofsale_3 = $this->getReference('pointofsale-3');
+	    $pointofsale_4 = $this->getReference('pointofsale-4');
     	
         $entity = new PointofsaleHasProduct();
 	    $entity->setProduct($product_1);
@@ -44,6 +45,12 @@ class Load_21_PdvHasProductData extends AbstractFixture implements OrderedFixtur
 	    $entity->setProduct($product_3);
 	    $entity->setPointOfSale($pointofsale_3);
 	    $entity->setStock(33);
+        $manager->persist($entity);
+        
+        $entity = new PointofsaleHasProduct();
+	    $entity->setProduct($product_3);
+	    $entity->setPointOfSale($pointofsale_4);
+	    $entity->setStock(55);
         $manager->persist($entity);
 
         

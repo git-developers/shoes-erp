@@ -39,6 +39,10 @@ class Product
      *      minMessage = "Minimo caracteres {{ limit }} para el codigo",
      *      maxMessage = "Maximo caracteres {{ limit }} para el codigo"
      * )
+     *
+     * @JMSS\Groups({
+     *     "pdv_product",
+     * })
      */
     private $code;
 	
@@ -51,6 +55,16 @@ class Product
 	 * })
 	 */
 	private $price;
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
+	 *     "pdv_product",
+	 *     "ticket"
+	 * })
+	 */
+	private $cost;
     
     /**
      * @var string
@@ -61,6 +75,16 @@ class Product
      * })
      */
     private $name;
+    
+    /**
+     * @var string
+     *
+     * @JMSS\Groups({
+     *     "pdv_product",
+     *     "ticket"
+     * })
+     */
+    private $reference;
 
     /**
      * @var string
@@ -68,7 +92,7 @@ class Product
     private $slug;
 
     /**
-     * @var integer
+     * @var string
      *
      * @JMSS\Groups({
      *     "ticket",
@@ -166,6 +190,16 @@ class Product
 	private $quantity;
 	
 	/**
+	 * @var string
+	 *
+	 * @JMSS\Groups({
+	 *     "pdv_product",
+	 *     "ticket"
+	 * })
+	 */
+	private $barcode;
+	
+	/**
 	 * @var array
 	 *
 	 * @JMSS\Groups({
@@ -225,17 +259,17 @@ class Product
     }
 	
 	/**
-	 * @return int
+	 * @return string
 	 */
-	public function getSize() //: int
+	public function getSize() //: string
 	{
 		return $this->size;
 	}
 	
 	/**
-	 * @param int $size
+	 * @param string $size
 	 */
-	public function setSize(int $size)
+	public function setSize(string $size)
 	{
 		$this->size = $size;
 	}
@@ -272,6 +306,22 @@ class Product
 		$this->price = $price;
 	}
 	
+	/**
+	 * @return float
+	 */
+	public function getCost() //: float
+	{
+		return $this->cost;
+	}
+	
+	/**
+	 * @param float $cost
+	 */
+	public function setCost(float $cost)
+	{
+		$this->cost = $cost;
+	}
+	
     /**
      * Set name
      *
@@ -295,7 +345,23 @@ class Product
     {
         return $this->name;
     }
-
+	
+	/**
+	 * @return string
+	 */
+	public function getReference() //: string
+	{
+		return $this->reference;
+	}
+	
+	/**
+	 * @param string $reference
+	 */
+	public function setReference(string $reference)
+	{
+		$this->reference = $reference;
+	}
+	
     /**
      * Set slug
      *
@@ -530,6 +596,22 @@ class Product
 	public function getColor() //: Color
 	{
 		return $this->color;
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getBarcode() //: string
+	{
+		return $this->barcode;
+	}
+	
+	/**
+	 * @param string $barcode
+	 */
+	public function setBarcode(string $barcode)
+	{
+		$this->barcode = $barcode;
 	}
 	
 	/**

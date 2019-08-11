@@ -13,6 +13,7 @@ use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Bundle\ProductBundle\Entity\Product;
 
 abstract class BaseController extends Controller
 {
@@ -181,13 +182,12 @@ abstract class BaseController extends Controller
 		$out = [];
 		foreach ($objects as $i => $object) {
 			
-			
 			if (!method_exists($object,'setFiles')) {
 				$out[] = $object;
 				continue;
 			}
 			
-			$files = $this->get("tianos.repository.files")->findAllFiles($object);
+			$files = $this->get("tianos.repository.files")->findAllByEntity($object);
 			
 			$imagePath = [];
 			foreach ($files as $j => $file) {
@@ -205,6 +205,40 @@ abstract class BaseController extends Controller
 		return $out;
 	}
 	
+	protected function rowImagesProduct($objects): array
+	{
+		
+		$imagineCacheManager = $this->get('liip_imagine.cache.manager');
+		
+		$out = [];
+		foreach ($objects as $i => $object) {
+			
+			if (!method_exists($object->getProduct(),'setFiles')) {
+				$out[] = $object;
+				continue;
+			}
+			
+			$files = $this->get("tianos.repository.files")->findAllByClass(
+				(new \ReflectionClass(new Product()))->getShortName(),
+				$object->getId()
+			);
+			
+			$imagePath = [];
+			foreach ($files as $j => $file) {
+				$imagePath[] = $imagineCacheManager->getBrowserPath(
+					'/upload/' . $file->getFileType() . '/' . $file->getUniqid() . '.jpg',
+					$file->getFilter()
+				);
+			}
+			
+			$object->getProduct()->setFiles($imagePath);
+			
+			$out[] = $object;
+		}
+		
+		return $out;
+	}
+	
 	protected function rowImage($entity)
 	{
 		
@@ -214,7 +248,7 @@ abstract class BaseController extends Controller
 		
 		$imagineCacheManager = $this->get('liip_imagine.cache.manager');
 		
-		$files = $this->get("tianos.repository.files")->findAllFiles($entity);
+		$files = $this->get("tianos.repository.files")->findAllByEntity($entity);
 		
 		$imagePath = [];
 		foreach ($files as $j => $file) {

@@ -36,6 +36,8 @@ class Unit
 	
 	/**
 	 * @var string
+	 *
+	 * @JMSS\Groups({"crud"})
 	 */
 	private $slug;
 

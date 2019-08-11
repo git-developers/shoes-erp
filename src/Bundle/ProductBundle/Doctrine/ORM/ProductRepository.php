@@ -30,6 +30,28 @@ class ProductRepository extends TianosEntityRepository implements ProductReposit
         
         return $query->getOneOrNullResult();
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function findOne($id)
+    {
+        $em = $this->getEntityManager();
+        $dql = "
+            SELECT product, category
+            FROM ProductBundle:Product product
+            INNER JOIN product.category category
+            WHERE
+            product.id = :id AND
+            product.isActive = :active
+            ";
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('active', 1);
+        $query->setParameter('id', $id);
+        
+        return $query->getOneOrNullResult();
+    }
 
     /**
      * {@inheritdoc}

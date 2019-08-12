@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20190811182609 extends AbstractMigration
+class Version20190812181800 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -22,10 +22,13 @@ class Version20190811182609 extends AbstractMigration
         $this->addSql('CREATE TABLE friends (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, friend_id INT DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', INDEX fk_friends_user1_idx (user_id), INDEX fk_friends_user2_idx (friend_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE role (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(45) DEFAULT NULL, name VARCHAR(100) DEFAULT NULL, slug VARCHAR(100) NOT NULL, group_rol VARCHAR(100) DEFAULT NULL, group_rol_tag VARCHAR(100) DEFAULT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE files (id INT AUTO_INCREMENT NOT NULL, pk_file_item INT NOT NULL, class_name VARCHAR(150) NOT NULL, mime_content_type VARCHAR(45) NOT NULL, file_type VARCHAR(45) NOT NULL, filter VARCHAR(100) NOT NULL, uniqid VARCHAR(45) DEFAULT NULL, name VARCHAR(150) NOT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE ticket_has_products (id INT AUTO_INCREMENT NOT NULL, product_id INT DEFAULT NULL, ticket_id INT DEFAULT NULL, quantity INT NOT NULL, unit_price DOUBLE PRECISION DEFAULT NULL, sub_total DOUBLE PRECISION DEFAULT NULL, INDEX fk_ticket_has_products_ticket1_idx (ticket_id), INDEX fk_ticket_has_products_product1_idx (product_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE payment_history (id INT AUTO_INCREMENT NOT NULL, sales_id INT DEFAULT NULL, payment_type_id INT DEFAULT NULL, name VARCHAR(45) DEFAULT NULL, sub_total DOUBLE PRECISION DEFAULT NULL, discount DOUBLE PRECISION DEFAULT NULL, total DOUBLE PRECISION DEFAULT NULL, received_date DATETIME NOT NULL, slug VARCHAR(150) DEFAULT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', INDEX IDX_3EF37EA1DC058279 (payment_type_id), INDEX fk_payment_history_sales1_idx (sales_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE ticket (id INT AUTO_INCREMENT NOT NULL, client_id INT DEFAULT NULL, point_of_sale_id INT DEFAULT NULL, payment_type_id INT DEFAULT NULL, code VARCHAR(45) DEFAULT NULL, ticket_type VARCHAR(45) DEFAULT NULL, name VARCHAR(150) NOT NULL, date_ticket DATETIME NOT NULL, slug VARCHAR(150) DEFAULT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', INDEX IDX_97A0ADA319EB6921 (client_id), INDEX IDX_97A0ADA36B7E9A73 (point_of_sale_id), INDEX IDX_97A0ADA3DC058279 (payment_type_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE ticket_has_employee (ticket_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_8C2F733E700047D2 (ticket_id), INDEX IDX_8C2F733EA76ED395 (user_id), PRIMARY KEY(ticket_id, user_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE ticket_has_services (id INT AUTO_INCREMENT NOT NULL, service_id INT DEFAULT NULL, ticket_id INT DEFAULT NULL, quantity INT NOT NULL, unit_price DOUBLE PRECISION DEFAULT NULL, sub_total DOUBLE PRECISION DEFAULT NULL, INDEX fk_ticket_has_services_ticket1_idx (ticket_id), INDEX fk_ticket_has_services_services1_idx (service_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE sales_has_products (id INT AUTO_INCREMENT NOT NULL, product_id INT DEFAULT NULL, sales_id INT DEFAULT NULL, quantity INT NOT NULL, unit_price DOUBLE PRECISION DEFAULT NULL, INDEX fk_sales_has_products_sales1_idx (sales_id), INDEX fk_sales_has_products_product1_idx (product_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE sales (id INT AUTO_INCREMENT NOT NULL, client_id INT DEFAULT NULL, point_of_sale_id INT DEFAULT NULL, code VARCHAR(45) DEFAULT NULL, status INT DEFAULT NULL, name VARCHAR(150) NOT NULL, delivery_date DATETIME NOT NULL, slug VARCHAR(150) DEFAULT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', INDEX IDX_6B81704419EB6921 (client_id), INDEX IDX_6B8170446B7E9A73 (point_of_sale_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE sales_has_employee (sales_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_D0B4822DA4522A07 (sales_id), INDEX IDX_D0B4822DA76ED395 (user_id), PRIMARY KEY(sales_id, user_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE payment_type (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(45) DEFAULT NULL, name VARCHAR(45) DEFAULT NULL, slug VARCHAR(150) DEFAULT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, is_active TINYINT(1) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE google_drive_file_count (id INT AUTO_INCREMENT NOT NULL, file_id VARCHAR(45) NOT NULL, count_share INT DEFAULT NULL, count_view INT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE google_drive_file_vote (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, google_drive_file_id INT DEFAULT NULL, vote TINYINT(1) DEFAULT \'0\', created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', INDEX fk_google_drive_file_like_google_drive_file1_idx (google_drive_file_id), INDEX fk_google_drive_file_like_user1_idx (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
@@ -47,8 +50,8 @@ class Version20190811182609 extends AbstractMigration
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D6496B7E9A73 FOREIGN KEY (point_of_sale_id) REFERENCES point_of_sale (id)');
         $this->addSql('ALTER TABLE friends ADD CONSTRAINT FK_21EE7069A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE friends ADD CONSTRAINT FK_21EE70696A5458E8 FOREIGN KEY (friend_id) REFERENCES user (id)');
-        $this->addSql('ALTER TABLE ticket_has_products ADD CONSTRAINT FK_620A5CC54584665A FOREIGN KEY (product_id) REFERENCES product (id)');
-        $this->addSql('ALTER TABLE ticket_has_products ADD CONSTRAINT FK_620A5CC5700047D2 FOREIGN KEY (ticket_id) REFERENCES ticket (id)');
+        $this->addSql('ALTER TABLE payment_history ADD CONSTRAINT FK_3EF37EA1A4522A07 FOREIGN KEY (sales_id) REFERENCES sales (id)');
+        $this->addSql('ALTER TABLE payment_history ADD CONSTRAINT FK_3EF37EA1DC058279 FOREIGN KEY (payment_type_id) REFERENCES payment_type (id)');
         $this->addSql('ALTER TABLE ticket ADD CONSTRAINT FK_97A0ADA319EB6921 FOREIGN KEY (client_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE ticket ADD CONSTRAINT FK_97A0ADA36B7E9A73 FOREIGN KEY (point_of_sale_id) REFERENCES point_of_sale (id)');
         $this->addSql('ALTER TABLE ticket ADD CONSTRAINT FK_97A0ADA3DC058279 FOREIGN KEY (payment_type_id) REFERENCES payment_type (id)');
@@ -56,6 +59,12 @@ class Version20190811182609 extends AbstractMigration
         $this->addSql('ALTER TABLE ticket_has_employee ADD CONSTRAINT FK_8C2F733EA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE ticket_has_services ADD CONSTRAINT FK_A282E7F6ED5CA9E6 FOREIGN KEY (service_id) REFERENCES services (id)');
         $this->addSql('ALTER TABLE ticket_has_services ADD CONSTRAINT FK_A282E7F6700047D2 FOREIGN KEY (ticket_id) REFERENCES ticket (id)');
+        $this->addSql('ALTER TABLE sales_has_products ADD CONSTRAINT FK_3E91ADD64584665A FOREIGN KEY (product_id) REFERENCES product (id)');
+        $this->addSql('ALTER TABLE sales_has_products ADD CONSTRAINT FK_3E91ADD6A4522A07 FOREIGN KEY (sales_id) REFERENCES sales (id)');
+        $this->addSql('ALTER TABLE sales ADD CONSTRAINT FK_6B81704419EB6921 FOREIGN KEY (client_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE sales ADD CONSTRAINT FK_6B8170446B7E9A73 FOREIGN KEY (point_of_sale_id) REFERENCES point_of_sale (id)');
+        $this->addSql('ALTER TABLE sales_has_employee ADD CONSTRAINT FK_D0B4822DA4522A07 FOREIGN KEY (sales_id) REFERENCES sales (id)');
+        $this->addSql('ALTER TABLE sales_has_employee ADD CONSTRAINT FK_D0B4822DA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE google_drive_file_vote ADD CONSTRAINT FK_35D550BFA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE google_drive_file_vote ADD CONSTRAINT FK_35D550BF77A02D92 FOREIGN KEY (google_drive_file_id) REFERENCES google_drive_file (id)');
         $this->addSql('ALTER TABLE google_drive_file ADD CONSTRAINT FK_148FFCAAA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
@@ -88,20 +97,25 @@ class Version20190811182609 extends AbstractMigration
         $this->addSql('ALTER TABLE friends DROP FOREIGN KEY FK_21EE70696A5458E8');
         $this->addSql('ALTER TABLE ticket DROP FOREIGN KEY FK_97A0ADA319EB6921');
         $this->addSql('ALTER TABLE ticket_has_employee DROP FOREIGN KEY FK_8C2F733EA76ED395');
+        $this->addSql('ALTER TABLE sales DROP FOREIGN KEY FK_6B81704419EB6921');
+        $this->addSql('ALTER TABLE sales_has_employee DROP FOREIGN KEY FK_D0B4822DA76ED395');
         $this->addSql('ALTER TABLE google_drive_file_vote DROP FOREIGN KEY FK_35D550BFA76ED395');
         $this->addSql('ALTER TABLE google_drive_file DROP FOREIGN KEY FK_148FFCAAA76ED395');
         $this->addSql('ALTER TABLE session DROP FOREIGN KEY FK_D044D5D4A76ED395');
         $this->addSql('ALTER TABLE point_of_sale_has_user DROP FOREIGN KEY FK_6D10130AA76ED395');
         $this->addSql('ALTER TABLE profile_has_role DROP FOREIGN KEY FK_F35F3084D60322AC');
-        $this->addSql('ALTER TABLE ticket_has_products DROP FOREIGN KEY FK_620A5CC5700047D2');
         $this->addSql('ALTER TABLE ticket_has_employee DROP FOREIGN KEY FK_8C2F733E700047D2');
         $this->addSql('ALTER TABLE ticket_has_services DROP FOREIGN KEY FK_A282E7F6700047D2');
+        $this->addSql('ALTER TABLE payment_history DROP FOREIGN KEY FK_3EF37EA1A4522A07');
+        $this->addSql('ALTER TABLE sales_has_products DROP FOREIGN KEY FK_3E91ADD6A4522A07');
+        $this->addSql('ALTER TABLE sales_has_employee DROP FOREIGN KEY FK_D0B4822DA4522A07');
+        $this->addSql('ALTER TABLE payment_history DROP FOREIGN KEY FK_3EF37EA1DC058279');
         $this->addSql('ALTER TABLE ticket DROP FOREIGN KEY FK_97A0ADA3DC058279');
         $this->addSql('ALTER TABLE google_drive_file_vote DROP FOREIGN KEY FK_35D550BF77A02D92');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D649CCFA12B8');
         $this->addSql('ALTER TABLE profile_has_role DROP FOREIGN KEY FK_F35F3084CCFA12B8');
         $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04ADF8BD700D');
-        $this->addSql('ALTER TABLE ticket_has_products DROP FOREIGN KEY FK_620A5CC54584665A');
+        $this->addSql('ALTER TABLE sales_has_products DROP FOREIGN KEY FK_3E91ADD64584665A');
         $this->addSql('ALTER TABLE point_of_sale_has_product DROP FOREIGN KEY FK_63AAC6454584665A');
         $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04AD7ADA1FB5');
         $this->addSql('ALTER TABLE ticket_has_services DROP FOREIGN KEY FK_A282E7F6ED5CA9E6');
@@ -111,6 +125,7 @@ class Version20190811182609 extends AbstractMigration
         $this->addSql('ALTER TABLE point_of_sale_has_category DROP FOREIGN KEY FK_A82D934912469DE2');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D6496B7E9A73');
         $this->addSql('ALTER TABLE ticket DROP FOREIGN KEY FK_97A0ADA36B7E9A73');
+        $this->addSql('ALTER TABLE sales DROP FOREIGN KEY FK_6B8170446B7E9A73');
         $this->addSql('ALTER TABLE point_of_sale DROP FOREIGN KEY FK_F7A7B1FA6B7E9A73');
         $this->addSql('ALTER TABLE point_of_sale_has_category DROP FOREIGN KEY FK_A82D93496B7E9A73');
         $this->addSql('ALTER TABLE point_of_sale_has_user DROP FOREIGN KEY FK_6D10130A6B7E9A73');
@@ -119,10 +134,13 @@ class Version20190811182609 extends AbstractMigration
         $this->addSql('DROP TABLE friends');
         $this->addSql('DROP TABLE role');
         $this->addSql('DROP TABLE files');
-        $this->addSql('DROP TABLE ticket_has_products');
+        $this->addSql('DROP TABLE payment_history');
         $this->addSql('DROP TABLE ticket');
         $this->addSql('DROP TABLE ticket_has_employee');
         $this->addSql('DROP TABLE ticket_has_services');
+        $this->addSql('DROP TABLE sales_has_products');
+        $this->addSql('DROP TABLE sales');
+        $this->addSql('DROP TABLE sales_has_employee');
         $this->addSql('DROP TABLE payment_type');
         $this->addSql('DROP TABLE google_drive_file_count');
         $this->addSql('DROP TABLE google_drive_file_vote');

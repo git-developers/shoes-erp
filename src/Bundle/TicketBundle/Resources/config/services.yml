@@ -50,6 +50,16 @@ services:
         factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Bundle\TicketBundle\Entity\Ticket ]
 
+    tianos.repository.sales:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\TicketBundle\Entity\Sales ]
+
+    tianos.repository.payment.history:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\TicketBundle\Entity\PaymentHistory ]
+
     tianos.repository.ticket.services:
         class: Dummy
         factory: ['@doctrine.orm.entity_manager', getRepository]
@@ -59,3 +69,8 @@ services:
         class: Dummy
         factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Bundle\TicketBundle\Entity\TicketHasProducts ]
+
+    tianos.repository.sales.has.products:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\TicketBundle\Entity\SalesHasProducts ]

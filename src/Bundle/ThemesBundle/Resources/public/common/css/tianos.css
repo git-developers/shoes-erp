@@ -247,3 +247,26 @@ span.random:hover {
     color: #555 !important;
     background-color: #ddd !important;
 }
+
+
+.fontsize-12 {
+    font-size: 12px;
+}
+.fontsize-13 {
+    font-size: 13px;
+}
+.fontsize-14 {
+    font-size: 14px;
+}
+.fontsize-15 {
+    font-size: 15px;
+}
+.fontsize-16 {
+    font-size: 16px;
+}
+.fontsize-17 {
+    font-size: 17px;
+}
+.fontsize-18 {
+    font-size: 18px;
+}

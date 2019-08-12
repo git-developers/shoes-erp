@@ -65,7 +65,7 @@ class Pointofsale
      * @JMSS\Groups({
      *     "api",
      *     "crud",
-     *     "ticket"
+     *     "sales"
      * })
      */
     private $name;

@@ -1,12 +1,12 @@
-Bundle\TicketBundle\Entity\TicketHasProducts:
+Bundle\TicketBundle\Entity\SalesHasProducts:
     type: entity
-    table: ticket_has_products
-    repositoryClass: Bundle\TicketBundle\Doctrine\ORM\TicketHasProductsRepository
+    table: sales_has_products
+    repositoryClass: Bundle\TicketBundle\Doctrine\ORM\SalesHasProductsRepository
     indexes:
-        fk_ticket_has_products_ticket1_idx:
+        fk_sales_has_products_sales1_idx:
             columns:
-                - ticket_id
-        fk_ticket_has_products_product1_idx:
+                - sales_id
+        fk_sales_has_products_product1_idx:
             columns:
                 - product_id
     id:
@@ -32,16 +32,8 @@ Bundle\TicketBundle\Entity\TicketHasProducts:
             options:
                 fixed: false
             column: unit_price
-        subTotal:
-            type: float
-            nullable: true
-            precision: 8
-            scale: 2
-            options:
-                fixed: false
-            column: sub_total
     manyToOne:
-        products:
+        product:
             targetEntity: Bundle\ProductBundle\Entity\Product
             cascade: {  }
             fetch: LAZY
@@ -51,14 +43,14 @@ Bundle\TicketBundle\Entity\TicketHasProducts:
                 product_id:
                     referencedColumnName: id
             orphanRemoval: false
-        ticket:
-            targetEntity: Bundle\TicketBundle\Entity\Ticket
+        sales:
+            targetEntity: Bundle\TicketBundle\Entity\Sales
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                ticket_id:
+                sales_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

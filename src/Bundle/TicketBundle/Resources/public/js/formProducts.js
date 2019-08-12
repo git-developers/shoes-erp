@@ -28,7 +28,7 @@
             apiContent = modal.find('div.modal-content');
         };
 
-        base.incrementServices = function(context) {
+        base.increment = function(context) {
 
             var div = $('div.box-table-items div.items');
             var idItem = $(context).data('id-item');
@@ -42,7 +42,7 @@
                     action: 'INCREMENT'
                 },
                 beforeSend: function(jqXHR, settings) {
-                    //div.html(msg_loading);
+                    $("input[name='sales[discount]']").val("");
                 },
                 success: function(data, textStatus, jqXHR) {
                     div.html(data);
@@ -53,7 +53,7 @@
             });
         };
 
-        base.decrementServices = function(context) {
+        base.decrement = function(context) {
 
             var div = $('div.box-table-items div.items');
             var idItem = $(context).data('id-item');
@@ -67,7 +67,7 @@
                     action: 'DECREMENT'
                 },
                 beforeSend: function(jqXHR, settings) {
-                    //div.html(msg_loading);
+                    $("input[name='sales[discount]']").val("");
                 },
                 success: function(data, textStatus, jqXHR) {
                     div.html(data);
@@ -78,7 +78,7 @@
             });
         };
 
-        base.removeAllServices = function(context) {
+        base.removeAll = function(context) {
 
             if (!confirm('Esta seguro?')) {
                 return false;
@@ -92,6 +92,7 @@
                 dataType: 'html',
                 data: {},
                 beforeSend: function(jqXHR, settings) {
+                    $("input[name='sales[discount]']").val("");
                     div.html('<p><i class="fa fa-fw fa-info-circle"></i> Agregue servicios.</p>');
                 },
                 success: function(data, textStatus, jqXHR) {
@@ -122,36 +123,27 @@
         base.init();
     };
 
-    // $.formProducts.defaultOptions = {
-    //     buttonStyle: "border: 1px solid #fff; background-color:#000; color:#fff; padding:20px 50px",
-    //     buttonPress: function () {}
-    // };
-
     $.fn.formProducts = function(options){
 
         return this.each(function(){
 
             var bp = new $.formProducts(this, options);
 
-            $(document).on('click', 'button.btn-remove-services', function(event) {
-                bp.removeService(this);
-            });
-
             $(document).on('click', 'li.category-ticket', function(event) {
                 event.stopPropagation();
                 bp.selectCategoryTicket(this);
             });
 
-            $(document).on('click', 'button.increment-services', function(event) {
-                bp.incrementServices(this);
+            $(document).on('click', 'button.increment', function(event) {
+                bp.increment(this);
             });
 
-            $(document).on('click', 'button.decrement-services', function(event) {
-                bp.decrementServices(this);
+            $(document).on('click', 'button.decrement', function(event) {
+                bp.decrement(this);
             });
 
-            $('span.remove-all-services').click(function() {
-                bp.removeAllServices(this);
+            $('span.remove-all').click(function() {
+                bp.removeAll(this);
             });
 
         });

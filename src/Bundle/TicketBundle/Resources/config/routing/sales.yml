@@ -19,6 +19,18 @@ backend_sales_index:
                 icon: shopping-cart
                 box_class: primary
                 title: Gestionar ventas
+                modal:
+                    create:
+                        title: Crear usuario
+                        size: modal-lg
+                    edit:
+                        title: Editar usuario
+                        size: modal-lg
+                    view:
+                        title: Ver usuario
+                        size: modal-lg
+                    change_password:
+                        title: Cambiar password
                 data_table:
                     route:
                         info: backend_sales_info
@@ -54,51 +66,49 @@ backend_sales_index:
                               width: 4%
                               title: '#'
                               className: modal-view text-center
-                        - obj: obj.ticket_type
-                          options:
-                              property: " return (obj.ticket_type == 'EXTERNO') ? '<span class=\"badge bg-green\">' + obj.ticket_type + '</span>' : '<span class=\"badge bg-orange\">' + obj.ticket_type + '</span>' "
+                        - obj: " '<span class=\"label label-primary fontsize-12\">' + obj.code + '</span>' "
                           defs:
                               targets: 1
-                              orderable: 1
+                              searchable: 1
                               sorting: 1
-                              title: Tipo
-                              width: 10%
+                              orderable: 1
+                              type: html
+                              title: '<i class="fa fa-fw fa-qrcode"></i> Code'
                               className: text-center
                               filter: 1
-                        - obj: obj.name
+                        - obj: obj.status
+                          options:
+                              property: " return (obj.status == 1) ? '<span class=\"label label-success fontsize-12\">ABIERTO</span>' : '<span class=\"label label-success fontsize-12\">xx</span>' "
                           defs:
                               targets: 2
                               orderable: 1
                               sorting: 1
-                              title: Nombre servicio
-                              className:
-                              filter: 1
-                        - obj: obj.payment_type.name
+                              title: Status
+                              width: 10%
+                              className: text-center
+                              filter: 0
+                        - obj: obj.client.name_box
                           defs:
                               targets: 3
                               orderable: 1
                               sorting: 1
-                              title: '<i class="fa fa-fw fa-money"></i> Tipo de pago'
-                              className:
-                              filter: 1
-                        - obj: obj.client.name_box
-                          defs:
-                              targets: 4
-                              orderable: 1
-                              sorting: 1
-                              title: '<i class="fa fa-fw fa-feed"></i> Cliente'
+                              title: '<i class="fa fa-fw fa-user"></i> Cliente'
                               className:
                               filter: 1
                         - obj: obj.point_of_sale
                           options:
                               property: " return (obj.point_of_sale) ? obj.point_of_sale.name : '' "
                           defs:
-                              targets: 5
+                              targets: 4
                               orderable: 1
                               sorting: 1
                               title: '<i class="fa fa-fw fa-map-marker"></i> Punto de venta'
                               className:
                               filter: 1
+                        - obj: obj.delivery_date
+                          defs:
+                              targets: 5
+                              title: '<i class="fa fa-fw fa-calendar"></i> Fecha de entrega'
                         - obj: obj.created_at
                           defs:
                               targets: 6
@@ -107,11 +117,11 @@ backend_sales_index:
             form:
                 type: Bundle\TicketBundle\Form\Type\SalesType
             repository:
-                service: tianos.repository.ticket
+                service: tianos.repository.sales
                 method: findAll
                 arguments: [$ticketId]
                 vars:
-                    serialize_group_name: ticket
+                    serialize_group_name: sales
 
 backend_sales_create:
     path: /create
@@ -131,13 +141,13 @@ backend_sales_create:
                 main_ul: box-main-ul
                 child_ul: box-child-ul
                 li_span: li-span
-            entity: Bundle\TicketBundle\Entity\Ticket
+            entity: Bundle\TicketBundle\Entity\Sales
             template: TicketBundle:Sales/Grid:create.html.twig
             form:
                 type: Bundle\TicketBundle\Form\Type\SalesType
             repository:
                 vars:
-                    serialize_group_name: crud
+                    serialize_group_name: sales
 
 backend_sales_edit:
     path: /edit/{id}
@@ -163,20 +173,20 @@ backend_sales_edit:
             form:
                 type: Bundle\TicketBundle\Form\Type\TicketType
             repository:
-                service: tianos.repository.ticket
+                service: tianos.repository.sales
                 method: find
                 arguments: [$ticketId]
                 vars:
-                    serialize_group_name: crud
+                    serialize_group_name: sales
 
 backend_sales_add_client:
     path: /add-cliente
     methods: [PUT, POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:addClienteAction
+        _controller: tianos.backend.controller.sales:addClienteAction
         _tianos:
             action: create
-            template: TicketBundle:BackendTicket/Modal/Client:data.html.twig
+            template: TicketBundle:Sales/Modal/Client:data.html.twig
             vars:
                 body_css: grid-body-css
                 serialize_group_name: crud
@@ -187,13 +197,39 @@ backend_sales_add_client:
                 service: tianos.repository.user
                 method: findAllClient
                 vars:
-                    serialize_group_name: crud
+                    serialize_group_name: sales
 
 backend_sales_increment_item:
     path: /increment-item
     methods: [PUT, POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:incrementDecrementItemAction
+        _controller: tianos.backend.controller.sales:incrementDecrementItemAction
+        _tianos:
+            action: create
+            template: TicketBundle:Sales/Grid/Box:table_product.html.twig
+            vars:
+                body_css: grid-body-css
+                serialize_group_name: crud
+            tree:
+                icon: file-text-o
+                box_class: primary
+                title: Gestionar product
+                main_div: box-main-div
+                main_ul: box-main-ul
+                child_ul: box-child-ul
+                li_span: li-span
+            entity: Bundle\ProductBundle\Entity\Product
+            form:
+                type: Bundle\ProductBundle\Form\Type\ProductType
+            repository:
+                vars:
+                    serialize_group_name: sales
+
+backend_sales_decrement_item:
+    path: /decrement-item
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.sales:incrementDecrementItemAction
         _tianos:
             action: create
             template: TicketBundle:Sales/Grid/Box:table_product.html.twig
@@ -208,38 +244,12 @@ backend_sales_increment_item:
                 main_ul: box-main-ul
                 child_ul: box-child-ul
                 li_span: li-span
-            entity: Bundle\TicketBundle\Entity\Services
+            entity: Bundle\ProductBundle\Entity\Product
             form:
-                type: Bundle\TicketBundle\Form\Type\ServicesType
+                type: Bundle\ProductBundle\Form\Type\ProductType
             repository:
                 vars:
-                    serialize_group_name: crud
-
-backend_sales_decrement_item:
-    path: /decrement-item
-    methods: [PUT, POST]
-    defaults:
-        _controller: tianos.backend.controller.ticket:incrementDecrementItemAction
-        _tianos:
-            action: create
-            template: TicketBundle:BackendTicket/Grid/Box:table_product.html.twig
-            vars:
-                body_css: grid-body-css
-                serialize_group_name: crud
-            tree:
-                icon: file-text-o
-                box_class: primary
-                title: Gestionar servicios
-                main_div: box-main-div
-                main_ul: box-main-ul
-                child_ul: box-child-ul
-                li_span: li-span
-            entity: Bundle\TicketBundle\Entity\Services
-            form:
-                type: Bundle\TicketBundle\Form\Type\ServicesType
-            repository:
-                vars:
-                    serialize_group_name: crud
+                    serialize_group_name: sales
 
 backend_sales_remove_all_item:
     path: /remove-all-item
@@ -257,22 +267,22 @@ backend_sales_remove_all_item:
                 type: Bundle\TicketBundle\Form\Type\ServicesType
             repository:
                 vars:
-                    serialize_group_name: crud
+                    serialize_group_name: sales
 
 backend_sales_view:
     path: /view
     methods: [POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:viewAction
+        _controller: tianos.backend.controller.sales:viewAction
         _tianos:
             action: view
-            template: TicketBundle:BackendTicket/Informative:view.html.twig
+            template: TicketBundle:Sales/Informative:view.html.twig
             repository:
-                service: tianos.repository.ticket
+                service: tianos.repository.sales
                 method: find
                 arguments: [$ticketId]
                 vars:
-                    serialize_group_name: crud
+                    serialize_group_name: sales
 
 backend_sales_info:
     path: /info

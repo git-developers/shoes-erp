@@ -1,9 +1,9 @@
-Bundle\TicketBundle\Entity\Ticket:
+Bundle\TicketBundle\Entity\Sales:
     type: entity
 #    type: mappedSuperclass
 #    mappedSuperclass: Component\CRUDDUMMY\Model\CRUDDUMMY
-    table: ticket
-    repositoryClass: Bundle\TicketBundle\Doctrine\ORM\TicketRepository
+    table: sales
+    repositoryClass: Bundle\TicketBundle\Doctrine\ORM\SalesRepository
     id:
         id:
             type: integer
@@ -20,22 +20,23 @@ Bundle\TicketBundle\Entity\Ticket:
             length: 45
             options:
                 fixed: false
-        ticketType:
-            type: string
+        status:
+            type: integer
             nullable: true
-            length: 45
+            length: 1
             options:
                 fixed: false
+            column: status
         name:
             type: string
             nullable: false
             length: 150
             options:
                 fixed: false
-        dateTicket:
+        deliveryDate:
             type: datetime
             nullable: false
-            column: date_ticket
+            column: delivery_date
         slug:
             type: string
             nullable: true
@@ -92,16 +93,6 @@ Bundle\TicketBundle\Entity\Ticket:
                 point_of_sale_id:
                     referencedColumnName: id
             orphanRemoval: false
-        paymentType:
-            targetEntity: Bundle\TicketBundle\Entity\PaymentType
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                payment_type_id:
-                    referencedColumnName: id
-            orphanRemoval: false
     manyToMany:
         employee:
             targetEntity: Bundle\UserBundle\Entity\User
@@ -110,10 +101,10 @@ Bundle\TicketBundle\Entity\Ticket:
             mappedBy: null
             inversedBy: ticket
             joinTable:
-                name: ticket_has_employee
+                name: sales_has_employee
                 joinColumns:
                     -
-                        name: ticket_id
+                        name: sales_id
                         referencedColumnName: id
                 inverseJoinColumns:
                     -

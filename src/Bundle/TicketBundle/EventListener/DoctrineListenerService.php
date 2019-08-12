@@ -10,7 +10,9 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Bundle\TicketBundle\Entity\Ticket;
+use Bundle\TicketBundle\Entity\PaymentHistory;
 use Bundle\TicketBundle\Entity\PaymentType;
+use Bundle\TicketBundle\Entity\Sales;
 use Cocur\Slugify\Slugify;
 use Bundle\CoreBundle\EventListener\BaseDoctrineListenerService;
 
@@ -66,6 +68,17 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 	        $name = $entity->getName();
 	        $entity->setSlug($this->slugify($name));
 	        $entity->setCreatedAt($this->setupCreatedAt($entity));
+        } elseif ($entity instanceof PaymentHistory) {
+	        $name = $entity->getName();
+	        $entity->setSlug($this->slugify($name));
+	        $entity->setCreatedAt($this->setupCreatedAt($entity));
+        } elseif ($entity instanceof Sales) {
+	        $name = $entity->getName();
+	        $entity->setCode(uniqid());
+	        $entity->setStatus(Sales::STATUS_OPEN);
+	        $entity->setSlug($this->slugify($name));
+	        $entity->setCreatedAt($this->setupCreatedAt($entity));
+	        $entity->setUserCreate($this->getUser()->getId());
         }
     }
 

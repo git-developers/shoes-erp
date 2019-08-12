@@ -126,3 +126,8 @@ td.product-thumbnail:hover
     background: #605ca8 radial-gradient(circle, transparent 1%, #605ca8 1%) center/20000%;
 }
 /* PRODUCT THUMBNAIL */
+
+.bg-gray-1
+{
+    background-color: #ecf0f5;
+}

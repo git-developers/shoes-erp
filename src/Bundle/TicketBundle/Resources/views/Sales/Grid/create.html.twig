@@ -34,7 +34,7 @@
 
     {% javascripts
         '@TicketBundle/Resources/public/js/formClient.js'
-        '@TicketBundle/Resources/public/js/formTicket.js'
+        '@TicketBundle/Resources/public/js/formSales.js'
         '@TicketBundle/Resources/public/js/formProducts.js'
         '@TicketBundle/Resources/public/js/barcodeScanner.js'
     %}
@@ -53,13 +53,13 @@
             });
 
             $('body.{{ vars.body_css }}').formProducts({
-                modalId: 'modal-create-services',
+                modalId: 'modal-create-product',
                 routeIncrement: '{{ path('backend_sales_increment_item') }}',
                 routeDecrement: '{{ path('backend_sales_decrement_item') }}',
                 routeRemoveAll: '{{ path('backend_sales_remove_all_item') }}'
             });
 
-            $('body.{{ vars.body_css }}').formTicket({
+            $('body.{{ vars.body_css }}').formSales({
                 formName: '{{ form.vars.name }}',
                 route: '{{ path('backend_sales_create') }}',
                 routeRedirect: '{{ path('backend_sales_index') }}'
@@ -157,7 +157,7 @@
                                             class="img-circle">
                                     </td>
                                     <td>
-                                        {{ app.user.pointOfSaleActive.name|default('[ - no PDV - ]') }}
+                                        {{ app.user.pointOfSaleActive.name|default('<span class="badge bg-red">Iniciar sesión en Punto de venta</span>')|raw }}
                                     </td>
                                     <td class="text-center">
                                         {{ app.user.pointOfSaleActive != null ? app.user.pointOfSaleActive.createdAt|date('d, F Y') : "" }}
@@ -177,7 +177,7 @@
                 <div class="box box-success">
                     <div class="box-header with-border">
                         <h4 class="box-title">
-                            <i class="fa fa-fw fa-user"></i> Empleado logeado
+                            <i class="fa fa-fw fa-user"></i> Empleado
                         </h4>
                         <div class="box-tools pull-right"></div>
                     </div>
@@ -229,7 +229,7 @@
                         <div class="col-md-7" style="padding-left: 0px;">
                             <div class="box-header with-border">
                                 <h4 class="box-title">
-                                    <i class="fa fa-fw fa-file-text-o"></i> Productos
+                                    <i class="fa fa-fw fa-cube"></i> Productos
                                 </h4>
 
                                 <div class="box-tools pull-right" data-toggle="tooltip" data-original-title="Agregar nuevos productos">
@@ -274,12 +274,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         <tr class="tr-product">
                                             <td colspan="3">
                                                 Seleccione una categor&iacute;a.
                                             </td>
                                         </tr>
-                                        {#{% for product in productsObjs %}#}
+
                                         {% for obj in products %}
 
                                             {% set product = obj.product %}
@@ -324,7 +325,7 @@
                                                 <td class="text-center">
                                                     <button
                                                         type="button"
-                                                        class="btn btn-success btn-sm increment-services"
+                                                        class="btn btn-success btn-sm increment"
                                                         data-id-item="{{ product.id }}">
                                                         <i class="fa fa-fw fa-plus"></i>
                                                     </button>
@@ -355,7 +356,7 @@
                         </h4>
                         <div class="box-tools pull-right">
                             <span
-                                class="badge bg-red x-hand remove-all-services"
+                                class="badge bg-red x-hand remove-all"
                                 data-toggle="tooltip"
                                 data-original-title="Eliminar todos los servicios">
                                 <i class="fa fa-minus-circle"></i> Eliminar
@@ -372,29 +373,25 @@
                                 </p>
                             </div>
 
-                            {{ form_widget(form._token) }}
-
                             {{ form_widget(form.client) }}
+                            {{ form_widget(form.discount) }}
 
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <i class="fa fa-fw fa-money"></i>
                                         {{ form_label(form.paymentType) }}
                                         {{ form_widget(form.paymentType) }}
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <i class="fa fa-fw fa-qrcode"></i>
-                                        {{ form_label(form.code) }}
-                                        {{ form_widget(form.code) }}
+                                        <i class="fa fa-fw fa-calendar"></i>
+                                        {{ form_label(form.deliveryDate) }}
+                                        {{ form_widget(form.deliveryDate) }}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <i class="fa fa-fw fa-align-left"></i>
                                         {{ form_label(form.name) }}
@@ -410,8 +407,8 @@
                         </div>
 
                         <div class="box-footer text-center">
-                            <button type="submit" class="btn btn-primary">
-                                Generar pedido
+                            <button type="submit" class="btn btn-lg btn-primary">
+                                Generar venta
                             </button>
                         </div>
                     {{ form_end(form) }}

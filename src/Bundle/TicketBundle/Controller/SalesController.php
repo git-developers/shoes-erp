@@ -14,14 +14,13 @@ use Bundle\ResourceBundle\ResourceBundle;
 use JMS\Serializer\SerializationContext;
 use Bundle\CategoryBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Bundle\TicketBundle\Entity\TicketHasProducts;
-use Bundle\TicketBundle\Entity\Ticket;
+use Bundle\TicketBundle\Entity\Sales;
+use Bundle\TicketBundle\Entity\PaymentHistory;
+use Bundle\TicketBundle\Entity\SalesHasProducts;
+
 
 class SalesController extends GridController
 {
-
-	const INCREMENT = 'INCREMENT';
-	const DECREMENT = 'DECREMENT';
 	
 	/**
 	 * @param Request $request
@@ -42,6 +41,7 @@ class SalesController extends GridController
 		$action = $configuration->getAction();
 		$formType = $configuration->getFormType();
 		$vars = $configuration->getVars();
+		$varsRepository = $configuration->getRepositoryVars();
 		$tree = $configuration->getTree();
 		$entity = $configuration->getEntity();
 		$entity = new $entity();
@@ -53,98 +53,57 @@ class SalesController extends GridController
 		$user = $this->getUser();
 		
 		
-		//CATEGORY AND PRODUCT - REPOSITORY TREE
+		//CATEGORY REPOSITORY TREE
 		$categoryTreeParent = $this->get('tianos.repository.category')->findAllParentsByType(Category::TYPE_PRODUCT);
 		$categoryTree = $this->getTreeEntities($categoryTreeParent, $configuration, 'tree');
-		
-//		$byReference = [];
-//		$productsObjs = $this->getProducts($categoryTreeParent, $configuration, 'ticket', $byReference);
-		//CATEGORY AND PRODUCT - REPOSITORY TREE
-		
-		
-		//PRODUCTS SESSION
-		$productSession = [];
-		$session = $request->getSession();
-
-		if (!empty($session->get('products'))) {
-			foreach ($session->get('products') as $key => $product) {
-				$serviceObj = $this->get('tianos.repository.product')->find($product['idItem']);
-				$serviceObj->setQuantity($product['quantity']);
-				$productSession[] = $this->getSerializeDecode($serviceObj, 'ticket');
-			}
-			
-			$productSession = array_filter($productSession);
-		}
-		//PRODUCTS SESSION
-		
-		
-//		echo "POLLO:: <pre>";
-//		print_r(array_filter($productSession));
-//		exit;
-
-		
 		
 		
 		//PRODUCTS
 		$products = $this->get('tianos.repository.pointofsale.has.product')->findByPdv($user->getPointOfSaleActiveId());
-		$products = $this->getSerializeDecode($products, 'sales');
+		$products = $this->getSerializeDecode($products, $varsRepository->serialize_group_name);
 		
 		
+		//PRODUCT SESSION
+		$productSession = $this->getProductSession($request, $varsRepository->serialize_group_name);
 		
 		if ($form->isSubmitted()) {
 			
 			try {
 				
-				$ticket = $request->get('ticket');
-				$ticket = json_decode(json_encode($ticket));
+				$sales = $request->get($varsRepository->serialize_group_name);
+				$sales = json_decode(json_encode($sales));
 				
-				$session = $request->getSession();
-				$productsSession = $session->get('products');
 				
-				if (empty($ticket->client)) {
+				//VALIDATE
+				if (empty($sales->client)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Seleccione un cliente.'
 					]);
 				}
 				
-				/*
-				if (empty($ticket->dateTicket)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Ingrese la fecha.'
-					]);
-				}
-				*/
-				
-				if (empty($productsSession)) {
+				if (empty($request->getSession()->get('products'))) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Seleccione al menos un producto.'
 					]);
 				}
 				
-				if (empty($ticket->name)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Ingrese una descripcion.'
-					]);
-				}
-				
-
-				
 				
 				/**
 				 * SAVE OBJECT
 				 */
-				$entity->setName($ticket->name);
-				$entity->setDateTicket(new \DateTime());
+				$entity->setName($sales->name);
+				$entity->setDeliveryDate(new \DateTime($sales->deliveryDate));
 				
-				$client = $this->get('tianos.repository.user')->find($ticket->client);
+				$client = $this->get('tianos.repository.user')->find($sales->client);
 				$entity->setClient($client);
 				
 				$employee = $this->get('tianos.repository.user')->find($user->getId());
 				$entity->addEmployee($employee);
+				
+				$pdv = $this->get('tianos.repository.pointofsale')->find($user->getPointOfSaleActiveId());
+				$entity->setPointOfSale($pdv);
 				
 				$this->persist($entity);
 				
@@ -152,27 +111,41 @@ class SalesController extends GridController
 				/**
 				 * SAVE TICKET
 				 */
-				foreach ($productsSession as $key => $product) {
-					$product = $this->get('tianos.repository.product')->find($product['idItem']);
+				$subTotal = 0;
+				foreach ($request->getSession()->get('products') as $key => $productSave) {
+					$product = $this->get('tianos.repository.product')->find($productSave['idItem']);
 					
-					$ticketHasService = new TicketHasProducts();
-					$ticketHasService->setProducts($product);
-					$ticketHasService->setTicket($entity);
-					$ticketHasService->setQuantity($product->getQuantity());
-					$ticketHasService->setUnitPrice($product->getPrice());
-					$ticketHasService->setSubTotal($product->getPrice() * $product->getQuantity());
-					$this->persist($ticketHasService);
+					$o = new SalesHasProducts();
+					$o->setSales($entity);
+					$o->setProduct($product);
+					$o->setQuantity($productSave['quantity']);
+					$o->setUnitPrice($product->getPrice());
+					$this->persist($o);
+					
+					$subTotal = $product->getPrice() * $productSave['quantity'];
 				}
+				
+				
 				/**
-				 * SAVE TICKET
+				 * PAYMENT HISTORY
 				 */
+				$o = new PaymentHistory();
+				$o->setSubTotal($subTotal);
+				$o->setDiscount($sales->discount);
+				$o->setTotal($subTotal - $sales->discount);
+				$o->setSales($entity);
+				$o->setReceivedDate(new \DateTime());
+				$paymentType = $this->get('tianos.repository.payment.type')->find($sales->paymentType);
+				$o->setPaymentType($paymentType);
+				$this->persist($o);
 				
 				
-				$this->flashAlertSuccess('Se creo el ticket.');
+				//message success
+				$this->flashAlertSuccess('Se creo la venta. Código: ' . $entity->getCode());
+				
 				
 				//Remove session
-				$session = $request->getSession();
-				$session->remove('products');
+				$request->getSession()->remove('products');
 				
 				return $this->json([
 					'status' => true
@@ -184,7 +157,6 @@ class SalesController extends GridController
 					'message' => $e->getMessage()
 				]);
 			}
-			
 		}
 		
 		return $this->render(
@@ -274,8 +246,8 @@ class SalesController extends GridController
 			
 			try {
 				
-				$ticket = $request->get('ticket');
-				$ticket = json_decode(json_encode($ticket));
+				$sales = $request->get('ticket');
+				$sales = json_decode(json_encode($sales));
 				
 				$session = $request->getSession();
 				$idClient = $session->get('id_client');
@@ -303,14 +275,14 @@ class SalesController extends GridController
 					]);
 				}
 				
-				if (empty($ticket->name)) {
+				if (empty($sales->name)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Ingrese un nombre.'
 					]);
 				}
 				
-				if (empty($ticket->dateTicket)) {
+				if (empty($sales->dateTicket)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Ingrese la fecha.'
@@ -318,8 +290,8 @@ class SalesController extends GridController
 				}
 				
 				
-				$entity->setName($ticket->name);
-				$entity->setDateTicket(new \DateTime($ticket->dateTicket));
+				$entity->setName($sales->name);
+				$entity->setDateTicket(new \DateTime($sales->dateTicket));
 				
 				$client = $this->get('tianos.repository.user')->find($idClient);
 				$entity->setClient($client);
@@ -403,14 +375,14 @@ class SalesController extends GridController
 			throw $this->createNotFoundException('CRUD: Unable to find  entity.');
 		}
 		
-		$ticketHasProducts = $this->get('tianos.repository.ticket.products')->findAllByTicket($id);
+		$salesHasProducts = $this->get('tianos.repository.sales.has.products')->findAllBySales($id);
 		
 		return $this->render(
 			$template,
 			[
 				'action' => $action,
 				'entity' => $entity,
-				'ticketHasProducts' => $ticketHasProducts,
+				'salesHasProducts' => $salesHasProducts,
 			]
 		);
 	}
@@ -439,6 +411,7 @@ class SalesController extends GridController
 		$action = $configuration->getAction();
 		$formType = $configuration->getFormType();
 		$vars = $configuration->getVars();
+		$varsRepository = $configuration->getRepositoryVars();
 		$entity = $configuration->getEntity();
 		$repository = $configuration->getRepositoryService();
 		$method = $configuration->getRepositoryMethod();
@@ -447,26 +420,20 @@ class SalesController extends GridController
 		$form = $this->createForm($formType, $entity, ['form_data' => []]);
 		$form->handleRequest($request);
 		
-		
-		//USER
-		$user = $this->getUser();
-		
 		//BUSCA LOS CLIENTES DEL PDV
-		//$clients = $this->get('tianos.repository.user')->findAllClient($user->getPointOfSaleActiveId());
 		$clients = $this->get($repository)->$method();
-		//$clients = is_object($clients) ? $clients->getUser() : [];
-		$clients = $this->getSerializeDecode($clients, 'ticket');
+		$clients = $this->getSerializeDecode($clients, $varsRepository->serialize_group_name);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
 			
-			$client = $request->get('client');
-			$client = (int) array_shift($client);
+			$clientId = $request->get('client');
+			$clientId = (int) array_shift($clientId);
 			
-			$client = $this->get('tianos.repository.user')->findOneById($client);
-			$client = $this->getSerializeDecode($client, 'ticket');
+			$client = $this->get('tianos.repository.user')->findOneById($clientId);
+			$client = $this->getSerializeDecode($client, $varsRepository->serialize_group_name);
 			
 			return $this->render(
-				'TicketBundle:BackendTicket/Grid/Box:table_client.html.twig',
+				'TicketBundle:Sales/Grid/Box:table_client.html.twig',
 				[
 					'status' => $client ? self::STATUS_SUCCESS : self::STATUS_ERROR,
 					'client' => $client
@@ -505,8 +472,8 @@ class SalesController extends GridController
 		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
 		$template = $configuration->getTemplate('');
 		
-		$session = $request->getSession();
-		$session->remove('products');
+		//REMOVE SESSION
+		$request->getSession()->remove('products');
 		
 		return $this->render(
 			$template,
@@ -537,6 +504,7 @@ class SalesController extends GridController
 		//CONFIGURATION
 		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
 		$template = $configuration->getTemplate('');
+		$varsRepository = $configuration->getRepositoryVars();
 		
 		//GUARDAR SESSION PRODUCTS
 		$this->incrementDecrementSession($request, $request->get('action'));
@@ -545,15 +513,8 @@ class SalesController extends GridController
 		foreach ($request->getSession()->get('products') as $key => $product) {
 			$obj = $this->get('tianos.repository.product')->find($product['idItem']);
 			$obj->setQuantity($product['quantity']);
-			$productSession[] = $this->getSerializeDecode($obj, 'ticket');
+			$productSession[] = $this->getSerializeDecode($obj, $varsRepository->serialize_group_name);
 		}
-		
-		
-		echo "POLLO:: <pre>";
-		print_r($productSession);
-		exit;
-		
-		
 		
 		return $this->render(
 			$template,
@@ -569,7 +530,7 @@ class SalesController extends GridController
 	 * @param Request $request
 	 * @param string $action
 	 */
-	private function incrementDecrementSession(Request $request, $action = self::INCREMENT)
+	private function incrementDecrementSession(Request $request, $action = Sales::INCREMENT)
 	{
 		
 		//SESSION
@@ -590,14 +551,14 @@ class SalesController extends GridController
 			
 			if ($product['idItem'] == $idItem) {
 				
-				if ($action == self::DECREMENT AND $product['quantity'] >= 1) {
+				if ($action == Sales::DECREMENT AND $product['quantity'] >= 1) {
 					$array[] = [
 						'idItem' => $idItem,
 						'quantity' => --$product['quantity']
 					];
 				}
 				
-				if ($action == self::INCREMENT) {
+				if ($action == Sales::INCREMENT) {
 					$array[] = [
 						'idItem' => $idItem,
 						'quantity' => ++$product['quantity']
@@ -648,26 +609,24 @@ class SalesController extends GridController
 		return $entity;
 	}
 	
-	private function getProducts($parents, $configuration, $serializeGroupName, &$entity)
+	private function getProductSession(Request $request, $groupName)
 	{
-		if (is_null($parents)) {
-			$parents = [];
+		$productSession = [];
+		
+		if (!empty($request->getSession()->get('products'))) {
+			foreach ($request->getSession()->get('products') as $key => $product) {
+				$obj = $this->get('tianos.repository.product')->find($product['idItem']);
+				
+				if (is_null($obj)) {
+					continue;
+				}
+				
+				$obj->setQuantity($product['quantity']);
+				$productSession[] = $this->getSerializeDecode($obj, $groupName);
+			}
 		}
 		
-		foreach ($parents as $key => $parent) {
-			
-			$products = $this->get('tianos.repository.product')->findAllByCategory($parent);
-			$products = $this->rowImages($products);
-			$result_1 = $this->getSerializeDecode($products, $serializeGroupName);
-			
-			$children = $this->get('tianos.repository.category')->findAllByParent($parent);
-			$result_2 = $this->getProducts($children, $configuration, $serializeGroupName, $entity);
-			
-			$entity = array_merge($result_1, $result_2);
-		}
-		
-		
-		return $entity;
+		return array_filter($productSession);
 	}
 	
 }

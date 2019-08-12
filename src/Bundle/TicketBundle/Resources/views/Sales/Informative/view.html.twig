@@ -3,38 +3,59 @@
 {% block crud_modal_content %}
 
     <div class="box box-solid">
+
         {#<div class="box-header with-border">#}
             {#<h3 class="box-title">About Me</h3>#}
         {#</div>#}
 
         <div class="box-body">
 
+            {#{{ dump(entity) }}#}
+
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <strong>
-                        <i class="fa fa-book margin-r-5"></i> Id
+                        <i class="fa fa-bookmark margin-r-5"></i> Id
                     </strong>
 
                     <p class="text-muted">
                         <span class="badge bg-blue">{{ entity.id }}</span>
                     </p>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <strong>
-                        <i class="fa fa-book margin-r-5"></i> Descripci&oacute;n
+                        <i class="fa fa-qrcode margin-r-5"></i> Code
                     </strong>
 
                     <p class="text-muted">
-                        {{ entity.name }}
+                        <span class="label label-primary fontsize-14">{{ entity.code }}</span>
                     </p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <strong>
-                        <i class="fa fa-calendar margin-r-5"></i> Fecha del ticket
+                        <i class="fa fa-calendar margin-r-5"></i> Fecha de entrega
                     </strong>
 
                     <p class="text-muted">
-                        {{ entity.dateTicket|date('Y-m-d') }}
+                        {{ entity.deliveryDate|date('Y-m-d') }}
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <strong>
+                        <i class="fa fa-calendar margin-r-5"></i> Creado
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.createdAt|date('Y-m-d H:i') }}
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <strong>
+                        <i class="fa fa-check-square margin-r-5"></i> Status
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.status }}
                     </p>
                 </div>
             </div>
@@ -42,9 +63,100 @@
             <hr>
 
             <div class="row">
+
+                <div class="col-md-4">
+                    <strong>
+                        <i class="fa fa-user margin-r-5"></i> Cliente
+                    </strong>
+
+                    <table class="table table-striped table-bordered no-padding">
+                        <thead>
+                        <tr class="bg-light-blue">
+                            <th class="text-center" style="width: 10px">#</th>
+                            <th>Nombre</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <span class="badge bg-blue">{{ entity.client.id }}</span>
+                            </td>
+                            <td>
+                                {{ entity.client.name ~ ' ' ~ entity.client.lastName }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-4">
+                    <strong>
+                        <i class="fa fa-fw fa-map-marker margin-r-5"></i> Punto de venta
+                    </strong>
+
+                    <table class="table table-striped table-bordered no-padding">
+                        <thead>
+                        <tr class="bg-light-blue">
+                            <th class="text-center" style="width: 10px">#</th>
+                            <th>Nombre</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if entity.pointOfSale is not null %}
+                            <tr>
+                                <td>
+                                    <span class="badge bg-blue">{{ entity.pointOfSale.id }}</span>
+                                </td>
+                                <td>
+                                    {{ entity.pointOfSale.name }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="2">Sin PDV seleccionado.</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-4">
+                    <strong>
+                        <i class="fa fa-user margin-r-5"></i> Empleado
+                    </strong>
+
+                    <table class="table table-striped table-bordered no-padding">
+                        <thead>
+                        <tr class="bg-light-blue">
+                            <th class="text-center" style="width: 10px">#</th>
+                            <th>Nombre</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for employee in entity.employee %}
+                            <tr>
+                                <td>
+                                    <span class="badge bg-blue">{{ employee.id }}</span>
+                                </td>
+                                <td>{{ employee.name ~ ' ' ~ employee.lastName }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="2">Sin empleado seleccionado.</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="row">
                 <div class="col-md-12">
                     <strong>
-                        <i class="fa fa-file-text-o margin-r-5"></i> Productos
+                        <i class="fa fa-cube margin-r-5"></i> Productos
                     </strong>
 
                     <table class="table table-striped table-bordered no-padding">
@@ -61,21 +173,21 @@
                         </thead>
                         <tbody>
                             {% set total = 0 %}
-                            {% for thp in ticketHasProducts %}
+                            {% for o in salesHasProducts %}
                                 <tr>
                                     <td>
-                                        <span class="badge bg-blue">{{ thp.id }}</span>
+                                        <span class="badge bg-blue">{{ o.product.id }}</span>
                                     </td>
-                                    <td>{{ thp.products.name }}</td>
-                                    <td class="text-center">{{ thp.quantity }}</td>
-                                    <td class="text-right">{{ thp.unitPrice }}</td>
-                                    <td class="text-right">{{ thp.subTotal }}</td>
+                                    <td>{{ o.product.name }}</td>
+                                    <td class="text-center">{{ o.quantity }}</td>
+                                    <td class="text-right">{{ o.unitPrice }}</td>
+                                    <td class="text-right">{{ o.quantity * o.unitPrice }}</td>
                                 </tr>
 
-                                {% set total = total + thp.subTotal %}
+                                {% set total = total + (o.quantity * o.unitPrice) %}
                             {% else %}
                                 <tr>
-                                    <td colspan="5">No tiene servicios.</td>
+                                    <td colspan="5">No tiene productos.</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -83,7 +195,7 @@
                             <tr class="bg-gray">
                                 <td colspan="4" class="text-right">Total S/</td>
                                 <td colspan="1" class="text-right">
-                                    <span class="badge bg-gray-active">
+                                    <span class="badge bg-gray-active fontsize-18">
                                         {{ total }}
                                     </span>
                                 </td>
@@ -93,94 +205,17 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <strong>
-                        <i class="fa fa-user margin-r-5"></i> Cliente
-                    </strong>
-
-                    <table class="table table-striped table-bordered no-padding">
-                        <thead>
-                        <tr class="bg-light-blue">
-                            <th class="text-center" style="width: 10px">#</th>
-                            <th class="text-center">Nombre</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <span class="badge bg-blue">{{ entity.client.id }}</span>
-                                </td>
-                                <td>
-                                    {{ entity.client.name ~ ' ' ~ entity.client.lastName }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <hr>
 
             <div class="row">
                 <div class="col-md-12">
                     <strong>
-                        <i class="fa fa-user margin-r-5"></i> Empleado
+                        <i class="fa fa-book margin-r-5"></i> Referencia
                     </strong>
 
-                    <table class="table table-striped table-bordered no-padding">
-                        <thead>
-                            <tr class="bg-light-blue">
-                                <th class="text-center" style="width: 10px">#</th>
-                                <th class="text-center">Nombre</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for employee in entity.employee %}
-                                <tr>
-                                    <td>
-                                        <span class="badge bg-blue">{{ employee.id }}</span>
-                                    </td>
-                                    <td>{{ employee.name ~ ' ' ~ employee.lastName }}</td>
-                                </tr>
-                            {% else %}
-                                <tr>
-                                    <td colspan="2">No tiene empleados.</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <strong>
-                        <i class="fa fa-fw fa-map-marker margin-r-5"></i> Punto de venta
-                    </strong>
-
-                    <table class="table table-striped table-bordered no-padding">
-                        <thead>
-                            <tr class="bg-light-blue">
-                                <th class="text-center" style="width: 10px">#</th>
-                                <th class="text-center">Nombre</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% if entity.pointOfSale is not null %}
-                                <tr>
-                                    <td>
-                                        <span class="badge bg-blue">{{ entity.pointOfSale.id }}</span>
-                                    </td>
-                                    <td>
-                                        {{ entity.pointOfSale.name }}
-                                    </td>
-                                </tr>
-                            {% else %}
-                                <tr>
-                                    <td colspan="2">Sin PDV seleccionado.</td>
-                                </tr>
-                            {% endif %}
-                        </tbody>
-                    </table>
+                    <p class="text-muted">
+                        {{ entity.name|default("[ sin dato ]") }}
+                    </p>
                 </div>
             </div>
 

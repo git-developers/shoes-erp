@@ -47,7 +47,7 @@ class PaymentType
      *
      * @JMSS\Groups({
      *     "crud",
-     *     "ticket"
+     *     "sales"
      * })
      */
     private $name;

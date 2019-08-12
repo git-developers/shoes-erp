@@ -5,26 +5,25 @@ declare(strict_types=1);
 namespace Bundle\TicketBundle\Doctrine\ORM;
 
 use Bundle\CoreBundle\Doctrine\ORM\EntityRepository as TianosEntityRepository;
-use Component\Ticket\Repository\TicketRepositoryInterface;
 
-class TicketHasProductsRepository extends TianosEntityRepository
+class SalesHasProductsRepository extends TianosEntityRepository
 {
 
     /**
      * {@inheritdoc}
      */
-    public function findAllByTicket($idTicket)
+    public function findAllBySales($id)
     {
 	    $em = $this->getEntityManager();
         $dql = "
             SELECT a
-            FROM TicketBundle:TicketHasProducts a
+            FROM TicketBundle:SalesHasProducts a
             WHERE
-            a.ticket = :idTicket
+            a.sales = :id
             ";
 
         $query = $em->createQuery($dql);
-        $query->setParameter('idTicket', $idTicket);
+        $query->setParameter('id', $id);
 
         return $query->getResult();
     }

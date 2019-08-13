@@ -77,8 +77,8 @@
             <div class="col-md-12">
                 <div class="alert alert-success alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-check"></i> Exito!</h4>
-                    {{ flash_message }}
+                    <h4><i class="icon fa fa-check"></i> {{ flash_message|raw }}</h4>
+                    Exito!
                 </div>
             </div>
         </div>
@@ -91,8 +91,8 @@
             <div class="col-md-12">
                 <div class="alert alert-warning alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-check"></i> Info!</h4>
-                    {{ flash_message }}
+                    <h4><i class="icon fa fa-check"></i> {{ flash_message|raw }}</h4>
+                    Info!
                 </div>
             </div>
         </div>
@@ -105,8 +105,8 @@
             <div class="col-md-12">
                 <div class="alert alert-error alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4><i class="icon fa fa-check"></i> Info!</h4>
-                    {{ flash_message }}
+                    <h4><i class="icon fa fa-check"></i> {{ flash_message|raw }}</h4>
+                    Info!
                 </div>
             </div>
         </div>

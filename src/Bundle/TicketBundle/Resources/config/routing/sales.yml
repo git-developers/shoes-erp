@@ -29,6 +29,9 @@ backend_sales_index:
                     view:
                         title: Ver usuario
                         size: modal-lg
+                    payment_history:
+                        title: Historial de pagos
+                        size: modal-lg
                     change_password:
                         title: Cambiar password
                 data_table:
@@ -36,8 +39,8 @@ backend_sales_index:
                         info: backend_sales_info
                         view: backend_sales_view
                         create: backend_sales_create
-                        ticket_edit: backend_sales_edit
-                        #edit: backend_sales_edit
+                        sales_edit: backend_sales_edit
+                        payment_history: backend_payment_history_index
                         #delete: backend_sales_delete
                     table_button:
                         #- ticket_edit
@@ -66,19 +69,20 @@ backend_sales_index:
                               width: 4%
                               title: '#'
                               className: modal-view text-center
-                        - obj: " '<span class=\"label label-primary fontsize-12\">' + obj.code + '</span>' "
+                        - obj: " '<span class=\"label bg-purple fontsize-12\">' + obj.code + '</span>' "
                           defs:
                               targets: 1
                               searchable: 1
                               sorting: 1
                               orderable: 1
                               type: html
+                              width: 12%
                               title: '<i class="fa fa-fw fa-qrcode"></i> Code'
-                              className: text-center
+                              className: modal-payment-history text-center
                               filter: 1
                         - obj: obj.status
                           options:
-                              property: " return (obj.status == 1) ? '<span class=\"label label-success fontsize-12\">ABIERTO</span>' : '<span class=\"label label-success fontsize-12\">xx</span>' "
+                              property: " if(obj.status == 1){return '<span class=\"label label-success fontsize-12\">ABIERTO</span>'}else if(obj.status == 3){return '<span class=\"label label-danger fontsize-12\">CERRADO</span>'} "
                           defs:
                               targets: 2
                               orderable: 1
@@ -93,7 +97,7 @@ backend_sales_index:
                               orderable: 1
                               sorting: 1
                               title: '<i class="fa fa-fw fa-user"></i> Cliente'
-                              className:
+                              className: text-center
                               filter: 1
                         - obj: obj.point_of_sale
                           options:
@@ -103,15 +107,24 @@ backend_sales_index:
                               orderable: 1
                               sorting: 1
                               title: '<i class="fa fa-fw fa-map-marker"></i> Punto de venta'
-                              className:
+                              className: text-center
+                              filter: 1
+                        - obj: obj.total
+                          defs:
+                              targets: 5
+                              orderable: 1
+                              sorting: 1
+                              title: '<i class="fa fa-fw fa-money"></i> Total'
+                              className: text-center
                               filter: 1
                         - obj: obj.delivery_date
                           defs:
-                              targets: 5
+                              targets: 6
                               title: '<i class="fa fa-fw fa-calendar"></i> Fecha de entrega'
+                              className: text-center
                         - obj: obj.created_at
                           defs:
-                              targets: 6
+                              targets: 7
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
             form:

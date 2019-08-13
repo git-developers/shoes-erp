@@ -21,10 +21,12 @@ class ModalMapper
     const EDIT_ID = 'modal-edit';
     const DELETE_ID = 'modal-delete';
     const VIEW_ID = 'modal-view';
+    const PAYMENT_HISTORY_ID = 'modal-payment-history';
     const INFO_ID = 'modal-info';
     const WATCH_ID = 'watch-button-id';
     const PROFILE_ID = 'profile-button-id';
     const TICKET_EDIT_ID = 'ticket-edit-id';
+    
     const FILES_UPLOAD = 'files-upload';
     const IMAGE_UPLOAD = 'image-upload';
 
@@ -51,6 +53,9 @@ class ModalMapper
 
             'view_id' => self::VIEW_ID,
             'view_size' => null,
+
+            'payment_history_id' => self::PAYMENT_HISTORY_ID,
+            'payment_history_size' => null,
 
             'info_id' => self::INFO_ID,
             'info_size' => self::SIZE_LARGE,

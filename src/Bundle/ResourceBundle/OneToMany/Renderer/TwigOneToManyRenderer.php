@@ -76,7 +76,8 @@ final class TwigOneToManyRenderer implements OneToManyRendererInterface
 
     public function renderModalFooter(string $action = null)
     {
-        switch ($action){
+    	
+	    switch ($action){
             case Action::EDIT:
             case Action::CREATE:
             case Action::CREATE_CHILD:

@@ -51,6 +51,26 @@ class Sales
 	 *
 	 */
 	private $discount = 0;
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
+	 *     "pdv_product",
+	 *     "sales"
+	 * })
+	 *
+	 */
+	private $payment = 0;
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
+	 *     "sales"
+	 * })
+	 */
+	private $total = 0;
     
     /**
      * @var string
@@ -275,7 +295,6 @@ class Sales
 	 */
 	public function getDeliveryDate() //: \DateTime
 	{
-//		return $this->deliveryDate;
 		$date = $this->deliveryDate;
 		
 		if (!is_null($date)) {
@@ -283,6 +302,22 @@ class Sales
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * @return float
+	 */
+	public function getTotal() //: float
+	{
+		return $this->total;
+	}
+	
+	/**
+	 * @param float $total
+	 */
+	public function setTotal($total)
+	{
+		$this->total = empty($total) ? 0 : $total;
 	}
 	
 	/**
@@ -502,6 +537,23 @@ class Sales
 	{
 //		$this->discount = $discount;
 		$this->discount = empty($discount) ? 0 : $discount;
+	}
+	
+	/**
+	 * @return float
+	 */
+	public function getPayment() //: float
+	{
+		return $this->payment;
+	}
+	
+	/**
+	 * @param float $payment
+	 */
+	public function setPayment($payment)
+	{
+//		$this->payment = $payment;
+		$this->payment = empty($payment) ? 0 : $payment;
 	}
 	
 	/**

@@ -30,6 +30,7 @@
         td.{{ modal.edit_id }},
         td.{{ modal.delete_id }},
         td.{{ modal.profile_id }},
+        td.{{ modal.payment_history_id }},
         td.{{ modal.image_upload_id }},
         td.{{ modal.point_of_sale_cog }},
         td.{{ modal.change_password_id }}
@@ -43,6 +44,7 @@
         td.{{ modal.edit_id }}:active,
         td.{{ modal.delete_id }}:active,
         td.{{ modal.profile_id }}:active,
+        td.{{ modal.payment_history_id }}:active,
         td.{{ modal.image_upload_id }}:active,
         td.{{ modal.point_of_sale_cog }}:active,
         td.{{ modal.change_password_id }}:active
@@ -54,7 +56,7 @@
 
         td.{{ modal.view_id }}:hover
         {
-           background: #3c8dbc radial-gradient(circle, transparent 1%, #3c8dbc 1%) center/20000%;
+           background: #357ca5 radial-gradient(circle, transparent 1%, #357ca5 1%) center/20000%;
            color: white;
         }
 
@@ -66,19 +68,13 @@
 
         td.{{ modal.delete_id }}:hover
         {
-           background: #d73925 radial-gradient(circle, transparent 1%, #d73925 1%) center/20000%;
+           background: #dd4b39 radial-gradient(circle, transparent 1%, #dd4b39 1%) center/20000%;
            color: white;
         }
 
         td.{{ modal.change_password_id }}:hover
         {
-           background: #00acd6 radial-gradient(circle, transparent 1%, #00acd6 1%) center/20000%;
-           color: white;
-        }
-
-        td.{{ modal.profile_id }}:hover
-        {
-           background: #3d9970 radial-gradient(circle, transparent 1%, #3d9970 1%) center/20000%;
+           background: #00c0ef radial-gradient(circle, transparent 1%, #00c0ef 1%) center/20000%;
            color: white;
         }
 
@@ -95,6 +91,12 @@
         }
 
         td.{{ modal.image_upload_id }}:hover
+        {
+           background: #605ca8 radial-gradient(circle, transparent 1%, #605ca8 1%) center/20000%;
+           color: white;
+        }
+
+        td.{{ modal.payment_history_id }}:hover
         {
            background: #605ca8 radial-gradient(circle, transparent 1%, #605ca8 1%) center/20000%;
            color: white;
@@ -131,6 +133,7 @@
         '@GridBundle/Resources/public/common/js/formDelete.js'
         '@GridBundle/Resources/public/common/js/formTicketEdit.js'
         '@GridBundle/Resources/public/common/js/formViewProfile.js'
+        '@GridBundle/Resources/public/common/js/formPaymentHistory.js'
         '@GridBundle/Resources/public/common/js/formChangePassword.js'
         '@GridBundle/Resources/public/plugins/datatables/jquery.dataTables.min.js'
         '@GridBundle/Resources/public/plugins/datatables/dataTables.bootstrap.min.js'
@@ -225,6 +228,10 @@
                                     $(td).attr('title', 'ver');
                                     $(td).attr('data-toggle', 'modal');
                                     $(td).attr('data-target', '#{{ modal.view_id }}');
+                                {% elseif defs.className|default() is not empty and modal.payment_history_id in defs.className %}
+                                    $(td).attr('title', 'Historial de pagos');
+                                    $(td).attr('data-toggle', 'modal');
+                                    $(td).attr('data-target', '#{{ modal.payment_history_id }}');
                                 {% elseif defs.className|default() is not empty and modal.edit_id in defs.className %}
                                     $(td).attr('title', 'editar');
                                     $(td).attr('data-toggle', 'modal');
@@ -402,6 +409,7 @@
     {{ include('GridBundle:Modal:info.html.twig') }}
     {{ include('GridBundle:Modal:create.html.twig') }}
     {{ include('GridBundle:Modal:delete.html.twig') }}
+    {{ include('GridBundle:Modal:payment_history.html.twig') }}
     {{ include('GridBundle:Modal:change_password.html.twig') }}
     {{ include('FilesBundle:BackendFiles/Modal:image_upload.html.twig') }}
 

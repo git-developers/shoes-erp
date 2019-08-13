@@ -69,6 +69,7 @@ final class TwigGridRenderer implements GridRendererInterface
     //JAFETH
     public function renderModalFooter(string $action = null)
     {
+    	
         switch ($action){
             case Action::EDIT:
             case Action::CREATE:
@@ -82,6 +83,7 @@ final class TwigGridRenderer implements GridRendererInterface
                 $template = '@Ui/Grid/Button/Footer/_modal_button_3.html.twig';
                 break;
             case Action::VIEW:
+            case Action::PAYMENT_HISTORY:
                 $template = '@Ui/Grid/Button/Footer/_modal_button_4.html.twig';
                 break;
             case Action::INFO:

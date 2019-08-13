@@ -71,3 +71,6 @@ backend_ticket:
 backend_sales:
     resource: '@TicketBundle/Resources/config/routing/sales.yml'
     prefix: /sales
+backend_payment_history:
+    resource: '@TicketBundle/Resources/config/routing/payment_history.yml'
+    prefix: /payment-history

@@ -14,10 +14,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Bundle\UserBundle\Entity\User;
 use Bundle\TicketBundle\Entity\PaymentType;
-use Bundle\TicketBundle\Entity\Sales;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class SalesType extends AbstractType
+class PaymentHistoryType extends AbstractType
 {
 
     /**
@@ -27,36 +26,7 @@ class SalesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-	        ->add('deliveryDate', DateType::class , [
-		        'label' => 'Fecha de entrega',
-		        'required' => false,
-		        'widget' => 'single_text',
-		        'label_attr' => [
-			        'class' => ''
-		        ],
-//                'format' => 'dd-MM-yyyy',
-//                'years' => range(date('Y') -18, date('Y') -80),
-//                'placeholder' => array(
-//                    'year' => 'Año', 'month' => 'Mes', 'day' => 'Dia',
-//                ),
-		        'attr' => [
-			        'class' => 'form-control',
-			        'title'=>'',
-		        ],
-		        'error_bubbling' => true
-	        ])
-            ->add('name', TextType::class, [
-                'label' => 'Referencia',
-	            'required' => false,
-                'label_attr' => [
-                    'class' => ''
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'descripción',
-                ],
-            ])
-	        ->add('discount', HiddenType::class, [
+	        ->add('salesId', HiddenType::class, [
 		        'label' => false,
 		        'required' => false,
 		        'label_attr' => [
@@ -64,38 +34,34 @@ class SalesType extends AbstractType
 		        ],
 		        'attr' => [
 			        'class' => '',
-			        'placeholder' => '',
 		        ],
 	        ])
-	        ->add('payment', HiddenType::class, [ //HiddenType
-		        'label' => false,
-		        'required' => false,
+	        ->add('payment', TextType::class, [
+		        'label' => 'Pago',
+		        'required' => true,
 		        'label_attr' => [
 			        'class' => ''
 		        ],
 		        'attr' => [
-			        'class' => '',
-			        'placeholder' => '',
+			        'class' => 'form-control text-right',
+			        'placeholder' => '##.##',
+			        'autocomplete' => 'off',
+			        'onkeyup' => "this.value = this.value.replace(/[^0-9\.]/g,'');",
 		        ],
 	        ])
-	        ->add('client', EntityType::class, array(
-		        'class' => User::class,
-		        'query_builder' => function(EntityRepository $er) {
-			        return $er->findAllObjects();
-		        },
-		        'placeholder' => '[ Escoge un cliente ]',
-		        'empty_data' => null,
-		        'required' => false,
-		        'label' => 'Cliente',
+	        ->add('changeBack', TextType::class, [
+		        'label' => 'Vuelto',
+		        'required' => true,
 		        'label_attr' => [
 			        'class' => ''
 		        ],
 		        'attr' => [
-			        'class' => 'form-control',
-			        'placeholder' => '',
-			        'style' => 'display: none',
+			        'class' => 'form-control text-right',
+			        'placeholder' => '##.##',
+			        'readonly' => 'readonly',
+			        'onkeyup' => "this.value = this.value.replace(/[^0-9\.]/g,'');",
 		        ],
-	        ))
+	        ])
 	        ->add('paymentType', EntityType::class, array(
 		        'class' => PaymentType::class,
 		        'query_builder' => function(EntityRepository $er) {
@@ -103,7 +69,7 @@ class SalesType extends AbstractType
 		        },
 		        'placeholder' => '[ Escoge forma de pago ]',
 		        'empty_data' => null,
-		        'required' => false,
+		        'required' => true,
 		        'label' => 'Forma de pago',
 		        'label_attr' => [
 			        'class' => ''
@@ -114,9 +80,9 @@ class SalesType extends AbstractType
 		        ],
 	        ))
 	        ->add('submit', SubmitType::class, [
-		        'label' => 'Generar venta',
+		        'label' => 'Agregar pago',
 		        'attr' => [
-			        'class' => 'btn btn-lg btn-primary',
+			        'class' => 'btn btn-outline',
 		        ],
 	        ])
         ;
@@ -129,7 +95,7 @@ class SalesType extends AbstractType
     {
         $resolver->setDefaults([
 //            'data_class' => null,
-	        'csrf_protection' => false,
+//	        'csrf_protection' => false,
         ]);
 
         $resolver->setRequired(['form_data']);

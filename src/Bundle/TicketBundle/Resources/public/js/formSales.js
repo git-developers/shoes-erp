@@ -31,9 +31,11 @@
 
             $.each(fields, function(i, field) {
 
-                if (field.value != "" || field.name == "sales[name]") {
+                if (field.value != "" || $.inArray(field.name, ["sales[name]", "discount"]) !== -1) {
                     return true;
                 }
+
+                console.dir(field);
 
                 errors++;
 
@@ -47,6 +49,9 @@
                         break;
                     case "sales[deliveryDate]":
                         msg = 'Fecha de entrega.';
+                        break;
+                    case "payment":
+                        msg = 'Ingrese pago del cliente.';
                         break;
                 }
 
@@ -74,24 +79,28 @@
                 dataType: 'json',
                 data: fields,
                 beforeSend: function(jqXHR, settings) {
-
+                    $("button[name='sales[submit]']").attr("disabled", true);
                 },
                 success: function(data, textStatus, jqXHR) {
 
                     if (data.status) {
                         window.location.href = options.routeRedirect;
                     } else {
+
+                        $("button[name='sales[submit]']").attr("disabled", false);
+
                         message.find('p').html(data.message);
                         message.removeClass("callout-primary").addClass("callout-warning");
 
                         setTimeout(function() {
                             message.removeClass("callout-warning").addClass("callout-primary");
                             message.find('p').html(msg_default);
-                        }, 2000);
+                        }, 3000);
                     }
                 },
                 error: function(jqXHR, exception) {
                     console.log('ERROR');
+                    $("button[name='sales[submit]']").attr("disabled", false);
                 }
             });
         };
@@ -115,18 +124,47 @@
 
         base.discount = function(context) {
 
-            var discount = parseFloat($(context).val());
+            var discount = parseFloat($(context).val().trim());
             var subtotal = parseFloat($("td.subtotal").text().trim());
 
+            console.log("discount::: " + discount + " ---- subtotal::: " + subtotal);
+
+
             if (discount <= subtotal) {
-                $("input[name='sales[discount]']").val(discount);
                 $("td.total").html((subtotal - discount).toFixed(2));
                 $("td.discount").removeClass("bg-red").addClass("bg-gray-1");
             } else if (discount > subtotal) {
                 $("td.total").html(subtotal);
                 $("td.discount").removeClass("bg-gray-1").addClass("bg-red");
-            } else if (isNaN(discount)) {
+            }
+
+            if (isNaN(discount)) {
                 $("input[name='sales[discount]']").val("");
+            } else {
+                $("input[name='sales[discount]']").val(discount);
+            }
+
+            $("input[name='payment']").val("");
+            $("input[name='sales[payment]']").val("");
+
+            return false;
+        };
+
+        base.payment = function(context) {
+
+            var payment = parseFloat($(context).val().trim());
+            var total = parseFloat($("td.total").text().trim());
+
+            if (payment > total) {
+                $("td.change").html((payment - total).toFixed(2));
+            } else if (payment < total || isNaN(payment)) {
+                $("td.change").html("0.0");
+            }
+
+            if (isNaN(payment)) {
+                $("input[name='sales[payment]']").val("");
+            } else {
+                $("input[name='sales[payment]']").val(payment);
             }
 
             return false;
@@ -167,6 +205,10 @@
 
             $(document).on("change paste keyup", "input[name=discount]", function() {
                 bp.discount(this);
+            });
+
+            $(document).on("change paste keyup", "input[name=payment]", function() {
+                bp.payment(this);
             });
 
         });

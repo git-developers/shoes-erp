@@ -73,8 +73,14 @@ class SalesController extends GridController
 				$sales = $request->get($varsRepository->serialize_group_name);
 				$sales = json_decode(json_encode($sales));
 				
+//				echo "POLLO:: <pre>";
+//				print_r($sales);
+//				exit;
 				
-				//VALIDATE
+				
+				/**
+				 * VALIDATE
+				 */
 				if (empty($sales->client)) {
 					return $this->json([
 						'status' => false,
@@ -89,9 +95,16 @@ class SalesController extends GridController
 					]);
 				}
 				
+				if ($sales->discount > $this->getSaleSubTotal($request)) {
+					return $this->json([
+						'status' => false,
+						'message' => 'El descuento no puede ser mayor al Importe Total.'
+					]);
+				}
+				
 				
 				/**
-				 * SAVE OBJECT
+				 * SAVE OBJECT SALES
 				 */
 				$entity->setName($sales->name);
 				$entity->setDeliveryDate(new \DateTime($sales->deliveryDate));
@@ -122,26 +135,36 @@ class SalesController extends GridController
 					$o->setUnitPrice($product->getPrice());
 					$this->persist($o);
 					
-					$subTotal = $product->getPrice() * $productSave['quantity'];
+					$subTotal += $product->getPrice() * $productSave['quantity'];
 				}
 				
 				
 				/**
 				 * PAYMENT HISTORY
 				 */
+				$total = $subTotal - $sales->discount;
 				$o = new PaymentHistory();
+				$o->setSales($entity);
 				$o->setSubTotal($subTotal);
 				$o->setDiscount($sales->discount);
-				$o->setTotal($subTotal - $sales->discount);
-				$o->setSales($entity);
+				$o->setPayment($sales->payment);
+				$o->setTotal($total);
+				$o->setChangeBack(($sales->payment > $total) ? $sales->payment - $total : 0);
 				$o->setReceivedDate(new \DateTime());
 				$paymentType = $this->get('tianos.repository.payment.type')->find($sales->paymentType);
 				$o->setPaymentType($paymentType);
 				$this->persist($o);
 				
 				
+				/**
+				 * UPDATE OBJECT SALES
+				 */
+				$entity->setTotal($total);
+				$this->persist($entity);
+				
+				
 				//message success
-				$this->flashAlertSuccess('Se creo la venta. Código: ' . $entity->getCode());
+				$this->flashAlertSuccess('Venta creada. CÓDIGO: <span class="label bg-green-active fontsize-12">' . $entity->getCode() . '</span>');
 				
 				
 				//Remove session
@@ -391,6 +414,89 @@ class SalesController extends GridController
 	 * @param Request $request
 	 * @return Response
 	 */
+	public function paymentHistoryAction(Request $request): Response
+	{
+		if (!$this->isXmlHttpRequest()) {
+			throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
+		}
+		
+		$parameters = [
+			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
+		];
+		$applicationName = $this->container->getParameter('application_name');
+		$this->metadata = new Metadata('tianos', $applicationName, $parameters);
+		
+		//CONFIGURATION
+		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
+		$template = $configuration->getTemplate('');
+		$action = $configuration->getAction();
+		$formType = $configuration->getFormType();
+		$vars = $configuration->getVars();
+		$varsRepository = $configuration->getRepositoryVars();
+		$tree = $configuration->getTree();
+		$entity = $configuration->getEntity();
+		$entity = new $entity();
+		
+		$form = $this->createForm($formType, $entity, ['form_data' => []]);
+		$form->handleRequest($request);
+		
+		
+		//REPOSITORY
+		$repository = $configuration->getRepositoryService();
+		$method = $configuration->getRepositoryMethod();
+		$paymentHistory = $this->get($repository)->$method($request->get('id'));
+		
+		
+		if ($form->isSubmitted()) {
+			
+			$errors = [];
+			$entityJson = null;
+			$status = self::STATUS_ERROR;
+			
+			try {
+				
+				if ($form->isValid()) {
+					
+					$this->persist($entity);
+					
+					$varsRepository = $configuration->getRepositoryVars();
+					$entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
+					$status = self::STATUS_SUCCESS;
+				} else {
+					foreach ($form->getErrors(true) as $key => $error) {
+						if ($form->isRoot()) {
+							$errors[] = $error->getMessage();
+						} else {
+							$errors[] = $error->getMessage();
+						}
+					}
+				}
+				
+			} catch (\Exception $e) {
+				$errors[] = $e->getMessage();
+			}
+			
+			return $this->json([
+				'status' => $status,
+				'errors' => $errors,
+				'entity' => $entity,
+			]);
+		}
+		
+		return $this->render(
+			$template,
+			[
+				'action' => $action,
+				'form' => $form->createView(),
+				'paymentHistory' => $paymentHistory,
+			]
+		);
+	}
+	
+	/**
+	 * @param Request $request
+	 * @return Response
+	 */
 	public function addClienteAction(Request $request): Response
 	{
 		
@@ -627,6 +733,17 @@ class SalesController extends GridController
 		}
 		
 		return array_filter($productSession);
+	}
+	
+	private function getSaleSubTotal(Request $request)
+	{
+		$subTotal = 0;
+		foreach ($request->getSession()->get('products') as $key => $productSave) {
+			$product = $this->get('tianos.repository.product')->find($productSave['idItem']);
+			$subTotal += $product->getPrice() * $productSave['quantity'];
+		}
+		
+		return $subTotal;
 	}
 	
 }

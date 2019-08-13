@@ -47,6 +47,22 @@ Bundle\TicketBundle\Entity\PaymentHistory:
             options:
                 fixed: false
             column: total
+        payment:
+            type: float
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                fixed: false
+            column: payment
+        changeBack:
+            type: float
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                fixed: false
+            column: change_back
         receivedDate:
             type: datetime
             nullable: false

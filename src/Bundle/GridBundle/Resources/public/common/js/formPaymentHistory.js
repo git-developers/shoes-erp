@@ -4,7 +4,7 @@
     // Global Variables
     var MAX_HEIGHT = 100;
 
-    $.formEdit = function(el, options) {
+    $.formPaymentHistory = function(el, options) {
 
         // Global Private Variables
         var MAX_WIDTH = 200;
@@ -21,7 +21,7 @@
 
         base.$el = $(el);
         base.el = el;
-        base.$el.data('formEdit', base);
+        base.$el.data('formPaymentHistory', base);
 
         base.init = function(){
             var totalButtons = 0;
@@ -33,10 +33,7 @@
 
         base.openModal = function(event, context) {
             // debug(e);
-
-            modalMsgDiv = modal.find('div#message');
-            modalMsgText = modal.find('div#message p');
-            modalRefresh = modal.find('i.fa-refresh');
+            // base.options.buttonPress.call( this );
 
             var id = $(context).parent().data('id');
 
@@ -44,32 +41,26 @@
 
             $.ajax({
                 url: options.route,
-                type: 'PUT',
+                type: 'POST',
                 dataType: 'html',
-                cache: true,
                 data: {
                     id:id,
                     form_data:options.form_data
                 },
                 beforeSend: function(jqXHR, settings) {
-                    $('button[type="submit"]').prop('disabled', true);
-
-                    modalMsgDiv.hide();
-                    modalMsgText.empty();
                     apiContent.html(msg_loading);
                 },
                 success: function(data, textStatus, jqXHR) {
-                    $('button[type="submit"]').prop('disabled', false);
                     apiContent.html(data);
                 },
                 error: function(jqXHR, exception) {
                     apiContent.html(msg_error);
                 }
             });
-
         };
 
-        base.edit = function(event) {
+
+        base.save = function(event) {
             event.preventDefault();
 
             modalMsgDiv = modal.find('div#message');
@@ -95,11 +86,15 @@
                     modalRefresh.hide();
 
                     if (data.status) {
+
+                        console.dir(options.dataTableObject);
+
+
+
                         var row = options.dataTableObject.row('[data-id="' + data.id + '"]');
                         row.data(data.entity).draw();
                         modal.modal('hide');
                     } else {
-
                         var items = [];
                         $(data.errors).each(function(key, value) {
                             items.push($('<li/>').text(value));
@@ -108,7 +103,6 @@
                         modalMsgText.html(items);
                         modalMsgDiv.show();
                     }
-
                 },
                 error: function(jqXHR, exception) {
                     $('button[type="submit"]').prop('disabled', false);
@@ -117,7 +111,47 @@
                     modalRefresh.hide();
                 }
             });
+        };
 
+        base.discount = function(context) {
+
+            var discount = parseFloat($(context).val().trim());
+            var subtotal = parseFloat($("td.subtotal").text().trim());
+
+            if (discount <= subtotal) {
+                $("td.total").html((subtotal - discount).toFixed(2));
+                $("td.discount").removeClass("bg-red").addClass("bg-gray-1");
+            } else if (discount > subtotal) {
+                $("td.total").html(subtotal);
+                $("td.discount").removeClass("bg-gray-1").addClass("bg-red");
+            }
+
+            if (isNaN(discount)) {
+                $("input[name='sales[discount]']").val("");
+            } else {
+                $("input[name='sales[discount]']").val(discount);
+            }
+
+            $("input[name='payment']").val("");
+            $("input[name='sales[payment]']").val("");
+
+            return false;
+        };
+
+        base.payment = function(context) {
+
+            var payment = parseFloat($(context).val().trim());
+            var pendingDebt = parseFloat($("td.pending-debt").text().trim());
+
+            if (payment > pendingDebt) {
+                $("input[name='payment_history[changeBack]']").val((payment - pendingDebt).toFixed(2));
+            } else if (isNaN(payment)) {
+                $("input[name='payment_history[changeBack]']").val("");
+            } else {
+                $("input[name='payment_history[changeBack]']").val("");
+            }
+
+            return false;
         };
 
         // Private Functions
@@ -128,19 +162,22 @@
         base.init();
     };
 
-    $.fn.formEdit = function(options){
+    $.fn.formPaymentHistory = function(options) {
 
-        return this.each(function(){
+        return this.each(function() {
 
-            var bp = new $.formEdit(this, options);
-
-            //$(document).on('click', 'button.' + options.modalId, function() {
+            var bp = new $.formPaymentHistory(this, options);
+            
             $(document).on('click', 'td.' + options.modalId, function() {
                 bp.openModal(event, this);
             });
 
             $(document).on('submit', "form[name='" + options.formName + "']" , function(event) {
-                bp.edit(event);
+                bp.save(event);
+            });
+
+            $(document).on("change paste keyup", "input[name='payment_history[payment]']", function() {
+                bp.payment(this);
             });
 
         });

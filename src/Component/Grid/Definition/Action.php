@@ -13,6 +13,7 @@ class Action
     const CREATE_CHILD = 'createchild';
     const EDIT = 'edit';
     const VIEW = 'view';
+    const PAYMENT_HISTORY = 'payment-history';
     const DELETE = 'delete';
     const INFO = 'info';
     const UPLOAD_FILE = 'upload_info';

@@ -247,7 +247,7 @@
 
                         <div class="row">
                             <div class="col-md-5" style="padding-right: 0px">
-                                <div class="{{ tree.main_div }} box-body">
+                                <div class="{{ tree.main_div }} box-body" style="padding-left: 0px;">
                                     <ul id="{{ tree.main_ul }}">
                                         {% if categoryTree is not empty %}
                                             {{ macro.tree(categoryTree, tree, -1) }}
@@ -266,9 +266,7 @@
                                             <th class="text-center"></th>
                                             <th class="text-center"></th>
                                             <th class="text-center">nombre</th>
-                                            <th class="text-center">
-                                                <i class="fa fa-fw fa-money"></i> precio
-                                            </th>
+                                            <th class="text-center">precio</th>
                                             <th class="text-center">stock</th>
                                             <th class="text-center"></th>
                                         </tr>
@@ -312,6 +310,7 @@
                                                         class="alert ticket-product-color"
                                                         style="background-color: {{ product.color.prefix }}">
                                                     </div>
+                                                    {{ product.color.name }}
                                                 </td>
                                                 <td class="text-center">
                                                     {{ product.name }}
@@ -375,6 +374,7 @@
 
                             {{ form_widget(form.client) }}
                             {{ form_widget(form.discount) }}
+                            {{ form_widget(form.payment) }}
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -407,9 +407,7 @@
                         </div>
 
                         <div class="box-footer text-center">
-                            <button type="submit" class="btn btn-lg btn-primary">
-                                Generar venta
-                            </button>
+                            {{ form_widget(form.submit) }}
                         </div>
                     {{ form_end(form) }}
                 </div>

@@ -72,6 +72,7 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 	        $name = $entity->getName();
 	        $entity->setSlug($this->slugify($name));
 	        $entity->setCreatedAt($this->setupCreatedAt($entity));
+	        $entity->setUserCreate($this->getUser()->getId());
         } elseif ($entity instanceof Sales) {
 	        $name = $entity->getName();
 	        $entity->setCode(uniqid());

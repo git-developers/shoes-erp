@@ -9,7 +9,28 @@ use Component\Ticket\Repository\TicketRepositoryInterface;
 
 class PaymentHistoryRepository extends TianosEntityRepository implements TicketRepositoryInterface
 {
-
+	
+	/**
+	 * {@inheritdoc}
+	 */
+	public function findAllBySales($salesId): array
+	{
+		$em = $this->getEntityManager();
+		$dql = "
+            SELECT ph
+            FROM TicketBundle:PaymentHistory ph
+            WHERE
+            ph.isActive = :active AND
+            ph.sales = :salesId
+            ";
+		
+		$query = $em->createQuery($dql);
+		$query->setParameter('active', 1);
+		$query->setParameter('salesId', $salesId);
+		
+		return $query->getResult();
+	}
+	
     /**
      * {@inheritdoc}
      */

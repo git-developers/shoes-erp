@@ -65,6 +65,7 @@ final class TwigTreeRenderer implements TreeRendererInterface
     //JAFETH
     public function renderModalFooter(string $action = null)
     {
+	    
         switch ($action){
             case Action::EDIT:
             case Action::CREATE:

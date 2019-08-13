@@ -20,6 +20,12 @@ class PaymentHistory
      * @JMSS\Groups({"sales"})
      */
     private $id;
+    /**
+     * @var integer
+     *
+     * @JMSS\Groups({"sales"})
+     */
+    private $salesId;
     
     /**
      * @var string
@@ -74,6 +80,24 @@ class PaymentHistory
 	 *
 	 */
 	private $discount = 0;
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
+	 *     "sales"
+	 * })
+	 */
+	private $payment;
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
+	 *     "sales"
+	 * })
+	 */
+	private $changeBack;
 	
 	/**
 	 * @var float
@@ -246,7 +270,6 @@ class PaymentHistory
 	 */
 	public function setTotal($total)
 	{
-//		$this->total = $total;
 		$this->total = empty($total) ? 0 : $total;
 	}
 	
@@ -362,6 +385,55 @@ class PaymentHistory
 		$this->isActive = $isActive;
 	}
 	
+	/**
+	 * @return float
+	 */
+	public function getPayment() //: float
+	{
+		return $this->payment;
+	}
+	
+	/**
+	 * @param float $payment
+	 */
+	public function setPayment($payment)
+	{
+		$this->payment = empty($payment) ? 0 : $payment;
+	}
+	
+	/**
+	 * @return float
+	 */
+	public function getChangeBack() //: float
+	{
+		return $this->changeBack;
+	}
+	
+	/**
+	 * @param float $changeBack
+	 */
+	public function setChangeBack($changeBack)
+	{
+		$this->changeBack = empty($changeBack) ? 0 : $changeBack;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getSalesId() //: int
+	{
+		return $this->salesId;
+	}
+	
+	/**
+	 * @param int $salesId
+	 */
+	public function setSalesId(int $salesId)
+	{
+		$this->salesId = $salesId;
+	}
+	
+
 	
 	
 }

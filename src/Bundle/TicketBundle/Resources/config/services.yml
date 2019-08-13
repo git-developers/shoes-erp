@@ -26,7 +26,13 @@ services:
         class: Bundle\TicketBundle\Controller\SalesController
         arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
         tags:
-            - { name: tianos.backend.controller.ticket, alias: tianos.backend.controller.ticket }
+            - { name: tianos.backend.controller.sales, alias: tianos.backend.controller.sales }
+
+    tianos.backend.controller.payment.history:
+        class: Bundle\TicketBundle\Controller\PaymentHistoryController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.payment.history, alias: tianos.backend.controller.payment.history }
 
     tianos.backend.controller.payment.type:
         class: Bundle\TicketBundle\Controller\PaymentTypeController

@@ -150,7 +150,7 @@ class GridController extends BaseController
             $entityJson = null;
             $status = self::STATUS_ERROR;
 
-            try{
+            try {
 
                 if ($form->isValid()) {
 
@@ -160,7 +160,7 @@ class GridController extends BaseController
 	                $entity = $this->rowImage($entity);
                     $entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
                     $status = self::STATUS_SUCCESS;
-                }else{
+                } else {
                     foreach ($form->getErrors(true) as $key => $error) {
                         if ($form->isRoot()) {
                             $errors[] = $error->getMessage();
@@ -170,7 +170,7 @@ class GridController extends BaseController
                     }
                 }
 
-            }catch (\Exception $e){
+            } catch (\Exception $e) {
                 $errors[] = $e->getMessage();
             }
 

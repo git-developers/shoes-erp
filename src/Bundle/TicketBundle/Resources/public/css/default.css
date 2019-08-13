@@ -101,6 +101,12 @@ table.products thead tr th:nth-child(6)
     width: 80px;
 }
 
+table.products tbody tr td:nth-child(7),
+table.products thead tr th:nth-child(7)
+{
+    width: 50px;
+}
+
 div.ticket-product-color
 {
     margin-bottom: 0px !important;
@@ -129,5 +135,5 @@ td.product-thumbnail:hover
 
 .bg-gray-1
 {
-    background-color: #ecf0f5;
+    background-color: #ecf0f5 !important;
 }

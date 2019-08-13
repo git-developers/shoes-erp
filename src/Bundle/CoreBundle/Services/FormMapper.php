@@ -14,6 +14,7 @@ class FormMapper
     protected $defaults;
 
     const CREATE_NAME = 'form-create';
+    const CREATE_PAYMENT_HISTORY = 'form-payment-history';
     const CREATE_CHILD_NAME = 'form-create-child';
     const EDIT_NAME = 'form-edit';
     const DELETE_NAME = 'form-delete';
@@ -30,6 +31,7 @@ class FormMapper
         $this->defaults = [
 
             'create_name' => self::CREATE_NAME,
+            'payment_history' => self::CREATE_PAYMENT_HISTORY,
             'create_child_name' => self::CREATE_CHILD_NAME,
             'edit_name' => self::EDIT_NAME,
             'delete_name' => self::DELETE_NAME,

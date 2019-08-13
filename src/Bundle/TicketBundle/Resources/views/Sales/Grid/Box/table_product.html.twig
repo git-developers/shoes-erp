@@ -4,8 +4,8 @@
             <tr class="bg-gray">
                 <th>nombre</th>
                 <th style="width: 5%">cant.</th>
-                <th class="text-right" style="width: 20%">precio unit.</th class="text-right">
-                <th class="text-right" style="width: 20%">precio x cant.</th>
+                <th class="text-right" style="width: 20%">precio unit.</th>
+                <th class="text-right" style="width: 20%">precio total</th>
                 <th class="text-center" style="width: 10%"></th>
             </tr>
         </thead>
@@ -60,7 +60,7 @@
 
             <tr>
                 <td colspan="3" class="text-left">
-                    <i class="fa fa-fw fa-th"></i> Sub Total
+                    <i class="fa fa-fw fa-th"></i> Importe total
                 </td>
 
                 <td class="subtotal text-right text-bold bg-gray-1 fontsize-18">
@@ -79,22 +79,46 @@
                     <input
                         type="text"
                         name="discount"
+                        autocomplete="off"
                         class="form-control text-right fontsize-18"
                         placeholder="##.##"
                         onkeyup="this.value = this.value.replace(/[^0-9\.]/g,'');" >
                 </td>
                 <td></td>
             </tr>
-
+            <tr class="bg-gray-1">
+                <td colspan="3" class="text-left">
+                    <i class="fa fa-fw fa-th-large"></i> Total a pagar
+                </td>
+                <td class="total text-right bg-light-blue-active text-bold fontsize-18">
+                    {{ totalPrice }}
+                </td>
+                <td></td>
+            </tr>
         </tbody>
 
         <tfoot>
-            <tr class="bg-gray-1">
+            <tr>
                 <td colspan="3" class="text-left">
-                    <i class="fa fa-fw fa-th-large"></i> Total
+                    <i class="fa fa-fw fa-money"></i> Pago del cliente
                 </td>
-                <td class="total text-right bg-gray-1 text-bold fontsize-18">
-                    {{ totalPrice }}
+                <td class="text-right bg-gray-1">
+                    <input
+                        type="text"
+                        name="payment"
+                        autocomplete="off"
+                        class="form-control text-right fontsize-18"
+                        placeholder="##.##"
+                        onkeyup="this.value = this.value.replace(/[^0-9\.]/g,'');" >
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-left">
+                    <i class="fa fa-fw fa-money"></i> Vuelto
+                </td>
+                <td class="change text-right bg-gray-1 text-bold fontsize-18">
+                    0.0
                 </td>
                 <td></td>
             </tr>

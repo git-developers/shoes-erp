@@ -1,3 +1,13 @@
+{% if dataTable.route.payment_history is defined %}
+    $('body.{{ vars.body_css }}').formPaymentHistory({
+        modalId: '{{ modal.payment_history_id }}',
+        route: '{{ path(dataTable.route.payment_history) }}',
+        formName: '{{ form_mapper.payment_history }}',
+        tableTdClass: '{{ dataTable.tableOptions.table_td_class }}',
+        dataTableObject: dataTableObject
+    });
+{% endif %}
+
 {% if dataTable.route.create is defined %}
     $('body.{{ vars.body_css }}').formCreate({
         modalId: '{{ modal.create_id }}',
@@ -47,12 +57,12 @@
     });
 {% endif %}
 
-{% if dataTable.route.ticket_edit is defined %}
-    $('body.{{ vars.body_css }}').formTicketEdit({
-        buttonId: '{{ modal.ticket_edit_id }}',
-        route: '{{ path(dataTable.route.ticket_edit) }}'
-    });
-{% endif %}
+{#{% if dataTable.route.sales_edit is defined %}#}
+    {#$('body.{{ vars.body_css }}').formTicketEdit({#}
+        {#buttonId: '{{ modal.sales_edit_id }}',#}
+        {#route: '{{ path(dataTable.route.sales_edit) }}'#}
+    {#});#}
+{#{% endif %}#}
 
 {% if dataTable.route.view_profile is defined %}
     $('body.{{ vars.body_css }}').formViewProfile({

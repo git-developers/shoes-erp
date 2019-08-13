@@ -127,9 +127,6 @@
             var discount = parseFloat($(context).val().trim());
             var subtotal = parseFloat($("td.subtotal").text().trim());
 
-            console.log("discount::: " + discount + " ---- subtotal::: " + subtotal);
-
-
             if (discount <= subtotal) {
                 $("td.total").html((subtotal - discount).toFixed(2));
                 $("td.discount").removeClass("bg-red").addClass("bg-gray-1");

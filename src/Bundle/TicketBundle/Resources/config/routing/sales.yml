@@ -8,7 +8,7 @@ backend_sales_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_TICKET_VIEW
             vars:
                 subheader: sylius.ui.manage_your_ticket_catalog
@@ -21,13 +21,13 @@ backend_sales_index:
                 title: Gestionar ventas
                 modal:
                     create:
-                        title: Crear usuario
+                        title: Crear venta
                         size: modal-lg
                     edit:
-                        title: Editar usuario
-                        size: modal-lg
+                        title: Editar venta
+                        size: modal-
                     view:
-                        title: Ver usuario
+                        title: Ver venta
                         size: modal-lg
                     payment_history:
                         title: Historial de pagos
@@ -39,7 +39,7 @@ backend_sales_index:
                         info: backend_sales_info
                         view: backend_sales_view
                         create: backend_sales_create
-                        sales_edit: backend_sales_edit
+                        edit: backend_sales_edit
                         payment_history: backend_payment_history_index
                         #delete: backend_sales_delete
                     table_button:
@@ -82,15 +82,17 @@ backend_sales_index:
                               filter: 1
                         - obj: obj.status
                           options:
-                              property: " if(obj.status == 1){return '<span class=\"label label-success fontsize-12\">ABIERTO</span>'}else if(obj.status == 3){return '<span class=\"label label-danger fontsize-12\">CERRADO</span>'} "
+                              property: " if(obj.status == 1){return '<span class=\"label label-warning fontsize-12\">ABIERTO</span>'}
+                              else if(obj.status == 3){return '<span class=\"label label-success fontsize-12\">COMPLETADO</span>'}
+                              else if(obj.status == 4){return '<span class=\"label label-danger fontsize-12\">CANCELADO</span>'} "
                           defs:
                               targets: 2
                               orderable: 1
                               sorting: 1
                               title: Status
                               width: 10%
-                              className: text-center
-                              filter: 0
+                              className: modal-edit text-center
+                              filter: 1
                         - obj: obj.client.name_box
                           defs:
                               targets: 3
@@ -163,32 +165,21 @@ backend_sales_create:
                     serialize_group_name: sales
 
 backend_sales_edit:
-    path: /edit/{id}
-    methods: [GET, POST]
+    path: /edit
+    methods: [PUT, POST]
     defaults:
-        id: null
-        _controller: tianos.backend.controller.ticket:editAction
+        _controller: tianos.backend.controller.sales:editAction
         _tianos:
             action: edit
-            vars:
-               body_css: grid-body-css
-               serialize_group_name: crud
-            tree:
-               icon: file-text-o
-               box_class: primary
-               title: Gestionar servicios
-               main_div: box-main-div
-               main_ul: box-main-ul
-               child_ul: box-child-ul
-               li_span: li-span
-            entity: Bundle\TicketBundle\Entity\Ticket
-            template: TicketBundle:BackendTicket/Grid:edit.html.twig
+            template: TicketBundle:Sales/Grid:edit.html.twig
+            roles_granted:
+                - ROLE_TICKET_EDIT
             form:
-                type: Bundle\TicketBundle\Form\Type\TicketType
+                type: Bundle\TicketBundle\Form\Type\SalesStatusType
             repository:
                 service: tianos.repository.sales
                 method: find
-                arguments: [$ticketId]
+                arguments: [$userId]
                 vars:
                     serialize_group_name: sales
 

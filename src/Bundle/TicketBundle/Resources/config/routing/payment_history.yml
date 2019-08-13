@@ -26,29 +26,3 @@ backend_payment_history_index:
                 arguments: [$ticketId]
                 vars:
                     serialize_group_name: sales
-
-#backend_payment_history_create:
-#    path: /create
-#    methods: [GET, POST]
-#    defaults:
-#        _controller: tianos.backend.controller.payment.history:createAction
-#        _tianos:
-#            action: create
-#            vars:
-#                body_css: grid-body-css
-#                serialize_group_name: crud
-#            tree:
-#                icon: file-text-o
-#                box_class: primary
-#                title: Gestionar xxx
-#                main_div: box-main-div
-#                main_ul: box-main-ul
-#                child_ul: box-child-ul
-#                li_span: li-span
-#            entity: Bundle\TicketBundle\Entity\PaymentHistory
-#            template: TicketBundle:Sales/Grid:create.html.twig
-#            form:
-#                type: Bundle\TicketBundle\Form\Type\SalesType
-#            repository:
-#                vars:
-#                    serialize_group_name: sales

@@ -63,6 +63,14 @@ Bundle\TicketBundle\Entity\PaymentHistory:
             options:
                 fixed: false
             column: change_back
+        paymentCollected:
+            type: float
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                fixed: false
+            column: payment_collected
         receivedDate:
             type: datetime
             nullable: false

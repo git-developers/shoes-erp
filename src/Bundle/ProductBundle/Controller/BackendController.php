@@ -263,12 +263,12 @@ class BackendController extends GridController
 		$method = $configuration->getRepositoryMethod();
 		$template = $configuration->getTemplate('');
 		$action = $configuration->getAction();
-		$rolesAllow = $configuration->getRolesAllow();
+		$rolesGranted = $configuration->getRolesGranted();
 		$formType = $configuration->getFormType();
 		$vars = $configuration->getVars();
 		
 		//IS_GRANTED
-		if (!$this->isGranted($rolesAllow)) {
+		if (!$this->isGranted($rolesGranted)) {
 			return $this->render(
 				"GridBundle::error.html.twig",
 				[
@@ -397,10 +397,10 @@ class BackendController extends GridController
 		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
 		$template = $configuration->getTemplate('');
 		$action = $configuration->getAction();
-		$rolesAllow = $configuration->getRolesAllow();
+		$rolesGranted = $configuration->getRolesGranted();
 		
 		//IS_GRANTED
-		if (!$this->isGranted($rolesAllow)) {
+		if (!$this->isGranted($rolesGranted)) {
 			return $this->render(
 				"GridBundle::error.html.twig",
 				[

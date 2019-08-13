@@ -8,7 +8,7 @@ backend_user_employee_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_EMPLOYEE_VIEW
             vars:
                 subheader: sylius.ui.manage_your_user_catalog
@@ -136,7 +136,7 @@ backend_user_employee_create:
             action: create
             template: UserBundle:Backend/Form:form.html.twig
             entity: Bundle\UserBundle\Entity\User
-            roles_allow:
+            roles_granted:
                 - ROLE_EMPLOYEE_CREATE
             form:
                 type: Bundle\UserBundle\Form\Type\UserEmployeeType
@@ -152,7 +152,7 @@ backend_user_employee_edit:
         _tianos:
             action: edit
             template: UserBundle:Backend/Form:form.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_EMPLOYEE_EDIT
             form:
                 type: Bundle\UserBundle\Form\Type\UserEmployeeType
@@ -171,7 +171,7 @@ backend_user_employee_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_EMPLOYEE_DELETE
             repository:
                 service: tianos.repository.user
@@ -188,7 +188,7 @@ backend_user_employee_view:
         _tianos:
             action: view
             template: UserBundle:Backend/Informative:view_employee.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_EMPLOYEE_VIEW
             repository:
                 service: tianos.repository.user

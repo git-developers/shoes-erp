@@ -2,8 +2,6 @@
 
 {% block crud_modal_content %}
 
-    {#{{ form_start(form) }}#}
-
     {% if id is defined %}
         <input type="hidden" value="{{ id }}" name="id">
     {% endif %}
@@ -43,8 +41,5 @@
             </div>
         </div>
     </div>
-
-    {#{{ form_widget(form) }}#}
-    {#{{ form_end(form) }}#}
 
 {% endblock %}

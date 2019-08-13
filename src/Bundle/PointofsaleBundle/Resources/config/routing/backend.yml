@@ -8,7 +8,7 @@ backend_pointofsale_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PDV_VIEW
             vars:
                 subheader: sylius.ui.manage_your_pointofsale_catalog
@@ -124,7 +124,7 @@ backend_pointofsale_create:
             action: create
             template: PointofsaleBundle:BackendPointofsale/Form:form_create.html.twig
             entity: Bundle\PointofsaleBundle\Entity\Pointofsale
-            roles_allow:
+            roles_granted:
                 - ROLE_PDV_CREATE
             form:
                 type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
@@ -141,7 +141,7 @@ backend_pointofsale_edit:
             action: edit
             template: PointofsaleBundle:BackendPointofsale/Form:form_edit.html.twig
             entity: Bundle\PointofsaleBundle\Entity\Pointofsale
-            roles_allow:
+            roles_granted:
                 - ROLE_PDV_EDIT
             form:
                 type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
@@ -160,7 +160,7 @@ backend_pointofsale_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PDV_DELETE
             repository:
                 service: tianos.repository.pointofsale
@@ -177,7 +177,7 @@ backend_pointofsale_view:
         _tianos:
             action: view
             template: PointofsaleBundle:BackendPointofsale/Informative:view.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PDV_VIEW
             repository:
                 service: tianos.repository.pointofsale

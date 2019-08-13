@@ -70,18 +70,14 @@ class SalesController extends GridController
 			
 			try {
 				
-				$sales = $request->get($varsRepository->serialize_group_name);
-				$sales = json_decode(json_encode($sales));
-				
-//				echo "POLLO:: <pre>";
-//				print_r($sales);
-//				exit;
+				$salesForm = $request->get($varsRepository->serialize_group_name);
+				$salesForm = json_decode(json_encode($salesForm));
 				
 				
 				/**
 				 * VALIDATE
 				 */
-				if (empty($sales->client)) {
+				if (empty($salesForm->client)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'Seleccione un cliente.'
@@ -95,7 +91,7 @@ class SalesController extends GridController
 					]);
 				}
 				
-				if ($sales->discount > $this->getSaleSubTotal($request)) {
+				if ($salesForm->discount > $this->getSaleSubTotal($request)) {
 					return $this->json([
 						'status' => false,
 						'message' => 'El descuento no puede ser mayor al Importe Total.'
@@ -106,10 +102,10 @@ class SalesController extends GridController
 				/**
 				 * SAVE OBJECT SALES
 				 */
-				$entity->setName($sales->name);
-				$entity->setDeliveryDate(new \DateTime($sales->deliveryDate));
+				$entity->setName($salesForm->name);
+				$entity->setDeliveryDate(new \DateTime($salesForm->deliveryDate));
 				
-				$client = $this->get('tianos.repository.user')->find($sales->client);
+				$client = $this->get('tianos.repository.user')->find($salesForm->client);
 				$entity->setClient($client);
 				
 				$employee = $this->get('tianos.repository.user')->find($user->getId());
@@ -142,23 +138,26 @@ class SalesController extends GridController
 				/**
 				 * PAYMENT HISTORY
 				 */
-				$total = $subTotal - $sales->discount;
+				$total = $subTotal - $salesForm->discount;
+				$changeBack = ($salesForm->payment > $total) ? $salesForm->payment - $total : 0;
+				$paymentCollected = $salesForm->payment - $changeBack;
 				$o = new PaymentHistory();
 				$o->setSales($entity);
 				$o->setSubTotal($subTotal);
-				$o->setDiscount($sales->discount);
-				$o->setPayment($sales->payment);
 				$o->setTotal($total);
-				$o->setChangeBack(($sales->payment > $total) ? $sales->payment - $total : 0);
+				$o->setDiscount($salesForm->discount);
+				$o->setPayment($salesForm->payment);
+				$o->setChangeBack($changeBack);
+				$o->setPaymentCollected($paymentCollected);
 				$o->setReceivedDate(new \DateTime());
-				$paymentType = $this->get('tianos.repository.payment.type')->find($sales->paymentType);
-				$o->setPaymentType($paymentType);
+				$o->setPaymentType($this->get('tianos.repository.payment.type')->find($salesForm->paymentType));
 				$this->persist($o);
 				
 				
 				/**
 				 * UPDATE OBJECT SALES
 				 */
+				$entity->setStatus(($paymentCollected >= $total) ? Sales::STATUS_COMPLETED : Sales::STATUS_OPEN);
 				$entity->setTotal($total);
 				$this->persist($entity);
 				
@@ -196,12 +195,16 @@ class SalesController extends GridController
 		);
 	}
 	
+	
 	/**
 	 * @param Request $request
 	 * @return Response
 	 */
 	public function editAction(Request $request): Response
 	{
+		if (!$this->isXmlHttpRequest()) {
+			throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
+		}
 		
 		$parameters = [
 			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
@@ -215,154 +218,84 @@ class SalesController extends GridController
 		$method = $configuration->getRepositoryMethod();
 		$template = $configuration->getTemplate('');
 		$action = $configuration->getAction();
+		$rolesGranted = $configuration->getRolesGranted();
 		$formType = $configuration->getFormType();
 		$vars = $configuration->getVars();
-		$tree = $configuration->getTree();
-		$entity = $configuration->getEntity();
 		
-//		$entity = new $entity();
+		//IS_GRANTED
+		if (!$this->isGranted($rolesGranted)) {
+			return $this->render(
+				"GridBundle::error.html.twig",
+				[
+					'message' => self::ACCESS_DENIED_MSG,
+				]
+			);
+		}
+		
 		//REPOSITORY
 		$id = $request->get('id');
 		$entity = $this->get($repository)->$method($id);
+		$entity = $this->rowImage($entity);
+		
+		if (!$entity) {
+			throw $this->createNotFoundException('CRUD: Unable to find entity.');
+		}
+		
+		//VALIDACION STATUS
+		if ($entity->getStatus() == Sales::STATUS_CANCELED) {
+			return $this->render(
+				"GridBundle::error.html.twig",
+				[
+					'message' => "La venta ha sido cancelada anteriormente.",
+				]
+			);
+		}
 		
 		$form = $this->createForm($formType, $entity, ['form_data' => []]);
 		$form->handleRequest($request);
 		
-		//USER
-		$user = $this->getUser();
-		
-		
-		//REPOSITORY TREE
-		//$categoryTreeParent = $this->get('tianos.repository.category')->findAllParentsByType($user->getPointOfSaleActiveId(), Category::TYPE_SERVICE);
-		$categoryTreeParent = $this->get('tianos.repository.category')->findAllParentsByType(Category::TYPE_PRODUCT);
-		$categoryTree = $this->getTreeEntities($categoryTreeParent, $configuration, 'tree');
-		
-		$servicesArray = [];
-		$servicesObjs = $this->getServices($categoryTreeParent, $configuration, 'ticket', $servicesArray);
-		//REPOSITORY TREE
-		
-		
-		//SESSION PRODUCTS
-//		$productArray = [];
-//		$session = $request->getSession();
-//		$products = $session->get('products');
-//		//$session->remove('products');
-//
-//		if (!empty($products)) {
-//			foreach ($products as $key => $product) {
-//				$serviceObj = $this->get('tianos.repository.product')->find($product['idItem']);
-//				$serviceObj->setQuantity($product['quantity']);
-//				$productArray[] = $this->getSerializeDecode($serviceObj, 'ticket');
-//			}
-//		}
-		//SESSION PRODUCTS
-		
-		
-		//PRODUCTS
-		$productArray = $this->get('tianos.repository.product')->findAll();
-		$productArray = $this->getSerializeDecode($productArray, 'ticket');
-		//PRODUCTS
-		
-		
-		
 		if ($form->isSubmitted()) {
+			
+			$errors = [];
+			$status = self::STATUS_ERROR;
 			
 			try {
 				
-				$sales = $request->get('ticket');
-				$sales = json_decode(json_encode($sales));
-				
-				$session = $request->getSession();
-				$idClient = $session->get('id_client');
-				$idEmployees = $session->get('id_employee');
-				$products = $session->get('products');
-				
-				if (empty($idClient)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Seleccione un cliente.'
-					]);
+				if ($form->isValid()) {
+					
+					$this->persist($entity);
+					
+					$varsRepository = $configuration->getRepositoryVars();
+					$entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
+					$status = self::STATUS_SUCCESS;
+				} else {
+					foreach ($form->getErrors(true) as $key => $error) {
+						if ($form->isRoot()) {
+							$errors[] = $error->getMessage();
+						} else {
+							$errors[] = $error->getMessage();
+						}
+					}
 				}
-				
-				if (empty($idEmployees)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Seleccione al menos un empleado.'
-					]);
-				}
-				
-				if (empty($products)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Seleccione al menos un servicio.'
-					]);
-				}
-				
-				if (empty($sales->name)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Ingrese un nombre.'
-					]);
-				}
-				
-				if (empty($sales->dateTicket)) {
-					return $this->json([
-						'status' => false,
-						'message' => 'Ingrese la fecha.'
-					]);
-				}
-				
-				
-				$entity->setName($sales->name);
-				$entity->setDateTicket(new \DateTime($sales->dateTicket));
-				
-				$client = $this->get('tianos.repository.user')->find($idClient);
-				$entity->setClient($client);
-				
-				foreach ($idEmployees as $key => $idEmployee) {
-					$employee = $this->get('tianos.repository.user')->find($idEmployee);
-					$entity->addUser($employee);
-				}
-				
-				foreach ($products as $key => $product) {
-					$product = $this->get('tianos.repository.services')->find($product['idItem']);
-					$entity->addServices($product);
-				}
-				
-				$this->persist($entity);
-				
-				$this->flashAlertSuccess('Se creo el ticket.');
-				
-				//Remove session
-				$session = $request->getSession();
-				$session->remove('id_client');
-				$session->remove('id_employee');
-				$session->remove('services');
-				
-				return $this->json([
-					'status' => true
-				]);
 				
 			} catch (\Exception $e) {
-				return $this->json([
-					'status' => false,
-					'message' => $e->getMessage()
-				]);
+				$errors[] = $e->getMessage();
 			}
 			
+			return $this->json([
+				'id' => $id,
+				'status' => $status,
+				'errors' => $errors,
+				'entity' => $entity,
+			]);
 		}
 		
 		return $this->render(
 			$template,
 			[
-				'tree' => $tree,
-				'vars' => $vars,
+				'id' => $id,
 				'action' => $action,
-				'servicesObjs' => $servicesObjs,
-				'categoryTree' => $categoryTree,
-				'products' => $productArray,
-				'entity' => $entity
-//				'form' => $form->createView(),
+				'form' => $form->createView(),
 			]
 		);
 	}
@@ -406,89 +339,6 @@ class SalesController extends GridController
 				'action' => $action,
 				'entity' => $entity,
 				'salesHasProducts' => $salesHasProducts,
-			]
-		);
-	}
-	
-	/**
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function paymentHistoryAction(Request $request): Response
-	{
-		if (!$this->isXmlHttpRequest()) {
-			throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
-		}
-		
-		$parameters = [
-			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
-		];
-		$applicationName = $this->container->getParameter('application_name');
-		$this->metadata = new Metadata('tianos', $applicationName, $parameters);
-		
-		//CONFIGURATION
-		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
-		$template = $configuration->getTemplate('');
-		$action = $configuration->getAction();
-		$formType = $configuration->getFormType();
-		$vars = $configuration->getVars();
-		$varsRepository = $configuration->getRepositoryVars();
-		$tree = $configuration->getTree();
-		$entity = $configuration->getEntity();
-		$entity = new $entity();
-		
-		$form = $this->createForm($formType, $entity, ['form_data' => []]);
-		$form->handleRequest($request);
-		
-		
-		//REPOSITORY
-		$repository = $configuration->getRepositoryService();
-		$method = $configuration->getRepositoryMethod();
-		$paymentHistory = $this->get($repository)->$method($request->get('id'));
-		
-		
-		if ($form->isSubmitted()) {
-			
-			$errors = [];
-			$entityJson = null;
-			$status = self::STATUS_ERROR;
-			
-			try {
-				
-				if ($form->isValid()) {
-					
-					$this->persist($entity);
-					
-					$varsRepository = $configuration->getRepositoryVars();
-					$entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
-					$status = self::STATUS_SUCCESS;
-				} else {
-					foreach ($form->getErrors(true) as $key => $error) {
-						if ($form->isRoot()) {
-							$errors[] = $error->getMessage();
-						} else {
-							$errors[] = $error->getMessage();
-						}
-					}
-				}
-				
-			} catch (\Exception $e) {
-				$errors[] = $e->getMessage();
-			}
-			
-			return $this->json([
-				'status' => $status,
-				'errors' => $errors,
-				'entity' => $entity,
-			]);
-		}
-		
-		return $this->render(
-			$template,
-			[
-				'action' => $action,
-				'form' => $form->createView(),
-				'paymentHistory' => $paymentHistory,
 			]
 		);
 	}

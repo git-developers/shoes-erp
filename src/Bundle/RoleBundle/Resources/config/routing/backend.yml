@@ -8,7 +8,7 @@ backend_role_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PROFILE_VIEW
             vars:
                 subheader: sylius.ui.manage_your_role_catalog
@@ -93,7 +93,7 @@ backend_role_create:
             action: create
             template: RoleBundle:BackendRole/Form:form.html.twig
             entity: Bundle\RoleBundle\Entity\Role
-            roles_allow:
+            roles_granted:
                 - ROLE_PROFILE_CREATE
             form:
                 type: Bundle\RoleBundle\Form\Type\RoleType
@@ -109,7 +109,7 @@ backend_role_edit:
         _tianos:
             action: edit
             template: RoleBundle:BackendRole/Form:form.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PROFILE_EDIT
             form:
                 type: Bundle\RoleBundle\Form\Type\RoleType
@@ -128,7 +128,7 @@ backend_role_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PROFILE_DELETE
             repository:
                 service: tianos.repository.role
@@ -145,7 +145,7 @@ backend_role_view:
         _tianos:
             action: view
             template: RoleBundle:BackendRole/Informative:view.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PROFILE_VIEW
             repository:
                 service: tianos.repository.role

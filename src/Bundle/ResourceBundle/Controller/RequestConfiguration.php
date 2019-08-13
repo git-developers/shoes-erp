@@ -407,13 +407,13 @@ class RequestConfiguration
         return is_array($repository) ? $repository['method'] : $repository;
     }
     
-    public function getRolesAllow()
+    public function getRolesGranted()
     {
-        if (!$this->parameters->has('roles_allow')) {
+        if (!$this->parameters->has('roles_granted')) {
             return null;
         }
 
-        $roles = $this->parameters->get('roles_allow');
+        $roles = $this->parameters->get('roles_granted');
 
         return is_array($roles) ? $roles : [];
     }

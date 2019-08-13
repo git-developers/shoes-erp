@@ -8,7 +8,7 @@ backend_user_client_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_CLIENT_VIEW
             vars:
                 subheader: sylius.ui.manage_your_user_catalog
@@ -135,7 +135,7 @@ backend_user_client_create:
             action: create
             template: UserBundle:Backend/Form:form.html.twig
             entity: Bundle\UserBundle\Entity\User
-            roles_allow:
+            roles_granted:
                 - ROLE_CLIENT_CREATE
             form:
                 type: Bundle\UserBundle\Form\Type\UserClientType
@@ -151,7 +151,7 @@ backend_user_client_edit:
         _tianos:
             action: edit
             template: UserBundle:Backend/Form:form.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_CLIENT_EDIT
             form:
                 type: Bundle\UserBundle\Form\Type\UserClientType
@@ -170,7 +170,7 @@ backend_user_client_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_CLIENT_DELETE
             repository:
                 service: tianos.repository.user
@@ -187,7 +187,7 @@ backend_user_client_view:
         _tianos:
             action: view
             template: UserBundle:Backend/Informative:view_client.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_CLIENT_VIEW
             repository:
                 service: tianos.repository.user

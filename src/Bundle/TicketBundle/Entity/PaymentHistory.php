@@ -103,6 +103,15 @@ class PaymentHistory
 	 * @var float
 	 *
 	 * @JMSS\Groups({
+	 *     "sales"
+	 * })
+	 */
+	private $paymentCollected = 0;
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
 	 *     "crud"
 	 * })
 	 */
@@ -431,6 +440,22 @@ class PaymentHistory
 	public function setSalesId(int $salesId)
 	{
 		$this->salesId = $salesId;
+	}
+	
+	/**
+	 * @return float
+	 */
+	public function getPaymentCollected() //: float
+	{
+		return $this->paymentCollected;
+	}
+	
+	/**
+	 * @param float $paymentCollected
+	 */
+	public function setPaymentCollected(float $paymentCollected)
+	{
+		$this->paymentCollected = $paymentCollected;
 	}
 	
 

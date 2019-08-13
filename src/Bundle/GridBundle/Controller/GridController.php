@@ -53,10 +53,10 @@ class GridController extends BaseController
         $grid = $configuration->getGrid();
         $vars = $configuration->getVars();
         $modal = $configuration->getModal();
-        $rolesAllow = $configuration->getRolesAllow();
-	
+        $rolesGranted = $configuration->getRolesGranted();
+        
         //IS_GRANTED
-	    $this->denyAccessUnlessGranted($rolesAllow, null, self::ACCESS_DENIED_MSG);
+	    $this->denyAccessUnlessGranted($rolesGranted, null, self::ACCESS_DENIED_MSG);
 
         //REPOSITORY
         $objects = $this->get($repository)->$method();
@@ -127,12 +127,12 @@ class GridController extends BaseController
         $action = $configuration->getAction();
         $formType = $configuration->getFormType();
         $vars = $configuration->getVars();
-	    $rolesAllow = $configuration->getRolesAllow();
+	    $rolesGranted = $configuration->getRolesGranted();
         $entity = $configuration->getEntity();
         $entity = new $entity();
 	
 	    //IS_GRANTED
-	    if (!$this->isGranted($rolesAllow)) {
+	    if (!$this->isGranted($rolesGranted)) {
 		    return $this->render(
 			    "GridBundle::error.html.twig",
 			    [
@@ -212,12 +212,12 @@ class GridController extends BaseController
         $method = $configuration->getRepositoryMethod();
         $template = $configuration->getTemplate('');
         $action = $configuration->getAction();
-	    $rolesAllow = $configuration->getRolesAllow();
+	    $rolesGranted = $configuration->getRolesGranted();
         $formType = $configuration->getFormType();
         $vars = $configuration->getVars();
 	
 	    //IS_GRANTED
-	    if (!$this->isGranted($rolesAllow)) {
+	    if (!$this->isGranted($rolesGranted)) {
 		    return $this->render(
 			    "GridBundle::error.html.twig",
 			    [
@@ -243,7 +243,7 @@ class GridController extends BaseController
             $errors = [];
             $status = self::STATUS_ERROR;
 
-            try{
+            try {
 
                 if ($form->isValid()) {
 
@@ -252,7 +252,7 @@ class GridController extends BaseController
                     $varsRepository = $configuration->getRepositoryVars();
                     $entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);
                     $status = self::STATUS_SUCCESS;
-                }else{
+                } else {
                     foreach ($form->getErrors(true) as $key => $error) {
                         if ($form->isRoot()) {
                             $errors[] = $error->getMessage();
@@ -262,7 +262,7 @@ class GridController extends BaseController
                     }
                 }
 
-            }catch (\Exception $e){
+            } catch (\Exception $e) {
                 $errors[] = $e->getMessage();
             }
 
@@ -304,10 +304,10 @@ class GridController extends BaseController
         $configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
         $template = $configuration->getTemplate('');
         $action = $configuration->getAction();
-	    $rolesAllow = $configuration->getRolesAllow();
+	    $rolesGranted = $configuration->getRolesGranted();
 	
 	    //IS_GRANTED
-	    if (!$this->isGranted($rolesAllow)) {
+	    if (!$this->isGranted($rolesGranted)) {
 		    return $this->render(
 			    "GridBundle::error.html.twig",
 			    [
@@ -374,10 +374,10 @@ class GridController extends BaseController
         $configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
         $template = $configuration->getTemplate('');
         $action = $configuration->getAction();
-	    $rolesAllow = $configuration->getRolesAllow();
+	    $rolesGranted = $configuration->getRolesGranted();
 	
 	    //IS_GRANTED
-	    if (!$this->isGranted($rolesAllow)) {
+	    if (!$this->isGranted($rolesGranted)) {
 		    return $this->render(
 			    "GridBundle::error.html.twig",
 			    [

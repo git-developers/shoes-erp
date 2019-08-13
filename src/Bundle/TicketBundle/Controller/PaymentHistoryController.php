@@ -59,6 +59,9 @@ class PaymentHistoryController extends GridController
 		$method = $configuration->getRepositoryMethod();
 		$paymentHistory = $this->get($repository)->$method($salesId);
 		
+		//SALES OBJECT
+		$sales = $this->get('tianos.repository.sales')->find($salesId);
+		
 		if ($form->isSubmitted()) {
 			
 			$errors = [];
@@ -69,17 +72,20 @@ class PaymentHistoryController extends GridController
 				
 				if ($form->isValid()) {
 					
-					$sales = $this->get('tianos.repository.sales')->find($entity->getSalesId());
+					$salesId = $entity->getSalesId();
 					
+					$sales = $this->get('tianos.repository.sales')->find($salesId);
 					$entity->setSales($sales);
+					$entity->setChangeBack( empty($entity->getChangeBack()) ? 0 : $entity->getChangeBack() );
+					$entity->setPaymentCollected($entity->getPayment() - $entity->getChangeBack());
 					$entity->setReceivedDate(new \DateTime());
 					$this->persist($entity);
 					
 					/**
 					 * UPDATE SALES STATUS
 					 */
-					$paymentHistory = $this->get($repository)->$method($entity->getSalesId());
-					$sales = $this->updateSalesUpdate($sales, $paymentHistory);
+					$paymentHistory = $this->get($repository)->$method($salesId);
+					$sales = $this->updateSalesStatus($sales, $paymentHistory);
 					
 					$varsRepository = $configuration->getRepositoryVars();
 					$sales = $this->getSerializeDecode($sales, $varsRepository->serialize_group_name);
@@ -110,8 +116,8 @@ class PaymentHistoryController extends GridController
 		return $this->render(
 			$template,
 			[
-				'salesId' => $salesId,
 				'action' => $action,
+				'entity' => $sales,
 				'form' => $form->createView(),
 				'paymentHistory' => $paymentHistory,
 			]
@@ -128,7 +134,7 @@ class PaymentHistoryController extends GridController
 		return $total;
 	}
 	
-	private function updateSalesUpdate(Sales $sales, array $paymentHistory): Sales
+	private function updateSalesStatus(Sales $sales, array $paymentHistory): Sales
 	{
 		
 		if ($this->sumPayment($paymentHistory) >= $sales->getTotal()) {

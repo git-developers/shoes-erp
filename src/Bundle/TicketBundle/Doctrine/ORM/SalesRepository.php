@@ -9,7 +9,7 @@ use Component\Ticket\Repository\TicketRepositoryInterface;
 
 class SalesRepository extends TianosEntityRepository implements TicketRepositoryInterface
 {
-
+	
     /**
      * {@inheritdoc}
      */

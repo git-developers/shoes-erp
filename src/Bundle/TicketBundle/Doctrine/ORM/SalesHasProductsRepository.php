@@ -16,10 +16,12 @@ class SalesHasProductsRepository extends TianosEntityRepository
     {
 	    $em = $this->getEntityManager();
         $dql = "
-            SELECT a
-            FROM TicketBundle:SalesHasProducts a
+            SELECT o, product, category
+            FROM TicketBundle:SalesHasProducts o
+            INNER JOIN o.product product
+            INNER JOIN product.category category
             WHERE
-            a.sales = :id
+            o.sales = :id
             ";
 
         $query = $em->createQuery($dql);

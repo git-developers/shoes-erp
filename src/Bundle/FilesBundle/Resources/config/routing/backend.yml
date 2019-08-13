@@ -67,7 +67,7 @@ backend_files_open_modal:
             action: upload_info
             template: FilesBundle:BackendFiles/Form:image_form.html.twig
             entity: Bundle\FilesBundle\Entity\Files
-            roles_allow:
+            roles_granted:
                 - ROLE_UPLOAD_IMAGE
             form:
                 type: Bundle\FilesBundle\Form\Type\FilesType
@@ -87,7 +87,7 @@ backend_files_create:
             action: upload_info
             template: FilesBundle:BackendFiles/Form:image_form.html.twig
             entity: Bundle\FilesBundle\Entity\Files
-            roles_allow:
+            roles_granted:
                 - ROLE_UPLOAD_IMAGE
             form:
                 type: Bundle\FilesBundle\Form\Type\FilesType

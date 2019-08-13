@@ -8,7 +8,7 @@ backend_settings_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_SETTINGS
             vars:
                 subheader: sylius.ui.manage_your_settings_catalog

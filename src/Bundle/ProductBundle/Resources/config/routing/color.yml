@@ -8,7 +8,7 @@ backend_color_index:
             section: admin
             permission: true
             template: GridBundle::index.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PRODUCT_VIEW
             vars:
                 subheader: sylius.ui.manage_your_profile_catalog
@@ -98,7 +98,7 @@ backend_color_create:
             action: create
             template: ProductBundle:Color/Form:form.html.twig
             entity: Bundle\ProductBundle\Entity\Color
-            roles_allow:
+            roles_granted:
                 - ROLE_PRODUCT_CREATE
             form:
                 type: Bundle\ProductBundle\Form\Type\ColorFormType
@@ -114,7 +114,7 @@ backend_color_edit:
         _tianos:
             action: edit
             template: ProductBundle:Color/Form:form.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PRODUCT_EDIT
             form:
                 type: Bundle\ProductBundle\Form\Type\ColorFormType
@@ -133,7 +133,7 @@ backend_color_delete:
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PRODUCT_DELETE
             repository:
                 service: tianos.repository.color
@@ -150,7 +150,7 @@ backend_color_view:
         _tianos:
             action: view
             template: ProductBundle:Color/Informative:view.html.twig
-            roles_allow:
+            roles_granted:
                 - ROLE_PRODUCT_VIEW
             repository:
                 service: tianos.repository.color

@@ -86,11 +86,6 @@
                     modalRefresh.hide();
 
                     if (data.status) {
-
-                        console.dir(options.dataTableObject);
-
-
-
                         var row = options.dataTableObject.row('[data-id="' + data.id + '"]');
                         row.data(data.entity).draw();
                         modal.modal('hide');

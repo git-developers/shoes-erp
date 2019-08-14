@@ -17,7 +17,7 @@ use Bundle\TicketBundle\Entity\PaymentType;
 use Bundle\TicketBundle\Entity\Sales;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class SalesType extends AbstractType
+class OrdersType extends AbstractType
 {
 
     /**
@@ -56,28 +56,6 @@ class SalesType extends AbstractType
                     'placeholder' => 'descripción',
                 ],
             ])
-	        ->add('discount', HiddenType::class, [
-		        'label' => false,
-		        'required' => false,
-		        'label_attr' => [
-			        'class' => ''
-		        ],
-		        'attr' => [
-			        'class' => '',
-			        'placeholder' => '',
-		        ],
-	        ])
-	        ->add('payment', HiddenType::class, [ //HiddenType
-		        'label' => false,
-		        'required' => false,
-		        'label_attr' => [
-			        'class' => ''
-		        ],
-		        'attr' => [
-			        'class' => '',
-			        'placeholder' => '',
-		        ],
-	        ])
 	        ->add('client', EntityType::class, array(
 		        'class' => User::class,
 		        'query_builder' => function(EntityRepository $er) {
@@ -87,23 +65,6 @@ class SalesType extends AbstractType
 		        'empty_data' => null,
 		        'required' => false,
 		        'label' => 'Cliente',
-		        'label_attr' => [
-			        'class' => ''
-		        ],
-		        'attr' => [
-			        'class' => 'form-control hide',
-			        'placeholder' => '',
-		        ],
-	        ))
-	        ->add('paymentType', EntityType::class, array(
-		        'class' => PaymentType::class,
-		        'query_builder' => function(EntityRepository $er) {
-			        return $er->findAllObjects();
-		        },
-		        'placeholder' => '[ Escoge forma de pago ]',
-		        'empty_data' => null,
-		        'required' => false,
-		        'label' => 'Forma de pago',
 		        'label_attr' => [
 			        'class' => ''
 		        ],

@@ -9,15 +9,15 @@ use JMS\Serializer\Annotation as JMSS;
 use JMS\Serializer\Annotation\Type as TypeJMS;
 
 /**
- * Sales
+ * Orders
  */
-class Sales
+class Orders
 {
 	
-	const ROLE_SALES_VIEW = 'ROLE_SALES_VIEW';
-	const ROLE_SALES_CREATE = 'ROLE_SALES_CREATE';
-	const ROLE_SALES_EDIT = 'ROLE_SALES_EDIT';
-	const ROLE_SALES_DELETE = 'ROLE_SALES_DELETE';
+	const ROLE_ORDERS_VIEW = 'ROLE_ORDERS_VIEW';
+	const ROLE_ORDERS_CREATE = 'ROLE_ORDERS_CREATE';
+	const ROLE_ORDERS_EDIT = 'ROLE_ORDERS_EDIT';
+	const ROLE_ORDERS_DELETE = 'ROLE_ORDERS_DELETE';
 	
 	const STATUS_OPEN = 1;
 	const STATUS_IN_PROGRESS = 2;
@@ -40,37 +40,6 @@ class Sales
      * @JMSS\Groups({"sales"})
      */
     private $code;
-	
-	/**
-	 * @var float
-	 *
-	 * @JMSS\Groups({
-	 *     "pdv_product",
-	 *     "sales"
-	 * })
-	 *
-	 */
-	private $discount = 0;
-	
-	/**
-	 * @var float
-	 *
-	 * @JMSS\Groups({
-	 *     "pdv_product",
-	 *     "sales"
-	 * })
-	 *
-	 */
-	private $payment = 0;
-	
-	/**
-	 * @var float
-	 *
-	 * @JMSS\Groups({
-	 *     "sales"
-	 * })
-	 */
-	private $total = 0;
     
     /**
      * @var string
@@ -169,14 +138,6 @@ class Sales
 	private $pointOfSale;
 	
 	/**
-	 * @var \Bundle\TicketBundle\Entity\PaymentType
-	 *
-	 * @JMSS\Groups({"sales"})
-	 */
-	private $paymentType;
-	
-	
-	/**
 	 * Constructor
 	 */
 	public function __construct()
@@ -199,7 +160,7 @@ class Sales
      *
      * @param string $code
      *
-     * @return Sales
+     * @return Orders
      */
     public function setCode($code)
     {
@@ -223,7 +184,7 @@ class Sales
      *
      * @param string $name
      *
-     * @return Sales
+     * @return Orders
      */
     public function setName($name)
     {
@@ -247,7 +208,7 @@ class Sales
      *
      * @param string $slug
      *
-     * @return Sales
+     * @return Orders
      */
     public function setSlug($slug)
     {
@@ -271,7 +232,7 @@ class Sales
      *
      * @param \DateTime $createdAt
      *
-     * @return Sales
+     * @return Orders
      */
     public function setCreatedAt($createdAt)
     {
@@ -305,22 +266,6 @@ class Sales
 	}
 	
 	/**
-	 * @return float
-	 */
-	public function getTotal() //: float
-	{
-		return $this->total;
-	}
-	
-	/**
-	 * @param float $total
-	 */
-	public function setTotal($total)
-	{
-		$this->total = empty($total) ? 0 : $total;
-	}
-	
-	/**
 	 * @param \DateTime $deliveryDate
 	 */
 	public function setDeliveryDate($deliveryDate)
@@ -333,7 +278,7 @@ class Sales
      *
      * @param integer $userCreate
      *
-     * @return Sales
+     * @return Orders
      */
     public function setUserCreate($userCreate)
     {
@@ -357,7 +302,7 @@ class Sales
      *
      * @param \DateTime $updatedAt
      *
-     * @return Sales
+     * @return Orders
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -381,7 +326,7 @@ class Sales
      *
      * @param integer $userUpdate
      *
-     * @return Sales
+     * @return Orders
      */
     public function setUserUpdate($userUpdate)
     {
@@ -405,7 +350,7 @@ class Sales
      *
      * @param boolean $isActive
      *
-     * @return Sales
+     * @return Orders
      */
     public function setIsActive($isActive)
     {
@@ -429,7 +374,7 @@ class Sales
 	 *
 	 * @param \Bundle\UserBundle\Entity\User $client
 	 *
-	 * @return Sales
+	 * @return Orders
 	 */
 	public function setClient(\Bundle\UserBundle\Entity\User $client = null)
 	{
@@ -453,7 +398,7 @@ class Sales
 	 *
 	 * @param \Bundle\UserBundle\Entity\User $employee
 	 *
-	 * @return Sales
+	 * @return Orders
 	 */
 	public function addEmployee(\Bundle\UserBundle\Entity\User $employee)
 	{
@@ -487,7 +432,7 @@ class Sales
 	 *
 	 * @param \Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale
 	 *
-	 * @return Sales
+	 * @return Orders
 	 */
 	public function setPointOfSale(\Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSale = null)
 	{
@@ -520,56 +465,6 @@ class Sales
 	public function setStatus(int $status)
 	{
 		$this->status = $status;
-	}
-	
-	/**
-	 * @return float
-	 */
-	public function getDiscount() //: float
-	{
-		return $this->discount;
-	}
-	
-	/**
-	 * @param float $discount
-	 */
-	public function setDiscount($discount)
-	{
-//		$this->discount = $discount;
-		$this->discount = empty($discount) ? 0 : $discount;
-	}
-	
-	/**
-	 * @return float
-	 */
-	public function getPayment() //: float
-	{
-		return $this->payment;
-	}
-	
-	/**
-	 * @param float $payment
-	 */
-	public function setPayment($payment)
-	{
-//		$this->payment = $payment;
-		$this->payment = empty($payment) ? 0 : $payment;
-	}
-	
-	/**
-	 * @return PaymentType
-	 */
-	public function getPaymentType() //: PaymentType
-	{
-		return $this->paymentType;
-	}
-	
-	/**
-	 * @param PaymentType $paymentType
-	 */
-	public function setPaymentType(PaymentType $paymentType)
-	{
-		$this->paymentType = $paymentType;
 	}
 	
 	

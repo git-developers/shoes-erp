@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                     {% for client in clients %}
-                        <tr>
+                        <tr class="tr-client x-hand">
                             <td class="text-center">
                                 <input
                                     type="radio"
@@ -88,5 +88,13 @@
         </div>
 
     {{ form_end(form) }}
+
+    <script type="text/javascript">
+        $(document).on('click', 'tr.tr-client', function() {
+            $(this).closest('tr').find('[type=radio]').prop('checked', function (i, value) {
+                return !value;
+            });
+        });
+    </script>
 
 {% endspaceless %}

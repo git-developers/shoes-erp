@@ -28,6 +28,18 @@ services:
         tags:
             - { name: tianos.backend.controller.sales, alias: tianos.backend.controller.sales }
 
+    tianos.backend.controller.orders:
+        class: Bundle\TicketBundle\Controller\OrdersController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.orders, alias: tianos.backend.controller.orders }
+
+    tianos.backend.controller.orders:
+        class: Bundle\TicketBundle\Controller\OrdersController
+        arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.orders, alias: tianos.backend.controller.orders }
+
     tianos.backend.controller.payment.history:
         class: Bundle\TicketBundle\Controller\PaymentHistoryController
         arguments: [ Bundle\GridBundle\Factory\RequestConfigurationFactoryInterface ]

@@ -19,7 +19,7 @@ use Bundle\TicketBundle\Entity\PaymentHistory;
 use Bundle\TicketBundle\Entity\SalesHasProducts;
 
 
-class SalesController extends GridController
+class OrdersController extends GridController
 {
 	
 	/**
@@ -70,8 +70,8 @@ class SalesController extends GridController
 			
 			try {
 				
-				$salesForm = $request->get($varsRepository->serialize_group_name);
-				$salesForm = json_decode(json_encode($salesForm));
+				$ordersForm = $request->get($varsRepository->serialize_group_name);
+				$ordersForm = json_decode(json_encode($ordersForm));
 				
 				
 				/**
@@ -83,9 +83,9 @@ class SalesController extends GridController
 				/**
 				 * SAVE OBJECT SALES
 				 */
-				$entity->setName($salesForm->name);
-				$entity->setDeliveryDate(new \DateTime($salesForm->deliveryDate));
-				$client = $this->get('tianos.repository.user')->find($salesForm->client);
+				$entity->setName($ordersForm->name);
+				$entity->setDeliveryDate(new \DateTime($ordersForm->deliveryDate));
+				$client = $this->get('tianos.repository.user')->find($ordersForm->client);
 				$entity->setClient($client);
 				$employee = $this->get('tianos.repository.user')->find($user->getId());
 				$entity->addEmployee($employee);
@@ -97,8 +97,7 @@ class SalesController extends GridController
 				/**
 				 * SAVE TICKET
 				 */
-				$subTotal = 0;
-				foreach ($request->getSession()->get('products') as $key => $productSave) {
+				foreach ($request->getSession()->get('products_order') as $key => $productSave) {
 					$product = $this->get('tianos.repository.product')->find($productSave['idItem']);
 					
 					$o = new SalesHasProducts();
@@ -107,36 +106,7 @@ class SalesController extends GridController
 					$o->setQuantity($productSave['quantity']);
 					$o->setUnitPrice($product->getPrice());
 					$this->persist($o);
-					
-					$subTotal += $product->getPrice() * $productSave['quantity'];
 				}
-				
-				
-				/**
-				 * PAYMENT HISTORY
-				 */
-				$total = $subTotal - $salesForm->discount;
-				$changeBack = ($salesForm->payment > $total) ? $salesForm->payment - $total : 0;
-				$paymentCollected = $salesForm->payment - $changeBack;
-				$o = new PaymentHistory();
-				$o->setSales($entity);
-				$o->setSubTotal($subTotal);
-				$o->setTotal($total);
-				$o->setDiscount($salesForm->discount);
-				$o->setPayment($salesForm->payment);
-				$o->setChangeBack($changeBack);
-				$o->setPaymentCollected($paymentCollected);
-				$o->setReceivedDate(new \DateTime());
-				$o->setPaymentType($this->get('tianos.repository.payment.type')->find($salesForm->paymentType));
-				$this->persist($o);
-				
-				
-				/**
-				 * UPDATE OBJECT SALES
-				 */
-				$entity->setStatus(($paymentCollected >= $total) ? Sales::STATUS_COMPLETED : Sales::STATUS_OPEN);
-				$entity->setTotal($total);
-				$this->persist($entity);
 				
 				
 				//message success
@@ -144,7 +114,7 @@ class SalesController extends GridController
 				
 				
 				//Remove session
-				$request->getSession()->remove('products');
+				$request->getSession()->remove('products_order');
 				
 				return $this->json([
 					'status' => true
@@ -406,7 +376,7 @@ class SalesController extends GridController
 		$template = $configuration->getTemplate('');
 		
 		//REMOVE SESSION
-		$request->getSession()->remove('products');
+		$request->getSession()->remove('products_order');
 		
 		return $this->render(
 			$template,
@@ -443,7 +413,7 @@ class SalesController extends GridController
 		$this->incrementDecrementSession($request, $request->get('action'));
 		
 		$productSession = [];
-		foreach ($request->getSession()->get('products') as $key => $product) {
+		foreach ($request->getSession()->get('products_order') as $key => $product) {
 			$obj = $this->get('tianos.repository.product')->find($product['idItem']);
 			$obj->setQuantity($product['quantity']);
 			$productSession[] = $this->getSerializeDecode($obj, $varsRepository->serialize_group_name);
@@ -546,8 +516,8 @@ class SalesController extends GridController
 	{
 		$productSession = [];
 		
-		if (!empty($request->getSession()->get('products'))) {
-			foreach ($request->getSession()->get('products') as $key => $product) {
+		if (!empty($request->getSession()->get('products_order'))) {
+			foreach ($request->getSession()->get('products_order') as $key => $product) {
 				$obj = $this->get('tianos.repository.product')->find($product['idItem']);
 				
 				if (is_null($obj)) {
@@ -562,43 +532,25 @@ class SalesController extends GridController
 		return array_filter($productSession);
 	}
 	
-	private function getSaleSubTotal(Request $request)
-	{
-		$subTotal = 0;
-		foreach ($request->getSession()->get('products') as $key => $productSave) {
-			$product = $this->get('tianos.repository.product')->find($productSave['idItem']);
-			$subTotal += $product->getPrice() * $productSave['quantity'];
-		}
-		
-		return $subTotal;
-	}
-	
 	private function formValidation(Request $request, $groupName)
 	{
-		$salesForm = json_decode(json_encode($request->get($groupName)));
+		$ordersForm = json_decode(json_encode($request->get($groupName)));
 		
-		if (empty($salesForm->client)) {
+		if (empty($ordersForm->client)) {
 			throw new \Exception("Seleccione un cliente.");
 		}
-		
-		if (empty($salesForm->paymentType)) {
-			throw new \Exception("Seleccione un tipo de pago.");
-		}
-		
-		if (empty($salesForm->deliveryDate)) {
+
+		if (empty($ordersForm->deliveryDate)) {
 			throw new \Exception("Seleccione la Fecha de entrega.");
 		}
 		
-		if (empty($salesForm->payment)) {
+		if (empty($ordersForm->payment)) {
 			throw new \Exception("Ingrese pago del cliente.");
 		}
 		
-		if (empty($request->getSession()->get('products'))) {
+		if (empty($request->getSession()->get('products_order'))) {
 			throw new \Exception("Seleccione al menos un producto.");
 		}
 		
-		if ($salesForm->discount > $this->getSaleSubTotal($request)) {
-			throw new \Exception("El descuento no puede ser mayor al Importe Total.");
-		}
 	}
 }

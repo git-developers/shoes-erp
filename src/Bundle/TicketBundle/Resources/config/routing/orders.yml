@@ -1,8 +1,8 @@
-backend_sales_index:
+backend_orders_index:
     path: /
     methods: [GET]
     defaults:
-        _controller: tianos.backend.controller.sales:indexAction
+        _controller: tianos.backend.controller.orders:indexAction
         _tianos:
             action: index
             section: admin
@@ -18,7 +18,7 @@ backend_sales_index:
             grid:
                 icon: shopping-cart
                 box_class: primary
-                title: Gestionar ventas
+                title: Gestionar pedidos
                 modal:
                     create:
                         title: Crear venta
@@ -36,12 +36,12 @@ backend_sales_index:
                         title: Cambiar password
                 data_table:
                     route:
-                        info: backend_sales_info
-                        view: backend_sales_view
-                        create: backend_sales_create
-                        edit: backend_sales_edit
+                        info: backend_orders_info
+                        view: backend_orders_view
+                        create: backend_orders_create
+                        edit: backend_orders_edit
                         payment_history: backend_payment_history_index
-                        #delete: backend_sales_delete
+                        #delete: backend_orders_delete
                     table_button:
                         #- ticket_edit
                         #- edit
@@ -130,19 +130,19 @@ backend_sales_index:
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
             form:
-                type: Bundle\TicketBundle\Form\Type\SalesType
+                type: Bundle\TicketBundle\Form\Type\OrdersType
             repository:
-                service: tianos.repository.sales
+                service: tianos.repository.orders
                 method: findAll
                 arguments: [$ticketId]
                 vars:
-                    serialize_group_name: sales
+                    serialize_group_name: orders
 
-backend_sales_create:
+backend_orders_create:
     path: /create
     methods: [GET, POST]
     defaults:
-        _controller: tianos.backend.controller.sales:createAction
+        _controller: tianos.backend.controller.orders:createAction
         _tianos:
             action: create
             vars:
@@ -157,40 +157,40 @@ backend_sales_create:
                 child_ul: box-child-ul
                 li_span: li-span
             entity: Bundle\TicketBundle\Entity\Sales
-            template: TicketBundle:Sales/Grid:create.html.twig
+            template: TicketBundle:Orders/Grid:create.html.twig
             form:
-                type: Bundle\TicketBundle\Form\Type\SalesType
+                type: Bundle\TicketBundle\Form\Type\OrdersType
             repository:
                 vars:
-                    serialize_group_name: sales
+                    serialize_group_name: orders
 
-backend_sales_edit:
+backend_orders_edit:
     path: /edit
     methods: [PUT, POST]
     defaults:
-        _controller: tianos.backend.controller.sales:editAction
+        _controller: tianos.backend.controller.orders:editAction
         _tianos:
             action: edit
-            template: TicketBundle:Sales/Grid:edit.html.twig
+            template: TicketBundle:Orders/Grid:edit.html.twig
             roles_granted:
                 - ROLE_TICKET_EDIT
             form:
                 type: Bundle\TicketBundle\Form\Type\SalesStatusType
             repository:
-                service: tianos.repository.sales
+                service: tianos.repository.orders
                 method: find
                 arguments: [$userId]
                 vars:
-                    serialize_group_name: sales
+                    serialize_group_name: orders
 
-backend_sales_add_client:
+backend_orders_add_client:
     path: /add-cliente
     methods: [PUT, POST]
     defaults:
-        _controller: tianos.backend.controller.sales:addClienteAction
+        _controller: tianos.backend.controller.orders:addClienteAction
         _tianos:
             action: create
-            template: TicketBundle:Sales/Modal/Client:data.html.twig
+            template: TicketBundle:Orders/Modal/Client:data.html.twig
             vars:
                 body_css: grid-body-css
                 serialize_group_name: crud
@@ -201,16 +201,16 @@ backend_sales_add_client:
                 service: tianos.repository.user
                 method: findAllClient
                 vars:
-                    serialize_group_name: sales
+                    serialize_group_name: orders
 
-backend_sales_increment_item:
+backend_orders_increment_item:
     path: /increment-item
     methods: [PUT, POST]
     defaults:
-        _controller: tianos.backend.controller.sales:incrementDecrementItemAction
+        _controller: tianos.backend.controller.orders:incrementDecrementItemAction
         _tianos:
             action: create
-            template: TicketBundle:Sales/Grid/Box:table_product.html.twig
+            template: TicketBundle:Orders/Grid/Box:table_product.html.twig
             vars:
                 body_css: grid-body-css
                 serialize_group_name: crud
@@ -227,16 +227,16 @@ backend_sales_increment_item:
                 type: Bundle\ProductBundle\Form\Type\ProductType
             repository:
                 vars:
-                    serialize_group_name: sales
+                    serialize_group_name: orders
 
-backend_sales_decrement_item:
+backend_orders_decrement_item:
     path: /decrement-item
     methods: [PUT, POST]
     defaults:
-        _controller: tianos.backend.controller.sales:incrementDecrementItemAction
+        _controller: tianos.backend.controller.orders:incrementDecrementItemAction
         _tianos:
             action: create
-            template: TicketBundle:Sales/Grid/Box:table_product.html.twig
+            template: TicketBundle:Orders/Grid/Box:table_product.html.twig
             vars:
                 body_css: grid-body-css
                 serialize_group_name: crud
@@ -253,9 +253,9 @@ backend_sales_decrement_item:
                 type: Bundle\ProductBundle\Form\Type\ProductType
             repository:
                 vars:
-                    serialize_group_name: sales
+                    serialize_group_name: orders
 
-backend_sales_remove_all_item:
+backend_orders_remove_all_item:
     path: /remove-all-item
     methods: [POST]
     defaults:
@@ -271,24 +271,24 @@ backend_sales_remove_all_item:
                 type: Bundle\TicketBundle\Form\Type\ServicesType
             repository:
                 vars:
-                    serialize_group_name: sales
+                    serialize_group_name: orders
 
-backend_sales_view:
+backend_orders_view:
     path: /view
     methods: [POST]
     defaults:
-        _controller: tianos.backend.controller.sales:viewAction
+        _controller: tianos.backend.controller.orders:viewAction
         _tianos:
             action: view
-            template: TicketBundle:Sales/Informative:view.html.twig
+            template: TicketBundle:Orders/Informative:view.html.twig
             repository:
-                service: tianos.repository.sales
+                service: tianos.repository.orders
                 method: find
                 arguments: [$ticketId]
                 vars:
-                    serialize_group_name: sales
+                    serialize_group_name: orders
 
-backend_sales_info:
+backend_orders_info:
     path: /info
     methods: [POST]
     defaults:

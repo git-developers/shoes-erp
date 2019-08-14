@@ -65,7 +65,7 @@ backend_user_client_index:
                               searchable: 1
                               sorting: 1
                               orderable: 1
-                              type: html
+                              type: num
                               width: 4%
                               title: '#'
                               className: modal-view text-center

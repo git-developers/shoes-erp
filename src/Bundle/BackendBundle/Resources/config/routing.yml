@@ -20,7 +20,7 @@ backend_services:
     resource: '@ServicesBundle/Resources/config/routing/backend.yml'
     prefix: /services
 backend_paymenttype:
-    resource: '@TicketBundle/Resources/config/routing/backend_paymenttype.yml'
+    resource: '@TicketBundle/Resources/config/routing/payment_type.yml'
     prefix: /payment-type
 backend_report:
     resource: '@ReportBundle/Resources/config/routing/backend.yml'
@@ -71,6 +71,9 @@ backend_ticket:
 backend_sales:
     resource: '@TicketBundle/Resources/config/routing/sales.yml'
     prefix: /sales
+backend_orders:
+    resource: '@TicketBundle/Resources/config/routing/orders.yml'
+    prefix: /orders
 backend_payment_history:
     resource: '@TicketBundle/Resources/config/routing/payment_history.yml'
     prefix: /payment-history

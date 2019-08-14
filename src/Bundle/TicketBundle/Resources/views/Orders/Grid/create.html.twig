@@ -1,6 +1,6 @@
 {% extends "ThemesBundle:Adminlte/Template:1_template.html.twig" %}
 
-{% import "TreeBundle::Macro/tree_ticket.html.twig" as macro %}
+{% import "TreeBundle::Macro/tree_sales.html.twig" as macro %}
 
 {% block bodyclass %}{% spaceless %}
     {{ vars.body_css }}
@@ -34,8 +34,7 @@
 
     {% javascripts
         '@TicketBundle/Resources/public/js/formClient.js'
-        '@TicketBundle/Resources/public/js/formTicket.js'
-        '@TicketBundle/Resources/public/js/formEmployee.js'
+        '@TicketBundle/Resources/public/js/formOrders.js'
         '@TicketBundle/Resources/public/js/formProducts.js'
         '@TicketBundle/Resources/public/js/barcodeScanner.js'
     %}
@@ -50,28 +49,21 @@
                 modalId: 'modal-create-client',
                 formName: 'form-create-client',
                 clientId: '{{ form.client.vars.full_name }}',
-                route: '{{ path('backend_ticket_add_client') }}'
-            });
-
-            $('body.{{ vars.body_css }}').formEmployee({
-                modalId: 'modal-create-employee',
-                formName: 'form-create-employee',
-                route: '{{ path('backend_ticket_add_employee') }}'
+                route: '{{ path('backend_orders_add_client') }}'
             });
 
             $('body.{{ vars.body_css }}').formProducts({
-                modalId: 'modal-create-xxx',
-                routeIncrement: '{{ path('backend_ticket_increment_item') }}',
-                routeDecrement: '{{ path('backend_ticket_decrement_item') }}',
-                routeRemoveAll: '{{ path('backend_ticket_remove_all_item') }}'
+                modalId: 'modal-create-product',
+                routeIncrement: '{{ path('backend_orders_increment_item') }}',
+                routeDecrement: '{{ path('backend_orders_decrement_item') }}',
+                routeRemoveAll: '{{ path('backend_orders_remove_all_item') }}'
             });
 
-            $('body.{{ vars.body_css }}').formTicket({
+            $('body.{{ vars.body_css }}').formOrders({
                 formName: '{{ form.vars.name }}',
-                route: '{{ path('backend_ticket_create_external') }}',
-                routeRedirect: '{{ path('backend_ticket_index') }}'
+                route: '{{ path('backend_orders_create') }}',
+                routeRedirect: '{{ path('backend_orders_index') }}'
             });
-
 
             $(function () {
                 $('#code-scan').codeScanner();
@@ -86,17 +78,17 @@
 
     <section class="content-header">
         <h1>
-            <i class="fa fa-fw fa-ticket"></i> Crear pedido externo
-            <small>service</small>
+            <i class="fa fa-fw fa-file-text"></i> Crear pedido
+            <small>products</small>
         </h1>
         <ol class="breadcrumb">
             <li>
-                <a href="#">
+                <a href="{{ path('backend_dashboard_index') }}">
                     <i class="fa fa-dashboard"></i> Home
                 </a>
             </li>
             <li class="active">
-                Dashboard
+                Crear venta
             </li>
         </ol>
     </section>
@@ -124,17 +116,6 @@
                     <div class="box-body table-responsive"> {#no-padding#}
 
                         <table class="table table-condensed table-striped box-table-client">
-                            {#
-                            <thead>
-                                <tr>
-                                    <th style="width: 30px"></th>
-                                    <th style="width: 30px"></th>
-                                    <th class="text-left">Nombre</th>
-                                    <th class="text-center">Miembro desde</th>
-                                    <th class="text-right"></th>
-                                </tr>
-                            </thead>
-                            #}
                             <tbody>
                                 <tr>
                                     <td colspan="5">
@@ -162,16 +143,6 @@
                     <div class="box-body table-responsive"> {#no-padding#}
 
                         <table class="table table-condensed table-striped">
-                            {#
-                            <thead>
-                                <tr>
-                                    <th style="width: 30px"></th>
-                                    <th style="width: 30px"></th>
-                                    <th class="text-left">Nombre</th>
-                                    <th class="text-center">Creado</th>
-                                </tr>
-                            </thead>
-                            #}
                             <tbody>
                                 <tr>
                                     <td>
@@ -186,7 +157,7 @@
                                             class="img-circle">
                                     </td>
                                     <td>
-                                        {{ app.user.pointOfSaleActive.name|default('[ - no PDV - ]') }}
+                                        {{ app.user.pointOfSaleActive.name|default('<span class="badge bg-red">Iniciar sesión en Punto de venta</span>')|raw }}
                                     </td>
                                     <td class="text-center">
                                         {{ app.user.pointOfSaleActive != null ? app.user.pointOfSaleActive.createdAt|date('d, F Y') : "" }}
@@ -206,23 +177,13 @@
                 <div class="box box-success">
                     <div class="box-header with-border">
                         <h4 class="box-title">
-                            <i class="fa fa-fw fa-user"></i> Empleado logeado
+                            <i class="fa fa-fw fa-user"></i> Empleado
                         </h4>
                         <div class="box-tools pull-right"></div>
                     </div>
                     <div class="box-body table-responsive"> {#no-padding#}
 
                         <table class="table table-condensed table-striped">
-                            {#
-                            <thead>
-                                <tr>
-                                    <th style="width: 30px"></th>
-                                    <th style="width: 30px"></th>
-                                    <th class="text-left">Nombre</th>
-                                    <th class="text-center">Miembro desde</th>
-                                </tr>
-                            </thead>
-                            #}
                             <tbody>
                                 <tr>
                                     <td>
@@ -265,10 +226,10 @@
                                 </h4>
                             </div>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-7" style="padding-left: 0px;">
                             <div class="box-header with-border">
                                 <h4 class="box-title">
-                                    <i class="fa fa-fw fa-file-text-o"></i> Productos
+                                    <i class="fa fa-fw fa-cube"></i> Productos
                                 </h4>
 
                                 <div class="box-tools pull-right" data-toggle="tooltip" data-original-title="Agregar nuevos productos">
@@ -286,44 +247,41 @@
 
                         <div class="row">
                             <div class="col-md-5" style="padding-right: 0px">
-                                <div class="{{ tree.main_div }} box-body">
+                                <div class="{{ tree.main_div }} box-body" style="padding-left: 0px;">
                                     <ul id="{{ tree.main_ul }}">
-                                        {% if objectsTree is not empty %}
-                                            {{ macro.tree(
-                                                objectsTree,
-                                                tree,
-                                                -1,
-                                                'TreeBundle::Template/li_ticket.html.twig',
-                                                'backend_product_index'
-                                            ) }}
+                                        {% if categoryTree is not empty %}
+                                            {{ macro.tree(categoryTree, tree, -1) }}
                                         {% else %}
                                             <p>No hay items que mostrar</p>
                                         {% endif %}
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-7" style="padding-left: 0px;">
 
                                 <table class="table table-bordered products table-scroll">
                                     <thead>
                                         <tr>
                                             <th class="text-center">#</th>
-                                            <th class="text-center">Thumb</th>
-                                            <th class="text-center">color</th>
+                                            <th class="text-center"></th>
+                                            <th class="text-center"></th>
                                             <th class="text-center">nombre</th>
-                                            <th class="text-center">
-                                                <i class="fa fa-fw fa-money"></i> precio
-                                            </th>
-                                            <th class="text-center">acci&oacute;n</th>
+                                            <th class="text-center">precio</th>
+                                            <th class="text-center">stock</th>
+                                            <th class="text-center"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         <tr class="tr-product">
                                             <td colspan="3">
                                                 Seleccione una categor&iacute;a.
                                             </td>
                                         </tr>
-                                        {% for product in productsObjs %}
+
+                                        {% for obj in products %}
+
+                                            {% set product = obj.product %}
 
                                             <tr class="tr-product tr-product-{{ product.category.id }}" style="display: none">
                                                 <td class="text-center">
@@ -348,7 +306,11 @@
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-center">
-                                                    <div class="alert ticket-product-color" style="background-color: {{ product.color }}"></div>
+                                                    <div
+                                                        class="alert ticket-product-color"
+                                                        style="background-color: {{ product.color.prefix }}">
+                                                    </div>
+                                                    {{ product.color.name }}
                                                 </td>
                                                 <td class="text-center">
                                                     {{ product.name }}
@@ -357,9 +319,12 @@
                                                     {{ product.price }}
                                                 </td>
                                                 <td class="text-center">
+                                                    {{ obj.stock }}
+                                                </td>
+                                                <td class="text-center">
                                                     <button
                                                         type="button"
-                                                        class="btn btn-success btn-sm increment-services"
+                                                        class="btn btn-success btn-sm increment"
                                                         data-id-item="{{ product.id }}">
                                                         <i class="fa fa-fw fa-plus"></i>
                                                     </button>
@@ -390,7 +355,7 @@
                         </h4>
                         <div class="box-tools pull-right">
                             <span
-                                class="badge bg-red x-hand remove-all-services"
+                                class="badge bg-red x-hand remove-all"
                                 data-toggle="tooltip"
                                 data-original-title="Eliminar todos los servicios">
                                 <i class="fa fa-minus-circle"></i> Eliminar
@@ -402,32 +367,19 @@
                         <div class="box-body box-table-items">
 
                             <div class="callout callout-primary ticket-message" style="background-color: #3c8dbc">
-                                {#<h4>I am a warning callout!</h4>#}
                                 <p style="font-size: 16px">
                                     <i class="icon fa fa-info"></i> Información.
                                 </p>
                             </div>
 
-                            {{ form_widget(form._token) }}
-
                             {{ form_widget(form.client) }}
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <i class="fa fa-fw fa-money"></i>
-                                        {{ form_label(form.paymentType) }}
-                                        {{ form_widget(form.paymentType) }}
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <i class="fa fa-fw fa-qrcode"></i>
-                                        {{ form_label(form.code) }}
-                                        {{ form_widget(form.code) }}
+                                        <i class="fa fa-fw fa-calendar"></i>
+                                        {{ form_label(form.deliveryDate) }}
+                                        {{ form_widget(form.deliveryDate) }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -440,15 +392,13 @@
                             </div>
 
                             <div class="items">
-                                {{ include('TicketBundle:BackendTicket/Grid/Box:table_product.html.twig') }}
+                                {{ include('TicketBundle:Orders/Grid/Box:table_product.html.twig') }}
                             </div>
 
                         </div>
 
                         <div class="box-footer text-center">
-                            <button type="submit" class="btn btn-primary">
-                                Generar pedido
-                            </button>
+                            {{ form_widget(form.submit) }}
                         </div>
                     {{ form_end(form) }}
                 </div>
@@ -460,8 +410,8 @@
 
     </section>
 
-    {{ include('TicketBundle:BackendTicket/Modal/Product:thumbnail.html.twig') }}
-    {{ include('TicketBundle:BackendTicket/Modal/Client:create.html.twig') }}
-    {{ include('TicketBundle:BackendTicket/Modal/Employee:create.html.twig') }}
+    {{ include('TicketBundle:Orders/Modal/Product:thumbnail.html.twig') }}
+    {{ include('TicketBundle:Orders/Modal/Client:create.html.twig') }}
+    {{ include('TicketBundle:Orders/Modal/Employee:create.html.twig') }}
 
 {% endblock %}

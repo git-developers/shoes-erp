@@ -4,7 +4,7 @@
     // Global Variables
     var MAX_HEIGHT = 100;
 
-    $.formSales = function(el, options) {
+    $.formOrders = function(el, options) {
 
         // Global Private Variables
         var MAX_WIDTH = 200;
@@ -16,7 +16,7 @@
 
         base.$el = $(el);
         base.el = el;
-        base.$el.data('formSales', base);
+        base.$el.data('formOrders', base);
 
         base.init = function(){
             var totalButtons = 0;
@@ -31,7 +31,7 @@
 
             $.each(fields, function(i, field) {
 
-                if (field.value != "" || $.inArray(field.name, ["sales[name]", "discount"]) !== -1) {
+                if (field.value != "" || $.inArray(field.name, ["orders[name]"]) !== -1) {
                     return true;
                 }
 
@@ -40,17 +40,11 @@
                 errors++;
 
                 switch(field.name) {
-                    case "sales[client]":
+                    case "orders[client]":
                         msg = 'Seleccione un cliente.';
                         break;
-                    case "sales[paymentType]":
-                        msg = 'Seleccione un tipo de pago.';
-                        break;
-                    case "sales[deliveryDate]":
+                    case "orders[deliveryDate]":
                         msg = 'Seleccione la Fecha de entrega.';
-                        break;
-                    case "payment":
-                        msg = 'Ingrese pago del cliente.';
                         break;
                 }
 
@@ -78,7 +72,7 @@
                 dataType: 'json',
                 data: fields,
                 beforeSend: function(jqXHR, settings) {
-                    $("button[name='sales[submit]']").attr("disabled", true);
+                    $("button[name='orders[submit]']").attr("disabled", true);
                 },
                 success: function(data, textStatus, jqXHR) {
 
@@ -86,7 +80,7 @@
                         window.location.href = options.routeRedirect;
                     } else {
 
-                        $("button[name='sales[submit]']").attr("disabled", false);
+                        $("button[name='orders[submit]']").attr("disabled", false);
 
                         message.find('p').html(data.message);
                         message.removeClass("callout-primary").addClass("callout-warning");
@@ -99,7 +93,7 @@
                 },
                 error: function(jqXHR, exception) {
                     console.log('ERROR');
-                    $("button[name='sales[submit]']").attr("disabled", false);
+                    $("button[name='orders[submit]']").attr("disabled", false);
                 }
             });
         };
@@ -121,51 +115,6 @@
             return false;
         };
 
-        base.discount = function(context) {
-
-            var discount = parseFloat($(context).val().trim());
-            var subtotal = parseFloat($("td.subtotal").text().trim());
-
-            if (discount <= subtotal) {
-                $("td.total").html((subtotal - discount).toFixed(2));
-                $("td.discount").removeClass("bg-red").addClass("bg-gray-1");
-            } else if (discount > subtotal) {
-                $("td.total").html(subtotal);
-                $("td.discount").removeClass("bg-gray-1").addClass("bg-red");
-            }
-
-            if (isNaN(discount)) {
-                $("input[name='sales[discount]']").val("");
-            } else {
-                $("input[name='sales[discount]']").val(discount);
-            }
-
-            $("input[name='payment']").val("");
-            $("input[name='sales[payment]']").val("");
-
-            return false;
-        };
-
-        base.payment = function(context) {
-
-            var payment = parseFloat($(context).val().trim());
-            var total = parseFloat($("td.total").text().trim());
-
-            if (payment > total) {
-                $("td.change").html((payment - total).toFixed(2));
-            } else if (payment < total || isNaN(payment)) {
-                $("td.change").html("0.0");
-            }
-
-            if (isNaN(payment)) {
-                $("input[name='sales[payment]']").val("");
-            } else {
-                $("input[name='sales[payment]']").val(payment);
-            }
-
-            return false;
-        };
-
         // Private Functions
         function debug(e) {
             console.log(e);
@@ -174,23 +123,22 @@
         base.init();
     };
 
-    $.fn.formSales = function(options){
+    $.fn.formOrders = function(options){
 
         return this.each(function(){
 
-            var bp = new $.formSales(this, options);
+            var bp = new $.formOrders(this, options);
 
             $("form[name='" + options.formName + "']").submit(function(event) {
                 event.preventDefault();
 
-                // bp.submit(event);
+                bp.submit(event);
 
-
-                var validate = bp.validate();
-
-                if (validate <= 0) {
-                    bp.submit(event);
-                }
+                // var validate = bp.validate();
+                //
+                // if (validate <= 0) {
+                //     bp.submit(event);
+                // }
 
             });
 
@@ -200,14 +148,6 @@
 
             $('#modal-product-thumbnail').on('hidden.bs.modal', function () {
                 $('div.box-thumbnail').empty().html('');
-            });
-
-            $(document).on("change paste keyup", "input[name=discount]", function() {
-                bp.discount(this);
-            });
-
-            $(document).on("change paste keyup", "input[name=payment]", function() {
-                bp.payment(this);
             });
 
         });

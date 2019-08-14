@@ -157,6 +157,7 @@
                 {% for key, value in dataTable.options %}
                     '{{ key }}': {{ value|raw }},
                 {% endfor %}
+
                 'data': {{ dataTable.data|raw }},
                 orderCellsTop: true,
                 fixedHeader: true,

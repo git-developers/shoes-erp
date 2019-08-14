@@ -84,7 +84,7 @@ class DataTableMapper
                 ]),
                 'order' => json_encode([
                     [
-                        0, 'desc'
+                        1, 'desc'
                     ]
                 ]),
                 'dom' => '\'<"top"iflp><"clear">rt<"bottom"iflp>\'',

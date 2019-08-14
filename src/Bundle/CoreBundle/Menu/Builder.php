@@ -242,73 +242,18 @@ class Builder implements ContainerAwareInterface
          * STOCK - INVENTORY
          */
 		
-
-
-
         
-        
-
-
-        /**
-         * SERVICES
-         */
-        /*
-        $isGranted = $this->isGranted([
-            Role::ROLE_PDV_ADMIN,
-        ]);
-
-        $menu->addChild('Services', [
-            'route' => 'backend_services_index',
-            'extras' => ['safe_label' => true],
-            'childrenAttributes' => [
-                'class' => 'treeview-menu',
-            ],
-        ])
-            ->setAttribute('allow_angle', true)
-            ->setAttribute('class', 'treeview')
-            ->setAttribute('class', $this->activeRoute([
-                'backend_services_index',
-                'backend_category_services_tree_index',
-            ]))
-            ->setAttribute('icon', 'fa-fw fa-file-text-o')
-            ->setDisplay($isGranted)
-        ;
-
-        $menu['Services']->addChild('Categoria', [
-            'route' => 'backend_category_services_tree_index',
-            'routeParameters' => [
-                'entity_type' => Category::TYPE_SERVICE
-            ]
-        ])
-            ->setAttribute('icon', self::CIRCLE_1)
-            ->setAttribute('class', $this->activeRoute('backend_category_services_tree_index'))
-            ->setDisplay($isGranted)
-        ;
-
-        $menu['Services']->addChild('Services', [
-            'route' => 'backend_services_index'
-        ])
-            ->setAttribute('icon', self::CIRCLE_2)
-            ->setAttribute('class', $this->activeRoute('backend_services_index'))
-            ->setDisplay($isGranted)
-        ;
-        */
-        /**
-         * SERVICES
-         */
-	
-
         
 	
 	    /**
-         * TICKET
+         * SALES
          */
         $isGranted = $this->isGranted([
 	        Ticket::ROLE_TICKET_VIEW,
         ]);
 
         $menu->addChild('Ventas', [
-            'route' => 'backend_ticket_index',
+            'route' => 'backend_sales_index',
             'extras' => ['safe_label' => true],
             'childrenAttributes' => [
                 'class' => 'treeview-menu',
@@ -316,7 +261,6 @@ class Builder implements ContainerAwareInterface
         ])
         ->setAttribute('class', 'treeview')
         ->setAttribute('class', $this->activeRoute([
-	        'backend_sales_edit',
 	        'backend_sales_index',
 	        'backend_sales_create',
             'backend_paymenttype_index',
@@ -328,7 +272,7 @@ class Builder implements ContainerAwareInterface
 	    $menu['Ventas']->addChild('Crear venta', [
 		    'route' => 'backend_sales_create'
 	    ])
-		    ->setAttribute('icon', self::CIRCLE_2)
+		    ->setAttribute('icon', self::CIRCLE_1)
 		    ->setAttribute('class', $this->activeRoute('backend_sales_create'))
 		    ->setDisplay($isGranted)
 	    ;
@@ -336,43 +280,71 @@ class Builder implements ContainerAwareInterface
 	    $menu['Ventas']->addChild('Gestionar ventas', [
 		    'route' => 'backend_sales_index'
 	    ])
-	    ->setAttribute('icon', self::CIRCLE_1)
+	    ->setAttribute('icon', self::CIRCLE_2)
 	    ->setAttribute('class', $this->activeRoute([
 		    'backend_sales_index',
-		    'backend_sales_edit'
 	    ]))
 	    ->setDisplay($isGranted)
 	    ;
-	
-
 	    
-/*
-        $menu['Ventas']->addChild('Crear pedido interno', [
-		    'route' => 'backend_ticket_create_internal'
-	    ])
-	    ->setAttribute('icon', self::CIRCLE_2)
-	    ->setAttribute('class', $this->activeRoute('backend_ticket_create_internal'))
-	    ->setDisplay($isGranted)
-	    ;
-     
-	    $menu['Ventas']->addChild('Crear pedido externo', [
-		    'route' => 'backend_ticket_create_external'
-	    ])
-	    ->setAttribute('icon', self::CIRCLE_3)
-	    ->setAttribute('class', $this->activeRoute('backend_ticket_create_external'))
-	    ->setDisplay($isGranted)
-	    ;*/
-     
 	    $menu['Ventas']->addChild('Tipos de pago', [
 		    'route' => 'backend_paymenttype_index'
 	    ])
-	    ->setAttribute('icon', self::CIRCLE_4)
+	    ->setAttribute('icon', self::CIRCLE_3)
 	    ->setAttribute('class', $this->activeRoute('backend_paymenttype_index'))
 	    ->setDisplay($isGranted)
 	    ;
 	    
         /**
-         * TICKET
+         * SALES
+         */
+	
+        
+        
+        
+	
+	    /**
+         * ORDERS
+         */
+        $isGranted = $this->isGranted([
+	        Ticket::ROLE_TICKET_VIEW,
+        ]);
+
+        $menu->addChild('Pedidos', [
+            'route' => 'backend_orders_index',
+            'extras' => ['safe_label' => true],
+            'childrenAttributes' => [
+                'class' => 'treeview-menu',
+            ],
+        ])
+        ->setAttribute('class', 'treeview')
+        ->setAttribute('class', $this->activeRoute([
+	        'backend_orders_index',
+	        'backend_orders_create',
+        ]))
+        ->setAttribute('icon', 'fa-fw fa-file-text')
+        ->setDisplay($isGranted)
+        ;
+        
+	    $menu['Pedidos']->addChild('Crear pedido', [
+		    'route' => 'backend_orders_create'
+	    ])
+		    ->setAttribute('icon', self::CIRCLE_1)
+		    ->setAttribute('class', $this->activeRoute('backend_orders_create'))
+		    ->setDisplay($isGranted)
+	    ;
+	    
+	    $menu['Pedidos']->addChild('Gestionar pedido', [
+		    'route' => 'backend_orders_index'
+	    ])
+	    ->setAttribute('icon', self::CIRCLE_2)
+	    ->setAttribute('class', $this->activeRoute([
+		    'backend_orders_index',
+	    ]))
+	    ->setDisplay($isGranted)
+	    ;
+        /**
+         * ORDERS
          */
 	
 

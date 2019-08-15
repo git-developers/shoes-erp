@@ -26,19 +26,8 @@
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
-    <style>
-        table#{{ dataTable.tableOptions.table_name }} tr.{{ dataTable.tableOptions.table_tr_class }}:hover{
-            background-color: #d2d6de;
-            cursor: pointer;
-        }
-        input[type=checkbox] {
-            height: 20px;
-            width: 20px;
-        }
-        .dataTables_filter input[type="search"] {
-            width: 350px;
-            height: 35px;
-        }
+    <style type="text/css">
+        {% include 'GridBundle::style.css.twig' %}
     </style>
 
 {% endblock %}

@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Bundle\PointofsaleBundle\EventListener;
+namespace Bundle\ReportBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Bundle\PointofsaleBundle\Entity\Pointofsale;
-use Bundle\PointofsaleBundle\Entity\PointofsaleOpening;
+use Bundle\ReportBundle\Entity\ReportPdv;
 use Cocur\Slugify\Slugify;
 use Bundle\CoreBundle\EventListener\BaseDoctrineListenerService;
-// https://coderwall.com/p/es3zkw/symfony2-listen-doctrine-events
 
 class DoctrineListenerService extends BaseDoctrineListenerService implements EventSubscriber
 {
@@ -53,23 +51,14 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 //        $entityManager = $args->getEntityManager();
 //        $className = $entityManager->getClassMetadata(get_class($entity))->getName();
 
-        if ($entity instanceof Pointofsale){
+        if ($entity instanceof ReportPdv) {
 
-            $slug = $entity->getSlug();
-
-            if (empty($slug)) {
-                $slug = $entity->getName();
-            }
-
+            $slug = $entity->getName();
             $entity->setSlug($this->slugify($slug));
-
             $entity->setCreatedAt($this->setupCreatedAt($entity));
-
+//	        $entity->setUserCreate($this->getUser()->getId());
+	        
             return;
-        } elseif ($entity instanceof PointofsaleOpening) {
-	        $slug = $entity->getName();
-	        $entity->setSlug($this->slugify($slug));
-	        $entity->setCreatedAt($this->setupCreatedAt($entity));
         }
     }
 
@@ -80,16 +69,8 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
     {
         $entity = $args->getEntity();
 
-        if ($entity instanceof Pointofsale){
+        if ($entity instanceof ReportPdv) {
             $entity->setUpdatedAt($this->dateTime);
-
-            $slug = $entity->getSlug();
-
-            if (empty($slug)) {
-                $slug = $entity->getName();
-            }
-
-            $entity->setSlug($this->slugify($slug));
 
             return;
         }
@@ -102,7 +83,7 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
     {
         $entity = $args->getEntity();
 
-        if ($entity instanceof Pointofsale){
+        if ($entity instanceof ReportPdv) {
 
             return;
         }
@@ -115,7 +96,7 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
     {
         $entity = $args->getEntity();
 
-        if ($entity instanceof Pointofsale){
+        if ($entity instanceof ReportPdv) {
 
             return;
         }
@@ -128,15 +109,7 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
     {
         $entity = $args->getEntity();
 
-        if ($entity instanceof Pointofsale){
-	
-	        $timeStart = $entity->getCreatedAt();
-	        $timeEnd = new \DateTime();
-	
-	        $interval = $timeStart->diff($timeEnd);
-	        $interval = $interval->format('%m meses - %a dias - %h horas'); // %y years %m months %a days - %i minutos - %s segundos
-	
-	        $entity->setCreatedAtDiff($interval);
+        if ($entity instanceof ReportPdv) {
 	        
 	        return;
         }

@@ -13,14 +13,23 @@
         <div class="col-md-6 col-md-offset-3">
 
             <div class="dropdown">
-                <button class="btn bg-red btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-                    <span class="selected">Desea cancelar la venta?</span>
+                <button class="btn bg-yellow-active btn-block dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span class="selected">Opciones</span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-status btn-block">
                     <li>
-                        <a href="#" class="text-center">
-                            Cancelar Venta
+                        <a
+                            href="#"
+                            class="text-center"
+                            data-value="{{ constant('Bundle\\TicketBundle\\Entity\\Sales::STATUS_CANCELED') }}">
+                            Cancelar Pedido
+                        </a>
+                        <a
+                            href="#"
+                            class="text-center"
+                            data-value="{{ constant('Bundle\\TicketBundle\\Entity\\Sales::STATUS_COMPLETED') }}">
+                            Completar Pedido
                         </a>
                     </li>
                 </ul>
@@ -33,7 +42,7 @@
 
         $(".dropdown-status a").click(function() {
             $("span.selected").text($(this).text().trim());
-            $("select[name='{{ form.status.vars.full_name }}']").val({{ constant('Bundle\\TicketBundle\\Entity\\Sales::STATUS_CANCELED') }});
+            $("select[name='{{ form.status.vars.full_name }}']").val($(this).data("value"));
         });
 
     </script>

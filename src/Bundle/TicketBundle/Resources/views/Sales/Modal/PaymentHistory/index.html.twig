@@ -187,7 +187,7 @@
 
         <div class="row">
 
-            {#RIGHT#}
+            {#LEFT#}
             <div class="col-md-6">
                 <div class="box box-success">
                     <div class="box-header">
@@ -231,11 +231,39 @@
                         </table>
                     </div>
                 </div>
+
+                <hr>
+
+                <div class="progress-group">
+                    <span class="progress-text">
+                        % Efectivo cobrado
+                    </span>
+                    <span class="progress-number">
+                        <b>{{ paymentCollectedSum|number_format(2, '.', ',') }}</b>/{{ totalSum|number_format(2, '.', ',') }}
+                    </span>
+                    <div class="progress">
+
+                        {% set progress = (paymentCollectedSum|number_format(2, '.', ',') / totalSum|number_format(2, '.', ',')) * 100 %}
+                        {% set progress = progress|number_format(2, '.', ',') %}
+
+                        <div
+                            class="progress-bar progress-bar-success progress-bar-striped active"
+                            role="progressbar"
+                            aria-valuenow="{{ progress }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            style="width: {{ progress }}%">
+                            <b class="fontsize-15">{{ progress }}%</b>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            {#RIGHT#}
-
-
             {#LEFT#}
+
+
+
+            {#RIGHT#}
             <div class="col-md-6">
                 <div class="box box-success bg-green">
                     <div class="box-header with-border white">
@@ -289,7 +317,7 @@
                     </div>
                 </div>
             </div>
-            {#LEFT#}
+            {#RIGHT#}
 
         </div>
 

@@ -132,13 +132,13 @@
             $("form[name='" + options.formName + "']").submit(function(event) {
                 event.preventDefault();
 
-                bp.submit(event);
+                // bp.submit(event);
 
-                // var validate = bp.validate();
-                //
-                // if (validate <= 0) {
-                //     bp.submit(event);
-                // }
+                var validate = bp.validate();
+
+                if (validate <= 0) {
+                    bp.submit(event);
+                }
 
             });
 

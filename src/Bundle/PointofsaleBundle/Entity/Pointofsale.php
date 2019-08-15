@@ -7,6 +7,7 @@ namespace Bundle\PointofsaleBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMSS;
 use JMS\Serializer\Annotation\Type as TypeJMS;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
@@ -65,7 +66,8 @@ class Pointofsale
      * @JMSS\Groups({
      *     "api",
      *     "crud",
-     *     "sales"
+     *     "sales",
+     *     "orders"
      * })
      */
     private $name;
@@ -83,6 +85,8 @@ class Pointofsale
      *     "api",
      *     "crud"
      * })
+     *
+     * @Assert\NotBlank(message="Agregar latitude")
      */
     private $latitude;
 
@@ -93,6 +97,8 @@ class Pointofsale
      *     "api",
      *     "crud"
      * })
+     *
+     * @Assert\NotBlank(message="Agregar longitude")
      */
     private $longitude;
 

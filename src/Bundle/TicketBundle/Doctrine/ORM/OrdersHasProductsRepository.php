@@ -6,7 +6,7 @@ namespace Bundle\TicketBundle\Doctrine\ORM;
 
 use Bundle\CoreBundle\Doctrine\ORM\EntityRepository as TianosEntityRepository;
 
-class SalesHasProductsRepository extends TianosEntityRepository
+class OrdersHasProductsRepository extends TianosEntityRepository
 {
 
     /**
@@ -16,10 +16,12 @@ class SalesHasProductsRepository extends TianosEntityRepository
     {
 	    $em = $this->getEntityManager();
         $dql = "
-            SELECT o
-            FROM TicketBundle:SalesHasProducts o
+            SELECT o, product, category
+            FROM TicketBundle:OrdersHasProducts o
+            INNER JOIN o.product product
+            INNER JOIN product.category category
             WHERE
-            o.sales = :id
+            o.orders = :id
             ";
 
         $query = $em->createQuery($dql);

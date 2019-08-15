@@ -59,6 +59,7 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
      *     "order-in-left-select-item",
      *     "order-report",
      *     "friends",
+     *     "orders",
      *     "sales",
      *     "pointofsale-has-user"
      * })
@@ -237,6 +238,7 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
      *     "anonymous_user",
      *     "friends",
      *     "sales",
+     *     "orders",
      *     "pointofsale-has-user"
      * })
      * @JMSS\Type("DateTime<'Y-m-d H:i'>")
@@ -338,6 +340,7 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
      * @JMSS\Groups({
      *     "crud",
      *     "sales",
+     *     "orders",
      *     "user-tags",
      *     "order-report",
      *     "order-in-center",

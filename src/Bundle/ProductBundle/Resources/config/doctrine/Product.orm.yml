@@ -27,6 +27,19 @@ Bundle\ProductBundle\Entity\Product:
             length: 7
             options:
                 fixed: false
+        name:
+            type: string
+            nullable: false
+            length: 150
+            options:
+                fixed: false
+            column: name
+        slug:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
         price:
             type: float
             nullable: true
@@ -50,6 +63,12 @@ Bundle\ProductBundle\Entity\Product:
             options:
                 fixed: false
             column: name
+        slug:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
         reference:
             type: string
             nullable: true
@@ -78,12 +97,6 @@ Bundle\ProductBundle\Entity\Product:
             options:
                 unsigned: false
             column: size_range
-        slug:
-            type: string
-            nullable: true
-            length: 150
-            options:
-                fixed: false
         createdAt:
             type: datetime
             nullable: false

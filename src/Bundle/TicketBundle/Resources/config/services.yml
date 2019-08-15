@@ -73,6 +73,11 @@ services:
         factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Bundle\TicketBundle\Entity\Sales ]
 
+    tianos.repository.orders:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\TicketBundle\Entity\Orders ]
+
     tianos.repository.payment.history:
         class: Dummy
         factory: ['@doctrine.orm.entity_manager', getRepository]
@@ -92,3 +97,8 @@ services:
         class: Dummy
         factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Bundle\TicketBundle\Entity\SalesHasProducts ]
+
+    tianos.repository.orders.has.products:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\TicketBundle\Entity\OrdersHasProducts ]

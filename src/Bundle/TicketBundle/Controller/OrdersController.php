@@ -14,9 +14,8 @@ use Bundle\ResourceBundle\ResourceBundle;
 use JMS\Serializer\SerializationContext;
 use Bundle\CategoryBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Bundle\TicketBundle\Entity\Sales;
-use Bundle\TicketBundle\Entity\PaymentHistory;
-use Bundle\TicketBundle\Entity\SalesHasProducts;
+use Bundle\TicketBundle\Entity\Orders;
+use Bundle\TicketBundle\Entity\OrdersHasProducts;
 
 
 class OrdersController extends GridController
@@ -72,7 +71,7 @@ class OrdersController extends GridController
 				
 				$ordersForm = $request->get($varsRepository->serialize_group_name);
 				$ordersForm = json_decode(json_encode($ordersForm));
-				
+
 				
 				/**
 				 * VALIDATE
@@ -100,8 +99,8 @@ class OrdersController extends GridController
 				foreach ($request->getSession()->get('products_order') as $key => $productSave) {
 					$product = $this->get('tianos.repository.product')->find($productSave['idItem']);
 					
-					$o = new SalesHasProducts();
-					$o->setSales($entity);
+					$o = new OrdersHasProducts();
+					$o->setOrders($entity);
 					$o->setProduct($product);
 					$o->setQuantity($productSave['quantity']);
 					$o->setUnitPrice($product->getPrice());
@@ -110,7 +109,7 @@ class OrdersController extends GridController
 				
 				
 				//message success
-				$this->flashAlertSuccess('Venta creada. CÓDIGO: <span class="label bg-green-active fontsize-12">' . $entity->getCode() . '</span>');
+				$this->flashAlertSuccess('Pedido creado. CÓDIGO: <span class="label bg-green-active fontsize-12">' . $entity->getCode() . '</span>');
 				
 				
 				//Remove session
@@ -189,11 +188,21 @@ class OrdersController extends GridController
 		}
 		
 		//VALIDACION STATUS
-		if ($entity->getStatus() == Sales::STATUS_CANCELED) {
+		if ($entity->getStatus() == Orders::STATUS_CANCELED) {
 			return $this->render(
 				"GridBundle::error.html.twig",
 				[
-					'message' => "La venta ha sido cancelada anteriormente.",
+					'message' => "El pedido ha sido CANCELADO anteriormente.",
+				]
+			);
+		}
+		
+		//VALIDACION STATUS
+		if ($entity->getStatus() == Orders::STATUS_COMPLETED) {
+			return $this->render(
+				"GridBundle::error.html.twig",
+				[
+					'message' => "El pedido ha sido COMPLETADO anteriormente.",
 				]
 			);
 		}
@@ -278,14 +287,14 @@ class OrdersController extends GridController
 			throw $this->createNotFoundException('CRUD: Unable to find  entity.');
 		}
 		
-		$salesHasProducts = $this->get('tianos.repository.sales.has.products')->findAllBySales($id);
+		$ordersHasProducts = $this->get('tianos.repository.orders.has.products')->findAllBySales($id);
 		
 		return $this->render(
 			$template,
 			[
 				'action' => $action,
 				'entity' => $entity,
-				'salesHasProducts' => $salesHasProducts,
+				'ordersHasProducts' => $ordersHasProducts,
 			]
 		);
 	}
@@ -336,7 +345,7 @@ class OrdersController extends GridController
 			$client = $this->getSerializeDecode($client, $varsRepository->serialize_group_name);
 			
 			return $this->render(
-				'TicketBundle:Sales/Grid/Box:table_client.html.twig',
+				'TicketBundle:Orders/Grid/Box:table_client.html.twig',
 				[
 					'status' => $client ? self::STATUS_SUCCESS : self::STATUS_ERROR,
 					'client' => $client
@@ -382,7 +391,7 @@ class OrdersController extends GridController
 			$template,
 			[
 				'status' => self::STATUS_SUCCESS,
-				'products' => []
+				'productSession' => []
 			]
 		);
 	}
@@ -433,7 +442,7 @@ class OrdersController extends GridController
 	 * @param Request $request
 	 * @param string $action
 	 */
-	private function incrementDecrementSession(Request $request, $action = Sales::INCREMENT)
+	private function incrementDecrementSession(Request $request, $action = Orders::INCREMENT)
 	{
 		
 		//SESSION
@@ -441,27 +450,27 @@ class OrdersController extends GridController
 		
 		$session = $request->getSession();
 		
-		$products = $session->get('products');
+		$products = $session->get('products_order');
 		
 		if (is_null($products)) {
-			$session->set('products', []);
+			$session->set('products_order', []);
 		}
 		
-		$products = $session->get('products');
+		$products = $session->get('products_order');
 		
 		$exist = false;
 		foreach ($products as $key => $product) {
 			
 			if ($product['idItem'] == $idItem) {
 				
-				if ($action == Sales::DECREMENT AND $product['quantity'] >= 1) {
+				if ($action == Orders::DECREMENT AND $product['quantity'] >= 1) {
 					$array[] = [
 						'idItem' => $idItem,
 						'quantity' => --$product['quantity']
 					];
 				}
 				
-				if ($action == Sales::INCREMENT) {
+				if ($action == Orders::INCREMENT) {
 					$array[] = [
 						'idItem' => $idItem,
 						'quantity' => ++$product['quantity']
@@ -469,25 +478,25 @@ class OrdersController extends GridController
 				}
 				
 				unset($products[$key]);
-				$session->set('products', array_merge($products, $array));
+				$session->set('products_order', array_merge($products, $array));
 				
 				$exist = true;
 				break;
 			}
 		}
 		
-		$products = $session->get('products');
+		$products = $session->get('products_order');
 		
 		// QUITAR CON ZEROS
 		foreach ($products as $key => $product) {
 			if ($product['quantity'] == 0) {
 				unset($products[$key]);
-				$session->set('products', $products);
+				$session->set('products_order', $products);
 			}
 		}
 
 		if (!$exist) {
-			$session->set('products', array_merge($products, [
+			$session->set('products_order', array_merge($products, [
 				[
 					'idItem' => $idItem,
 					'quantity' => 1,
@@ -542,10 +551,6 @@ class OrdersController extends GridController
 
 		if (empty($ordersForm->deliveryDate)) {
 			throw new \Exception("Seleccione la Fecha de entrega.");
-		}
-		
-		if (empty($ordersForm->payment)) {
-			throw new \Exception("Ingrese pago del cliente.");
 		}
 		
 		if (empty($request->getSession()->get('products_order'))) {

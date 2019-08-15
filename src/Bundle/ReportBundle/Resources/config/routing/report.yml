@@ -1,0 +1,26 @@
+backend_report_index:
+    path: /
+    methods: [GET, POST]
+    defaults:
+        _controller: tianos.backend.controller.report:indexAction
+        _tianos:
+            action: xxxxx
+            template: ReportBundle:Report:index.html.twig
+            entity: Bundle\PointofsaleBundle\Entity\PointofsaleOpening
+            vars:
+                subheader: sylius.ui.manage_your_product_catalog
+                icon: bar-chart
+                title: 'Reporte por Puntos de venta'
+                body_css: report-body-css
+                box_class: danger
+            grid:
+                modal:
+                    title: Crear xxxxx
+            repository:
+                service: tianos.repository.ticket
+                method: find
+                arguments: [$reportId]
+            form:
+                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleOpening2Type
+            vars:
+                serialize_group_name: crud

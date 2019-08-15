@@ -259,10 +259,10 @@ backend_sales_remove_all_item:
     path: /remove-all-item
     methods: [POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:removeAllItemAction
+        _controller: tianos.backend.controller.sales:removeAllItemAction
         _tianos:
             action: create
-            template: TicketBundle:BackendTicket/Grid/Box:table_product.html.twig
+            template: TicketBundle:Sales/Grid/Box:table_product.html.twig
             vars:
                 body_css: grid-body-css
                 serialize_group_name: crud
@@ -292,7 +292,7 @@ backend_sales_info:
     path: /info
     methods: [POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:infoAction
+        _controller: tianos.backend.controller.sales:infoAction
         _tianos:
             action: info
-            template: TicketBundle:BackendTicket/Informative:info.html.twig
+            template: TicketBundle:Sales/Informative:info.html.twig

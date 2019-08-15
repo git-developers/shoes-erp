@@ -1,8 +1,8 @@
-backend_report_combo_chart:
+backend_statistics_combo_chart:
     path: /combo-chart
     methods: [GET, POST]
     defaults:
-        _controller: tianos.backend.controller.report:comboChartAction
+        _controller: tianos.backend.controller.statistics:comboChartAction
         _tianos:
             action: xxxxx
             template: ReportBundle:BackendReport:combo_chart.html.twig
@@ -25,11 +25,11 @@ backend_report_combo_chart:
             vars:
                 serialize_group_name: crud
 
-backend_report_pie_chart:
+backend_statistics_pie_chart:
     path: /pie-chart
     methods: [GET, POST]
     defaults:
-        _controller: tianos.backend.controller.report:pieChartAction
+        _controller: tianos.backend.controller.statistics:pieChartAction
         _tianos:
             action: xxxxx
             template: ReportBundle:BackendReport:pie_chart.html.twig

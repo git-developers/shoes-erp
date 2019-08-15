@@ -16,6 +16,12 @@ services:
         tags:
             - { name: tianos.api.controller.pointofsale, alias: tianos.api.controller.pointofsale }
 
+    tianos.backend.controller.opening:
+        class: Bundle\PointofsaleBundle\Controller\BackendOpeningController
+        arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
+        tags:
+            - { name: tianos.backend.controller.opening, alias: tianos.backend.controller.opening }
+
     tianos.backend.controller.pointofsale:
         class: Bundle\PointofsaleBundle\Controller\BackendController
         arguments: [ Bundle\ResourceBundle\Factory\RequestConfigurationFactoryInterface ]
@@ -62,6 +68,11 @@ services:
         class: Dummy
         factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Bundle\PointofsaleBundle\Entity\Pointofsale ]
+
+    tianos.repository.pointofsale.opening:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\PointofsaleBundle\Entity\PointofsaleOpening ]
 
     tianos.form.pointofsale.adduser.type:
         class: Bundle\PointofsaleBundle\Form\Type\PointofsaleAddUserType

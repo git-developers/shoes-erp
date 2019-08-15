@@ -92,11 +92,12 @@
                 dataType: 'html',
                 data: {},
                 beforeSend: function(jqXHR, settings) {
-                    $("input[name='sales[discount]']").val("");
-                    div.html('<p><i class="fa fa-fw fa-info-circle"></i> Agregue servicios.</p>');
+
                 },
                 success: function(data, textStatus, jqXHR) {
-
+                    // $("input[name='sales[discount]']").val("");
+                    // div.html('<p><i class="fa fa-fw fa-info-circle"></i> Agregue servicios  444.</p>');
+                    div.html(data);
                 },
                 error: function(jqXHR, exception) {
                     div.html(msg_error);

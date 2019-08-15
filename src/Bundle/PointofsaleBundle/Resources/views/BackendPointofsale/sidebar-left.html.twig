@@ -67,7 +67,12 @@
             </li>
             <li class="{% if app.request.get('_route') in 'backend_pointofsale_pdv_child_index' %}active{% endif %}">
                 <a href="{{ path('backend_pointofsale_pdv_child_index', {id: pdv.id}) }}">
-                    <i class="fa fa-map-marker"></i> Agregar sucursales PDV
+                    <i class="fa fa-map-marker"></i> Sucursales PDV
+                </a>
+            </li>
+            <li class="{% if app.request.get('_route') in 'backend_pointofsale_opening_index' %}active{% endif %}">
+                <a href="{{ path('backend_pointofsale_opening_index', {id: pdv.id}) }}">
+                    <i class="fa fa-openid"></i> Aperturar PDV
                 </a>
             </li>
         </ul>

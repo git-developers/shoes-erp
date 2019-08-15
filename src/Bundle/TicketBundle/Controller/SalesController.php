@@ -223,7 +223,7 @@ class SalesController extends GridController
 			return $this->render(
 				"GridBundle::error.html.twig",
 				[
-					'message' => "La venta ha sido cancelada anteriormente.",
+					'message' => "La venta ha sido CANCELADO anteriormente.",
 				]
 			);
 		}
@@ -412,7 +412,7 @@ class SalesController extends GridController
 			$template,
 			[
 				'status' => self::STATUS_SUCCESS,
-				'products' => []
+				'productSession' => []
 			]
 		);
 	}
@@ -589,8 +589,8 @@ class SalesController extends GridController
 			throw new \Exception("Seleccione la Fecha de entrega.");
 		}
 		
-		if (empty($salesForm->payment)) {
-			throw new \Exception("Ingrese pago del cliente.");
+		if ($salesForm->payment < 0) {
+			throw new \Exception("Ingrese pago del cliente. wwww");
 		}
 		
 		if (empty($request->getSession()->get('products'))) {

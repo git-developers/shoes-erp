@@ -1,13 +1,14 @@
-backend_pointofsale_pdv_child_index:
+backend_pointofsale_opening_index:
     path: /{id}
     methods: [GET]
     defaults:
-        _controller: tianos.backend.controller.pointofsale.pdv.child:indexAction
+        _controller: tianos.backend.controller.opening:indexAction
         _tianos:
             action: index
             section: admin
             permission: true
-            template: GridBundle::index_pdv_child.html.twig
+            template: PointofsaleBundle:BackendPointofsale:opening.html.twig
+            entity: Bundle\PointofsaleBundle\Entity\PointofsaleOpening
             roles_granted:
                 - ROLE_PDV_VIEW
             vars:
@@ -20,7 +21,7 @@ backend_pointofsale_pdv_child_index:
             grid:
                 icon: map-marker
                 box_class: primary
-                title: 'Gestionar puntos de ventas: Sucursales PDV'
+                title: 'Gestionar puntos de ventas: Apertura'
                 modal:
                     create:
                         title: Crear punto de venta
@@ -29,12 +30,12 @@ backend_pointofsale_pdv_child_index:
                         size: modal-lg
                 data_table:
                     route:
-                        info: backend_pointofsale_pdv_child_info
-                        view: backend_pointofsale_pdv_child_view
-                        edit: backend_pointofsale_pdv_child_edit
-                        create_pdv_child: backend_pointofsale_pdv_child_create
-                        delete: backend_pointofsale_pdv_child_delete
-                        add_user: backend_pointofsale_add_user
+                        info: backend_pointofsale_opening_info
+                        view: backend_pointofsale_opening_view
+                        edit: backend_pointofsale_opening_edit
+#                        create_pdv_child: backend_pointofsale_opening_create
+#                        delete: backend_pointofsale_opening_delete
+#                        add_user: backend_pointofsale_add_user
                     table_button:
                         #- edit
                         #- delete
@@ -85,89 +86,90 @@ backend_pointofsale_pdv_child_index:
                               orderable: 0
                               className: modal-delete text-center
             form:
-                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
+                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleOpeningType
             repository:
-                service: tianos.repository.pointofsale
-                method: findAllChildrenByParent
+                service: tianos.repository.pointofsale.opening
+                method: finAll
                 arguments: [$pointofsaleId]
                 vars:
                     serialize_group_name: crud
 
-backend_pointofsale_pdv_child_create:
-    path: /create
+backend_pointofsale_opening_create:
+    path: /create/{id}
     methods: [POST]
     defaults:
-        _controller: tianos.backend.controller.pointofsale.pdv.child:createAction
+        _controller: tianos.backend.controller.opening:createAction
         _tianos:
             action: create
             template: PointofsaleBundle:BackendPointofsale/Form:form_create.html.twig
-            entity: Bundle\PointofsaleBundle\Entity\Pointofsale
+            entity: Bundle\PointofsaleBundle\Entity\PointofsaleOpening
             roles_granted:
                 - ROLE_PDV_CREATE
             form:
-                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
+                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleOpeningType
             repository:
                 vars:
                     serialize_group_name: crud
 
-backend_pointofsale_pdv_child_edit:
+backend_pointofsale_opening_edit:
     path: /edit
     methods: [PUT, POST]
     defaults:
-        _controller: tianos.backend.controller.pointofsale:editAction
+        _controller: tianos.backend.controller.opening:editAction
         _tianos:
             action: edit
             template: PointofsaleBundle:BackendPointofsale/Form:form_edit.html.twig
+            entity: Bundle\PointofsaleBundle\Entity\Pointofsale
             roles_granted:
                 - ROLE_PDV_EDIT
             form:
-                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
+                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleOpeningType
             repository:
-                service: tianos.repository.pointofsale
+                service: tianos.repository.pointofsale.opening
                 method: find
                 arguments: [$pointofsaleId]
                 vars:
                     serialize_group_name: crud
 
-backend_pointofsale_pdv_child_delete:
+backend_pointofsale_opening_delete:
     path: /delete
     methods: [POST, DELETE]
     defaults:
-        _controller: tianos.backend.controller.pointofsale:deleteAction
+        _controller: tianos.backend.controller.opening:deleteAction
         _tianos:
             action: delete
             template: GridBundle:Template:delete.html.twig
             roles_granted:
                 - ROLE_PDV_DELETE
             repository:
-                service: tianos.repository.pointofsale
+                service: tianos.repository.pointofsale.opening
                 method: find
                 arguments: [$pointofsaleId]
             vars:
 #                body_css: grid-body-css
 
-backend_pointofsale_pdv_child_view:
+backend_pointofsale_opening_view:
     path: /view
     methods: [POST]
     defaults:
-        _controller: tianos.backend.controller.pointofsale:viewAction
+        _controller: tianos.backend.controller.opening:viewAction
         _tianos:
             action: view
             template: PointofsaleBundle:BackendPointofsale/Informative:view.html.twig
             roles_granted:
                 - ROLE_PDV_VIEW
             repository:
-                service: tianos.repository.pointofsale
-                method: find
+                service: tianos.repository.pointofsale.opening
+                method: findParentAndChildren
                 arguments: [$pointofsaleId]
                 vars:
                     serialize_group_name: crud
 
-backend_pointofsale_pdv_child_info:
+backend_pointofsale_opening_info:
     path: /info
     methods: [POST]
     defaults:
-        _controller: tianos.backend.controller.pointofsale:infoAction
+        _controller: tianos.backend.controller.opening:infoAction
         _tianos:
             action: info
             template: PointofsaleBundle:BackendPointofsale/Informative:info.html.twig

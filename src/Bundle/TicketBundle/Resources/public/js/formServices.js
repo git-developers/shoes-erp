@@ -92,7 +92,7 @@
                 dataType: 'html',
                 data: {},
                 beforeSend: function(jqXHR, settings) {
-                    div.html('<p><i class="fa fa-fw fa-info-circle"></i> Agregue servicios.</p>');
+                    div.html('<p><i class="fa fa-fw fa-info-circle"></i> Agregue servicios. 777</p>');
                 },
                 success: function(data, textStatus, jqXHR) {
 

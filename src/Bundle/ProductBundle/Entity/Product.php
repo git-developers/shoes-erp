@@ -25,7 +25,8 @@ class Product
      *
      * @JMSS\Groups({
      *     "pdv_product",
-     *     "sales"
+     *     "sales",
+     *     "orders"
      * })
      */
     private $id;
@@ -51,7 +52,8 @@ class Product
 	 *
 	 * @JMSS\Groups({
 	 *     "pdv_product",
-	 *     "sales"
+	 *     "sales",
+	 *     "orders"
 	 * })
 	 *
 	 */
@@ -63,7 +65,8 @@ class Product
 	 *
 	 * @JMSS\Groups({
 	 *     "pdv_product",
-	 *     "sales"
+	 *     "sales",
+	 *     "orders",
 	 * })
 	 *
 	 */
@@ -74,7 +77,8 @@ class Product
      *
      * @JMSS\Groups({
      *     "pdv_product",
-     *     "sales"
+     *     "sales",
+     *     "orders"
      * })
      */
     private $name;
@@ -99,6 +103,7 @@ class Product
      *
      * @JMSS\Groups({
      *     "sales",
+     *     "orders",
      *     "pdv_product"
      * })
      */
@@ -108,7 +113,8 @@ class Product
      * @var string
      *
      * @JMSS\Groups({
-     *     "sales"
+     *     "sales",
+     *     "orders"
      * })
      */
     private $sizeRange;
@@ -152,7 +158,8 @@ class Product
      * })
      *
      * @JMSS\Groups({
-     *     "sales"
+     *     "sales",
+     *     "orders"
      * })
      */
     private $category;
@@ -177,10 +184,11 @@ class Product
 	 *
 	 * @JMSS\Groups({
 	 *     "sales",
+	 *     "orders",
 	 *     "pdv_product",
 	 * })
 	 *
-	 * * @Assert\NotBlank(message="Agregue un color")
+	 * @Assert\NotBlank(message="Agregue un color")
 	 */
 	private $color;
 	
@@ -188,7 +196,8 @@ class Product
 	 * @var integer
 	 *
 	 * @JMSS\Groups({
-	 *     "sales"
+	 *     "sales",
+	 *     "orders"
 	 * })
 	 */
 	private $quantity;
@@ -208,7 +217,8 @@ class Product
 	 *
 	 * @JMSS\Groups({
 	 *     "pdv_product",
-	 *     "sales"
+	 *     "sales",
+	 *     "orders"
 	 * })
 	 */
 	private $files;

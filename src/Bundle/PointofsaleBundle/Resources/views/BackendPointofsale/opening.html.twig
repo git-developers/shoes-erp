@@ -1,0 +1,115 @@
+{% extends "ThemesBundle:Adminlte/Template:1_template.html.twig" %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+        filter='cssrewrite'
+        '@GridBundle/Resources/public/common/css/switch.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@GridBundle/Resources/public/common/js/formInfo.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+
+        $("form[name='{{ form.vars.name }}']").submit(function(event) {
+            event.preventDefault();
+
+            if (!confirm('Esta seguro ?')) {
+                return;
+            }
+
+            $.ajax({
+                url: '{{ path('backend_pointofsale_opening_create', {id:pdv.id}) }}',
+                type: 'POST',
+                dataType: 'json',
+                data: {},
+                cache: true,
+                beforeSend: function(jqXHR, settings) {
+                    $('code').html('procesando...');
+                },
+                success: function(data, textStatus, jqXHR) {
+                    $('code').html('exito!');
+                },
+                error: function(jqXHR, exception) {
+                    $('code').html('terminado - error');
+                }
+            });
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-{{ grid.icon }}"></i> {{ grid.title|raw }}
+            <small>grid</small>
+        </h1>
+        <ol class="breadcrumb">
+            {#<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>#}
+            {#<li class="active">Dashboard</li>#}
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                {{ include('PointofsaleBundle:BackendPointofsale:sidebar-left.html.twig') }}
+            </div>
+
+            <div class="col-md-9 table-responsive" style="padding-left: 0">
+
+                <div class="box box-{{ vars.box_class }}">
+
+                    <div class="box-body">
+
+                        {#{{ dump() }}#}
+
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {{ form_widget(form.submit) }}
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <code></code>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    {{ include('GridBundle:Modal:info.html.twig') }}
+
+{% endblock %}

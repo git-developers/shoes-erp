@@ -1,0 +1,112 @@
+Bundle\ReportBundle\Entity\ReportPdv:
+    type: entity
+    table: report_pdv
+    repositoryClass: Bundle\ReportBundle\Doctrine\ORM\ReportPdvRepository
+    indexes:
+        fk_report_pdv_product1_idx:
+            columns:
+                - product_id
+        fk_report_pdv_pointofsale_opening1_idx:
+            columns:
+                - pointofsale_opening_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        stockInitial:
+            type: integer
+            nullable: true
+            length: 5
+            options:
+                unsigned: false
+            column: stock_initial
+        stockOrders:
+            type: integer
+            nullable: true
+            length: 5
+            options:
+                unsigned: false
+            column: stock_orders
+        stockSales:
+            type: integer
+            nullable: true
+            length: 5
+            options:
+                unsigned: false
+            column: stock_sales
+        stockSales:
+            type: integer
+            nullable: true
+            length: 5
+            options:
+                unsigned: false
+            column: stock_sales
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+#            gedmo:
+#                timestampable:
+#                    on: create
+        userCreate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        userUpdate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_update
+        isActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: is_active
+    manyToOne:
+        product:
+            targetEntity: Bundle\ProductBundle\Entity\Product
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                product_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        pointofsaleOpening:
+            targetEntity: Bundle\PointofsaleBundle\Entity\PointofsaleOpening
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                pointofsale_opening_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

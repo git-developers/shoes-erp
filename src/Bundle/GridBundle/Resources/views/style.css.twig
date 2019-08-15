@@ -1,0 +1,95 @@
+
+table#{{ dataTable.tableOptions.table_name|default() }} tr.{{ dataTable.tableOptions.table_tr_class|default() }}:hover{
+    background-color: #ECECEC;
+}
+
+
+{# ****** RIPPLE EFFECT ****** #}
+td.{{ modal.view_id }},
+td.{{ modal.edit_id }},
+td.{{ modal.delete_id }},
+td.{{ modal.profile_id }},
+td.{{ modal.payment_history_id }},
+td.{{ modal.image_upload_id }},
+td.{{ modal.point_of_sale_cog }},
+td.{{ modal.change_password_id }}
+{
+    background-position: center;
+    transition: background 0.5s;
+    cursor: pointer;
+}
+
+td.{{ modal.view_id }}:active,
+td.{{ modal.edit_id }}:active,
+td.{{ modal.delete_id }}:active,
+td.{{ modal.profile_id }}:active,
+td.{{ modal.payment_history_id }}:active,
+td.{{ modal.image_upload_id }}:active,
+td.{{ modal.point_of_sale_cog }}:active,
+td.{{ modal.change_password_id }}:active
+{
+    background-color: #d2d6de;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+td.{{ modal.view_id }}:hover
+{
+    background: #357ca5 radial-gradient(circle, transparent 1%, #357ca5 1%) center/20000%;
+    color: white;
+}
+
+td.{{ modal.edit_id }}:hover
+{
+    background: #f39c12 radial-gradient(circle, transparent 1%, #f39c12 1%) center/20000%;
+    color: white;
+}
+
+td.{{ modal.delete_id }}:hover
+{
+    background: #dd4b39 radial-gradient(circle, transparent 1%, #dd4b39 1%) center/20000%;
+    color: white;
+}
+
+td.{{ modal.change_password_id }}:hover
+{
+    background: #00c0ef radial-gradient(circle, transparent 1%, #00c0ef 1%) center/20000%;
+    color: white;
+}
+
+td.{{ modal.profile_id }}:hover
+{
+    background: #3d9970 radial-gradient(circle, transparent 1%, #3d9970 1%) center/20000%;
+    color: white;
+}
+
+td.{{ modal.point_of_sale_cog }}:hover
+{
+    background: #367fa9 radial-gradient(circle, transparent 1%, #367fa9 1%) center/20000%;
+    color: white;
+}
+
+td.{{ modal.image_upload_id }}:hover
+{
+    background: #605ca8 radial-gradient(circle, transparent 1%, #605ca8 1%) center/20000%;
+    color: white;
+}
+
+td.{{ modal.payment_history_id }}:hover
+{
+    background: #605ca8 radial-gradient(circle, transparent 1%, #605ca8 1%) center/20000%;
+    color: white;
+}
+{# ****** RIPPLE EFFECT ****** #}
+
+
+
+
+input[type=checkbox] {
+    height: 20px;
+    width: 20px;
+}
+.dataTables_filter input[type="search"] {
+    width: 350px;
+    height: 35px;
+}

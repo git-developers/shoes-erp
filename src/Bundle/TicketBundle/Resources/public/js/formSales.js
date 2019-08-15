@@ -31,7 +31,7 @@
 
             $.each(fields, function(i, field) {
 
-                if (field.value != "" || $.inArray(field.name, ["sales[name]", "discount"]) !== -1) {
+                if (field.value != "" || $.inArray(field.name, ["sales[name]", "discount", "sales[discount]"]) !== -1) {
                     return true;
                 }
 

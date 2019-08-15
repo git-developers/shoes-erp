@@ -352,14 +352,14 @@ class Builder implements ContainerAwareInterface
         
 
         /**
-         * STATISTICS
+         * REPORTS
          */
         $isGranted = $this->isGranted([
 	        Role::ROLE_STADISTICS,
         ]);
 
-        $menu->addChild('Estadísticas', [
-            'route' => 'backend_report_combo_chart',
+        $menu->addChild('Reportes', [
+            'route' => 'backend_report_index',
             'extras' => ['safe_label' => true],
             'childrenAttributes' => [
                 'class' => 'treeview-menu',
@@ -367,32 +367,79 @@ class Builder implements ContainerAwareInterface
         ])
         ->setAttribute('class', 'treeview')
         ->setAttribute('class', $this->activeRoute([
-            'backend_report_pie_chart',
-            'backend_report_combo_chart',
+            'backend_report_index',
         ]))
         ->setAttribute('icon', 'fa-fw fa-bar-chart')
         ->setDisplay($isGranted)
         ;
         
-	    $menu['Estadísticas']->addChild('Combo chart', [
-		    'route' => 'backend_report_combo_chart'
+	    $menu['Reportes']->addChild('Reporte por Pdv', [
+		    'route' => 'backend_report_index'
 	    ])
 	    ->setAttribute('icon', self::CIRCLE_1)
-	    ->setAttribute('class', $this->activeRoute('backend_report_combo_chart'))
+	    ->setAttribute('class', $this->activeRoute('backend_report_index'))
+	    ->setDisplay($isGranted)
+	    ;
+     
+//	    $menu['Reportes']->addChild('Pie chart', [
+//		    'route' => 'backend_statistics_pie_chart'
+//	    ])
+//	    ->setAttribute('icon', self::CIRCLE_2)
+//	    ->setAttribute('class', $this->activeRoute('backend_statistics_pie_chart'))
+//	    ->setDisplay($isGranted)
+//	    ;
+        /**
+         * REPORTS
+         */
+	
+        
+
+        
+        
+
+        /**
+         * STATISTICS
+         */
+        $isGranted = $this->isGranted([
+	        Role::ROLE_STADISTICS,
+        ]);
+
+        $menu->addChild('Estadísticas', [
+            'route' => 'backend_statistics_combo_chart',
+            'extras' => ['safe_label' => true],
+            'childrenAttributes' => [
+                'class' => 'treeview-menu',
+            ],
+        ])
+        ->setAttribute('class', 'treeview')
+        ->setAttribute('class', $this->activeRoute([
+            'backend_statistics_pie_chart',
+            'backend_statistics_combo_chart',
+        ]))
+        ->setAttribute('icon', 'fa-fw fa-line-chart')
+        ->setDisplay($isGranted)
+        ;
+        
+	    $menu['Estadísticas']->addChild('Combo chart', [
+		    'route' => 'backend_statistics_combo_chart'
+	    ])
+	    ->setAttribute('icon', self::CIRCLE_1)
+	    ->setAttribute('class', $this->activeRoute('backend_statistics_combo_chart'))
 	    ->setDisplay($isGranted)
 	    ;
      
 	    $menu['Estadísticas']->addChild('Pie chart', [
-		    'route' => 'backend_report_pie_chart'
+		    'route' => 'backend_statistics_pie_chart'
 	    ])
 	    ->setAttribute('icon', self::CIRCLE_2)
-	    ->setAttribute('class', $this->activeRoute('backend_report_pie_chart'))
+	    ->setAttribute('class', $this->activeRoute('backend_statistics_pie_chart'))
 	    ->setDisplay($isGranted)
 	    ;
         /**
          * STATISTICS
          */
 	
+        
         
 	
 	

@@ -79,7 +79,8 @@ class BackendPdvChildController extends GridController
             ->setColumnsTargets()
             ->resetGridVariable()
         ;
-
+	
+	    //PDV
         $pdv = $this->get('tianos.repository.pointofsale')->find($request->get('id'));
 
         return $this->render(

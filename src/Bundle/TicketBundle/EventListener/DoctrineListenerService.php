@@ -13,6 +13,7 @@ use Bundle\TicketBundle\Entity\Ticket;
 use Bundle\TicketBundle\Entity\PaymentHistory;
 use Bundle\TicketBundle\Entity\PaymentType;
 use Bundle\TicketBundle\Entity\Sales;
+use Bundle\TicketBundle\Entity\Orders;
 use Cocur\Slugify\Slugify;
 use Bundle\CoreBundle\EventListener\BaseDoctrineListenerService;
 
@@ -74,6 +75,13 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 	        $entity->setCreatedAt($this->setupCreatedAt($entity));
 	        $entity->setUserCreate($this->getUser()->getId());
         } elseif ($entity instanceof Sales) {
+	        $name = $entity->getName();
+	        $entity->setCode(uniqid());
+	        $entity->setStatus(Sales::STATUS_OPEN);
+	        $entity->setSlug($this->slugify($name));
+	        $entity->setCreatedAt($this->setupCreatedAt($entity));
+	        $entity->setUserCreate($this->getUser()->getId());
+        } elseif ($entity instanceof Orders) {
 	        $name = $entity->getName();
 	        $entity->setCode(uniqid());
 	        $entity->setStatus(Sales::STATUS_OPEN);

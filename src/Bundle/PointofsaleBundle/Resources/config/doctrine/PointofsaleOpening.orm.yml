@@ -1,0 +1,79 @@
+Bundle\PointofsaleBundle\Entity\PointofsaleOpening:
+    type: entity
+    table: pointofsale_opening
+    repositoryClass: Bundle\PointofsaleBundle\Doctrine\ORM\PointofsaleOpeningRepository
+    indexes:
+        fk_report_point_of_sale1_idx:
+            columns:
+                - point_of_sale_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        openingDate:
+            type: datetime
+            nullable: false
+            column: opening_date
+        closingDate:
+            type: datetime
+            nullable: true
+            column: $closing_date
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+#            gedmo:
+#                timestampable:
+#                    on: create
+        userCreate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        userUpdate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_update
+        isActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: is_active
+    manyToOne:
+        pointOfSale:
+            targetEntity: Bundle\PointofsaleBundle\Entity\Pointofsale
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                point_of_sale_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

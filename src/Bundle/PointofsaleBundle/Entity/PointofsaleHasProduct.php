@@ -28,6 +28,7 @@ class PointofsaleHasProduct
      *
      * @JMSS\Groups({
      *     "sales",
+     *     "orders",
      *     "pdv_product",
      * })
      */
@@ -55,6 +56,7 @@ class PointofsaleHasProduct
      * @JMSS\Groups({
      *     "pdv_product",
      *     "sales",
+     *     "orders",
      * })
      */
     private $product;

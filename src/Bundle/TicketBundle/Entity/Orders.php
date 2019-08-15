@@ -30,28 +30,28 @@ class Orders
     /**
      * @var integer
      *
-     * @JMSS\Groups({"sales"})
+     * @JMSS\Groups({"orders"})
      */
     private $id;
 
     /**
      * @var string
      *
-     * @JMSS\Groups({"sales"})
+     * @JMSS\Groups({"orders"})
      */
     private $code;
     
     /**
      * @var string
      *
-     * @JMSS\Groups({"sales"})
+     * @JMSS\Groups({"orders"})
      */
     private $name;
 
     /**
      * @var integer
      *
-     * @JMSS\Groups({"sales"})
+     * @JMSS\Groups({"orders"})
      */
     private $status;
 
@@ -63,7 +63,7 @@ class Orders
     /**
      * @var \DateTime
      *
-     * @JMSS\Groups({"sales"})
+     * @JMSS\Groups({"orders"})
      * @JMSS\Type("DateTime<'Y-m-d H:i'>")
      */
     private $createdAt;
@@ -71,7 +71,7 @@ class Orders
 	/**
 	 * @var \DateTime
 	 *
-	 * @JMSS\Groups({"sales"})
+	 * @JMSS\Groups({"orders"})
 	 * @JMSS\Type("DateTime<'Y-m-d'>")
 	 */
 	private $deliveryDate;
@@ -104,14 +104,14 @@ class Orders
 	 *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
 	 * })
 	 *
-	 * @JMSS\Groups({"sales"})
+	 * @JMSS\Groups({"orders"})
 	 */
 	private $client;
 	
 	/**
 	 * @var \Doctrine\Common\Collections\Collection
 	 *
-	 * @ORM\ManyToMany(targetEntity="Bundle\UserBundle\Entity\User", inversedBy="sales")
+	 * @ORM\ManyToMany(targetEntity="Bundle\UserBundle\Entity\User", inversedBy="orders")
 	 * @ORM\JoinTable(name="sales_has_employee",
 	 *   joinColumns={
 	 *     @ORM\JoinColumn(name="sales_id", referencedColumnName="id")
@@ -121,7 +121,7 @@ class Orders
 	 *   }
 	 * )
 	 *
-	 * @JMSS\Groups({"sales"})
+	 * @JMSS\Groups({"orders"})
 	 */
 	private $employee;
 	
@@ -133,7 +133,7 @@ class Orders
 	 *   @ORM\JoinColumn(name="point_of_sale_id", referencedColumnName="id")
 	 * })
 	 *
-	 * @JMSS\Groups({"sales"})
+	 * @JMSS\Groups({"orders"})
 	 */
 	private $pointOfSale;
 	

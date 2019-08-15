@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ReportBundle\Form\Type;
+namespace Bundle\PointofsaleBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -9,9 +9,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityManager;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
+use Bundle\PointofsaleBundle\Entity\Pointofsale;
 
-
-class ReportType extends AbstractType
+class PointofsaleOpening2Type extends AbstractType
 {
 
     /**
@@ -21,20 +23,26 @@ class ReportType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setMethod('GET')
-            ->add('dateStart', DateType::class, [
-                'label' =>' Fecha inicio',
-                'label_attr' => [
-                    'class' => ''
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-                'html5' => true,
-                'widget' => 'single_text',
-            ])
-            ->add('dateEnd', DateType::class, [
-                'label' =>' Fecha fin',
+            ->setMethod('POST')
+	        ->add('pointOfSale', EntityType::class, [
+		        'class' => Pointofsale::class,
+		        'query_builder' => function(EntityRepository $er) {
+			        return $er->findAllObjects();
+		        },
+		        'placeholder' => '[ Seleccione un punto de venta ]',
+		        'empty_data' => null,
+		        'required' => true,
+		        'label' => 'Punto de venta',
+		        'label_attr' => [
+			        'class' => ''
+		        ],
+		        'attr' => [
+			        'class' => 'form-control',
+			        'placeholder' => '',
+		        ],
+	        ])
+            ->add('openingDate', DateType::class, [
+                'label' =>' Fecha de apertura',
                 'label_attr' => [
                     'class' => ''
                 ],
@@ -47,7 +55,7 @@ class ReportType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Buscar',
                 'attr' => [
-                    'class' => 'btn bg-olive',
+                    'class' => 'btn btn-primary',
                 ],
             ])
         ;

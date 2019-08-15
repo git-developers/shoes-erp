@@ -19,7 +19,7 @@ backend_pointofsale_add_user_index:
             grid:
                 icon: user
                 box_class: primary
-                title: 'Punto de venta: agregar usuarios'
+                title: 'Gestionar puntos de ventas: Agregar usuarios'
                 modal:
                     create:
                         title: Crear usuario

@@ -39,7 +39,7 @@ class PointofsaleHasProductRepository extends TianosEntityRepository
             ->setParameter('active', true)
             ;
     }
-
+    
     /**
      * {@inheritdoc}
      */

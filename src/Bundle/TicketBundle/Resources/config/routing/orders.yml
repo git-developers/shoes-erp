@@ -16,18 +16,18 @@ backend_orders_index:
                 body_css: grid-body-css
                 serialize_group_name: crud
             grid:
-                icon: shopping-cart
+                icon: file-text
                 box_class: primary
                 title: Gestionar pedidos
                 modal:
                     create:
-                        title: Crear venta
+                        title: Crear pedido
                         size: modal-lg
                     edit:
-                        title: Editar venta
+                        title: Editar pedido
                         size: modal-
                     view:
-                        title: Ver venta
+                        title: Ver pedido
                         size: modal-lg
                     payment_history:
                         title: Historial de pagos
@@ -40,7 +40,6 @@ backend_orders_index:
                         view: backend_orders_view
                         create: backend_orders_create
                         edit: backend_orders_edit
-                        payment_history: backend_payment_history_index
                         #delete: backend_orders_delete
                     table_button:
                         #- ticket_edit
@@ -78,7 +77,7 @@ backend_orders_index:
                               type: html
                               width: 12%
                               title: '<i class="fa fa-fw fa-qrcode"></i> Code'
-                              className: modal-payment-history text-center
+                              className: text-center
                               filter: 1
                         - obj: obj.status
                           options:
@@ -111,22 +110,14 @@ backend_orders_index:
                               title: '<i class="fa fa-fw fa-map-marker"></i> Punto de venta'
                               className: text-center
                               filter: 1
-                        - obj: obj.total
-                          defs:
-                              targets: 5
-                              orderable: 1
-                              sorting: 1
-                              title: '<i class="fa fa-fw fa-money"></i> Total'
-                              className: text-center
-                              filter: 1
                         - obj: obj.delivery_date
                           defs:
-                              targets: 6
+                              targets: 5
                               title: '<i class="fa fa-fw fa-calendar"></i> Fecha de entrega'
                               className: text-center
                         - obj: obj.created_at
                           defs:
-                              targets: 7
+                              targets: 6
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
             form:
@@ -134,7 +125,7 @@ backend_orders_index:
             repository:
                 service: tianos.repository.orders
                 method: findAll
-                arguments: [$ticketId]
+                arguments: [$ordersId]
                 vars:
                     serialize_group_name: orders
 
@@ -156,7 +147,7 @@ backend_orders_create:
                 main_ul: box-main-ul
                 child_ul: box-child-ul
                 li_span: li-span
-            entity: Bundle\TicketBundle\Entity\Sales
+            entity: Bundle\TicketBundle\Entity\Orders
             template: TicketBundle:Orders/Grid:create.html.twig
             form:
                 type: Bundle\TicketBundle\Form\Type\OrdersType
@@ -175,7 +166,7 @@ backend_orders_edit:
             roles_granted:
                 - ROLE_TICKET_EDIT
             form:
-                type: Bundle\TicketBundle\Form\Type\SalesStatusType
+                type: Bundle\TicketBundle\Form\Type\OrdersStatusType
             repository:
                 service: tianos.repository.orders
                 method: find
@@ -259,10 +250,10 @@ backend_orders_remove_all_item:
     path: /remove-all-item
     methods: [POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:removeAllItemAction
+        _controller: tianos.backend.controller.orders:removeAllItemAction
         _tianos:
             action: create
-            template: TicketBundle:BackendTicket/Grid/Box:table_product.html.twig
+            template: TicketBundle:Orders/Grid/Box:table_product.html.twig
             vars:
                 body_css: grid-body-css
                 serialize_group_name: crud
@@ -284,7 +275,7 @@ backend_orders_view:
             repository:
                 service: tianos.repository.orders
                 method: find
-                arguments: [$ticketId]
+                arguments: [$ordersId]
                 vars:
                     serialize_group_name: orders
 
@@ -292,7 +283,7 @@ backend_orders_info:
     path: /info
     methods: [POST]
     defaults:
-        _controller: tianos.backend.controller.ticket:infoAction
+        _controller: tianos.backend.controller.orders:infoAction
         _tianos:
             action: info
-            template: TicketBundle:BackendTicket/Informative:info.html.twig
+            template: TicketBundle:Orders/Informative:info.html.twig

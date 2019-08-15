@@ -69,12 +69,12 @@ class OrdersType extends AbstractType
 			        'class' => ''
 		        ],
 		        'attr' => [
-			        'class' => 'form-control',
+			        'class' => 'form-control hide',
 			        'placeholder' => '',
 		        ],
 	        ))
 	        ->add('submit', SubmitType::class, [
-		        'label' => 'Generar venta',
+		        'label' => 'Generar pedido',
 		        'attr' => [
 			        'class' => 'btn btn-lg btn-primary',
 		        ],

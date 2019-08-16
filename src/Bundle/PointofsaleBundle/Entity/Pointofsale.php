@@ -32,12 +32,16 @@ class Pointofsale
 	const ROLE_PDV_EDIT = 'ROLE_PDV_EDIT';
 	const ROLE_PDV_DELETE = 'ROLE_PDV_DELETE';
 	
+	const STATUS_OPEN = 1;
+	const STATUS_CLOSED = 2;
+	
     /**
      * @var integer
      *
      * @JMSS\Groups({
      *     "api",
      *     "crud",
+     *     "orders",
      *     "one-to-many-left",
      *     "one-to-many-right",
      *     "one-to-many-search",
@@ -77,6 +81,20 @@ class Pointofsale
      *
      */
     private $slug;
+	
+	/**
+	 * @var integer
+	 *
+	 * @JMSS\Groups({"crud"})
+	 */
+	private $status;
+	
+	/**
+	 * @var string
+	 *
+	 * @JMSS\Groups({"crud"})
+	 */
+	private $pdvHash;
 
     /**
      * @var string
@@ -124,7 +142,10 @@ class Pointofsale
     /**
      * @var \DateTime
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "orders"
+     * })
      * @JMSS\Type("DateTime<'Y-m-d H:i'>")
      */
     private $createdAt;
@@ -180,7 +201,8 @@ class Pointofsale
      *     "one-to-many-right",
      *     "order-in-left",
      *     "one-to-many-left-userhaspointofsale",
-     *     "order-report"
+     *     "order-report",
+     *     "orders"
      * })
      */
     private $nameBox;
@@ -687,6 +709,41 @@ class Pointofsale
 	{
 		return $this->category;
 	}
+	
+	/**
+	 * @return int
+	 */
+	public function getStatus() //: int
+	{
+		return $this->status;
+	}
+	
+	/**
+	 * @param int $status
+	 */
+	public function setStatus(int $status)
+	{
+		$this->status = $status;
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getPdvHash() //: string
+	{
+		return $this->pdvHash;
+	}
+	
+	/**
+	 * @param string $pdvHash
+	 */
+	public function setPdvHash($pdvHash)
+	{
+		$this->pdvHash = $pdvHash;
+	}
+	
+
+	
 	
 }
 

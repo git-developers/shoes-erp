@@ -983,6 +983,14 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
 	}
 	
 	/**
+	 * @param \Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSaleActive
+	 */
+	public function setPointOfSaleActive($pointOfSaleActive)
+	{
+		$this->pointOfSaleActive = $pointOfSaleActive;
+	}
+	
+	/**
 	 * @return \Bundle\PointofsaleBundle\Entity\Pointofsale
 	 */
 	public function getPointOfSaleActiveSlug()
@@ -1003,13 +1011,13 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
 		return $this->pointOfSaleActive->getId();
 	}
 	
-	/**
-	 * @param \Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSaleActive
-	 */
-	//public function setPointOfSaleActive(\Bundle\PointofsaleBundle\Entity\Pointofsale $pointOfSaleActive)
-	public function setPointOfSaleActive($pointOfSaleActive)
+	public function isPointOfSaleActiveStatusClosed(): bool
 	{
-		$this->pointOfSaleActive = $pointOfSaleActive;
+		if (!$this->pointOfSaleActive instanceof Pointofsale) {
+			return true;
+		}
+		
+		return $this->pointOfSaleActive->getStatus() == Pointofsale::STATUS_CLOSED;
 	}
 	
 	/**

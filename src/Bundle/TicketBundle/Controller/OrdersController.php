@@ -71,7 +71,6 @@ class OrdersController extends GridController
 				
 				$ordersForm = $request->get($varsRepository->serialize_group_name);
 				$ordersForm = json_decode(json_encode($ordersForm));
-
 				
 				/**
 				 * VALIDATE
@@ -108,7 +107,24 @@ class OrdersController extends GridController
 				}
 				
 				
-				//message success
+				/**
+				 * REPORT PDV UPDATE
+				 */
+				foreach ($request->getSession()->get('products_order') as $key => $productSave) {
+					$reportPdv = $this->get('tianos.repository.report.pdv')->findByHashAndProduct(
+						$pdv->getPdvHash(),
+						$productSave['idItem']
+					);
+					
+					$reportPdv->setStockOrders($reportPdv->getStockOrders() + $productSave['quantity']);
+					$this->persist($reportPdv);
+				}
+				
+				
+				
+				/**
+				 * MESSAGE SUCCESS
+				 */
 				$this->flashAlertSuccess('Pedido creado. CÓDIGO: <span class="label bg-green-active fontsize-12">' . $entity->getCode() . '</span>');
 				
 				
@@ -358,6 +374,70 @@ class OrdersController extends GridController
 			[
 				'clients' => $clients,
 				'action' => $action,
+				'form' => $form->createView(),
+			]
+		);
+	}
+	
+	/**
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function addPdvAction(Request $request): Response
+	{
+		
+		if (!$this->isXmlHttpRequest()) {
+			throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
+		}
+		
+		$parameters = [
+			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
+		];
+		
+		$applicationName = $this->container->getParameter('application_name');
+		$this->metadata = new Metadata('tianos', $applicationName, $parameters);
+		
+		//CONFIGURATION
+		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
+		$template = $configuration->getTemplate('');
+		$action = $configuration->getAction();
+		$formType = $configuration->getFormType();
+		$vars = $configuration->getVars();
+		$varsRepository = $configuration->getRepositoryVars();
+		$entity = $configuration->getEntity();
+		$repository = $configuration->getRepositoryService();
+		$method = $configuration->getRepositoryMethod();
+		$entity = new $entity();
+		
+		$form = $this->createForm($formType, $entity, ['form_data' => []]);
+		$form->handleRequest($request);
+		
+		//BUSCA PDV
+		$pointsOfSale = $this->get($repository)->$method();
+		$pointsOfSale = $this->getSerializeDecode($pointsOfSale, $varsRepository->serialize_group_name);
+		
+		if ($form->isSubmitted() && $form->isValid()) {
+			
+			$pdvId = $request->get('pdv');
+			$pdvId = (int) array_shift($pdvId);
+			
+			$pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
+			$pdv = $this->getSerializeDecode($pdv, $varsRepository->serialize_group_name);
+			
+			return $this->render(
+				'TicketBundle:Orders/Grid/Box:table_pointofsale.html.twig',
+				[
+					'status' => $pdv ? self::STATUS_SUCCESS : self::STATUS_ERROR,
+					'pdv' => $pdv
+				]
+			);
+		}
+		
+		return $this->render(
+			$template,
+			[
+				'action' => $action,
+				'pointsOfSale' => $pointsOfSale,
 				'form' => $form->createView(),
 			]
 		);

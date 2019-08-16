@@ -12,7 +12,7 @@
 
                 <div class="col-md-2">
                     <strong>
-                        <i class="fa fa-qr-code margin-r-5"></i> ID
+                        <i class="fa fa-bookmark margin-r-5"></i> ID
                     </strong>
 
                     <p class="text-muted">
@@ -31,6 +31,36 @@
                 </div>
 
                 <div class="col-md-5">
+                    <strong>
+                        <i class="fa fa-check-square-o margin-r-5"></i> Status
+                    </strong>
+
+                    <p class="text-muted">
+                        {% if entity.status == constant('Bundle\\PointofsaleBundle\\Entity\\Pointofsale::STATUS_OPEN') %}
+                            <span class="label label-success fontsize-12">ABIERTO</span>
+                        {% else %}
+                            <span class="label label-danger fontsize-12">CERRADO</span>
+                        {% endif %}
+                    </p>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <strong>
+                        <i class="fa fa-flask margin-r-5"></i> Pdv Hash
+                    </strong>
+
+                    <p class="text-muted">
+                        {{ entity.pdvHash|default("-") }}
+                    </p>
+                </div>
+
+                <div class="col-md-6">
                     <strong>
                         <i class="fa fa-calendar margin-r-5"></i> Creado
                     </strong>

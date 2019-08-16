@@ -34,6 +34,7 @@
 
     {% javascripts
         '@TicketBundle/Resources/public/js/formClient.js'
+        '@TicketBundle/Resources/public/js/formPointOfSale.js'
         '@TicketBundle/Resources/public/js/formOrders.js'
         '@TicketBundle/Resources/public/js/formProducts.js'
         '@TicketBundle/Resources/public/js/barcodeScanner.js'
@@ -51,6 +52,13 @@
                 clientId: '{{ form.client.vars.full_name }}',
                 route: '{{ path('backend_orders_add_client') }}'
             });
+
+            {#$('body.{{ vars.body_css }}').formPointOfSale({#}
+                {#modalId: 'modal-create-pdv',#}
+                {#formName: 'form-create-pdv',#}
+                {#clientId: '{{ form.pointOfSale.vars.full_name }}',#}
+                {#route: '{{ path('backend_orders_add_pdv') }}'#}
+            {#});#}
 
             $('body.{{ vars.body_css }}').formProducts({
                 modalId: 'modal-create-product',
@@ -88,7 +96,7 @@
                 </a>
             </li>
             <li class="active">
-                Crear venta
+                Crear pedido
             </li>
         </ol>
     </section>
@@ -119,7 +127,7 @@
                             <tbody>
                                 <tr>
                                     <td colspan="5">
-                                        Seleccione un cliente.
+                                        <i class="fa fa-fw fa-arrow-right"></i> Seleccione un cliente.
                                     </td>
                                 </tr>
                             </tbody>
@@ -142,27 +150,39 @@
                     </div>
                     <div class="box-body table-responsive"> {#no-padding#}
 
-                        <table class="table table-condensed table-striped">
+                        {#
+                        <table class="table table-condensed table-striped box-table-pdv">
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <span class="badge bg-light-blue-active">
-                                            {{ app.user.pointOfSaleActive.id|default('') }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <img
-                                            src="{{ asset('bundles/themes/adminlte/images/icon-1-128x128.png') }}"
-                                            style="max-height: 30px"
-                                            class="img-circle">
-                                    </td>
-                                    <td>
-                                        {{ app.user.pointOfSaleActive.name|default('<span class="badge bg-red">Iniciar sesión en Punto de venta</span>')|raw }}
-                                    </td>
-                                    <td class="text-center">
-                                        {{ app.user.pointOfSaleActive != null ? app.user.pointOfSaleActive.createdAt|date('d, F Y') : "" }}
+                                    <td colspan="5">
+                                        <i class="fa fa-fw fa-arrow-right"></i> Seleccione un pdv.
                                     </td>
                                 </tr>
+                            </tbody>
+                        </table>
+                        #}
+
+                        <table class="table table-condensed table-striped">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span class="badge bg-light-blue-active">
+                                        {{ app.user.pointOfSaleActive.id|default('') }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <img
+                                        src="{{ asset('bundles/themes/adminlte/images/icon-1-128x128.png') }}"
+                                        style="max-height: 30px"
+                                        class="img-circle">
+                                </td>
+                                <td>
+                                    {{ app.user.pointOfSaleActive.name|default('<span class="badge bg-red">Iniciar sesión en Punto de venta</span>')|raw }}
+                                </td>
+                                <td class="text-center">
+                                    {{ app.user.pointOfSaleActive != null ? app.user.pointOfSaleActive.createdAt|date('d, F Y') : "" }}
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
 
@@ -412,6 +432,7 @@
 
     {{ include('TicketBundle:Orders/Modal/Product:thumbnail.html.twig') }}
     {{ include('TicketBundle:Orders/Modal/Client:create.html.twig') }}
+    {{ include('TicketBundle:Orders/Modal/PointOfSale:create.html.twig') }}
     {{ include('TicketBundle:Orders/Modal/Employee:create.html.twig') }}
 
 {% endblock %}

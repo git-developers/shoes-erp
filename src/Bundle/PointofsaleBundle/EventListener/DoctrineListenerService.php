@@ -62,7 +62,7 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
             }
 
             $entity->setSlug($this->slugify($slug));
-
+            $entity->setStatus(Pointofsale::STATUS_CLOSED);
             $entity->setCreatedAt($this->setupCreatedAt($entity));
 
             return;

@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Bundle\TicketBundle\Entity\Sales;
 use Bundle\TicketBundle\Entity\PaymentHistory;
 use Bundle\TicketBundle\Entity\SalesHasProducts;
+use Bundle\PointofsaleBundle\Entity\Pointofsale;
 
 
 class SalesController extends GridController
@@ -49,8 +50,24 @@ class SalesController extends GridController
 		$form = $this->createForm($formType, $entity, ['form_data' => []]);
 		$form->handleRequest($request);
 		
+		
 		//USER
 		$user = $this->getUser();
+		
+		
+//		$pointOfSaleOpening = $this->get('tianos.repository.pointofsale.opening')->findOneByPdvAndNow($user->getPointOfSaleActiveId());
+
+		
+		
+		//POINT OF SALE VALIDACION
+		if ($user->isPointOfSaleActiveStatusClosed()) {
+			return $this->render(
+				"TicketBundle:Sales/Grid:error.html.twig",
+				[
+					'vars' => $vars,
+				]
+			);
+		}
 		
 		
 		//CATEGORY REPOSITORY TREE
@@ -139,11 +156,30 @@ class SalesController extends GridController
 				$this->persist($entity);
 				
 				
-				//message success
+				/**
+				 * REPORT PDV UPDATE
+				 */
+				foreach ($request->getSession()->get('products') as $key => $productSave) {
+					$reportPdv = $this->get('tianos.repository.report.pdv')->findByHashAndProduct(
+						$pdv->getPdvHash(),
+						$productSave['idItem']
+					);
+					
+					$reportPdv->setStockSales($reportPdv->getStockSales() + $productSave['quantity']);
+					$this->persist($reportPdv);
+				}
+				
+				
+				/**
+				 * MESSAGE SUCCESS
+				 */
 				$this->flashAlertSuccess('Venta creada. CÓDIGO: <span class="label bg-green-active fontsize-12">' . $entity->getCode() . '</span>');
 				
 				
-				//Remove session
+				
+				/**
+				 * REMOVE SESSION
+				 */
 				$request->getSession()->remove('products');
 				
 				return $this->json([
@@ -171,7 +207,6 @@ class SalesController extends GridController
 			]
 		);
 	}
-	
 	
 	/**
 	 * @param Request $request

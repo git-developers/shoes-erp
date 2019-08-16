@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 use Bundle\UserBundle\Entity\User;
 use Bundle\TicketBundle\Entity\PaymentType;
-use Bundle\TicketBundle\Entity\Sales;
+use Bundle\PointofsaleBundle\Entity\Pointofsale;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class OrdersType extends AbstractType
@@ -73,6 +73,23 @@ class OrdersType extends AbstractType
 			        'placeholder' => '',
 		        ],
 	        ))
+//	        ->add('pointOfSale', EntityType::class, array(
+//		        'class' => Pointofsale::class,
+//		        'query_builder' => function(EntityRepository $er) {
+//			        return $er->findAllObjects();
+//		        },
+//		        'placeholder' => '[ Escoge un pdv ]',
+//		        'empty_data' => null,
+//		        'required' => false,
+//		        'label' => false,
+//		        'label_attr' => [
+//			        'class' => ''
+//		        ],
+//		        'attr' => [
+//			        'class' => 'form-control hide',
+//			        'placeholder' => '',
+//		        ],
+//	        ))
 	        ->add('submit', SubmitType::class, [
 		        'label' => 'Generar pedido',
 		        'attr' => [

@@ -1,0 +1,36 @@
+{% if status %}
+    <tr>
+        <td>
+            <span class="badge bg-green">
+                {{ pdv.id }}
+            </span>
+        </td>
+        <td>
+            <img
+                src="{{ asset('bundles/themes/adminlte/images/icon-1-128x128.png') }}"
+                style="max-height: 30px"
+                class="img-circle">
+        </td>
+        <td>
+            {{ pdv.name_box|trim }}
+        </td>
+        <td class="text-center">
+            {{ pdv.created_at|date('Y-m-d') }}
+        </td>
+        <td class="text-right">
+            <button
+                type="button"
+                class="btn btn-danger btn-xs btn-remove-pdv">
+                <i class="fa fa-fw fa-trash-o"></i>
+            </button>
+        </td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="4">
+            El pdv no retorno data.
+        </td>
+    </tr>
+{% endif %}
+
+

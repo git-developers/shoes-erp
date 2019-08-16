@@ -217,7 +217,6 @@ class PointofsaleRepository extends TianosEntityRepository implements
         }
 
         return $pdv;
-
     }
 
     /**

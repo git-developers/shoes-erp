@@ -15,12 +15,17 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Component\Resource\Metadata\Metadata;
 use Bundle\ResourceBundle\ResourceBundle;
+use Bundle\PointofsaleBundle\Entity\Pointofsale;
+use Bundle\PointofsaleBundle\Entity\PointofsaleOpening;
 
 
 class BackendOpeningController extends GridController
 {
 	
-	
+	/**
+	 * @param Request $request
+	 * @return Response
+	 */
 	public function indexAction(Request $request): Response
 	{
 		
@@ -43,24 +48,27 @@ class BackendOpeningController extends GridController
 		$entity = $configuration->getEntity();
 		$entity = new $entity();
 		
+		
 		//IS_GRANTED
 		$this->denyAccessUnlessGranted($rolesGranted, null, self::ACCESS_DENIED_MSG);
+		
 		
 		//GRID
 		$gridService = $this->get('tianos.grid');
 		$modal = $gridService->getModalMapper()->getDefaults($modal);
 		
+		
 		//PDV
-		$pdv = $this->get('tianos.repository.pointofsale')->find($request->get('id'));
+		$pdvId = $request->get('id');
+		$pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
 		
 		
 		//FORM
 		$form = $this->createForm($formType, $entity, [
 			'form_data' => [],
-//			'entity_manager' => $this->getDoctrine()->getManager(),
 		]);
 		$form->handleRequest($request);
-		
+
 		if ($form->isSubmitted()) {
 		
 		}
@@ -77,34 +85,47 @@ class BackendOpeningController extends GridController
 		);
 	}
 	
-	
+	/**
+	 * @param Request $request
+	 * @return Response
+	 * @throws \Exception
+	 */
 	public function createAction(Request $request): Response
 	{
 		
 		if ($request->isMethod('POST')) {
 			
+			$pdvId = $request->get('id');
+			
+			$pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
+			
+			if ($pdv->getStatus() == Pointofsale::STATUS_OPEN) {
+				
+				/**
+				 * UPDATE OPENING PDV
+				 */
+				$o = $this->get('tianos.repository.pointofsale.opening')->findOneByHash($pdv->getPdvHash());
+				$o->setClosingDate(new \DateTime("NOW"));
+				$this->persist($o);
+				
+				
+				/**
+				 * UPDATE PDV
+				 */
+				$pdv->setStatus(Pointofsale::STATUS_CLOSED);
+				$pdv->setPdvHash(null);
+				$this->persist($pdv);
+				
+				return new Response(1);
+			}
+			
 			//truncate tables
 			$command = new PointofsaleOpeningCommand();
 			$command->setContainer($this->container);
-			$input = new ArrayInput(['pdvId' => $request->get('id')]);
+			$input = new ArrayInput(['pdvId' => $pdvId]);
 			$output = new BufferedOutput();
 			$resultCode = $command->run($input, $output);
-			//truncate tables
 			
-			
-			//load fixtures
-//			$application = new Application($this->get('kernel'));
-//			$application->setAutoExit(false);
-//
-//			$input = new ArrayInput(array(
-//				'command' => 'doctrine:fixtures:load',
-//			));
-			
-			// You can use NullOutput() if you don't need the output
-//			$output = new BufferedOutput();
-//			$application->run($input, $output);
-			
-			// return the output, don't use if you used NullOutput()
 			$content = $output->fetch();
 			//load fixtures
 			

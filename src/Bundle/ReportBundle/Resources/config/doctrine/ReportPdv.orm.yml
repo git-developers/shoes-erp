@@ -31,6 +31,13 @@ Bundle\ReportBundle\Entity\ReportPdv:
             length: 45
             options:
                 fixed: false
+        pdvHash:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: pdv_hash
         stockInitial:
             type: integer
             nullable: true

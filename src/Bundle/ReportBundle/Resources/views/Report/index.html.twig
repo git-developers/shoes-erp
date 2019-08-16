@@ -15,10 +15,7 @@
     {#{% endstylesheets %}#}
 
     <style>
-        input[type=checkbox] {
-            height: 16px;
-            width: 16px;
-        }
+
     </style>
 
 {% endblock %}
@@ -47,8 +44,12 @@
             <small>report</small>
         </h1>
         <ol class="breadcrumb">
-            {#<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>#}
-            {#<li class="active">Dashboard</li>#}
+            <li>
+                <a href="{{ path('backend_dashboard_index') }}">
+                    <i class="fa fa-dashboard"></i> Dashboard
+                </a>
+            </li>
+            <li class="active">Reporte Pdv</li>
 
             <li>
                 <button
@@ -102,6 +103,9 @@
                                     <div class="form-group">
                                         <label style="color: white">xx</label>
                                         <br/>
+                                        {#<button type="submit" id="pointofsale_opening2_submit" name="pointofsale_opening2[submit]" class="btn btn-primary">#}
+                                            {#Refrescar#}
+                                        {#</button>#}
                                         {{ form_widget(form.submit) }}
                                     </div>
                                 </div>
@@ -208,6 +212,8 @@
                                     <th colspan="3" class="padding-0"></th>
                                     <th class="text-center padding-0 bg-gray" colspan="3">Stock</th>
                                     <th class="padding-0"></th>
+                                    <th class="text-center padding-0 bg-gray" colspan="2">Mercancia</th>
+                                    <th class="padding-0"></th>
                                 </tr>
                             </thead>
                             <thead class="bg-gray-1">
@@ -219,7 +225,8 @@
                                     <th class="text-center bg-gray">Pedido</th>
                                     <th class="text-center bg-gray">Total</th>
                                     <th class="text-center">Precio unit.</th>
-                                    <th class="text-center bg-gray">Venta</th>
+                                    <th class="text-center bg-gray">Vendido</th>
+                                    <th class="text-center bg-gray">Final</th>
                                     <th class="text-center">Total</th>
                                 </tr>
                             </thead>
@@ -228,11 +235,29 @@
                                 {% set stockOrdersSum = 0 %}
                                 {% set stockTotalSum = 0 %}
                                 {% set stockSalesSum = 0 %}
+                                {% set stockSalesFinalSum = 0 %}
                                 {% set totalSum = 0 %}
+
+                                {% set value = null %}
+                                {% set tagNew = null %}
+                                {% set tagOld = null %}
+
                                 {% for reportPdv in reportPdvs %}
+
+                                    {% set tagNew = reportPdv.pdvHash %}
+
+                                    {% if tagNew != tagOld %}
+                                        {% set tagOld = reportPdv.pdvHash %}
+                                        <tr>
+                                            <td class="text-left bg-light-blue" colspan="10">
+                                                <i class="fa fa-fw fa-flask"></i> {{ tagOld }}
+                                            <tr>
+                                        </tr>
+                                    {% endif %}
+
                                     <tr>
                                         <td>
-                                            <small class="label pull-right bg-yellow">
+                                            <small class="label pull-right bg-gray">
                                                 {{ loop.index }}
                                             </small>
                                         </td>
@@ -260,8 +285,11 @@
                                         <td class="text-center">
                                             {{ reportPdv.product.price }}
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center bg-gray-1">
                                             {{ reportPdv.stockSales }}
+                                        </td>
+                                        <td class="text-center bg-gray-1">
+                                            {{ (reportPdv.stockInitial + reportPdv.stockOrders) - reportPdv.stockSales }}
                                         </td>
                                         <td class="text-center">
                                             {{ reportPdv.product.price * reportPdv.stockSales }}
@@ -272,13 +300,14 @@
                                     {% set stockOrdersSum = stockOrdersSum + reportPdv.stockOrders %}
                                     {% set stockTotalSum = stockTotalSum + reportPdv.stockInitial + reportPdv.stockOrders %}
                                     {% set stockSalesSum = stockSalesSum + reportPdv.stockSales %}
+                                    {% set stockSalesFinalSum = stockSalesFinalSum + (reportPdv.stockInitial + reportPdv.stockOrders) - reportPdv.stockSales %}
                                     {% set totalSum = totalSum + (reportPdv.product.price * reportPdv.stockSales) %}
                                 {% else %}
                                     <tr>
-                                        <td class="text-center" colspan="8">
+                                        <td class="text-center" colspan="10">
                                             <i class="fa fa-fw fa-info-circle"></i> No hay productos que mostrar.
-                                        <td>
-                                    </td>
+                                        <tr>
+                                    </tr>
                                 {% endfor %}
                             </tbody>
                             <tfoot class="bg-gray-1">
@@ -298,6 +327,9 @@
                                     <th class="text-center"></th>
                                     <th class="text-center bg-gray">
                                         {{ stockSalesSum }}
+                                    </th>
+                                    <th class="text-center bg-gray">
+                                        {{ stockSalesFinalSum }}
                                     </th>
                                     <th class="text-center">
                                         {{ totalSum }}

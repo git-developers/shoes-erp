@@ -35,6 +35,8 @@ class ReportController extends BaseController
 		$vars = $configuration->getVars();
 		$modal = $configuration->getModal();
 		$formType = $configuration->getFormType();
+		$repository = $configuration->getRepositoryService();
+		$method = $configuration->getRepositoryMethod();
 		$entity = $configuration->getEntity();
 		
 		//MODAL
@@ -50,11 +52,8 @@ class ReportController extends BaseController
 		
 		if ($form->isSubmitted() && $form->isValid()) {
 			
-			$reportPdvs = $this->get('tianos.repository.report.pdv')->findAllByPdvAndDate(
-				$entity->getPointOfSale()->getId(),
-				$entity->getOpeningDate()
-			);
-
+			$reportPdvs = $this->get($repository)->$method($entity->getPointOfSale()->getId(), $entity->getOpeningDate());
+			
 		}
 		
 		return $this->render(

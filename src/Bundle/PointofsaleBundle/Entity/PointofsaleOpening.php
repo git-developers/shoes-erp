@@ -36,6 +36,13 @@ class PointofsaleOpening
 	 *
 	 */
 	private $slug;
+	
+	/**
+	 * @var string
+	 *
+	 * @JMSS\Groups({"crud"})
+	 */
+	private $pdvHash;
 
     /**
      * @var \DateTime
@@ -278,5 +285,24 @@ class PointofsaleOpening
 	{
 		return $this->pointOfSale;
 	}
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getPdvHash() //: string
+	{
+		return $this->pdvHash;
+	}
+	
+	/**
+	 * @param string $pdvHash
+	 */
+	public function setPdvHash(string $pdvHash)
+	{
+		$this->pdvHash = $pdvHash;
+	}
+	
+	
 	
 }

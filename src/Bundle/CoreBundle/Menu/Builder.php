@@ -156,6 +156,7 @@ class Builder implements ContainerAwareInterface
 	    ->setAttribute('class', 'treeview')
 	    ->setAttribute('class', $this->activeRoute([
 		    'backend_pointofsale_index',
+		    'backend_pointofsale_opening_index',
 		    'backend_pointofsale_map_index',
 		    'backend_pointofsale_add_user_index',
 		    'backend_pointofsale_pdv_child_index',

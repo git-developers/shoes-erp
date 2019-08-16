@@ -28,14 +28,21 @@ Bundle\PointofsaleBundle\Entity\PointofsaleOpening:
             length: 45
             options:
                 fixed: false
+        pdvHash:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: pdv_hash
         openingDate:
             type: datetime
-            nullable: false
+            nullable: true
             column: opening_date
         closingDate:
             type: datetime
             nullable: true
-            column: $closing_date
+            column: closing_date
         createdAt:
             type: datetime
             nullable: false

@@ -34,6 +34,27 @@ class PointofsaleOpeningRepository extends TianosEntityRepository {
     /**
      * {@inheritdoc}
      */
+    public function findOneByHash($pdvHash = null)
+    {
+        $em = $this->getEntityManager();
+        $dql = "
+            SELECT po
+            FROM PointofsaleBundle:PointofsaleOpening po
+            WHERE
+            po.isActive = :active AND
+            po.pdvHash = :pdvHash
+            ";
+	    
+        $query = $em->createQuery($dql);
+        $query->setParameter('active', 1);
+        $query->setParameter('pdvHash', $pdvHash);
+
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findOneByPdvAndNow($pdvId = null)
     {
         $em = $this->getEntityManager();

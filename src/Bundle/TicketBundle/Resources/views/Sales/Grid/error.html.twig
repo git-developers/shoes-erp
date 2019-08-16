@@ -1,0 +1,63 @@
+{% extends "ThemesBundle:Adminlte/Template:1_template.html.twig" %}
+
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-shopping-cart"></i> Crear venta
+            <small>products</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{{ path('backend_dashboard_index') }}">
+                    <i class="fa fa-dashboard"></i> Home
+                </a>
+            </li>
+            <li class="active">
+                Crear venta
+            </li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="callout callout-warning">
+                    <h4>
+                        <i class="fa fa-fw fa-warning"></i> Necesitas Aperturar el PDV !
+                    </h4>
+                    <ul>
+                        <li>
+                            Antes de realizar una venta necesita Iniciar sesión y ademas
+                            <b>Aperturar el Punto de venta</b>.
+                        </li>
+                        <li>
+                            Ingrese a
+                            <a href="{{ path('backend_pointofsale_index') }}">
+                                <b>Puntos de venta <i class="fa fa-fw fa-arrow-right"></i> Setting</b>
+                            </a>
+                            .
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}

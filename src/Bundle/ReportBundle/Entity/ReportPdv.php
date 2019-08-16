@@ -36,6 +36,13 @@ class ReportPdv
 	private $slug;
 	
 	/**
+	 * @var string
+	 *
+	 * @JMSS\Groups({"crud"})
+	 */
+	private $pdvHash;
+	
+	/**
 	 * @var integer
 	 *
 	 * @JMSS\Groups({
@@ -336,6 +343,22 @@ class ReportPdv
 	public function getProduct()
 	{
 		return $this->product;
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getPdvHash() //: string
+	{
+		return $this->pdvHash;
+	}
+	
+	/**
+	 * @param string $pdvHash
+	 */
+	public function setPdvHash(string $pdvHash)
+	{
+		$this->pdvHash = $pdvHash;
 	}
 	
 }

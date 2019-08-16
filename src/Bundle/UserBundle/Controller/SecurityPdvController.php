@@ -34,7 +34,7 @@ class SecurityPdvController extends BaseController
         if (!$pdv) {
             $this->flashError('Info: punto de venta no existe.');
 
-            return $this->render("UserBundle:BackendPdv/Security:no_pdv.html.twig",
+            return $this->render("UserBundle:Security/Pdv:no_pdv.html.twig",
                 [
                     'pdv' => null,
                 ]

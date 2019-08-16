@@ -45,6 +45,7 @@
                 },
                 success: function(data, textStatus, jqXHR) {
                     $('code').html('exito!');
+                    $("button[name='{{ form.submit.vars.full_name }}']").remove();
                 },
                 error: function(jqXHR, exception) {
                     $('code').html('terminado - error');
@@ -64,8 +65,12 @@
             <small>grid</small>
         </h1>
         <ol class="breadcrumb">
-            {#<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>#}
-            {#<li class="active">Dashboard</li>#}
+            <li>
+                <a href="{{ path('backend_dashboard_index') }}">
+                    <i class="fa fa-dashboard"></i> Dashboard
+                </a>
+            </li>
+            <li class="active">Punto de venta</li>
         </ol>
     </section>
 
@@ -83,21 +88,39 @@
 
                     <div class="box-body">
 
-                        {#{{ dump() }}#}
-
                         {{ form_start(form) }}
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6 col-md-offset-3">
+
+                                {% if pdv.status == constant('Bundle\\PointofsaleBundle\\Entity\\Pointofsale::STATUS_OPEN') %}
+                                    <div class="callout callout-warning">
+                                        <h4>
+                                            <i class="fa fa-fw fa-check-square-o"></i> Cerrar PDV
+                                        </h4>
+                                        <p>tablas contables.</p>
+                                    </div>
+                                {% else %}
+                                    <div class="callout callout-success">
+                                        <h4>
+                                            <i class="fa fa-fw fa-check"></i> Aperturar PDV
+                                        </h4>
+                                        <p>tablas contables.</p>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-5">
                                 <div class="form-group">
-                                    {{ form_widget(form.submit) }}
+                                    {{ form_widget(form.submit, {'value' : 'Default title'}) }}
                                 </div>
                             </div>
                         </div>
                         {{ form_end(form) }}
 
-
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6 col-md-offset-3">
                                 <code></code>
                             </div>
                         </div>

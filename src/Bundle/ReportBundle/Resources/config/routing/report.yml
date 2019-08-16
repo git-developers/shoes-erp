@@ -17,8 +17,8 @@ backend_report_index:
                 modal:
                     title: Crear xxxxx
             repository:
-                service: tianos.repository.ticket
-                method: find
+                service: tianos.repository.report.pdv
+                method: findAllByPdvAndDate
                 arguments: [$reportId]
             form:
                 type: Bundle\PointofsaleBundle\Form\Type\PointofsaleOpening2Type

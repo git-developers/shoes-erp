@@ -93,13 +93,12 @@
 
                                     {% for child in form.role.children %}
 
-                                    {% set choiceView = form.role.vars.choices[child.vars.value] %}
-                                    {% set tagNew = choiceView.data.groupRolTag %}
+                                        {% set choiceView = form.role.vars.choices[child.vars.value] %}
+                                        {% set tagNew = choiceView.data.groupRolTag %}
 
-                                    {% if tagNew != tagOld %}
-                                    {% set tagOld = choiceView.data.groupRolTag %}
-                                    {% set tagName = choiceView.data.groupRol %}
-
+                                        {% if tagNew != tagOld %}
+                                            {% set tagOld = choiceView.data.groupRolTag %}
+                                            {% set tagName = choiceView.data.groupRol %}
                                 </div>
                             </div>
                         </div>
@@ -116,7 +115,7 @@
                                     </div>
                                 </div>
                                 <div class="box-body">
-                                    {% endif %}
+                                        {% endif %}
 
                                     <div class="checkbox">
                                         <label>

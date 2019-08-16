@@ -53,7 +53,7 @@ class PointofsaleOpening2Type extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Buscar',
+                'label' => 'Refrescar',
                 'attr' => [
                     'class' => 'btn btn-primary',
                 ],

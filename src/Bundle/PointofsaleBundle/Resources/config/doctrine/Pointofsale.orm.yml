@@ -29,6 +29,20 @@ Bundle\PointofsaleBundle\Entity\Pointofsale:
             length: 45
             options:
                 fixed: false
+        status:
+            type: integer
+            nullable: true
+            length: 1
+            options:
+                fixed: false
+            column: status
+        pdvHash:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: pdv_hash
         slug:
             type: string
             nullable: false

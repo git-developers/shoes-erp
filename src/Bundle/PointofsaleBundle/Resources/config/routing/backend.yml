@@ -60,7 +60,7 @@ backend_pointofsale_index:
                               searchable: 1
                               sorting: 1
                               orderable: 1
-                              type: html
+                              type: num
                               width: 4%
                               title: '#'
                               className: modal-view text-center
@@ -69,12 +69,26 @@ backend_pointofsale_index:
                               targets: 1
                               orderable: 1
                               sorting: 1
+                              type: html
                               title: Nombre
                               className: modal-edit
                               filter: 1
-                        - obj: " obj.latitude + ' __ ' + obj.longitude "
+                        - obj: obj.status
+                          options:
+                              property: " if(obj.status == 1){return '<span class=\"label label-success fontsize-12\">ABIERTO</span>';
+                              }else {return '<span class=\"label label-danger fontsize-12\">CERRADO</span>';} "
                           defs:
                               targets: 2
+                              orderable: 1
+                              sorting: 1
+                              type: html
+                              title: Status
+                              width: 10%
+                              className: text-center
+                              filter: 1
+                        - obj: " obj.latitude + ' __ ' + obj.longitude "
+                          defs:
+                              targets: 3
                               orderable: 1
                               sorting: 1
                               title: '<i class="fa fa-fw fa-map-marker"></i> Coordenadas'
@@ -82,17 +96,17 @@ backend_pointofsale_index:
                               filter: 1
                         - obj: " '<span class=\"badge bg-blue\">' + obj.created_at_diff + '</span>' "
                           defs:
-                              targets: 3
+                              targets: 4
                               title: '<i class="fa fa-fw fa-clock-o"></i> Dias creado'
                               className: text-center
                         - obj: obj.created_at
                           defs:
-                              targets: 4
+                              targets: 5
                               title: '<i class="fa fa-fw fa-calendar"></i> Creado'
                               className: text-center
                         - obj: " '<button class=\"btn btn-xs btn-primary\"><i class=\"fa fa-fw fa-cog\"></i></button>' "
                           defs:
-                              targets: 5
+                              targets: 6
                               title: Settings
                               width: 4%
                               sorting: 0
@@ -100,7 +114,7 @@ backend_pointofsale_index:
                               className: pointofsale-cog text-center
                         - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
                           defs:
-                              targets: 6
+                              targets: 7
                               title: Eliminar
                               width: 4%
                               sorting: 0

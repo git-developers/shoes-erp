@@ -194,6 +194,26 @@ backend_orders_add_client:
                 vars:
                     serialize_group_name: orders
 
+backend_orders_add_pdv:
+    path: /add-pdv
+    methods: [PUT, POST]
+    defaults:
+        _controller: tianos.backend.controller.orders:addPdvAction
+        _tianos:
+            action: create
+            template: TicketBundle:Orders/Modal/PointOfSale:data.html.twig
+            vars:
+                body_css: grid-body-css
+                serialize_group_name: crud
+            entity: Bundle\TicketBundle\Entity\PointOfSale
+            form:
+                type: Bundle\TicketBundle\Form\Type\PointOfSaleType
+            repository:
+                service: tianos.repository.pointofsale
+                method: findAll
+                vars:
+                    serialize_group_name: orders
+
 backend_orders_increment_item:
     path: /increment-item
     methods: [PUT, POST]

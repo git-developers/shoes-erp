@@ -91,6 +91,9 @@ div.input-group i.fa-trash-o {
 .green-1 {
     color: #00a65a !important
 }
+.red-1 {
+    color: #dd4b39 !important
+}
 .bg-gray-1 {
     background-color: #ecf0f5 !important;
 }
@@ -279,5 +282,8 @@ span.random:hover {
 }
 .padding-0 {
     padding: 0px !important;
+}
+.padding-2 {
+    padding: 2px !important;
 }
 

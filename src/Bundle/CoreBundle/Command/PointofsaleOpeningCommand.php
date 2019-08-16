@@ -14,6 +14,7 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Bundle\PointofsaleBundle\Entity\PointofsaleOpening;
 use Bundle\ReportBundle\Entity\ReportPdv;
+use Bundle\ReportBundle\Entity\IncomeAndExpenses;
 use Bundle\PointofsaleBundle\Entity\Pointofsale;
 
 //https://symfony.com/doc/current/components/yaml.html
@@ -28,7 +29,7 @@ class PointofsaleOpeningCommand extends ContainerAwareCommand
     {
         $this
             ->setName('tianos:pointofsale:opening')
-            ->setDescription('Pedido y Devolución de periódicos por los Canillitas')
+            ->setDescription('Apertura de Punto de Venta')
             ->addOption('baz', 'tn', InputOption::VALUE_NONE, 'Test option')
             ->addArgument('pdvId', InputArgument::OPTIONAL, 'Punto de venta', null)
         ;
@@ -87,7 +88,7 @@ class PointofsaleOpeningCommand extends ContainerAwareCommand
 		    $em->persist($r);
 		    $em->flush();
 	    }
-	
+	    
 	    
 	    /**
 	     * UPDATE PDV
@@ -96,6 +97,12 @@ class PointofsaleOpeningCommand extends ContainerAwareCommand
 	    $pdv->setPdvHash($uniqid);
 	    $em->persist($pdv);
 	    $em->flush();
+	
+	
+	    /**
+	     * INCOME AND EXPENSES
+	     */
+	    $this->createIncomeAndExpenses($o, $pdv);
 
 	    
         //=============================================
@@ -104,6 +111,75 @@ class PointofsaleOpeningCommand extends ContainerAwareCommand
         $output->writeln('--');
     }
 	
+    
+	private function createIncomeAndExpenses(PointofsaleOpening $o, Pointofsale $pdv)
+	{
+		$em = $this->getContainer()->get('doctrine')->getManager();
+		
+		$this->getContainer()->get('tianos.repository.income.and.expenses')->deleteAllByPdvAndNow($pdv->getId());
+		
+		
+		$i = new IncomeAndExpenses();
+		$i->setAmount(0);
+		$i->setName("Caja chica");
+		$i->setPointofsaleOpening($o);
+		$i->setPdvHash($pdv->getPdvHash());
+		$i->setOpeningDate(new \DateTime("NOW"));
+		$i->setContents(IncomeAndExpenses::CONTENTS_IN);
+		$em->persist($i);
+		$em->flush();
+		
+		$i = new IncomeAndExpenses();
+		$i->setAmount(0);
+		$i->setName("Cargueros");
+		$i->setPointofsaleOpening($o);
+		$i->setPdvHash($pdv->getPdvHash());
+		$i->setOpeningDate(new \DateTime("NOW"));
+		$i->setContents(IncomeAndExpenses::CONTENTS_OUT);
+		$em->persist($i);
+		$em->flush();
+		
+		$i = new IncomeAndExpenses();
+		$i->setAmount(0);
+		$i->setName("Desayuno");
+		$i->setPointofsaleOpening($o);
+		$i->setPdvHash($pdv->getPdvHash());
+		$i->setOpeningDate(new \DateTime("NOW"));
+		$i->setContents(IncomeAndExpenses::CONTENTS_OUT);
+		$em->persist($i);
+		$em->flush();
+		
+		$i = new IncomeAndExpenses();
+		$i->setAmount(0);
+		$i->setName("Taxi");
+		$i->setPointofsaleOpening($o);
+		$i->setPdvHash($pdv->getPdvHash());
+		$i->setOpeningDate(new \DateTime("NOW"));
+		$i->setContents(IncomeAndExpenses::CONTENTS_OUT);
+		$em->persist($i);
+		$em->flush();
+		
+		$i = new IncomeAndExpenses();
+		$i->setAmount(0);
+		$i->setName("Servicios");
+		$i->setPointofsaleOpening($o);
+		$i->setPdvHash($pdv->getPdvHash());
+		$i->setOpeningDate(new \DateTime("NOW"));
+		$i->setContents(IncomeAndExpenses::CONTENTS_OUT);
+		$em->persist($i);
+		$em->flush();
+		
+		$i = new IncomeAndExpenses();
+		$i->setAmount(0);
+		$i->setName("Pago a personal");
+		$i->setPointofsaleOpening($o);
+		$i->setPdvHash($pdv->getPdvHash());
+		$i->setOpeningDate(new \DateTime("NOW"));
+		$i->setContents(IncomeAndExpenses::CONTENTS_OUT);
+		$em->persist($i);
+		$em->flush();
+		
+	}
 }
 
 

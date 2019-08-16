@@ -1,0 +1,97 @@
+Bundle\ReportBundle\Entity\IncomeAndExpenses:
+    type: entity
+    table: income_and_expenses
+    repositoryClass: Bundle\ReportBundle\Doctrine\ORM\IncomeAndExpensesRepository
+    indexes:
+        fk_report_pdv_pointofsale_opening1_idx:
+            columns:
+                - pointofsale_opening_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        slug:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+        pdvHash:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: pdv_hash
+        openingDate:
+            type: datetime
+            nullable: true
+            column: opening_date
+        contents:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: contents
+        amount:
+            type: float
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                fixed: false
+            column: amount
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+#            gedmo:
+#                timestampable:
+#                    on: create
+        userCreate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_create
+        updatedAt:
+            type: datetime
+            nullable: true
+            column: updated_at
+        userUpdate:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_update
+        isActive:
+            type: boolean
+            nullable: true
+            options:
+                default: '1'
+            column: is_active
+    manyToOne:
+        pointofsaleOpening:
+            targetEntity: Bundle\PointofsaleBundle\Entity\PointofsaleOpening
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                pointofsale_opening_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

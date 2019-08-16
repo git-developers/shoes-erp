@@ -49,11 +49,14 @@ class ReportController extends BaseController
 		$form->handleRequest($request);
 		
 		$reportPdvs = null;
+		$incomeAndExpenses = null;
 		
 		if ($form->isSubmitted() && $form->isValid()) {
-			
 			$reportPdvs = $this->get($repository)->$method($entity->getPointOfSale()->getId(), $entity->getOpeningDate());
-			
+			$incomeAndExpenses = $this->get('tianos.repository.income.and.expenses')->findAllByPdvAndNow(
+				$entity->getPointOfSale()->getId(),
+				$entity->getOpeningDate()
+			);
 		}
 		
 		return $this->render(
@@ -63,10 +66,66 @@ class ReportController extends BaseController
 				'modal' => $modal,
 				'action' => $action,
 				'reportPdvs' => $reportPdvs,
+				'incomeAndExpenses' => $incomeAndExpenses,
 				'form' => $form->createView(),
 			]
 		);
 	}
 	
+	/**
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function incomeAndExpensesAction(Request $request): Response
+	{
+		
+		$parameters = [
+			'driver' => ResourceBundle::DRIVER_DOCTRINE_ORM,
+		];
+		$applicationName = $this->container->getParameter('application_name');
+		$this->metadata = new Metadata('tianos', $applicationName, $parameters);
+		
+		//CONFIGURATION
+		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
+		$template = $configuration->getTemplate('');
+		$action = $configuration->getAction();
+		$vars = $configuration->getVars();
+		$modal = $configuration->getModal();
+		$formType = $configuration->getFormType();
+		$repository = $configuration->getRepositoryService();
+		$method = $configuration->getRepositoryMethod();
+		$entity = $configuration->getEntity();
+		$varsRepository = $configuration->getRepositoryVars();
+		
+		if ($request->isMethod('POST')) {
+			
+			$status = self::STATUS_ERROR;
+			$message = "";
+			
+			try {
+				
+				$forms = $request->get($varsRepository->serialize_group_name);
+				$forms = json_decode(json_encode($forms));
+				
+				foreach ($forms as $key => $amount) {
+					$incomeAndExpenses = $this->get('tianos.repository.income.and.expenses')->find($key);
+					$incomeAndExpenses->setAmount((float)$amount);
+					$this->persist($incomeAndExpenses);
+				}
+				
+				$status = self::STATUS_SUCCESS;
+			
+            } catch (\Exception $e) {
+				$message = $e->getMessage();
+			}
+			
+			return $this->json([
+				'status' => $status,
+				'message' => $message,
+			]);
+		}
+	}
+
+
 	
 }

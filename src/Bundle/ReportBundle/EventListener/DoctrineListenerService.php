@@ -10,6 +10,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Bundle\ReportBundle\Entity\ReportPdv;
+use Bundle\ReportBundle\Entity\IncomeAndExpenses;
 use Cocur\Slugify\Slugify;
 use Bundle\CoreBundle\EventListener\BaseDoctrineListenerService;
 
@@ -59,6 +60,10 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 //	        $entity->setUserCreate($this->getUser()->getId());
 	        
             return;
+        } elseif ($entity instanceof IncomeAndExpenses) {
+	        $slug = $entity->getName();
+	        $entity->setSlug($this->slugify($slug));
+	        $entity->setCreatedAt($this->setupCreatedAt($entity));
         }
     }
 

@@ -8,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20190815183826 extends AbstractMigration
+class Version20190816193754 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -37,6 +37,7 @@ class Version20190815183826 extends AbstractMigration
         $this->addSql('CREATE TABLE google_drive_file_vote (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, google_drive_file_id INT DEFAULT NULL, vote TINYINT(1) DEFAULT \'0\', created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', INDEX fk_google_drive_file_like_google_drive_file1_idx (google_drive_file_id), INDEX fk_google_drive_file_like_user1_idx (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE google_drive_file (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, unique_id VARCHAR(50) NOT NULL, slug VARCHAR(150) NOT NULL, description TEXT DEFAULT NULL, file_id VARCHAR(45) NOT NULL, file_mime_type VARCHAR(250) DEFAULT NULL, file_mime_type_short VARCHAR(45) DEFAULT NULL, file_icon_link VARCHAR(250) DEFAULT NULL, file_name TEXT NOT NULL, file_name_original TEXT DEFAULT NULL, file_size VARCHAR(45) DEFAULT NULL, file_image VARCHAR(255) DEFAULT NULL, has_thumbnail TINYINT(1) DEFAULT \'0\' NOT NULL, count_share INT DEFAULT NULL, count_view INT DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\' NOT NULL, INDEX fk_google_drive_file_user_idx (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE report_pdv (id INT AUTO_INCREMENT NOT NULL, product_id INT DEFAULT NULL, pointofsale_opening_id INT DEFAULT NULL, name VARCHAR(45) DEFAULT NULL, slug VARCHAR(45) DEFAULT NULL, pdv_hash VARCHAR(20) DEFAULT NULL, stock_initial INT DEFAULT NULL, stock_orders INT DEFAULT NULL, stock_sales INT DEFAULT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', INDEX fk_report_pdv_product1_idx (product_id), INDEX fk_report_pdv_pointofsale_opening1_idx (pointofsale_opening_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE income_and_expenses (id INT AUTO_INCREMENT NOT NULL, pointofsale_opening_id INT DEFAULT NULL, name VARCHAR(45) DEFAULT NULL, slug VARCHAR(45) DEFAULT NULL, pdv_hash VARCHAR(20) DEFAULT NULL, opening_date DATETIME DEFAULT NULL, contents VARCHAR(45) DEFAULT NULL, amount DOUBLE PRECISION DEFAULT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) DEFAULT \'1\', INDEX fk_report_pdv_pointofsale_opening1_idx (pointofsale_opening_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE profile (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(45) DEFAULT NULL, name VARCHAR(100) NOT NULL, name_canonical VARCHAR(100) DEFAULT NULL, slug VARCHAR(100) NOT NULL, created_at DATETIME NOT NULL, user_create INT DEFAULT NULL, updated_at DATETIME DEFAULT NULL, user_update INT DEFAULT NULL, is_active TINYINT(1) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE profile_has_role (profile_id INT NOT NULL, role_id INT NOT NULL, INDEX IDX_F35F3084CCFA12B8 (profile_id), INDEX IDX_F35F3084D60322AC (role_id), PRIMARY KEY(profile_id, role_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE unit (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(45) DEFAULT NULL, slug VARCHAR(100) NOT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, is_active TINYINT(1) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
@@ -81,6 +82,7 @@ class Version20190815183826 extends AbstractMigration
         $this->addSql('ALTER TABLE google_drive_file ADD CONSTRAINT FK_148FFCAAA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE report_pdv ADD CONSTRAINT FK_E3BCB36F4584665A FOREIGN KEY (product_id) REFERENCES product (id)');
         $this->addSql('ALTER TABLE report_pdv ADD CONSTRAINT FK_E3BCB36F35C531AB FOREIGN KEY (pointofsale_opening_id) REFERENCES pointofsale_opening (id)');
+        $this->addSql('ALTER TABLE income_and_expenses ADD CONSTRAINT FK_1B475D4935C531AB FOREIGN KEY (pointofsale_opening_id) REFERENCES pointofsale_opening (id)');
         $this->addSql('ALTER TABLE profile_has_role ADD CONSTRAINT FK_F35F3084CCFA12B8 FOREIGN KEY (profile_id) REFERENCES profile (id)');
         $this->addSql('ALTER TABLE profile_has_role ADD CONSTRAINT FK_F35F3084D60322AC FOREIGN KEY (role_id) REFERENCES role (id)');
         $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD12469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
@@ -153,6 +155,7 @@ class Version20190815183826 extends AbstractMigration
         $this->addSql('ALTER TABLE pointofsale_opening DROP FOREIGN KEY FK_4063FD336B7E9A73');
         $this->addSql('ALTER TABLE point_of_sale_has_product DROP FOREIGN KEY FK_63AAC6456B7E9A73');
         $this->addSql('ALTER TABLE report_pdv DROP FOREIGN KEY FK_E3BCB36F35C531AB');
+        $this->addSql('ALTER TABLE income_and_expenses DROP FOREIGN KEY FK_1B475D4935C531AB');
         $this->addSql('DROP TABLE user');
         $this->addSql('DROP TABLE friends');
         $this->addSql('DROP TABLE role');
@@ -172,6 +175,7 @@ class Version20190815183826 extends AbstractMigration
         $this->addSql('DROP TABLE google_drive_file_vote');
         $this->addSql('DROP TABLE google_drive_file');
         $this->addSql('DROP TABLE report_pdv');
+        $this->addSql('DROP TABLE income_and_expenses');
         $this->addSql('DROP TABLE profile');
         $this->addSql('DROP TABLE profile_has_role');
         $this->addSql('DROP TABLE unit');

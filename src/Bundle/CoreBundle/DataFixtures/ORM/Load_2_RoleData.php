@@ -15,6 +15,7 @@ use Bundle\CategoryBundle\Entity\Category;
 use Bundle\TicketBundle\Entity\Ticket;
 use Bundle\ProductBundle\Entity\Product;
 use Bundle\TicketBundle\Entity\PaymentType;
+use Bundle\ReportBundle\Entity\ReportPdv;
 
 
 class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
@@ -86,6 +87,46 @@ class Load_2_RoleData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setGroupRolTag('group-profile');
         $manager->persist($entity);
         $this->addReference('role-profile-delete', $entity);
+	
+	
+        
+	    
+	
+
+        /**
+         * PROFILE
+         */
+	    $entity = new Role();
+	    $entity->setName('Report view');
+	    $entity->setSlug(ReportPdv::ROLE_REPORT_VIEW);
+	    $entity->setGroupRol('Reporte');
+	    $entity->setGroupRolTag('group-report');
+	    $manager->persist($entity);
+	    $this->addReference('role-report-view', $entity);
+        
+        $entity = new Role();
+        $entity->setName('Report create');
+        $entity->setSlug(ReportPdv::ROLE_REPORT_CREATE);
+        $entity->setGroupRol('Reporte');
+        $entity->setGroupRolTag('group-report');
+        $manager->persist($entity);
+        $this->addReference('role-report-create', $entity);
+
+        $entity = new Role();
+        $entity->setName('Report edit');
+        $entity->setSlug(ReportPdv::ROLE_REPORT_EDIT);
+        $entity->setGroupRol('Reporte');
+        $entity->setGroupRolTag('group-report');
+        $manager->persist($entity);
+        $this->addReference('role-report-edit', $entity);
+
+        $entity = new Role();
+        $entity->setName('Report delete');
+        $entity->setSlug(ReportPdv::ROLE_REPORT_DELETE);
+        $entity->setGroupRol('Reporte');
+        $entity->setGroupRolTag('group-report');
+        $manager->persist($entity);
+        $this->addReference('role-report-delete', $entity);
 	
 	
         

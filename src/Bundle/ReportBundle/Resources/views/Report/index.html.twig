@@ -20,6 +20,7 @@
 
 {% endblock %}
 
+
 {% block javascripts %}
     {{ parent() }}
 
@@ -31,6 +32,46 @@
     {#{% endjavascripts %}#}
 
     <script type="text/javascript">
+
+        $(document).ready(function() {
+            $("span.info-sales").html($("td.total-sum").text());
+            $("span.info-expenses").html($("td.expenses-sum").text());
+            $("span.info-income").html($("td.income-sum").text());
+        });
+
+        $("button[name='income-and-expenses']").click(function(event) {
+            event.preventDefault();
+
+            var fields = $("form[name='income-and-expenses']").serializeArray();
+
+            $.ajax({
+                url: '{{ path('backend_report_income_and_expenses') }}',
+                type: 'POST',
+                dataType: 'json',
+                data: fields,
+                cache: true,
+                beforeSend: function(jqXHR, settings) {
+                    $("form[name='income-and-expenses']").find('i.fa-refresh').show();
+                },
+                success: function(data, textStatus, jqXHR) {
+
+                    console.dir(data);
+
+                    if (data.status) {
+
+                        console.log("GATAZO");
+
+                        $("form[name='{{ form.vars.full_name }}']").submit();
+                    } else {
+                        $("span.income-and-expenses-message").html(data.message);
+                    }
+                },
+                error: function(jqXHR, exception) {
+                    $(form[name='income-and-expenses']).find('i.fa-refresh').hide();
+                    $("span.income-and-expenses-message").html("No se guardo.");
+                }
+            });
+        });
 
     </script>
 
@@ -128,23 +169,23 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-aqua">
-                        <i class="ion ion-ios-gear-outline"></i>
+                        <i class="fa fa-fw fa-cube"></i>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-text">CPU Traffic</span>
-                        <span class="info-box-number">90<small>%</small></span>
+                        <span class="info-box-text">Productos</span>
+                        <span class="info-box-number">{{ reportPdvs|length }}<small></small></span>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-red">
-                        <i class="fa fa-google-plus"></i>
+                    <span class="info-box-icon bg-green">
+                        <i class="ion ion-ios-cart-outline"></i>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Likes</span>
-                        <span class="info-box-number">41,410</span>
+                        <span class="info-box-text">Ventas</span>
+                        <span class="info-box-number info-sales">0</span>
                     </div>
                 </div>
             </div>
@@ -153,24 +194,24 @@
 
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-green">
-                        <i class="ion ion-ios-cart-outline"></i>
+                    <span class="info-box-icon bg-yellow">
+                        <i class="fa fa-fw fa-plus-circle"></i>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Sales</span>
-                        <span class="info-box-number">760</span>
+                        <span class="info-box-text">Ingreso contables</span>
+                        <span class="info-box-number info-income">0</span>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-yellow">
-                        <i class="ion ion-ios-people-outline"></i>
+                    <span class="info-box-icon bg-red">
+                        <i class="ion ion-minus-circled"></i>
                     </span>
                     <div class="info-box-content">
-                        <span class="info-box-text">New Members</span>
-                        <span class="info-box-number">2,000</span>
+                        <span class="info-box-text">Egresos contables</span>
+                        <span class="info-box-number info-expenses">0</span>
                     </div>
                 </div>
             </div>
@@ -181,16 +222,13 @@
 
 
 
-
-
-
         {#TABLE#}
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">
-                            Responsive Hover Table
+                            <i class="fa fa-fw fa-money"></i> Ingreso de ventas
                         </h3>
                         <div class="box-tools">
                             <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
@@ -231,6 +269,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                                 {% set stockInitialSum = 0 %}
                                 {% set stockOrdersSum = 0 %}
                                 {% set stockTotalSum = 0 %}
@@ -249,9 +288,12 @@
                                     {% if tagNew != tagOld %}
                                         {% set tagOld = reportPdv.pdvHash %}
                                         <tr>
-                                            <td class="text-left bg-light-blue" colspan="10">
-                                                <i class="fa fa-fw fa-flask"></i> {{ tagOld }}
-                                            <tr>
+                                            <td class="text-left bg-light-blue padding-2" colspan="10">
+                                                <i class="fa fa-fw fa-flask"></i> {{ tagOld }} &nbsp;
+                                                <small class="label bg-light-blue-active">
+                                                    {{ reportPdv.createdAt|date('Y-m-d H:i') }}
+                                                </small>
+                                            </td>
                                         </tr>
                                     {% endif %}
 
@@ -344,16 +386,191 @@
         </div>
         {#TABLE#}
 
+        <a name="income-and-expenses"></a>
 
+        {#INCOME AND EXPENSES#}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            <i class="fa fa-fw fa-stack-exchange"></i> Ingresos<i class="fa fa-fw fa-arrows-h"></i>egresos contables
+                        </h3>
+                    </div>
+                    <div class="box-body">
 
+                        <form action="" method="post" name="income-and-expenses">
 
+                        <table class="table table-bordered">
+                            <thead class="bg-gray-1">
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Descripci&oacute;n</th>
+                                    <th style="width: 40%">Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
+                                {% set incomeSum = 0 %}
+                                {% set expensesSum = 0 %}
 
+                                {% for ie in incomeAndExpenses %}
+                                    <tr>
+                                        <td>
+                                            <small class="label bg-gray">
+                                                {{ loop.index }}
+                                            </small>
+                                        </td>
+                                        <td>
+                                            {{ ie.name }}
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
 
+                                                {% if ie.contents == constant('Bundle\\ReportBundle\\Entity\\IncomeAndExpenses::CONTENTS_IN') %}
+                                                    <span class="input-group-addon bg-green">
+                                                        <i class="fa fa-fw fa-plus"></i>
+                                                    </span>
+                                                    {% set incomeSum = incomeSum + ie.amount %}
+                                                {% elseif ie.contents == constant('Bundle\\ReportBundle\\Entity\\IncomeAndExpenses::CONTENTS_OUT') %}
+                                                    <span class="input-group-addon bg-red">
+                                                        <i class="fa fa-fw fa-minus"></i>
+                                                    </span>
+                                                    {% set expensesSum = expensesSum + ie.amount %}
+                                                {% endif %}
 
+                                                <input
+                                                    type="text"
+                                                    autocomplete="off"
+                                                    placeholder="##.##"
+                                                    onkeyup="this.value = this.value.replace(/[^0-9\.]/g,'');"
+                                                    name="incomeAndExpenses[{{ ie.id }}]"
+                                                    value="{{ ie.amount }}"
+                                                    class="form-control text-right">
+                                                <span class="input-group-addon">.00</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3">
+                                            <i class="fa fa-fw fa-info-circle"></i> No datos.
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                {% if incomeAndExpenses|length %}
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="row">
+                                                <div class="col-md-9 text-right">
+                                                    <span class="income-and-expenses-message"></span>
+                                                    <i class="fa fa-spin fa-fw fa-refresh hide"></i>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-default pull-right" name="income-and-expenses">
+                                                        Actualizar contables
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </tfoot>
+                        </table>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            <i class="fa fa-fw fa-bar-chart"></i> Sumario
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <thead class="bg-gray-1">
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th style="width: 10px"></th>
+                                    <th>Descripci&oacute;n</th>
+                                    <th>Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <small class="label bg-gray">1</small>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-fw fa-plus-square green-1"></i>
+                                    </td>
+                                    <td>
+                                        Total Ingreso de ventas
+                                    </td>
+                                    <td class="total-sum">
+                                        {{ totalSum }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <small class="label bg-gray">2</small>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-fw fa-plus-square green-1"></i>
+                                    </td>
+                                    <td>
+                                        Ingresos contables
+                                    </td>
+                                    <td class="income-sum">
+                                        {{ incomeSum }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <small class="label bg-gray">3</small>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-fw fa-minus-square red-1"></i>
+                                    </td>
+                                    <td>
+                                        Egresos contables
+                                    </td>
+                                    <td class="expenses-sum">
+                                        {{ expensesSum }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <small class="label bg-gray">4</small>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-fw fa-money"></i>
+                                    </td>
+                                    <td>
+                                        Total
+                                    </td>
+                                    <td>
+                                        {{ totalSum + incomeSum - expensesSum }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#INCOME AND EXPENSES#}
 
     </section>
 
     {{ include('ReportBundle:Modal:info.html.twig') }}
 
 {% endblock %}
+

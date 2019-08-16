@@ -8,15 +8,13 @@ use JMS\Serializer\Annotation\Type as TypeJMS;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * ReportPdv
+ * IncomeAndExpenses
  */
-class ReportPdv
+class IncomeAndExpenses
 {
 	
-	const ROLE_REPORT_VIEW = 'ROLE_REPORT_VIEW';
-	const ROLE_REPORT_CREATE = 'ROLE_REPORT_CREATE';
-	const ROLE_REPORT_EDIT = 'ROLE_REPORT_EDIT';
-	const ROLE_REPORT_DELETE = 'ROLE_REPORT_DELETE';
+	const CONTENTS_IN = "IN";
+	const CONTENTS_OUT = "OUT";
 	
 	/**
 	 * @var integer
@@ -45,40 +43,34 @@ class ReportPdv
 	 *
 	 * @JMSS\Groups({"crud"})
 	 */
+	private $contents;
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
+	 *     "pdv_product",
+	 *     "sales",
+	 *     "orders"
+	 * })
+	 *
+	 */
+	private $amount = 0;
+	
+	/**
+	 * @var string
+	 *
+	 * @JMSS\Groups({"crud"})
+	 */
 	private $pdvHash;
 	
 	/**
-	 * @var integer
+	 * @var \DateTime
 	 *
-	 * @JMSS\Groups({
-	 *     "sales",
-	 *     "orders",
-	 *     "pdv_product",
-	 * })
+	 * @JMSS\Groups({"crud"})
+	 * @JMSS\Type("DateTime<'Y-m-d H:i'>")
 	 */
-	private $stockInitial;
-	
-	/**
-	 * @var integer
-	 *
-	 * @JMSS\Groups({
-	 *     "sales",
-	 *     "orders",
-	 *     "pdv_product",
-	 * })
-	 */
-	private $stockOrders;
-	
-	/**
-	 * @var integer
-	 *
-	 * @JMSS\Groups({
-	 *     "sales",
-	 *     "orders",
-	 *     "pdv_product",
-	 * })
-	 */
-	private $stockSales;
+	private $openingDate;
 	
 	/**
 	 * @var \DateTime
@@ -110,15 +102,6 @@ class ReportPdv
 	 */
 	private $isActive = '1';
 	
-    /**
-     * @var \Bundle\ProductBundle\Entity\Product
-     *
-     * @ORM\ManyToOne(targetEntity="Bundle\ProductBundle\Entity\Product")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-     * })
-     */
-    private $product;
 
     /**
      * @var \Bundle\PointofsaleBundle\Entity\PointofsaleOpening
@@ -147,7 +130,7 @@ class ReportPdv
      *
      * @param string $name
      *
-     * @return ReportPdv
+     * @return IncomeAndExpenses
      */
     public function setName($name)
     {
@@ -325,31 +308,7 @@ class ReportPdv
 	{
 		$this->pointofsaleOpening = $pointofsaleOpening;
 	}
-	
-	/**
-	 * Set product
-	 *
-	 * @param \Bundle\ProductBundle\Entity\Product $product
-	 *
-	 * @return Report
-	 */
-	public function setProduct(\Bundle\ProductBundle\Entity\Product $product = null)
-	{
-		$this->product = $product;
-		
-		return $this;
-	}
-	
-	/**
-	 * Get product
-	 *
-	 * @return \Bundle\ProductBundle\Entity\Product
-	 */
-	public function getProduct()
-	{
-		return $this->product;
-	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -365,5 +324,55 @@ class ReportPdv
 	{
 		$this->pdvHash = $pdvHash;
 	}
+	
+	/**
+	 * @return string
+	 */
+	public function getContents(): string
+	{
+		return $this->contents;
+	}
+	
+	/**
+	 * @param string $contents
+	 */
+	public function setContents(string $contents)
+	{
+		$this->contents = $contents;
+	}
+	
+	/**
+	 * @return float
+	 */
+	public function getAmount(): float
+	{
+		return $this->amount;
+	}
+	
+	/**
+	 * @param float $amount
+	 */
+	public function setAmount(float $amount)
+	{
+		$this->amount = $amount;
+	}
+	
+	/**
+	 * @return \DateTime
+	 */
+	public function getOpeningDate() //: \DateTime
+	{
+		return $this->openingDate;
+	}
+	
+	/**
+	 * @param \DateTime $openingDate
+	 */
+	public function setOpeningDate(\DateTime $openingDate)
+	{
+		$this->openingDate = $openingDate;
+	}
+	
+	
 	
 }

@@ -1,12 +1,45 @@
+backend_report_income_and_expenses:
+    path: /income-and-expenses
+    methods: [POST]
+    defaults:
+        _controller: tianos.backend.controller.report:incomeAndExpensesAction
+        _tianos:
+            action: create
+            template: PointofsaleBundle:BackendPointofsale/Form:form_create.html.twig
+            entity: Bundle\PointofsaleBundle\Entity\Pointofsale
+            roles_granted:
+                - ROLE_REPORT_CREATE
+            vars:
+                subheader: sylius.ui.manage_your_product_catalog
+                icon: bar-chart
+                title: 'Reporte por Puntos de venta'
+                body_css: report-body-css
+                box_class: danger
+            grid:
+                modal:
+                    title: Crear xxxxx
+            repository:
+                service: tianos.repository.report.pdv
+                method: findAllByPdvAndDate
+                arguments: [$reportId]
+                vars:
+                    serialize_group_name: incomeAndExpenses
+            form:
+                type: Bundle\PointofsaleBundle\Form\Type\PointofsaleType
+
 backend_report_index:
-    path: /
+    path: /{pdv}/{openingDate}
     methods: [GET, POST]
     defaults:
+        pdv: null
+        openingDate: null
         _controller: tianos.backend.controller.report:indexAction
         _tianos:
             action: xxxxx
             template: ReportBundle:Report:index.html.twig
             entity: Bundle\PointofsaleBundle\Entity\PointofsaleOpening
+            roles_granted:
+                - ROLE_REPORT_VIEW
             vars:
                 subheader: sylius.ui.manage_your_product_catalog
                 icon: bar-chart
@@ -24,3 +57,4 @@ backend_report_index:
                 type: Bundle\PointofsaleBundle\Form\Type\PointofsaleOpening2Type
             vars:
                 serialize_group_name: crud
+

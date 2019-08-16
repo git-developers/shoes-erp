@@ -99,6 +99,10 @@ class BackendOpeningController extends GridController
 			
 			$pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
 			
+			
+			/**
+			 * CLOSING PDV
+			 */
 			if ($pdv->getStatus() == Pointofsale::STATUS_OPEN) {
 				
 				/**
@@ -118,6 +122,7 @@ class BackendOpeningController extends GridController
 				
 				return new Response(1);
 			}
+			
 			
 			//truncate tables
 			$command = new PointofsaleOpeningCommand();

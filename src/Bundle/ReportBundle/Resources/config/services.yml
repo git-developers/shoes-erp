@@ -38,3 +38,8 @@ services:
         class: Dummy
         factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Bundle\ReportBundle\Entity\ReportPdv ]
+
+    tianos.repository.income.and.expenses:
+        class: Dummy
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ Bundle\ReportBundle\Entity\IncomeAndExpenses ]

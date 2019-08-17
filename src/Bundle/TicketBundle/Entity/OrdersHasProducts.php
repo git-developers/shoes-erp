@@ -21,6 +21,13 @@ class OrdersHasProducts
      * })
      */
     private $id;
+	
+	/**
+	 * @var string
+	 *
+	 * @JMSS\Groups({"crud"})
+	 */
+	private $pdvHash;
 
     /**
      * @var integer
@@ -145,6 +152,22 @@ class OrdersHasProducts
 	public function setOrders(Orders $orders)
 	{
 		$this->orders = $orders;
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getPdvHash() //: string
+	{
+		return $this->pdvHash;
+	}
+	
+	/**
+	 * @param string $pdvHash
+	 */
+	public function setPdvHash(string $pdvHash)
+	{
+		$this->pdvHash = $pdvHash;
 	}
 
 	

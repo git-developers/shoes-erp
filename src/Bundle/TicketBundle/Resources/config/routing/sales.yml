@@ -226,6 +226,8 @@ backend_sales_increment_item:
             form:
                 type: Bundle\ProductBundle\Form\Type\ProductType
             repository:
+                service: tianos.repository.product
+                method: find
                 vars:
                     serialize_group_name: sales
 
@@ -252,6 +254,8 @@ backend_sales_decrement_item:
             form:
                 type: Bundle\ProductBundle\Form\Type\ProductType
             repository:
+                service: tianos.repository.product
+                method: find
                 vars:
                     serialize_group_name: sales
 

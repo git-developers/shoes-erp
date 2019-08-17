@@ -150,6 +150,15 @@ class Product
     private $isActive = '1';
 
     /**
+     * @var boolean
+     *
+     * @JMSS\Groups({
+     *     "sales"
+     * })
+     */
+    private $outOfStock;
+
+    /**
      * @var \Bundle\CategoryBundle\Entity\Category
      *
      * @ORM\ManyToOne(targetEntity="Bundle\CategoryBundle\Entity\Category")
@@ -653,6 +662,23 @@ class Product
 	{
 		$this->pdvHasproduct = $pdvHasproduct;
 	}
+	
+	/**
+	 * @return bool
+	 */
+	public function isOutOfStock() //: bool
+	{
+		return $this->outOfStock;
+	}
+	
+	/**
+	 * @param bool $outOfStock
+	 */
+	public function setOutOfStock(bool $outOfStock)
+	{
+		$this->outOfStock = $outOfStock;
+	}
+	
 	
 }
 

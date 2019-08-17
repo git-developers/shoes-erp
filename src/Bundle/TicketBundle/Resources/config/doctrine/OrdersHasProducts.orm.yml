@@ -19,6 +19,13 @@ Bundle\TicketBundle\Entity\OrdersHasProducts:
             generator:
                 strategy: IDENTITY
     fields:
+        pdvHash:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: pdv_hash
         quantity:
             type: integer
             nullable: false

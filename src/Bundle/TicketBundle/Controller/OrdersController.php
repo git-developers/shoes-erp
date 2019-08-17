@@ -101,25 +101,11 @@ class OrdersController extends GridController
 					$o = new OrdersHasProducts();
 					$o->setOrders($entity);
 					$o->setProduct($product);
+					$o->setPdvHash($pdv->getPdvHash());
 					$o->setQuantity($productSave['quantity']);
 					$o->setUnitPrice($product->getPrice());
 					$this->persist($o);
 				}
-				
-				
-				/**
-				 * REPORT PDV UPDATE
-				 */
-				foreach ($request->getSession()->get('products_order') as $key => $productSave) {
-					$reportPdv = $this->get('tianos.repository.report.pdv')->findByHashAndProduct(
-						$pdv->getPdvHash(),
-						$productSave['idItem']
-					);
-					
-					$reportPdv->setStockOrders($reportPdv->getStockOrders() + $productSave['quantity']);
-					$this->persist($reportPdv);
-				}
-				
 				
 				
 				/**
@@ -156,7 +142,6 @@ class OrdersController extends GridController
 			]
 		);
 	}
-	
 	
 	/**
 	 * @param Request $request
@@ -234,6 +219,35 @@ class OrdersController extends GridController
 			try {
 				
 				if ($form->isValid()) {
+					
+					/**
+					 * REPORT PDV UPDATE
+					 */
+					if ($entity->getStatus() == Orders::STATUS_COMPLETED) {
+						
+						$ordersHasProducts = $this->get('tianos.repository.orders.has.products')->findAllBySales($entity->getId());
+						$orders = $this->get('tianos.repository.orders')->find($entity->getId());
+						
+						foreach ($ordersHasProducts as $key => $oHp) {
+							
+							//REPORT PDV
+							$reportPdv = $this->get('tianos.repository.report.pdv')->findByHashAndProduct(
+								$oHp->getPdvHash(),
+								$oHp->getProduct()->getId()
+							);
+							$reportPdv->setStockOrders($reportPdv->getStockOrders() + $oHp->getQuantity());
+							$this->persist($reportPdv);
+							
+							
+							//UPDATE POINTOFSALE HAS PRODUCT
+							$pointofsaleHasProduct = $this->get('tianos.repository.pointofsale.has.product')->findByPdvAndProduct(
+								$orders->getPointOfSale()->getId(),
+								$oHp->getProduct()->getId()
+							);
+							$pointofsaleHasProduct->setStock($pointofsaleHasProduct->getStock() + $oHp->getQuantity());
+							$this->persist($pointofsaleHasProduct);
+						}
+					}
 					
 					$this->persist($entity);
 					

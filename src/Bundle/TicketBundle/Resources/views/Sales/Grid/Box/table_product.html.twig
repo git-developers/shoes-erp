@@ -25,7 +25,7 @@
                         </span>
                         {{ product.name }}
                     </td>
-                    <td class="text-center text-bold bg-gray-1 fontsize-18">
+                    <td class="text-center text-bold bg-gray-1 fontsize-18 {{ product.out_of_stock ? 'bg-orange' : '' }}">
                         {{ product.quantity }}
                     </td>
                     <td class="text-right">

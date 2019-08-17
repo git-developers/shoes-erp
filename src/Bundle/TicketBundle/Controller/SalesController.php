@@ -54,11 +54,6 @@ class SalesController extends GridController
 		//USER
 		$user = $this->getUser();
 		
-		
-//		$pointOfSaleOpening = $this->get('tianos.repository.pointofsale.opening')->findOneByPdvAndNow($user->getPointOfSaleActiveId());
-
-		
-		
 		//POINT OF SALE VALIDACION
 		if ($user->isPointOfSaleActiveStatusClosed()) {
 			return $this->render(
@@ -116,6 +111,8 @@ class SalesController extends GridController
 				 */
 				$subTotal = 0;
 				foreach ($request->getSession()->get('products') as $key => $productSave) {
+					
+					//SALES HAS PRODUCT
 					$product = $this->get('tianos.repository.product')->find($productSave['idItem']);
 					
 					$o = new SalesHasProducts();
@@ -125,6 +122,18 @@ class SalesController extends GridController
 					$o->setUnitPrice($product->getPrice());
 					$this->persist($o);
 					
+					
+					//UPDATE POINTOFSALE HAS PRODUCT
+					$pointofsaleHasProduct = $this->get('tianos.repository.pointofsale.has.product')->findByPdvAndProduct(
+						$user->getPointOfSaleActiveId(),
+						$productSave['idItem']
+					);
+					
+					$pointofsaleHasProduct->setStock($pointofsaleHasProduct->getStock() - $productSave['quantity']);
+					$this->persist($pointofsaleHasProduct);
+					
+					
+					//SUM SUB TOTAL
 					$subTotal += $product->getPrice() * $productSave['quantity'];
 				}
 				
@@ -473,14 +482,21 @@ class SalesController extends GridController
 		$configuration = $this->get('tianos.resource.configuration.factory')->create($this->metadata, $request);
 		$template = $configuration->getTemplate('');
 		$varsRepository = $configuration->getRepositoryVars();
+		$repository = $configuration->getRepositoryService();
+		$method = $configuration->getRepositoryMethod();
+		//$entity = $this->get($repository)->$method();
 		
+	
 		//GUARDAR SESSION PRODUCTS
 		$this->incrementDecrementSession($request, $request->get('action'));
 		
+		
+		//SET QUANTITY OF PRODUCT
 		$productSession = [];
 		foreach ($request->getSession()->get('products') as $key => $product) {
 			$obj = $this->get('tianos.repository.product')->find($product['idItem']);
 			$obj->setQuantity($product['quantity']);
+			$obj->setOutOfStock($product['out_of_stock']);
 			$productSession[] = $this->getSerializeDecode($obj, $varsRepository->serialize_group_name);
 		}
 		
@@ -500,6 +516,8 @@ class SalesController extends GridController
 	 */
 	private function incrementDecrementSession(Request $request, $action = Sales::INCREMENT)
 	{
+		
+		$user = $this->getUser();
 		
 		//SESSION
 		$idItem = $request->get('idItem');
@@ -522,15 +540,33 @@ class SalesController extends GridController
 				if ($action == Sales::DECREMENT AND $product['quantity'] >= 1) {
 					$array[] = [
 						'idItem' => $idItem,
-						'quantity' => --$product['quantity']
+						'quantity' => --$product['quantity'],
+						'out_of_stock' => false
 					];
 				}
 				
 				if ($action == Sales::INCREMENT) {
-					$array[] = [
-						'idItem' => $idItem,
-						'quantity' => ++$product['quantity']
-					];
+					
+					//VALIDAR SI HAY QUANTITY DEL PRODUCT
+					$pointofsaleHasProduct = $this->get('tianos.repository.pointofsale.has.product')->findByPdvAndProduct(
+						$user->getPointOfSaleActiveId(),
+						$idItem
+					);
+					
+					if ($pointofsaleHasProduct->getStock() > $product['quantity']) {
+						$array[] = [
+							'idItem' => $idItem,
+							'quantity' => ++$product['quantity'],
+							'out_of_stock' => false
+						];
+					} else {
+						$array[] = [
+							'idItem' => $idItem,
+							'quantity' => $product['quantity'],
+							'out_of_stock' => true
+						];
+					}
+
 				}
 				
 				unset($products[$key]);
@@ -556,6 +592,7 @@ class SalesController extends GridController
 				[
 					'idItem' => $idItem,
 					'quantity' => 1,
+					'out_of_stock' => false
 				]
 			]));
 		}

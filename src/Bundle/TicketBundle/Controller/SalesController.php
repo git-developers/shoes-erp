@@ -588,13 +588,23 @@ class SalesController extends GridController
 		}
 
 		if (!$exist) {
-			$session->set('products', array_merge($products, [
-				[
-					'idItem' => $idItem,
-					'quantity' => 1,
-					'out_of_stock' => false
-				]
-			]));
+			
+			//VALIDAR SI HAY QUANTITY DEL PRODUCT
+			$pointofsaleHasProduct = $this->get('tianos.repository.pointofsale.has.product')->findByPdvAndProduct(
+				$user->getPointOfSaleActiveId(),
+				$idItem
+			);
+			
+			if ($pointofsaleHasProduct->getStock() > 0) {
+				$session->set('products', array_merge($products, [
+					[
+						'idItem' => $idItem,
+						'quantity' => 1,
+						'out_of_stock' => false
+					]
+				]));
+			}
+			
 		}
 	}
 	

@@ -183,9 +183,6 @@
             $("form[name='" + options.formName + "']").submit(function(event) {
                 event.preventDefault();
 
-                // bp.submit(event);
-
-
                 var validate = bp.validate();
 
                 if (validate <= 0) {

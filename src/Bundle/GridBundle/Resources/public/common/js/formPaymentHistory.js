@@ -136,7 +136,9 @@
         base.payment = function(context) {
 
             var payment = parseFloat($(context).val().trim());
-            var pendingDebt = parseFloat($("td.pending-debt").text().trim());
+            var pendingDebt = parseFloat($("span.pending-debt").text().trim());
+
+            //console.log("payment.:: " + payment + " --- pendingDebt:: " + pendingDebt);
 
             if (payment > pendingDebt) {
                 $("input[name='payment_history[changeBack]']").val((payment - pendingDebt).toFixed(2));

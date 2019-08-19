@@ -79,7 +79,7 @@ Bundle\ProductBundle\Entity\Product:
         barcode:
             type: string
             nullable: true
-            length: 11
+            length: 20
             options:
                 fixed: false
             column: barcode

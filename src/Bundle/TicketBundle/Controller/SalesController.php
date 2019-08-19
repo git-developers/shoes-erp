@@ -486,10 +486,11 @@ class SalesController extends GridController
 		$method = $configuration->getRepositoryMethod();
 		//$entity = $this->get($repository)->$method();
 		
-	
-		//GUARDAR SESSION PRODUCTS
-		$this->incrementDecrementSession($request, $request->get('action'));
 		
+		if (!is_null($request->get('idItem'))) {
+			//GUARDAR SESSION PRODUCTS
+			$this->incrementDecrementSession($request, $request->get('action'));
+		}
 		
 		//SET QUANTITY OF PRODUCT
 		$productSession = [];

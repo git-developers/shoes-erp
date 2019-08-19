@@ -62,12 +62,10 @@
             $('body.{{ vars.body_css }}').formSales({
                 formName: '{{ form.vars.name }}',
                 route: '{{ path('backend_sales_create') }}',
+                routeProductView: '{{ path('backend_product_view') }}',
                 routeRedirect: '{{ path('backend_sales_index') }}'
             });
 
-            $(function () {
-                $('#code-scan').codeScanner();
-            });
         });
 
     </script>
@@ -283,8 +281,13 @@
 
                                             {% set product = obj.product %}
 
-                                            <tr class="tr-product tr-product-{{ product.category.id }}" style="display: none">
-                                                <td class="text-center">
+                                            <tr class="tr-product tr-product-{{ product.category.id }} barcode-{{ product.barcode }}"
+                                                data-id="{{ product.id }}"
+                                                style="display: none">
+                                                <td title="detalle"
+                                                    data-toggle="modal"
+                                                    data-target="#modal-product-detail"
+                                                    class="text-center product-detail">
                                                     <span class="badge bg-light-blue-active">
                                                         {{ product.id }}
                                                     </span>
@@ -339,7 +342,6 @@
                     </div>
                 </div>
 
-                <input class="form-control" id="code-scan" type="text" />
             </div>
             {#CATEGORY - PRODUCTS#}
 
@@ -420,6 +422,7 @@
     </section>
 
     {{ include('TicketBundle:Sales/Modal/Product:thumbnail.html.twig') }}
+    {{ include('TicketBundle:Sales/Modal/Product:detail.html.twig') }}
     {{ include('TicketBundle:Sales/Modal/Client:create.html.twig') }}
     {{ include('TicketBundle:Sales/Modal/Employee:create.html.twig') }}
 

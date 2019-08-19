@@ -232,7 +232,7 @@ class ProductType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'barcode',
-	                'maxlength' => '11',
+	                'maxlength' => '20',
 	                'onkeyup' => "this.value = this.value.replace(/[^0-9\.]/g,'');",
                 ],
             ])

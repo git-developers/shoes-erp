@@ -106,17 +106,45 @@
 
         base.productThumbnail = function(context) {
 
+            var box = $('div.box-thumbnail');
+
             var image = new Image();
             image.src = $(context).data("thumb") + '?' + Math.random();
             image.onload = function () {
-                $('div.box-thumbnail').empty().append(image);
+                box.empty().append(image);
             };
 
             image.onerror = function () {
-                $('div.box-thumbnail').empty().html('That image is not available.');
+                box.empty().html('That image is not available.');
             };
 
-            $('div.box-thumbnail').empty().html('Loading...');
+            box.empty().html('Loading...');
+
+            return false;
+        };
+
+        base.productDetail = function(context) {
+
+            var id = $(context).parent().data('id');
+            var box = $('div.box-product-detail');
+
+            $.ajax({
+                url: options.routeProductView,
+                type: 'POST',
+                dataType: 'html',
+                data: {
+                    id:id
+                },
+                beforeSend: function(jqXHR, settings) {
+                    box.html(msg_loading);
+                },
+                success: function(data, textStatus, jqXHR) {
+                    box.html(data);
+                },
+                error: function(jqXHR, exception) {
+                    box.html(msg_error);
+                }
+            });
 
             return false;
         };
@@ -189,6 +217,10 @@
                     bp.submit(event);
                 }
 
+            });
+
+            $("td.product-detail").click(function(event) {
+                bp.productDetail(this);
             });
 
             $("img.product-thumbnail").click(function(event) {

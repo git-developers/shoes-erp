@@ -134,3 +134,25 @@ td.product-thumbnail:hover
 /* PRODUCT THUMBNAIL */
 
 
+
+/* PRODUCT DETAIL */
+td.product-detail
+{
+    background-position: center;
+    transition: background 0.5s;
+    cursor: pointer;
+}
+td.product-detail:active
+{
+    background-color: #d2d6de;
+    background-size: 100%;
+    transition: background 0s;
+}
+td.product-detail:hover
+{
+    background: #357ca5 radial-gradient(circle, transparent 1%, #357ca5 1%) center/30000%;
+    color: white;
+}
+/* PRODUCT DETAIL */
+
+

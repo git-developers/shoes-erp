@@ -3,14 +3,14 @@
 (function ($) {
 
     $.fn.codeScanner = function (options) {
-
         var settings = $.extend({}, $.fn.codeScanner.defaults, options);
 
 
         console.log("***** barcodeScanner *****");
+        console.dir(settings);
 
-        var xxx = this.each(function () {
 
+        return this.each(function () {
             var pressed = false;
             var chars = [];
             var $input = $(this);
@@ -53,11 +53,6 @@
 
             return $(this);
         });
-
-
-        console.dir(";;;;xxx:::");
-        console.dir(xxx);
-
     };
 
     $.fn.codeScanner.defaults = {

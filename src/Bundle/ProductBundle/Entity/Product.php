@@ -8,9 +8,15 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMSS;
 use JMS\Serializer\Annotation\Type as TypeJMS;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Product
+ *
+ * @UniqueEntity(
+ *     fields={"barcode"},
+ *     message="El barcode fue registrado anteriormente"
+ * )
  */
 class Product
 {

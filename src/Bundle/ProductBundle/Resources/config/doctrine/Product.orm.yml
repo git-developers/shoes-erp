@@ -11,6 +11,10 @@ Bundle\ProductBundle\Entity\Product:
         fk_product_color1_idx:
             columns:
                 - color_id
+    uniqueConstraints:
+        barcode_UNIQUE:
+            columns:
+                - barcode
     id:
         id:
             type: integer

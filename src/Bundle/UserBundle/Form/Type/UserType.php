@@ -158,6 +158,7 @@ class UserType extends AbstractType
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'Apellidos',
+	            'required' => false,
                 'label_attr' => [
                     'class' => ''
                 ],
@@ -190,7 +191,7 @@ class UserType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'email',
-                'required' => true,
+	            'required' => false,
                 'label_attr' => [
                     'class' => ''
                 ],

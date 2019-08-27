@@ -200,14 +200,14 @@ class ProfileRepository extends TianosEntityRepository implements ProfileReposit
 	{
 		return $this->createQueryBuilder('a')
 			->where('a.isActive = :active')
-			->andWhere('a.slug IN (:slugs)')
+//			->andWhere('a.slug IN (:slugs)')
 			->orderBy('a.id', 'ASC')
 			->setParameter('active', true)
-			->setParameter('slugs', [
-				Profile::PDV_ADMIN_SLUG,
-				Profile::EMPLOYEE_SLUG,
-				Profile::CLIENT_SLUG
-			])
+//			->setParameter('slugs', [
+//				Profile::PDV_ADMIN_SLUG,
+//				Profile::EMPLOYEE_SLUG,
+//				Profile::CLIENT_SLUG
+//			])
 			;
 	}
  

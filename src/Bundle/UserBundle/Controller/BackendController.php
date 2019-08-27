@@ -74,7 +74,7 @@ class BackendController extends GridController
 			$entityJson = null;
 			$status = self::STATUS_ERROR;
 			
-			if (!filter_var($entity->getEmail(), FILTER_VALIDATE_EMAIL)) {
+			if ($entity->getEmail() && !filter_var($entity->getEmail(), FILTER_VALIDATE_EMAIL)) {
 				$form->get('email')->addError(new FormError("El email no es valido."));
 			}
 			

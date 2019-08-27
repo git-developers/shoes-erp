@@ -3,16 +3,17 @@
         <li class="x-hand" data-id="${id}" id="li-${id}">
             <span class="li-span">
                 <span class="badge">
-                    ${id}
+                    {#${id}#}
+                    &nbsp;
                 </span>
 
-                <input type="radio" name="item-left" value="${id}">
+                {#<input type="radio" name="item-left" value="${id}">#}
 
                 <span id="li-span-${id}">
 
-                    <span class="label label-default">
-                        ${code}
-                    </span>
+                    {#<span class="label label-default">#}
+                        {#${code}#}
+                    {#</span>#}
 
                     <span class="text">
                         ${name}

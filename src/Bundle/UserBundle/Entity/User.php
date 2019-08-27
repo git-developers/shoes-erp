@@ -1002,6 +1002,18 @@ class User extends BaseUser // implements UserInterface, DomainObjectInterface, 
 		return $this->pointOfSaleActive->getSlug();
 	}
 	
+	/**
+	 * @return \Bundle\PointofsaleBundle\Entity\Pointofsale
+	 */
+	public function getPointOfSaleActivePdvHash()
+	{
+		if (!$this->pointOfSaleActive instanceof Pointofsale) {
+			return false;
+		}
+		
+		return $this->pointOfSaleActive->getPdvHash();
+	}
+	
 	public function getPointOfSaleActiveId()
 	{
 		if (!$this->pointOfSaleActive instanceof Pointofsale) {

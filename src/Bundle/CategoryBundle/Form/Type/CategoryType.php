@@ -75,16 +75,16 @@ class CategoryType extends AbstractType
                 ],
                 $this->getDataType($options)
             ))
-            ->add('code', TextType::class, [
-                'label' =>' code',
-                'label_attr' => [
-                    'class' => ''
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'code',
-                ],
-            ])
+//            ->add('code', TextType::class, [
+//                'label' =>' code',
+//                'label_attr' => [
+//                    'class' => ''
+//                ],
+//                'attr' => [
+//                    'class' => 'form-control',
+//                    'placeholder' => 'code',
+//                ],
+//            ])
             ->add('name', TextType::class, [
                 'label' =>' Nombre',
                 'label_attr' => [

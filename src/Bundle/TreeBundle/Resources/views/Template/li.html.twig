@@ -1,15 +1,22 @@
 {% spaceless %}
     <span class="{{ tree.li_span }}">
+
         <span class="badge {{ badge_color }}">
-            {{ entity.id }}
+            &nbsp;
+            {#{{ entity.id }}#}
         </span>
 
+        {#
         <input type="radio" name="item-left" value="{{ entity.id }}">
+        #}
 
         <span id="li-span-{{ entity.id }}">
+
+            {#
             <span class="label label-default">
                 {{ entity.code }}
             </span>
+            #}
 
             <span class="text">
                 {{ entity.name }}

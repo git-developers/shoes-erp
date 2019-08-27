@@ -50,9 +50,9 @@ table.products tbody
 }
 
 .table-employee tbody tr td:nth-child(1),
-.table-employee thead tr th:nth-child(1),
-table.products tbody tr td:nth-child(1),
-table.products thead tr th:nth-child(1)
+.table-employee thead tr th:nth-child(1)
+/*table.products tbody tr td:nth-child(1),*/
+/*table.products thead tr th:nth-child(1)*/
 {
     width: 35px;
 }
@@ -60,13 +60,13 @@ table.products thead tr th:nth-child(1)
 table.products tbody tr td:nth-child(2),
 table.products thead tr th:nth-child(2)
 {
-    width: 70px;
+    /*width: 70px;*/
 }
 
 table.products tbody tr td:nth-child(3),
 table.products thead tr th:nth-child(3)
 {
-    width: 80px;
+    /*width: 80px;*/
 }
 
 .table-client tbody tr td:nth-child(2),
@@ -92,19 +92,19 @@ table.products thead tr th:nth-child(3)
 table.products tbody tr td:nth-child(5),
 table.products thead tr th:nth-child(5)
 {
-    width: 100px;
+    /*width: 100px;*/
 }
 
 table.products tbody tr td:nth-child(6),
 table.products thead tr th:nth-child(6)
 {
-    width: 80px;
+    /*width: 80px;*/
 }
 
 table.products tbody tr td:nth-child(7),
 table.products thead tr th:nth-child(7)
 {
-    width: 50px;
+    /*width: 50px;*/
 }
 
 div.ticket-product-color

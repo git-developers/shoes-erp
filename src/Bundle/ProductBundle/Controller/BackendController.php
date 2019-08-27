@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Bundle\GridBundle\Controller\GridController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Bundle\PointofsaleBundle\Entity\PointofsaleHasProduct;
+use Bundle\ReportBundle\Entity\ReportPdv;
 
 class BackendController extends GridController
 {
@@ -190,6 +191,7 @@ class BackendController extends GridController
                     foreach ($pdvHasProducts as $key => $pdvHasProduct) {
 	                    $pdvId = isset($pdvHasProduct['pdv']) ? $pdvHasProduct['pdv'] : null;
 	                    $stock = isset($pdvHasProduct['stock']) ? (int) $pdvHasProduct['stock'] : 0;
+	                    
 	                    $pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
 	
 	                    if (!$pdv) {
@@ -201,9 +203,35 @@ class BackendController extends GridController
 	                    $o->setProduct($entity);
 	                    $o->setStock($stock);
 	                    $this->persist($o);
+	
+	
+	                    /**
+	                     * REPORT PDV
+	                     */
+	                    $user = $this->getUser();
+	                    if ($user->getPointOfSaleActiveId() != $pdv->getId()) {
+		                    continue;
+	                    }
+	                    
+	                    $pointofsaleOpening = $this->get("tianos.repository.pointofsale.opening")->findOneByPdvAndNow($pdv->getId());
+	                    
+	                    if (is_null($pointofsaleOpening)) {
+		                    continue;
+	                    }
+	                    
+	                    $r = new ReportPdv();
+	                    $r->setStockOrders(0);
+	                    $r->setStockSales(0);
+	                    $r->setPdvHash($pdv->getPdvHash());
+	                    $r->setPointofsaleOpening($pointofsaleOpening);
+	                    $r->setProduct($entity);
+	                    $r->setStockInitial($stock);
+	                    $this->persist($r);
                     }
                     /** */
-
+	
+	
+                    
                     $varsRepository = $configuration->getRepositoryVars();
 	                $entity = $this->rowImage($entity);
                     $entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);

@@ -169,10 +169,15 @@ class SalesController extends GridController
 				 * REPORT PDV UPDATE
 				 */
 				foreach ($request->getSession()->get('products') as $key => $productSave) {
+					
 					$reportPdv = $this->get('tianos.repository.report.pdv')->findByHashAndProduct(
 						$pdv->getPdvHash(),
 						$productSave['idItem']
 					);
+
+					if (!$reportPdv) {
+						continue;
+					}
 					
 					$reportPdv->setStockSales($reportPdv->getStockSales() + $productSave['quantity']);
 					$this->persist($reportPdv);

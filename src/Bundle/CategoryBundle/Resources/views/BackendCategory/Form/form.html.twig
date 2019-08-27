@@ -9,14 +9,14 @@
     {{ form_widget(form._token) }}
 
     <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <i class="fa fa-fw fa-qrcode"></i>
-                {{ form_label(form.code) }}
-                {{ form_widget(form.code) }}
-            </div>
-        </div>
-        <div class="col-md-8">
+        {#<div class="col-md-4">#}
+            {#<div class="form-group">#}
+                {#<i class="fa fa-fw fa-qrcode"></i>#}
+                {#{{ form_label(form.code) }}#}
+                {#{{ form_widget(form.code) }}#}
+            {#</div>#}
+        {#</div>#}
+        <div class="col-md-12">
             <div class="form-group">
                 <i class="fa fa-fw fa-align-left"></i>
                 {{ form_label(form.name) }}

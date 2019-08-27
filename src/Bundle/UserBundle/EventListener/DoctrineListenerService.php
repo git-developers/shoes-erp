@@ -65,14 +65,14 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
             $name = substr($name, 0, 35);
 
             $entity->setLastName(is_null($entity->getLastName()) ? '' : $entity->getLastName());
-            $entity->setSlug($uniqid . '-' . $name);
             $entity->setCreatedAt($this->setupCreatedAt($entity));
             $entity->setUsername($uniqid);
             $entity->setEnabled(true);
             $entity->setUsernameCanonical($uniqid);
             $entity->setHeadline('Soy parte de Tianos!');
             $entity->setAboutMe(is_null($entity->getAboutMe()) ? 'Soy parte de Tianos ERP.' : $entity->getAboutMe());
-
+	        $entity->setEmail($this->generateEmail($entity));
+	        $entity->setEmailCanonical($this->generateEmail($entity));
 
             //password
             $plainPassword = $entity->getPassword();
@@ -144,6 +144,20 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
 
             return;
         }
+    }
+    
+    private function generateEmail(User $entity)
+    {
+	
+	    if (!$entity instanceof User){
+		    return;
+	    }
+    	
+    	if (!is_null($entity->getEmail())) {
+    	    return $entity->getEmail();
+	    }
+	
+	    return $entity->getUsername() . "@example.com";
     }
 
 }

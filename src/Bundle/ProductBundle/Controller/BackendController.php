@@ -190,7 +190,8 @@ class BackendController extends GridController
 
                     foreach ($pdvHasProducts as $key => $pdvHasProduct) {
 	                    $pdvId = isset($pdvHasProduct['pdv']) ? $pdvHasProduct['pdv'] : null;
-	                    $stock = isset($pdvHasProduct['stock']) ? (int) $pdvHasProduct['stock'] : 0;
+	                    //$stock = isset($pdvHasProduct['stock']) ? (int) $pdvHasProduct['stock'] : 0;
+	                    $stock = $entity->getUnit()->getUnitValue();
 	                    
 	                    $pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
 	

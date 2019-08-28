@@ -126,11 +126,11 @@ services:
 
     tianos.templating.helper.user:
         class: Bundle\UserBundle\Templating\Helper\UserHelper
-        arguments: [ "@tianos.custom_user_renderer.twig" ]
+        arguments: [ "@tianos.custom_user_renderer.twig", "@service_container" ]
 
     twig.extension.user:
         class: Bundle\UserBundle\Twig\UserExtension
-        arguments: ['@tianos.templating.helper.user']
+        arguments: ["@tianos.templating.helper.user"]
         public: false
         tags:
          - { name: twig.extension }

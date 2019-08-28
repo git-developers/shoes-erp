@@ -25,59 +25,92 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3 = $this->getReference('pointofsale-3');
 
         /**
-         * COSMETICOS
+         * CATEGORY PARENT 1
          */
         $entity2 = new Category();
         $entity2->setCode('001');
-        $entity2->setName('Category parent 1');
+        $entity2->setName('PIBE NORMAL NIÑA 18-21');
         $entity2->setType(Category::TYPE_PRODUCT);
         $manager->persist($entity2);
 	    $pointofsale_3->addCategory($entity2);
         $manager->persist($pointofsale_3);
         $this->addReference('category-1', $entity2);
 
-        $entity = new Category();
-        $entity->setCode('002');
-        $entity->setName('Category 2');
-        $entity->setType(Category::TYPE_PRODUCT);
-        $entity->setCategory($entity2);
-        $manager->persist($entity);
-	    $pointofsale_3->addCategory($entity);
+        $entity3 = new Category();
+	    $entity3->setCode('002');
+	    $entity3->setName('J-505');
+	    $entity3->setType(Category::TYPE_PRODUCT);
+	    $entity3->setCategory($entity2);
+        $manager->persist($entity3);
+	    $pointofsale_3->addCategory($entity3);
 	    $manager->persist($pointofsale_3);
-        $this->addReference('category-2', $entity);
-
-        $entity = new Category();
-        $entity->setCode('003');
-        $entity->setName('Category 3');
-        $entity->setType(Category::TYPE_PRODUCT);
-        $entity->setCategory($entity2);
-        $manager->persist($entity);
-	    $pointofsale_3->addCategory($entity);
-	    $manager->persist($pointofsale_3);
-        $this->addReference('category-3', $entity);
+        $this->addReference('category-2', $entity3);
         
-        $entity = new Category();
-        $entity->setCode('004');
-        $entity->setName('Category 4');
-        $entity->setType(Category::TYPE_PRODUCT);
-        $manager->persist($entity);
+        //CHILDREN
+	    $entity = new Category();
+	    $entity->setCode('0044');
+	    $entity->setName('18 - 21');
+	    $entity->setType(Category::TYPE_PRODUCT);
+	    $entity->setCategory($entity3);
+	    $manager->persist($entity);
 	    $pointofsale_3->addCategory($entity);
 	    $manager->persist($pointofsale_3);
-        $this->addReference('category-4', $entity);
+	    $this->addReference('category-3', $entity);
+	
+	    //CHILDREN
+	    $entity = new Category();
+	    $entity->setCode('0055');
+	    $entity->setName('19 - 21');
+	    $entity->setType(Category::TYPE_PRODUCT);
+	    $entity->setCategory($entity3);
+	    $manager->persist($entity);
+	    $pointofsale_3->addCategory($entity);
+	    $manager->persist($pointofsale_3);
+	    $this->addReference('category-4', $entity);
+        
+        
 
-        $entity = new Category();
-        $entity->setCode('005');
-        $entity->setName('Category 5');
-        $entity->setType(Category::TYPE_PRODUCT);
-        $manager->persist($entity);
+        $entity4 = new Category();
+        $entity4->setCode('003');
+        $entity4->setName('J-512');
+        $entity4->setType(Category::TYPE_PRODUCT);
+        $entity4->setCategory($entity2);
+        $manager->persist($entity4);
+	    $pointofsale_3->addCategory($entity4);
+	    $manager->persist($pointofsale_3);
+        $this->addReference('category-5', $entity4);
+	
+	    //CHILDREN
+	    $entity = new Category();
+	    $entity->setCode('004');
+	    $entity->setName('18 - 21');
+	    $entity->setType(Category::TYPE_PRODUCT);
+	    $entity->setCategory($entity4);
+	    $manager->persist($entity);
 	    $pointofsale_3->addCategory($entity);
 	    $manager->persist($pointofsale_3);
-        $this->addReference('category-5', $entity);
+	    $this->addReference('category-6', $entity);
+	
+	    //CHILDREN
+	    $entity = new Category();
+	    $entity->setCode('005');
+	    $entity->setName('19 - 21');
+	    $entity->setType(Category::TYPE_PRODUCT);
+	    $entity->setCategory($entity4);
+	    $manager->persist($entity);
+	    $pointofsale_3->addCategory($entity);
+	    $manager->persist($pointofsale_3);
+	    $this->addReference('category-7', $entity);
+        
+        
+        
+        
+
 
 
 
         /**
-         * CREMAS
+         * CATEGORY PARENT 2
          */
         $entity1 = new Category();
         $entity1->setCode('006');
@@ -86,7 +119,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
         $manager->persist($entity1);
 	    $pointofsale_3->addCategory($entity1);
 	    $manager->persist($pointofsale_3);
-        $this->addReference('category-6', $entity);
+        $this->addReference('category-8', $entity);
 
         $entity = new Category();
         $entity->setCode('007');
@@ -96,7 +129,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
         $manager->persist($entity);
 	    $pointofsale_3->addCategory($entity);
 	    $manager->persist($pointofsale_3);
-        $this->addReference('category-7', $entity);
+        $this->addReference('category-9', $entity);
 
         $entity = new Category();
         $entity->setCode('008');
@@ -106,7 +139,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
         $manager->persist($entity);
 	    $pointofsale_3->addCategory($entity);
 	    $manager->persist($pointofsale_3);
-        $this->addReference('category-8', $entity);
+        $this->addReference('category-10', $entity);
 
         $entity = new Category();
         $entity->setCode('009');
@@ -116,70 +149,8 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
         $manager->persist($entity);
 	    $pointofsale_3->addCategory($entity);
 	    $manager->persist($pointofsale_3);
-        $this->addReference('category-9', $entity);
-
-
-
-        
-        /**
-         * SERVICE - CORTE
-         */
-        /*
-        $entity3 = new Category();
-        $entity3->setCode('010');
-        $entity3->setName('Corte de cabello');
-        $entity3->setType(Category::TYPE_SERVICE);
-        $manager->persist($entity3);
-	    $pointofsale_3->addCategory($entity3);
-	    $manager->persist($pointofsale_3);
-        $this->addReference('category-10', $entity3);
-
-        $entity = new Category();
-        $entity->setCode('011');
-        $entity->setName('Hombre');
-        $entity->setType(Category::TYPE_SERVICE);
-        $entity->setCategory($entity3);
-        $manager->persist($entity);
-	    $pointofsale_3->addCategory($entity);
-	    $manager->persist($pointofsale_3);
         $this->addReference('category-11', $entity);
-
-        $entity = new Category();
-        $entity->setCode('012');
-        $entity->setName('Mujer');
-        $entity->setType(Category::TYPE_SERVICE);
-        $entity->setCategory($entity3);
-        $manager->persist($entity);
-	    $pointofsale_3->addCategory($entity);
-	    $manager->persist($pointofsale_3);
-        $this->addReference('category-12', $entity);
-		*/
         
-
-        /**
-         * SERVICE - MANOS - PIES
-         */
-        /*
-        $entity3 = new Category();
-        $entity3->setCode('013');
-        $entity3->setName('Pedicure');
-        $entity3->setType(Category::TYPE_SERVICE);
-        $manager->persist($entity3);
-	    $pointofsale_3->addCategory($entity3);
-	    $manager->persist($pointofsale_3);
-        $this->addReference('category-13', $entity3);
-
-        $entity3 = new Category();
-        $entity3->setCode('014');
-        $entity3->setName('Manicure');
-        $entity3->setType(Category::TYPE_SERVICE);
-        $manager->persist($entity3);
-	    $pointofsale_3->addCategory($entity3);
-	    $manager->persist($pointofsale_3);
-        $this->addReference('category-14', $entity3);
-		*/
-
-
 
         $manager->flush();
 

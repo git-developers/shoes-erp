@@ -30,6 +30,7 @@ final class UserExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction('tianos_profile_about_me', [$this->userHelper, 'profileAboutMe'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('tianos_app_user_name', [$this->userHelper, 'appUserName'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('tianos_reverse_recursive_category', [$this->userHelper, 'reverseRecursiveCategory'], ['is_safe' => ['html']]),
         ];
     }
 

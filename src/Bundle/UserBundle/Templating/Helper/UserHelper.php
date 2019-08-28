@@ -11,9 +11,16 @@ use Component\User\Renderer\UserRendererInterface;
 use Component\Grid\View\GridView;
 use Symfony\Component\Templating\Helper\Helper;
 use Bundle\UserBundle\Entity\User;
+use Bundle\CategoryBundle\Entity\Category;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class UserHelper extends Helper
 {
+	/**
+	 * @var ContainerInterface
+	 */
+	private $container;
+	
     /**
      * @var UserRendererInterface
      */
@@ -22,9 +29,10 @@ class UserHelper extends Helper
     /**
      * @param UserRendererInterface $userRenderer
      */
-    public function __construct(UserRendererInterface $userRenderer)
+    public function __construct(UserRendererInterface $userRenderer, ContainerInterface $container)
     {
-        $this->userRenderer = $userRenderer;
+	    $this->container = $container;
+	    $this->userRenderer = $userRenderer;
     }
 
     // JAFETH
@@ -43,6 +51,27 @@ class UserHelper extends Helper
 
         return $name .' '. $lastName;
     }
+
+    public function reverseRecursiveCategory(Category $category = null)
+    {
+    	
+	    $obj1 = $this->container->get("tianos.repository.category")->find($category->getId());
+	    
+
+	    if ($obj1 && $obj1->getCategory()) {
+		
+		    $obj2 = $this->container->get("tianos.repository.category")->find($obj1->getCategory()->getId());
+	    	
+		    return '<span class="badge bg-light-blue-active">' . $obj2->getName() . '</span> <i class="fa fa-fw fa-arrow-right"></i> <span class="badge bg-light-blue-active">' . $obj1->getName() . '</span>';
+	    }
+	
+	    return '<span class="badge bg-light-blue-active">' . $obj1->getName() . '</span>';
+    }
+    
+    
+    
+    
+    
 
 //
 //    /**

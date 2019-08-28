@@ -19,6 +19,13 @@ Bundle\ProductBundle\Entity\Unit:
             options:
                 fixed: false
             column: name
+        unitValue:
+            type: integer
+            nullable: false
+            length: 11
+            options:
+                fixed: false
+            column: unit_value
         slug:
             type: string
             nullable: false

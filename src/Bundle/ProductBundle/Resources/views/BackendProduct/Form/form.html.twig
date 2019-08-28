@@ -70,6 +70,7 @@
                             <div class="tab-pane active" id="tab-{{ action }}-1">
                                 <div class="row">
 
+                                    {#
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-qrcode"></i>
@@ -82,8 +83,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    #}
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-barcode"></i>
                                             {{ form_label(form.barcode) }}
@@ -91,7 +93,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-align-left"></i>
                                             {{ form_label(form.name) }}
@@ -229,7 +231,7 @@
                                     <th></th>
                                     <th>#</th>
                                     <th>Nombre</th>
-                                    <th>Stock</th>
+                                    {#<th>Stock</th>#}
                                 </tr>
                             </thead>
                             <tbody>
@@ -250,14 +252,17 @@
                                     <td class="pdv">
                                         {{ val.vars.label }}
                                     </td>
+
+                                    {#
                                     <td>
                                         <input
                                             type="number"
                                             value="{{ pdvHasproductIds[val.vars.value] is defined ? pdvHasproductIds[val.vars.value] : '' }}"
                                             class="form-control"
                                             name="pdvHasproduct[{{ key }}][stock]"
-                                            style="width: 100px"> 
+                                            style="width: 100px">
                                     </td>
+                                    #}
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -296,26 +301,31 @@
         });
 
         $(document).ready(function() {
-            size("{{ form.unit.vars.data.slug|default() }}");
+            size("{{ form.unit.vars.data.id|default() }}");
         });
 
         $("select[name='{{ form.unit.vars.full_name }}']").change(function() {
-            size($(this).find("option:selected").text().trim());
+            size($(this).find("option:selected").val().trim());
         });
 
         function size(text) {
+
             $("select[name='size_dummy']").show();
             $("select[name='{{ form.size.vars.full_name }}']").hide();
             $("select[name='{{ form.sizeRange.vars.full_name }}']").hide();
 
-            if ("{{ constant('Bundle\\ProductBundle\\Entity\\Unit::PAQUETE') }}" == text) {
-                $("select[name='size_dummy']").hide();
-                $("select[name='{{ form.size.vars.full_name }}']").hide();
-                $("select[name='{{ form.sizeRange.vars.full_name }}']").show();
-            } else if ("{{ constant('Bundle\\ProductBundle\\Entity\\Unit::UNIDAD') }}" == text) {
+            if (text == "") {
+                return false;
+            }
+
+            if ("{{ constant('Bundle\\ProductBundle\\Entity\\Unit::UNIDAD_ID') }}" == text) {
                 $("select[name='size_dummy']").hide();
                 $("select[name='{{ form.size.vars.full_name }}']").show();
                 $("select[name='{{ form.sizeRange.vars.full_name }}']").hide();
+            } else {
+                $("select[name='size_dummy']").hide();
+                $("select[name='{{ form.size.vars.full_name }}']").hide();
+                $("select[name='{{ form.sizeRange.vars.full_name }}']").show();
             }
         }
 

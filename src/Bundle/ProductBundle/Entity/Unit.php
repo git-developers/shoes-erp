@@ -16,7 +16,11 @@ class Unit
 {
 	
 	
-	const PAQUETE = 'paquete';
+	const PAQUETE_12_ID = 1;
+	const PAQUETE_12 = 'paquete_12';
+	const PAQUETE_6_ID = 2;
+	const PAQUETE_6 = 'paquete_6';
+	const UNIDAD_ID = 3;
 	const UNIDAD = 'unidad';
 	
 	
@@ -33,6 +37,13 @@ class Unit
      * @JMSS\Groups({"crud"})
      */
     private $name;
+
+    /**
+     * @var integer
+     *
+     * @JMSS\Groups({"crud"})
+     */
+    private $unitValue;
 	
 	/**
 	 * @var string
@@ -97,6 +108,22 @@ class Unit
         return $this->name;
     }
 	
+	/**
+	 * @return int
+	 */
+	public function getUnitValue()
+	{
+		return $this->unitValue;
+	}
+	
+	/**
+	 * @param int $unitValue
+	 */
+	public function setUnitValue(int $unitValue)
+	{
+		$this->unitValue = $unitValue;
+	}
+ 
 	/**
 	 * @return string
 	 */

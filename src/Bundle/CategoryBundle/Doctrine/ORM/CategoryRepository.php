@@ -138,6 +138,27 @@ class CategoryRepository extends TianosEntityRepository implements CategoryRepos
         return $query->getResult();
     }
 
+    public function findParentByChild($categoryId)
+    {
+    	
+        $em = $this->getEntityManager();
+        $dql = "
+            SELECT
+            obj.id,
+            obj.name
+            FROM CategoryBundle:Category obj
+            WHERE
+            obj.isActive = :active AND
+            obj.category = :categoryId
+            ";
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('active', 1);
+        $query->setParameter('categoryId', $categoryId);
+        
+        return $query->getOneOrNullResult();
+    }
+
     /**
      * {@inheritdoc}
      */

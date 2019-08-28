@@ -304,15 +304,19 @@
                                             </small>
                                         </td>
                                         <td>
+                                            {#
                                             <span class="badge bg-light-blue-active">
                                                 {{ reportPdv.product.category.id }}
                                             </span>
-                                            {{ reportPdv.product.category.name }}
+                                            #}
+                                            {{ tianos_reverse_recursive_category(reportPdv.product.category) }}
                                         </td>
                                         <td>
+                                            {#
                                             <span class="badge bg-light-blue-active">
                                                 {{ reportPdv.product.id }}
                                             </span>
+                                            #}
                                             {{ reportPdv.product.name }}
                                         </td>
                                         <td class="text-center bg-gray-1">

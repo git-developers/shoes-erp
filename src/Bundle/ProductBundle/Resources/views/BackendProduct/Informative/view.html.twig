@@ -100,7 +100,7 @@
                             <p class="text-muted">
                                 <span
                                     style="font-size: 90%;"
-                                    class="label label-{{ entity.unit.slug == constant('Bundle\\ProductBundle\\Entity\\Unit::PAQUETE') ? 'warning' : 'primary' }}">
+                                    class="label label-{{ entity.unit.id == constant('Bundle\\ProductBundle\\Entity\\Unit::UNIDAD_ID') ? 'warning' : 'primary' }}">
                                     {{ entity.unit.name|capitalize }}
                                 </span>
                             </p>
@@ -111,10 +111,10 @@
                             </strong>
 
                             <p class="text-muted">
-                                {% if entity.unit.slug == constant('Bundle\\ProductBundle\\Entity\\Unit::PAQUETE') %}
-                                    {{ entity.sizeRange }}
-                                {% else %}
+                                {% if entity.unit.id == constant('Bundle\\ProductBundle\\Entity\\Unit::UNIDAD_ID') %}
                                     {{ entity.size }}
+                                {% else %}
+                                    {{ entity.sizeRange }}
                                 {% endif %}
                             </p>
                         </div>

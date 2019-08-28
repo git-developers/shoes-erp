@@ -46,7 +46,7 @@ class Load_1_PointofsaleData extends AbstractFixture implements OrderedFixtureIn
 
         $entity = new Pointofsale();
         $entity->setCode('333');
-        $entity->setName('Punto de venta 3');
+        $entity->setName('Tienda calza trujillo');
 	    $entity->setAddress('Av. Petit Thouars 2161, San Isidro');
         $entity->setPhone('999888777');
         $entity->setSlug('point-of-sale-3');

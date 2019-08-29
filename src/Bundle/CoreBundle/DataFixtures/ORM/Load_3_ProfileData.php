@@ -144,9 +144,14 @@ class Load_3_ProfileData extends AbstractFixture implements OrderedFixtureInterf
 
 
         $entity = new Profile();
-        $entity->setName(Profile::EMPLOYEE);
-        $entity->setSlug(Profile::EMPLOYEE_SLUG);
-        $entity->addRole($roleUserView);
+        $entity->setName(Profile::SELLER);
+        $entity->setSlug(Profile::SELLER_SLUG);
+	    $entity->addRole($roleCategoryView);
+	    $entity->addRole($roleTicketView);
+	    $entity->addRole($roleTicketCreate);
+	    $entity->addRole($roleStadistics);
+	    $entity->addRole($rolePdvView);
+	    $entity->addRole($roleProductEdit);
         $manager->persist($entity);
         $this->addReference('profile-employee', $entity);
 

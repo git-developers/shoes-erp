@@ -18,8 +18,8 @@ class Profile
     const PDV_ADMIN = 'PDV Administrator';
     const PDV_ADMIN_SLUG = 'pdv-administrator';
 
-    const EMPLOYEE = 'Empleado';
-    const EMPLOYEE_SLUG = 'employee';
+    const SELLER = 'Vendedor';
+    const SELLER_SLUG = 'seller';
 
     const CLIENT = 'Cliente';
     const CLIENT_SLUG = 'client';

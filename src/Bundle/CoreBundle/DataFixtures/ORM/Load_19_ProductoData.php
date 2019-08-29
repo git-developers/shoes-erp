@@ -61,7 +61,6 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-2', $entity);
         
         $entity = new Product();
-//	    $entity->setColor('#00FF00');
 	    $entity->setSize("8");
 	    $entity->setCode('333');
 	    $entity->setPrice(15.33);
@@ -73,7 +72,6 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-3', $entity);
         
         $entity = new Product();
-//	    $entity->setColor('#0000FF');
 	    $entity->setSize("13");
 	    $entity->setCode('444');
 	    $entity->setPrice(12.33);
@@ -85,7 +83,6 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-4', $entity);
         
         $entity = new Product();
-//	    $entity->setColor('#FF0000');
 	    $entity->setSize("11");
 	    $entity->setCode('555');
 	    $entity->setPrice(43.33);
@@ -102,7 +99,6 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     * CATEGORY 2
 	     */
         $entity = new Product();
-//	    $entity->setColor('#00FF00');
 	    $entity->setSize("12");
 	    $entity->setCode('666');
 	    $entity->setPrice(23.44);
@@ -114,7 +110,6 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-6', $entity);
 
         $entity = new Product();
-//	    $entity->setColor('#0000FF');
 	    $entity->setSize("45");
 	    $entity->setCode('777');
 	    $entity->setPrice(99.22);
@@ -126,7 +121,6 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-7', $entity);
         
         $entity = new Product();
-//	    $entity->setColor('#FF0000');
 	    $entity->setSize("67");
 	    $entity->setCode('888');
 	    $entity->setPrice(77.88);
@@ -138,7 +132,6 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-8', $entity);
         
         $entity = new Product();
-//	    $entity->setColor('#0000FF');
 	    $entity->setSize("78");
 	    $entity->setCode('999');
 	    $entity->setPrice(41.66);
@@ -154,7 +147,6 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	     * CATEGORY 3
 	     */
         $entity = new Product();
-//	    $entity->setColor('#FF0000');
 	    $entity->setSize("34");
 	    $entity->setCode('1010');
 	    $entity->setPrice(67.55);
@@ -166,7 +158,6 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-10', $entity);
         
         $entity = new Product();
-//	    $entity->setColor('#0000FF');
 	    $entity->setSize("13");
 	    $entity->setCode('1111');
 	    $entity->setPrice(45.22);
@@ -178,7 +169,6 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
         $this->addReference('product-11', $entity);
         
         $entity = new Product();
-//	    $entity->setColor('#00FF00');
 	    $entity->setSize("433");
 	    $entity->setCode('1212');
 	    $entity->setPrice(14.33);

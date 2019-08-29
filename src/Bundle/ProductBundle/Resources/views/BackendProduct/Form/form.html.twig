@@ -231,7 +231,7 @@
                                     <th></th>
                                     <th>#</th>
                                     <th>Nombre</th>
-                                    {#<th>Stock</th>#}
+                                    <th>Stock</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -253,7 +253,7 @@
                                         {{ val.vars.label }}
                                     </td>
 
-                                    {#
+
                                     <td>
                                         <input
                                             type="number"
@@ -262,7 +262,7 @@
                                             name="pdvHasproduct[{{ key }}][stock]"
                                             style="width: 100px">
                                     </td>
-                                    #}
+
                                 </tr>
                             {% endfor %}
                             </tbody>

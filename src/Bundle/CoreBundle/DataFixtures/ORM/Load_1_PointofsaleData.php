@@ -24,7 +24,7 @@ class Load_1_PointofsaleData extends AbstractFixture implements OrderedFixtureIn
 
         $entity = new Pointofsale();
         $entity->setCode('111');
-        $entity->setName('Punto de venta 1');
+        $entity->setName('Oficina principal');
         $entity->setAddress('Av. Petit Thouars 2161, San Isidro');
         $entity->setPhone('999888777');
         $entity->setSlug('point-of-sale-1');
@@ -35,7 +35,7 @@ class Load_1_PointofsaleData extends AbstractFixture implements OrderedFixtureIn
 
         $entity = new Pointofsale();
         $entity->setCode('222');
-        $entity->setName('Punto de venta 2');
+        $entity->setName('Tienda Calza II');
 	    $entity->setAddress('Av. Petit Thouars 2161, San Isidro');
         $entity->setPhone('999888777');
         $entity->setSlug('point-of-sale-2');
@@ -46,7 +46,7 @@ class Load_1_PointofsaleData extends AbstractFixture implements OrderedFixtureIn
 
         $entity = new Pointofsale();
         $entity->setCode('333');
-        $entity->setName('Tienda calza trujillo');
+        $entity->setName('Tienda Calza Trujillo');
 	    $entity->setAddress('Av. Petit Thouars 2161, San Isidro');
         $entity->setPhone('999888777');
         $entity->setSlug('point-of-sale-3');

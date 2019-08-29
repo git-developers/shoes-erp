@@ -54,7 +54,7 @@ class CategoryRepository extends TianosEntityRepository implements CategoryRepos
 			parent.isActive = :active AND
             parent.type = :type_ AND
             parent.category IS NULL
-            ORDER BY parent.id DESC
+            ORDER BY parent.id ASC
             ";
 
 	    $query = $em->createQuery($dql);
@@ -128,7 +128,7 @@ class CategoryRepository extends TianosEntityRepository implements CategoryRepos
             WHERE
             child.isActive = :active AND
             child.category = :parent
-            ORDER BY child.id DESC
+            ORDER BY child.id ASC
             ";
 
         $query = $em->createQuery($dql);

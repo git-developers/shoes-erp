@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Component\Resource\Metadata\Metadata;
 use Bundle\ResourceBundle\ResourceBundle;
+use Bundle\ReportBundle\Entity\ReportPdv;
 
 class StatisticsController extends BaseController
 {

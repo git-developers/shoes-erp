@@ -6,7 +6,7 @@ backend_statistics_combo_chart:
         _tianos:
             action: xxxxx
             template: ReportBundle:BackendReport:combo_chart.html.twig
-            entity: Bundle\ReportBundle\Entity\Report
+            entity: Bundle\ReportBundle\Entity\ReportPdv
             vars:
                 subheader: sylius.ui.manage_your_product_catalog
                 icon: pie-chart
@@ -33,7 +33,7 @@ backend_statistics_pie_chart:
         _tianos:
             action: xxxxx
             template: ReportBundle:BackendReport:pie_chart.html.twig
-            entity: Bundle\ReportBundle\Entity\Report
+            entity: Bundle\ReportBundle\Entity\ReportPdv
             vars:
                 subheader: sylius.ui.manage_your_product_catalog
                 icon: pie-chart

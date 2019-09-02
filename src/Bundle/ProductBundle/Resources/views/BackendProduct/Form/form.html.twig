@@ -256,9 +256,10 @@
 
                                     <td>
                                         <input
-                                            type="number"
+                                            type="text"
                                             value="{{ pdvHasproductIds[val.vars.value] is defined ? pdvHasproductIds[val.vars.value] : '' }}"
                                             class="form-control"
+                                            onkeyup="this.value = this.value.replace(/[^0-9\.]/g,'');"
                                             name="pdvHasproduct[{{ key }}][stock]"
                                             style="width: 100px">
                                     </td>

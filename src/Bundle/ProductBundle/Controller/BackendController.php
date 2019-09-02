@@ -187,11 +187,13 @@ class BackendController extends GridController
 	                 * SAVE producto TO pdv
 	                 */
 	                $pdvHasProducts = $this->pointofsaleHasProduct($request);
-
+	                
                     foreach ($pdvHasProducts as $key => $pdvHasProduct) {
 	                    $pdvId = isset($pdvHasProduct['pdv']) ? $pdvHasProduct['pdv'] : null;
-	                    $stock = isset($pdvHasProduct['stock']) ? (int) $pdvHasProduct['stock'] : 0;
+	                    $stock = isset($pdvHasProduct['stock']) ? (float) $pdvHasProduct['stock'] : 0;
 //	                    $stock = $entity->getUnit()->getUnitValue();
+
+	                    
 	                    
 	                    $pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
 	
@@ -346,9 +348,20 @@ class BackendController extends GridController
 					$pdvHasProducts = $this->pointofsaleHasProduct($request);
 					
 					foreach ($pdvHasProducts as $key => $pdvHasProduct) {
+						
+						
+						
+						
+						
 						$pdvId = isset($pdvHasProduct['pdv']) ? $pdvHasProduct['pdv'] : null;
-						$stock = isset($pdvHasProduct['stock']) ? (int) $pdvHasProduct['stock'] : 0;
+						$stock = isset($pdvHasProduct['stock']) ? (float) $pdvHasProduct['stock'] : 0;
 						$pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
+						
+						
+						
+						
+						
+						
 						
 						if (!$pdv) {
 							continue;

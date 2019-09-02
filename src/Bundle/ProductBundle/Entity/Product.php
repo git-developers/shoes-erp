@@ -186,6 +186,10 @@ class Product
 	 * @ORM\JoinColumns({
 	 *   @ORM\JoinColumn(name="unit_id", referencedColumnName="id")
 	 * })
+	 *
+	 * @JMSS\Groups({
+	 *     "sales"
+	 * })
 	 */
 	private $unit;
 	
@@ -208,7 +212,7 @@ class Product
 	private $color;
 	
 	/**
-	 * @var integer
+	 * @var float
 	 *
 	 * @JMSS\Groups({
 	 *     "sales",
@@ -584,21 +588,19 @@ class Product
 	}
 	
 	/**
-	 * @return int
+	 * @return float
 	 */
-	public function getQuantity(): int
+	public function getQuantity()
 	{
 		return $this->quantity;
 	}
-
+	
 	/**
-	 * @param int $quantity
+	 * @param float $quantity
 	 */
-	public function setQuantity(int $quantity)
+	public function setQuantity(float $quantity)
 	{
 		$this->quantity = $quantity;
-
-		return $this;
 	}
 	
 	/**

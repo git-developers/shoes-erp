@@ -20,9 +20,9 @@ Bundle\PointofsaleBundle\Entity\PointofsaleHasProduct:
                 strategy: IDENTITY
     fields:
         stock:
-            type: integer
+            type: string
             nullable: true
-            length: 5
+            length: 11
             options:
                 unsigned: false
             column: stock

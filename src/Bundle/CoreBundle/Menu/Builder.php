@@ -311,7 +311,7 @@ class Builder implements ContainerAwareInterface
 	        Ticket::ROLE_TICKET_VIEW,
         ]);
 
-        $menu->addChild('Pedidos de fabrica', [
+        $menu->addChild('Pedidos', [
             'route' => 'backend_orders_index',
             'extras' => ['safe_label' => true],
             'childrenAttributes' => [
@@ -327,7 +327,7 @@ class Builder implements ContainerAwareInterface
         ->setDisplay($isGranted)
         ;
         
-	    $menu['Pedidos de fabrica']->addChild('Crear pedido', [
+	    $menu['Pedidos']->addChild('Crear pedido', [
 		    'route' => 'backend_orders_create'
 	    ])
 		    ->setAttribute('icon', self::CIRCLE_1)
@@ -335,7 +335,7 @@ class Builder implements ContainerAwareInterface
 		    ->setDisplay($isGranted)
 	    ;
 	    
-	    $menu['Pedidos de fabrica']->addChild('Gestionar pedido', [
+	    $menu['Pedidos']->addChild('Gestionar pedido', [
 		    'route' => 'backend_orders_index'
 	    ])
 	    ->setAttribute('icon', self::CIRCLE_2)

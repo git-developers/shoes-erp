@@ -46,14 +46,14 @@ Bundle\ReportBundle\Entity\ReportPdv:
                 unsigned: false
             column: stock_initial
         stockOrders:
-            type: integer
+            type: float
             nullable: true
             length: 5
             options:
                 unsigned: false
             column: stock_orders
         stockSales:
-            type: integer
+            type: float
             nullable: true
             length: 5
             options:

@@ -322,7 +322,16 @@
                                                     {{ product.price }}
                                                 </td>
                                                 <td class="text-center">
+
+                                                    {#{{ dump(product.unit.unit_value ~ " -- " ~ obj.stock) }}#}
+
                                                     {{ obj.stock }}
+
+                                                    {#{% if product.unit.unit_value == 6 %}#}
+                                                        {#{{ obj.stock * 0.5 }}#}
+                                                    {#{% elseif product.unit.unit_value == 12 %}#}
+                                                        {#{{ obj.stock * 12 }}#}
+                                                    {#{% endif %}#}
                                                 </td>
                                                 <td class="text-center">
                                                     <button

@@ -27,7 +27,10 @@ class Unit
     /**
      * @var integer
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "sales",
+     * })
      */
     private $id;
 
@@ -41,7 +44,10 @@ class Unit
     /**
      * @var integer
      *
-     * @JMSS\Groups({"crud"})
+     * @JMSS\Groups({
+     *     "crud",
+     *     "sales",
+     * })
      */
     private $unitValue;
 	

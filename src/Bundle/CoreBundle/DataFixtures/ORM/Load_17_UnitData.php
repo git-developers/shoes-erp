@@ -22,13 +22,13 @@ class Load_17_UnitData extends AbstractFixture implements OrderedFixtureInterfac
     public function load(ObjectManager $manager)
     {
     	
-        $entity = new Unit();
-	    $entity->setName("Paquete 0.5 docena");
-	    $entity->setSlug(Unit::PAQUETE_6);
-	    $entity->setUnitValue(6);
-	    $entity->setIsActive(true);
-        $manager->persist($entity);
-        $this->addReference('unit-1', $entity);
+//        $entity = new Unit();
+//	    $entity->setName("Paquete 0.5 docena");
+//	    $entity->setSlug(Unit::PAQUETE_6);
+//	    $entity->setUnitValue(6);
+//	    $entity->setIsActive(true);
+//        $manager->persist($entity);
+//        $this->addReference('unit-1', $entity);
     	
         $entity = new Unit();
 	    $entity->setName("Paquete 1 docena");
@@ -36,7 +36,7 @@ class Load_17_UnitData extends AbstractFixture implements OrderedFixtureInterfac
 	    $entity->setUnitValue(12);
 	    $entity->setIsActive(true);
         $manager->persist($entity);
-        $this->addReference('unit-2', $entity);
+        $this->addReference('unit-1', $entity);
 	
         
 	    $entity = new Unit();

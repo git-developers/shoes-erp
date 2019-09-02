@@ -24,7 +24,7 @@ class PointofsaleHasProduct
     private $id;
 
     /**
-     * @var integer
+     * @var float
      *
      * @JMSS\Groups({
      *     "sales",
@@ -71,31 +71,25 @@ class PointofsaleHasProduct
     {
         return $this->id;
     }
+	
+	/**
+	 * @return float
+	 */
+	public function getStock() //: float
+	{
+		return $this->stock;
+	}
+	
+	/**
+	 * @param float $stock
+	 */
+	public function setStock(float $stock) //: void
+	{
+		$this->stock = $stock;
+	}
+	
 
-    /**
-     * Set stock
-     *
-     * @param integer $stock
-     *
-     * @return PointofsaleHasProduct
-     */
-    public function setStock($stock)
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
-
-    /**
-     * Get stock
-     *
-     * @return integer
-     */
-    public function getStock()
-    {
-        return $this->stock;
-    }
-
+	
     /**
      * Set pointOfSale
      *

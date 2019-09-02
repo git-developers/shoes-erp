@@ -48,7 +48,7 @@ class ReportPdv
 	private $pdvHash;
 	
 	/**
-	 * @var integer
+	 * @var float
 	 *
 	 * @JMSS\Groups({
 	 *     "sales",
@@ -59,7 +59,7 @@ class ReportPdv
 	private $stockInitial;
 	
 	/**
-	 * @var integer
+	 * @var float
 	 *
 	 * @JMSS\Groups({
 	 *     "sales",
@@ -70,7 +70,7 @@ class ReportPdv
 	private $stockOrders;
 	
 	/**
-	 * @var integer
+	 * @var float
 	 *
 	 * @JMSS\Groups({
 	 *     "sales",
@@ -183,53 +183,53 @@ class ReportPdv
 	}
 	
 	/**
-	 * @return int
+	 * @return float
 	 */
-	public function getStockInitial(): int
+	public function getStockInitial(): float
 	{
 		return $this->stockInitial;
 	}
 	
 	/**
-	 * @param int $stockInitial
+	 * @param float $stockInitial
 	 */
-	public function setStockInitial(int $stockInitial)
+	public function setStockInitial( $stockInitial) //: void
 	{
 		$this->stockInitial = $stockInitial;
 	}
 	
 	/**
-	 * @return int
+	 * @return float
 	 */
-	public function getStockOrders(): int
+	public function getStockOrders()
 	{
 		return $this->stockOrders;
 	}
 	
 	/**
-	 * @param int $stockOrders
+	 * @param float $stockOrders
 	 */
-	public function setStockOrders(int $stockOrders)
+	public function setStockOrders(float $stockOrders)
 	{
 		$this->stockOrders = $stockOrders;
 	}
 	
 	/**
-	 * @return int
+	 * @return float
 	 */
-	public function getStockSales() //: int
+	public function getStockSales()
 	{
 		return $this->stockSales;
 	}
 	
 	/**
-	 * @param int $stockSales
+	 * @param float $stockSales
 	 */
-	public function setStockSales(int $stockSales)
+	public function setStockSales(float $stockSales)
 	{
 		$this->stockSales = $stockSales;
 	}
-	
+
 	/**
 	 * @return \DateTime
 	 */

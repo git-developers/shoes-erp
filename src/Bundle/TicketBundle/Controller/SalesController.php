@@ -543,10 +543,10 @@ class SalesController extends GridController
 			
 			if ($product['idItem'] == $idItem) {
 				
-				if ($action == Sales::DECREMENT AND $product['quantity'] >= 1) {
+				if ($action == Sales::DECREMENT AND $product['quantity'] >= 0.5) {
 					$array[] = [
 						'idItem' => $idItem,
-						'quantity' => --$product['quantity'],
+						'quantity' => $product['quantity'] - 0.5,
 						'out_of_stock' => false
 					];
 				}
@@ -562,7 +562,7 @@ class SalesController extends GridController
 					if ($pointofsaleHasProduct->getStock() > $product['quantity']) {
 						$array[] = [
 							'idItem' => $idItem,
-							'quantity' => ++$product['quantity'],
+							'quantity' => $product['quantity'] + 0.5,
 							'out_of_stock' => false
 						];
 					} else {
@@ -605,7 +605,7 @@ class SalesController extends GridController
 				$session->set('products', array_merge($products, [
 					[
 						'idItem' => $idItem,
-						'quantity' => 1,
+						'quantity' => 0.5,
 						'out_of_stock' => false
 					]
 				]));
@@ -655,7 +655,7 @@ class SalesController extends GridController
 		$subTotal = 0;
 		foreach ($request->getSession()->get('products') as $key => $productSave) {
 			$product = $this->get('tianos.repository.product')->find($productSave['idItem']);
-			$subTotal += $product->getPrice() * $productSave['quantity'];
+			$subTotal += $product->getPrice() * ($productSave['quantity']);
 		}
 		
 		return $subTotal;

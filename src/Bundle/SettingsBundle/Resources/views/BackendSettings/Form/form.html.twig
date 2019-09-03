@@ -1,28 +1,153 @@
-{% extends 'GridBundle::Template/crud_modal_content.html.twig' %}
+{% extends "ThemesBundle:Adminlte/Template:1_template.html.twig" %}
 
-{% block crud_modal_content %}
+{% import "TreeBundle::Macro/tree_sales.html.twig" as macro %}
 
-    {{ form_start(form) }}
+{% block bodyclass %}{% spaceless %}
+    {{ vars.body_css }}
+{% endspaceless %}{% endblock %}
 
-    {% if id is defined %}
-        <input type="hidden" value="{{ id }}" name="id">
-    {% endif %}
+{% block stylesheets %}
+    {{ parent() }}
 
-    {{ form_widget(form._token) }}
+    <style type="text/css">
 
-    {#<div class="form-group">#}
-        {#<i class="fa fa-fw fa-industry"></i>#}
-        {#{{ form_label(form.code) }}#}
-        {#{{ form_widget(form.code) }}#}
-    {#</div>#}
-
-    {#<div class="form-group">#}
-        {#<i class="fa fa-fw fa-industry"></i>#}
-        {#{{ form_label(form.name) }}#}
-        {#{{ form_widget(form.name) }}#}
-    {#</div>#}
-
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    </style>
 
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+
+    {#
+
+        {{ form_start(form) }}
+
+        {% if id is defined %}
+            <input type="hidden" value="{{ id }}" name="id">
+        {% endif %}
+
+        {{ form_widget(form._token) }}
+
+        <div class="form-group">
+            <i class="fa fa-fw fa-industry"></i>
+            {{ form_label(form.code) }}
+            {{ form_widget(form.code) }}
+        </div>
+
+        <div class="form-group">
+            <i class="fa fa-fw fa-industry"></i>
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    #}
+
+
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-cog"></i> Settings
+            <small>config</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{{ path('backend_dashboard_index') }}">
+                    <i class="fa fa-dashboard"></i> Home
+                </a>
+            </li>
+            <li class="active">
+                settings
+            </li>
+        </ol>
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            configuraci&oacute;n
+                        </h4>
+                        <div class="box-tools pull-right"></div>
+                    </div>
+                    <div class="box-body"> {#no-padding#}
+
+                        {{ form_start(form) }}
+
+                        {{ form_widget(form._token) }}
+
+                        <div class="form-group">
+                            <i class="fa fa-fw fa-envelope"></i>
+                            {{ form_label(form.systemEmail) }}
+                            {{ form_widget(form.systemEmail) }}
+                        </div>
+
+                        <p>&nbsp;</p>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="callout callout-success">
+                                    <p><i class="fa fa-fw fa-cart-plus"></i> Ventas</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <i class="fa fa-fw fa-gg"></i>
+                                    {{ form_label(form.salesQuantity) }}
+                                    {{ form_widget(form.salesQuantity) }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <i class="fa fa-fw fa-gg"></i>
+                                    {{ form_label(form.salesQuantityPriceX) }}
+                                    {{ form_widget(form.salesQuantityPriceX) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group pull-right">
+                            {{ form_widget(form.submit) }}
+                        </div>
+
+                        {{ form_end(form) }}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}
+
+
+
+
+
+
+
+

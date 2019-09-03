@@ -14,13 +14,13 @@
 
             <div class="dropdown">
                 <button class="btn bg-red btn-block dropdown-toggle" type="button" data-toggle="dropdown">
-                    <span class="selected">Desea cancelar la venta?</span>
+                    <span class="selected">Esta seguro de anular venta?</span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-status btn-block">
                     <li>
                         <a href="#" class="text-center">
-                            Cancelar Venta
+                            Si, Anular Venta
                         </a>
                     </li>
                 </ul>
@@ -33,7 +33,7 @@
 
         $(".dropdown-status a").click(function() {
             $("span.selected").text($(this).text().trim());
-            $("select[name='{{ form.status.vars.full_name }}']").val({{ constant('Bundle\\TicketBundle\\Entity\\Sales::STATUS_CANCELED') }});
+            $("select[name='{{ form.status.vars.full_name }}']").val({{ constant('Bundle\\TicketBundle\\Entity\\Sales::STATUS_VOIDED') }});
         });
 
     </script>

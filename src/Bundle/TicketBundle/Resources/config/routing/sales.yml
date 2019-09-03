@@ -83,8 +83,8 @@ backend_sales_index:
                         - obj: obj.status
                           options:
                               property: " if(obj.status == 1){return '<span class=\"label label-warning fontsize-12\">ABIERTO</span>';}
-                              else if(obj.status == 3){return '<span class=\"label label-success fontsize-12\">COMPLETADO</span>';}
-                              else if(obj.status == 4){return '<span class=\"label label-danger fontsize-12\">CANCELADO</span>';} "
+                              else if(obj.status == 5){return '<span class=\"label label-danger fontsize-12\">ANULADO</span>';}
+                              else if(obj.status == 4){return '<span class=\"label label-success fontsize-12\">CANCELADO</span>';} "
                           defs:
                               targets: 2
                               orderable: 1

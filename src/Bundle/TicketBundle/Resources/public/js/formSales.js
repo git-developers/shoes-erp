@@ -164,6 +164,7 @@
 
             if (isNaN(discount)) {
                 $("input[name='sales[discount]']").val("");
+
             } else {
                 $("input[name='sales[discount]']").val(discount);
             }

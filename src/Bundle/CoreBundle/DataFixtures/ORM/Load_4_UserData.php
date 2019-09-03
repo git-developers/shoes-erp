@@ -28,7 +28,8 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
         $profileClient = $this->getReference('profile-client');
         $profileGuest = $this->getReference('profile-guest');
 	
-	    $pointOfSale_10 = $this->getReference('pointofsale-3');
+	    $pointOfSale_3 = $this->getReference('pointofsale-3');
+	    $pointOfSale_4 = $this->getReference('pointofsale-4');
 		
 
         $entity = new User();
@@ -39,6 +40,7 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setLastName('Garcia');
         $entity->setEmail('carlosgarcia@' . $this->applicationUrl);
         $entity->setProfile($profileSuperAdmin);
+	    $entity->setPointOfSaleActive($pointOfSale_3);
         $manager->persist($entity);
         $this->addReference('user-1', $entity);
 
@@ -51,7 +53,12 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setLastName('Kharivero');
         $entity->setEmail('wualeskharivero@' . $this->applicationUrl);
         $entity->setProfile($profilePdvAdmin);
+	    $entity->setPointOfSaleActive($pointOfSale_4);
         $manager->persist($entity);
+        
+	    $pointOfSale_4->addUser($entity);
+	    $manager->persist($pointOfSale_4);
+        
         $this->addReference('user-2', $entity);
 	
         
@@ -67,10 +74,11 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setLastName('Salazar');
         $entity->setEmail('fabianasalazar@' . $this->applicationUrl);
         $entity->setProfile($profileEmployee);
+	    $entity->setPointOfSaleActive($pointOfSale_3);
         $manager->persist($entity);
         
-	    $pointOfSale_10->addUser($entity);
-	    $manager->persist($pointOfSale_10);
+	    $pointOfSale_3->addUser($entity);
+	    $manager->persist($pointOfSale_3);
         
         $this->addReference('user-3', $entity);
 
@@ -84,10 +92,11 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setLastName('Rodriguez');
         $entity->setEmail('mariarodriguez@' . $this->applicationUrl);
         $entity->setProfile($profileEmployee);
+	    $entity->setPointOfSaleActive($pointOfSale_3);
         $manager->persist($entity);
 	
-	    $pointOfSale_10->addUser($entity);
-	    $manager->persist($pointOfSale_10);
+	    $pointOfSale_3->addUser($entity);
+	    $manager->persist($pointOfSale_3);
         
         $this->addReference('user-4', $entity);
 
@@ -101,10 +110,11 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setLastName('Apellido');
         $entity->setEmail('nombreapellido@' . $this->applicationUrl);
         $entity->setProfile($profileEmployee);
+	    $entity->setPointOfSaleActive($pointOfSale_3);
         $manager->persist($entity);
 	
-	    $pointOfSale_10->addUser($entity);
-	    $manager->persist($pointOfSale_10);
+	    $pointOfSale_3->addUser($entity);
+	    $manager->persist($pointOfSale_3);
         
         $this->addReference('user-41', $entity);
 
@@ -124,9 +134,11 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setLastName('Jobs');
         $entity->setEmail('sjobs@' . $this->applicationUrl);
         $entity->setProfile($profileClient);
+	    $entity->setPointOfSaleActive($pointOfSale_3);
         $manager->persist($entity);
-	    $pointOfSale_10->addUser($entity);
-        $manager->persist($pointOfSale_10);
+        
+	    $pointOfSale_3->addUser($entity);
+        $manager->persist($pointOfSale_3);
         $this->addReference('user-5', $entity);
 
         $entity = new User();
@@ -137,9 +149,11 @@ class Load_4_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setLastName('Federer');
         $entity->setEmail('rfederer@' . $this->applicationUrl);
         $entity->setProfile($profileClient);
+	    $entity->setPointOfSaleActive($pointOfSale_3);
         $manager->persist($entity);
-	    $pointOfSale_10->addUser($entity);
-	    $manager->persist($pointOfSale_10);
+        
+	    $pointOfSale_3->addUser($entity);
+	    $manager->persist($pointOfSale_3);
         $this->addReference('user-6', $entity);
 
         

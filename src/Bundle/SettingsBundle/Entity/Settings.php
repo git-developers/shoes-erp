@@ -13,6 +13,10 @@ use JMS\Serializer\Annotation\Type as TypeJMS;
  */
 class Settings
 {
+	
+	const SYSTEM_EMAIL = "SYSTEM_EMAIL";
+	const SALES_QUANTITY = "SALES_QUANTITY";
+	const SALES_QUANTITY_PRICE_X = "SALES_QUANTITY_PRICE_X";
 
     /**
      * @var integer
@@ -37,6 +41,36 @@ class Settings
      * @var string
      */
     private $slug;
+	
+	/**
+	 * @var string
+	 *
+	 */
+	private $className;
+	
+	/**
+	 * @var string
+	 *
+	 */
+	private $classValue;
+	
+	/**
+	 * @var string
+	 *
+	 */
+	private $systemEmail;
+	
+	/**
+	 * @var float
+	 *
+	 */
+	private $salesQuantity;
+	
+	/**
+	 * @var integer
+	 *
+	 */
+	private $salesQuantityPriceX;
 
     /**
      * @var \DateTime
@@ -148,6 +182,23 @@ class Settings
     {
         return $this->slug;
     }
+	
+	
+	/**
+	 * @return string
+	 */
+	public function getClassName() //: string
+	{
+		return $this->className;
+	}
+	
+	/**
+	 * @param string $className
+	 */
+	public function setClassName(string $className)
+	{
+		$this->className = $className;
+	}
 
     /**
      * Set createdAt
@@ -268,5 +319,70 @@ class Settings
     {
         return $this->isActive;
     }
+	
+	/**
+	 * @return string
+	 */
+	public function getClassValue() //: string
+	{
+		return $this->classValue;
+	}
+	
+	/**
+	 * @param string $classValue
+	 */
+	public function setClassValue(string $classValue)
+	{
+		$this->classValue = $classValue;
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getSystemEmail() //: string
+	{
+		return $this->systemEmail;
+	}
+	
+	/**
+	 * @param string $systemEmail
+	 */
+	public function setSystemEmail(string $systemEmail)
+	{
+		$this->systemEmail = $systemEmail;
+	}
+	
+	/**
+	 * @return float
+	 */
+	public function getSalesQuantity() //: float
+	{
+		return $this->salesQuantity;
+	}
+	
+	/**
+	 * @param float $salesQuantity
+	 */
+	public function setSalesQuantity(float $salesQuantity)
+	{
+		$this->salesQuantity = $salesQuantity;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getSalesQuantityPriceX() //: int
+	{
+		return $this->salesQuantityPriceX;
+	}
+	
+	/**
+	 * @param int $salesQuantityPriceX
+	 */
+	public function setSalesQuantityPriceX(int $salesQuantityPriceX)
+	{
+		$this->salesQuantityPriceX = $salesQuantityPriceX;
+	}
+ 
 }
 

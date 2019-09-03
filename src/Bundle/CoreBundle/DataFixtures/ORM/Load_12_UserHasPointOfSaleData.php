@@ -23,20 +23,20 @@ class Load_12_UserHasPointOfSaleData extends AbstractFixture implements OrderedF
         $pointofsale_3 = $this->getReference('pointofsale-3');
 
 
-        $user_1->addPointOfSale($pointofsale_1);
-        $manager->persist($user_1);
-
-        $user_2->addPointOfSale($pointofsale_2);
-        $manager->persist($user_2);
-
-        $user_3->addPointOfSale($pointofsale_3);
-        $manager->persist($user_3);
-
-        $user_3->addPointOfSale($pointofsale_1);
-        $manager->persist($user_3);
-
-        $user_3->addPointOfSale($pointofsale_2);
-        $manager->persist($user_3);
+//        $user_1->addPointOfSale($pointofsale_1);
+//        $manager->persist($user_1);
+//
+//        $user_2->addPointOfSale($pointofsale_2);
+//        $manager->persist($user_2);
+//
+//        $user_3->addPointOfSale($pointofsale_3);
+//        $manager->persist($user_3);
+//
+//        $user_3->addPointOfSale($pointofsale_1);
+//        $manager->persist($user_3);
+//
+//        $user_3->addPointOfSale($pointofsale_2);
+//        $manager->persist($user_3);
 
 
         $manager->flush();

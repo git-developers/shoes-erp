@@ -53,12 +53,12 @@
                     </strong>
 
                     <p class="text-muted">
-                        {% if entity.status == 1 %}
+                        {% if entity.status == constant('Bundle\\TicketBundle\\Entity\\Sales::STATUS_OPEN') %}
                             <span class="label label-warning fontsize-12">ABIERTO</span>
-                        {% elseif entity.status == 3 %}
-                            <span class="label label-success fontsize-12">COMPLETADO</span>
-                        {% elseif entity.status == 4 %}
-                            <span class="label label-danger fontsize-12">CANCELADO</span>
+                        {% elseif entity.status == constant('Bundle\\TicketBundle\\Entity\\Sales::STATUS_VOIDED') %}
+                            <span class="label label-danger fontsize-12">ANULADO</span>
+                        {% elseif entity.status == constant('Bundle\\TicketBundle\\Entity\\Sales::STATUS_CANCELED') %}
+                            <span class="label label-success fontsize-12">CANCELADO</span>
                         {% endif %}
                     </p>
                 </div>
@@ -180,9 +180,6 @@
                             {% set total = 0 %}
                             {% for o in salesHasProducts %}
 
-
-                                {#{{ dump(salesHasProducts) }}#}
-
                                 <tr>
                                     <td class="text-center">
                                         {{ loop.index }}
@@ -197,10 +194,10 @@
                                     </td>
                                     <td class="text-center">{{ o.quantity }}</td>
                                     <td class="text-right">{{ o.unitPrice }}</td>
-                                    <td class="text-right">{{ o.quantity * o.unitPrice * 12 }}</td>
+                                    <td class="text-right">{{ o.quantity * o.unitPrice * salesQuantityPriceX }}</td>
                                 </tr>
 
-                                {% set total = total + (o.quantity * o.unitPrice * 12) %}
+                                {% set total = total + (o.quantity * o.unitPrice * salesQuantityPriceX) %}
                             {% else %}
                                 <tr>
                                     <td colspan="5">No tiene productos.</td>

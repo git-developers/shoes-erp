@@ -44,21 +44,20 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
 	     * Set un PDV al USER
 	     */
 	    $user = $token->getUser();
-	    $user->setPointOfSaleActive(null);
-	    //$user->setPointOfSaleActive(new Pointofsale());
+//	    $user->setPointOfSaleActive(null);
 	    $token->setUser($user);
-	
+
 	    $pointOfSale = $this->container->get('tianos.repository.pointofsale')->find($request->get('pointOfSale'));
 
 	    if ($pointOfSale) {
-		    foreach ($pointOfSale->getUser() as $key => $userPdv) {
-			    if ($user->getId() == $userPdv->getId()) {
-				    $request->attributes->set(User::USER_BELONGS_TO_PDV, true);
-			    }
-		    }
-		
-		    $user->setPointOfSaleActive($pointOfSale);
-		    $token->setUser($user);
+//		    foreach ($pointOfSale->getUser() as $key => $userPdv) {
+//			    if ($user->getId() == $userPdv->getId()) {
+//				    $request->attributes->set(User::USER_BELONGS_TO_PDV, true);
+//			    }
+//		    }
+//
+//		    $user->setPointOfSaleActive($pointOfSale);
+//		    $token->setUser($user);
         }
 	    
 	    $this->onAuthenticationSuccess($request, $token);
@@ -67,6 +66,9 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
 	
+	    return $this->httpUtils->createRedirectResponse($request, 'backend_dashboard_index');
+    	
+    	
 	
 	    /*
 	    $user = $token->getUser();
@@ -99,8 +101,6 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
 	    */
 	
 	    //$referer = $this->router->generate('backend_dashboard_index', [], UrlGeneratorInterface::ABSOLUTE_PATH);
-	    
-	    return $this->httpUtils->createRedirectResponse($request, 'backend_dashboard_index');
     }
 
     private function isGranted($attributes, $object = null)

@@ -152,14 +152,19 @@ class BackendAddUserController extends GridController
             try{
 
                 if ($form->isValid()) {
-	
+                	
+	                $pdv = $this->get('tianos.repository.pointofsale')->find($request->getSession()->get('id_pointofsale'));
+	                
+	                
+	                //SAVE USER
+	                $entity->setPointOfSaleActive($pdv);
 	                $this->persist($entity);
 	
-	                $session = $request->getSession();
-	                $idPointofsale = $session->get('id_pointofsale');
-	                $pdv = $this->get('tianos.repository.pointofsale')->find($idPointofsale);
-					$pdv->addUser($entity);
+	                
+	                //ADD USER TO PDV
+	                $pdv->addUser($entity);
 	                $this->persist($pdv);
+	                
 
                     $varsRepository = $configuration->getRepositoryVars();
                     $entity = $this->getSerializeDecode($entity, $varsRepository->serialize_group_name);

@@ -16,7 +16,7 @@
 
             {% for product in productSession %}
 
-                {% set subTotal = product.price * product.quantity * 12 %}
+                {% set subTotal = product.price * product.quantity * salesQuantityPriceX %}
 
                 <tr>
                     <td>

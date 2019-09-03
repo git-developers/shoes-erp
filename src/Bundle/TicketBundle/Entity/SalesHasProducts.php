@@ -23,7 +23,7 @@ class SalesHasProducts
     private $id;
 
     /**
-     * @var integer
+     * @var float
      *
      * @JMSS\Groups({
      *     "crud",
@@ -74,30 +74,22 @@ class SalesHasProducts
     {
         return $this->id;
     }
-
-    /**
-     * Set quantity
-     *
-     * @param integer $quantity
-     *
-     * @return SalesHasProducts
-     */
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * Get quantity
-     *
-     * @return integer
-     */
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
+	
+	/**
+	 * @return float
+	 */
+	public function getQuantity() //: float
+	{
+		return $this->quantity;
+	}
+	
+	/**
+	 * @param float $quantity
+	 */
+	public function setQuantity(float $quantity)
+	{
+		$this->quantity = $quantity;
+	}
 	
 	/**
 	 * @return float

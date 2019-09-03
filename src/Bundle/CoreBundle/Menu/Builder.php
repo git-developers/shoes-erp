@@ -524,8 +524,8 @@ class Builder implements ContainerAwareInterface
 		    Role::ROLE_SETTINGS,
 	    ]);
 	
-	    $menu->addChild('Ajustes', [
-		    'route' => 'frontend_default_index',
+	    $menu->addChild('Settings', [
+		    'route' => 'backend_settings_edit',
 		    'extras' => ['safe_label' => true],
 		    'childrenAttributes' => [
 			    'class' => 'treeview-menu',
@@ -533,17 +533,9 @@ class Builder implements ContainerAwareInterface
 	    ])
 	    ->setAttribute('class', 'treeview')
 	    ->setAttribute('class', $this->activeRoute([
-		    'backend_settings_index',
+		    'backend_settings_edit',
 	    ]))
 	    ->setAttribute('icon', 'fa-fw fa-cog')
-	    ->setDisplay($isGranted)
-	    ;
-	
-	    $menu['Ajustes']->addChild('Settings', [
-		    'route' => 'backend_settings_index'
-	    ])
-	    ->setAttribute('icon', self::CIRCLE_1)
-	    ->setAttribute('class', $this->activeRoute('backend_settings_index'))
 	    ->setDisplay($isGranted)
 	    ;
 	    /**

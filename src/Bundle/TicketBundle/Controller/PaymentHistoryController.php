@@ -138,7 +138,7 @@ class PaymentHistoryController extends GridController
 	{
 		
 		if ($this->sumPayment($paymentHistory) >= $sales->getTotal()) {
-			$sales->setStatus(Sales::STATUS_COMPLETED);
+			$sales->setStatus(Sales::STATUS_CANCELED);
 			$this->persist($sales);
 		}
 		

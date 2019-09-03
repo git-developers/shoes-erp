@@ -23,9 +23,13 @@ backend_pointofsale_add_user_index:
                 modal:
                     create:
                         title: Crear usuario
-                        size:
+                        size: modal-lg
                     edit:
-                        size:
+                        title: Editar usuario
+                        size: modal-lg
+                    view:
+                        title: Ver usuario
+                        size: modal-lg
                     change_password:
                         title: Cambiar password
                 data_table:

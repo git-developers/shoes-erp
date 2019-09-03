@@ -23,7 +23,7 @@ class SalesStatusType extends AbstractType
             ->add('status', ChoiceType::class, [
                 'label' => false,
 	            'choices' => [
-		            Sales::STATUS_CANCELED => Sales::STATUS_CANCELED,
+		            Sales::STATUS_VOIDED => Sales::STATUS_VOIDED,
 	            ],
 	            'empty_data' => false,
 	            'placeholder' => 'esta seguro',

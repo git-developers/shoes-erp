@@ -24,7 +24,7 @@ Bundle\SettingsBundle\Entity\Settings:
                 fixed: false
         name:
             type: string
-            nullable: false
+            nullable: true
             length: 150
             options:
                 fixed: false
@@ -34,12 +34,20 @@ Bundle\SettingsBundle\Entity\Settings:
             length: 150
             options:
                 fixed: false
-#        image:
-#            type: string
-#            nullable: true
-#            length: 45
-#            options:
-#                fixed: false
+        className:
+            type: string
+            nullable: false
+            length: 150
+            options:
+                fixed: false
+            column: class_name
+        classValue:
+            type: string
+            nullable: false
+            length: 150
+            options:
+                fixed: false
+            column: class_value
         createdAt:
             type: datetime
             nullable: false

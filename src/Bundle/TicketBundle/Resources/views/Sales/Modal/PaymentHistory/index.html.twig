@@ -132,13 +132,13 @@
                             {{ entity.paymentType.name }}
                         </td>
                         <td class="text-center">
-                            {{ entity.subTotal * 12|number_format(2, '.', ',') }}
+                            {{ entity.subTotal|number_format(2, '.', ',') }}
                         </td>
                         <td class="text-center">
                             {{ entity.discount|number_format(2, '.', ',') }}
                         </td>
                         <td class="text-center bg-gray-1">
-                            {{ entity.total * 12|number_format(2, '.', ',') }}
+                            {{ entity.total|number_format(2, '.', ',') }}
                         </td>
                         <td class="text-center">
                             {{ entity.payment|number_format(2, '.', ',') }}
@@ -154,7 +154,7 @@
                         </td>
                     </tr>
 
-                    {% set totalSum = totalSum + (entity.total * 12) %}
+                    {% set totalSum = totalSum + (entity.total) %}
                     {% set discountSum = discountSum + entity.discount %}
                     {% set subTotalSum = subTotalSum + entity.subTotal %}
                     {% set paymentCollectedSum = paymentCollectedSum + entity.paymentCollected %}
@@ -166,7 +166,7 @@
                         <i class="fa fa-fw fa-plus-circle"></i> suma
                     </td>
                     <td class="text-center">
-                        {{ subTotalSum * 12|number_format(2, '.', ',') }}
+                        {{ subTotalSum |number_format(2, '.', ',') }}
                     </td>
                     <td class="text-center">
                         {{ discountSum|number_format(2, '.', ',') }}

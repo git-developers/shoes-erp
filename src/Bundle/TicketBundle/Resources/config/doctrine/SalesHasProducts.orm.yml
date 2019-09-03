@@ -20,10 +20,11 @@ Bundle\TicketBundle\Entity\SalesHasProducts:
                 strategy: IDENTITY
     fields:
         quantity:
-            type: integer
+            type: float
             nullable: false
             options:
                 unsigned: false
+            column: quantity
         unitPrice:
             type: float
             nullable: true

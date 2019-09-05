@@ -424,6 +424,7 @@
         });
 
         $("select[name='{{ form.sizeRange.vars.full_name }}']").change(function() {
+            $("table.series").hide();
             $("table." + $(this).find("option:selected").val().trim()).show();
         });
 

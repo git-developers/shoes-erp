@@ -102,3 +102,9 @@ services:
         class: Dummy
         factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Bundle\TicketBundle\Entity\OrdersHasProducts ]
+
+    tianos.printer:
+        class: Bundle\TicketBundle\Services\Escpos\Printer
+        arguments: [ ]
+        tags:
+            - { name: tianos.printer, alias: tianos.printer }

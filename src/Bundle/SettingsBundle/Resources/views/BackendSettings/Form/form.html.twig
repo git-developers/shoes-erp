@@ -128,6 +128,25 @@
                             </div>
                         </div>
 
+                        <p>&nbsp;</p>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="callout callout-success">
+                                    <p><i class="fa fa-fw fa-print"></i> Printer</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <i class="fa fa-fw fa-gg"></i>
+                                    {{ form_label(form.printerFilename) }}
+                                    {{ form_widget(form.printerFilename) }}
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group pull-right">
                             {{ form_widget(form.submit) }}
                         </div>

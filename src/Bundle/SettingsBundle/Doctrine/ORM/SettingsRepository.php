@@ -70,7 +70,7 @@ class SettingsRepository extends TianosEntityRepository implements SettingsRepos
     /**
      * {@inheritdoc}
      */
-    public function findValueByClassName($className)
+    public function findByClassName($className)
     {
         $em = $this->getEntityManager();
         $dql = "

@@ -35,8 +35,6 @@
                     return true;
                 }
 
-                console.dir(field);
-
                 errors++;
 
                 switch(field.name) {

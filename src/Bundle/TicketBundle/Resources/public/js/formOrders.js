@@ -31,7 +31,7 @@
 
             $.each(fields, function(i, field) {
 
-                if (field.value != "" || $.inArray(field.name, ["orders[name]"]) !== -1) {
+                if (field.value != "" || $.inArray(field.name, ["orders[name]", "orders[client]", "discount", "sales[discount]", "orders[paymentType]"]) !== -1) {
                     return true;
                 }
 
@@ -40,11 +40,11 @@
                 errors++;
 
                 switch(field.name) {
-                    case "orders[client]":
-                        msg = 'Seleccione un cliente.';
-                        break;
                     case "orders[deliveryDate]":
                         msg = 'Seleccione la Fecha de entrega.';
+                        break;
+                    case "payment":
+                        msg = 'Ingrese pago del cliente.';
                         break;
                 }
 
@@ -115,6 +115,32 @@
             return false;
         };
 
+        base.discount = function(context) {
+
+            var discount = parseFloat($(context).val().trim());
+            var subtotal = parseFloat($("td.subtotal").text().trim());
+
+            if (discount <= subtotal) {
+                $("td.total").html((subtotal - discount).toFixed(2));
+                $("td.discount").removeClass("bg-red").addClass("bg-gray-1");
+            } else if (discount > subtotal) {
+                $("td.total").html(subtotal);
+                $("td.discount").removeClass("bg-gray-1").addClass("bg-red");
+            }
+
+            if (isNaN(discount)) {
+                $("input[name='sales[discount]']").val("");
+
+            } else {
+                $("input[name='sales[discount]']").val(discount);
+            }
+
+            $("input[name='payment']").val("");
+            $("input[name='sales[payment]']").val("");
+
+            return false;
+        };
+
         // Private Functions
         function debug(e) {
             console.log(e);
@@ -148,6 +174,10 @@
 
             $('#modal-product-thumbnail').on('hidden.bs.modal', function () {
                 $('div.box-thumbnail').empty().html('');
+            });
+
+            $(document).on("change paste keyup", "input[name=discount]", function() {
+                bp.discount(this);
             });
 
         });

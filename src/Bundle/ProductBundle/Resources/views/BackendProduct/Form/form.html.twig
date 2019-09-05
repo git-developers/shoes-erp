@@ -13,7 +13,7 @@
     <div class="row">
 
         {#LEFT#}
-        <div class="col-md-6">
+        <div class="col-md-7">
 
             <div class="alert bg-light-blue alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -33,8 +33,7 @@
                         {{ form_label(form.unit) }}
                         {{ form_widget(form.unit) }}
                     </div>
-                </div>
-                <div class="col-md-6">
+
                     <div class="form-group">
                         <i class="fa fa-fw fa-arrows-h"></i>
                         {{ form_label(form.size) }}
@@ -43,6 +42,20 @@
                         <select name="size_dummy" class="form-control black-5" style="background-color: #ddd;">
                             <option value="">[ Seleccionar ]</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <i class="fa fa-fw fa-object-ungroup"></i>
+                        Series
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ include('ProductBundle:BackendProduct/Form:series_table.html.twig') }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,9 +77,15 @@
                                     Precio
                                 </a>
                             </li>
+                            <li class="">
+                                <a href="#tab-{{ action }}-3" data-toggle="tab" aria-expanded="false">
+                                    Barcode
+                                </a>
+                            </li>
                         </ul>
 
                         <div class="tab-content">
+
                             <div class="tab-pane active" id="tab-{{ action }}-1">
                                 <div class="row">
 
@@ -85,15 +104,7 @@
                                     </div>
                                     #}
 
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <i class="fa fa-fw fa-barcode"></i>
-                                            {{ form_label(form.barcode) }}
-                                            {{ form_widget(form.barcode) }}
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-align-left"></i>
                                             {{ form_label(form.name) }}
@@ -101,15 +112,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <i class="fa fa-fw fa-file-text-o"></i>
-                                            {{ form_label(form.reference) }}
-                                            {{ form_widget(form.reference) }}
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-adjust"></i>
                                             {{ form_label(form.color) }}
@@ -159,9 +162,9 @@
                                                                 data-value="{{ val.value }}"
                                                                 data-prefix="{{ val.data.prefix }}">
                                                                 <button
-                                                                    type="button"
-                                                                    class="btn btn-flat"
-                                                                    style="color: #343434; width: 100%; background-color: {{ val.data.prefix }}">
+                                                                        type="button"
+                                                                        class="btn btn-flat"
+                                                                        style="color: #343434; width: 100%; background-color: {{ val.data.prefix }}">
                                                                     {{ val.label }}
                                                                 </button>
                                                             </a>
@@ -171,6 +174,15 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-file-text-o"></i>
+                                            {{ form_label(form.reference) }}
+                                            {{ form_widget(form.reference) }}
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -200,6 +212,64 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="tab-pane" id="tab-{{ action }}-3">
+
+                                {% if entity|default() is empty %}
+                                    <p>&nbsp;</p>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <i class="fa fa-fw fa-barcode"></i>
+                                            Barcode se autogenera luego de crear el producto.
+                                        </div>
+                                    </div>
+                                    <p>&nbsp;</p>
+                                {% else %}
+                                    <div class="row print-barcode" style="background-color: white; color: #000; margin: 20px">
+                                        <div class="col-md-4" align="center">
+                                            <div class=frame>
+                                                <span class="helper"></span>
+                                                <img
+                                                    src="{{ entity.files|first }}"
+                                                    class="img-circle img-thumbnail"
+                                                    alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8" align="center">
+                                            <h3>
+                                                {{ entity.name }} <span class="text-bold">{{ entity.color.name }}</span>
+                                            </h3>
+                                            <img
+                                                src="{{ asset('bundles/themes/common/images/barcode.png') }}"
+                                                height="100"
+                                                alt="" />
+                                            <h4 class="text-center">{{ entity.barcode }}</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="button" class="btn btn-outline pull-right print-barcode">Imprimir</button>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+
+
+                                {#
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-barcode"></i>
+                                            {{ form_label(form.barcode) }}
+                                            {{ form_widget(form.barcode) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                #}
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -209,7 +279,7 @@
         {#LEFT#}
 
         {#RIGHT#}
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="box box-solid box-pdv black-3">
                 <div class="box-header with-border">
                     <h3 class="box-title">
@@ -277,7 +347,51 @@
 
     </div>
 
+    <style type="text/css">
+        .frame {
+            height: 250px;      /* equals max image height */
+            width: 200px;
+            white-space: nowrap;
+            text-align: center;
+            /*margin: 1em 0;*/
+        }
+
+        .helper {
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        img {
+            vertical-align: middle;
+            max-height: 250px;
+            max-width: 200px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            div.print-barcode, div.print-barcode * {
+                visibility: visible;
+                /*width: 400px;*/
+            }
+            div.print-barcode {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+
+    </style>
+
     <script type="text/javascript">
+
+        $("button.print-barcode").click(function() {
+            $("div.print-barcode").show();
+            window.print();
+        });
+
         $(".dropdown").on("show.bs.dropdown", function () {
 
         });
@@ -309,6 +423,10 @@
             size($(this).find("option:selected").val().trim());
         });
 
+        $("select[name='{{ form.sizeRange.vars.full_name }}']").change(function() {
+            $("table." + $(this).find("option:selected").val().trim()).show();
+        });
+
         function size(text) {
 
             $("select[name='size_dummy']").show();
@@ -321,12 +439,12 @@
 
             if ("{{ constant('Bundle\\ProductBundle\\Entity\\Unit::UNIDAD_ID') }}" == text) {
                 $("select[name='size_dummy']").hide();
-                $("select[name='{{ form.size.vars.full_name }}']").show();
-                $("select[name='{{ form.sizeRange.vars.full_name }}']").hide();
-            } else {
-                $("select[name='size_dummy']").hide();
                 $("select[name='{{ form.size.vars.full_name }}']").hide();
                 $("select[name='{{ form.sizeRange.vars.full_name }}']").show();
+            } else {
+                $("select[name='size_dummy']").hide();
+                $("select[name='{{ form.size.vars.full_name }}']").show();
+                $("select[name='{{ form.sizeRange.vars.full_name }}']").hide();
             }
         }
 

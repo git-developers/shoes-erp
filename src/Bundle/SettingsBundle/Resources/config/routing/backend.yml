@@ -22,3 +22,9 @@ backend_settings_edit:
                 arguments: [$settingsId]
                 vars:
                     serialize_group_name: crud
+
+backend_settings_print_receipt:
+    path: /print-receipt
+    methods: [GET]
+    defaults:
+        _controller: tianos.backend.controller.settings:printReceiptAction

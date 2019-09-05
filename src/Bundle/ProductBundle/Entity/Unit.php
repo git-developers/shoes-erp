@@ -16,11 +16,10 @@ class Unit
 {
 	
 	
-	const PAQUETE_12_ID = 1;
+	const PAQUETE_12_ID = 2;
 	const PAQUETE_12 = 'paquete_12';
-	const PAQUETE_6_ID = 2;
-	const PAQUETE_6 = 'paquete_6';
-	const UNIDAD_ID = 3;
+	
+	const UNIDAD_ID = 1;
 	const UNIDAD = 'unidad';
 	
 	

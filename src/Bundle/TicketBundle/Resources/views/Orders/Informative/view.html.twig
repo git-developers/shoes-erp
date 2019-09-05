@@ -57,8 +57,8 @@
                             <span class="label label-warning fontsize-12">ABIERTO</span>
                         {% elseif entity.status == 3 %}
                             <span class="label label-success fontsize-12">COMPLETADO</span>
-                        {% elseif entity.status == 4 %}
-                            <span class="label label-danger fontsize-12">CANCELADO</span>
+                        {% elseif entity.status == 5 %}
+                            <span class="label label-danger fontsize-12">ANULADO</span>
                         {% endif %}
                     </p>
                 </div>
@@ -81,14 +81,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                <span class="badge bg-light-blue-active">{{ entity.client.id }}</span>
-                            </td>
-                            <td>
-                                {{ entity.client.name ~ ' ' ~ entity.client.lastName }}
-                            </td>
-                        </tr>
+                            <tr>
+                                {% if entity.client is null %}
+                                    <td colspan="2">
+                                        <span class="badge bg-red">No cliente</span>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <span class="badge bg-light-blue-active">{{ entity.client.id }}</span>
+                                    </td>
+                                    <td>
+                                        {{ entity.client.name ~ ' ' ~ entity.client.lastName }}
+                                    </td>
+                                {% endif %}
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -179,10 +185,6 @@
                         <tbody>
                             {% set total = 0 %}
                             {% for o in ordersHasProducts %}
-
-
-                                {#{{ dump(salesHasProducts) }}#}
-
                                 <tr>
                                     <td class="text-center">
                                         {{ loop.index }}
@@ -197,10 +199,10 @@
                                     </td>
                                     <td class="text-center text-bold fontsize-18 bg-gray-1">{{ o.quantity }}</td>
                                     <td class="text-right">{{ o.unitPrice }}</td>
-                                    <td class="text-right">{{ o.quantity * o.unitPrice }}</td>
+                                    <td class="text-right">{{ o.quantity * o.unitPrice * salesQuantityPriceX }}</td>
                                 </tr>
 
-                                {% set total = total + (o.quantity * o.unitPrice) %}
+                                {% set total = total + (o.quantity * o.unitPrice * salesQuantityPriceX) %}
                             {% else %}
                                 <tr>
                                     <td colspan="5">No tiene productos.</td>

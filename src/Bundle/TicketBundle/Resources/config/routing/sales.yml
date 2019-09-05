@@ -84,6 +84,7 @@ backend_sales_index:
                           options:
                               property: " if(obj.status == 1){return '<span class=\"label label-warning fontsize-12\">ABIERTO</span>';}
                               else if(obj.status == 5){return '<span class=\"label label-danger fontsize-12\">ANULADO</span>';}
+                              else if(obj.status == 6){return '<span class=\"label bg-light-blue fontsize-12\">LISTO PARA VENDER</span>';}
                               else if(obj.status == 4){return '<span class=\"label label-success fontsize-12\">CANCELADO</span>';} "
                           defs:
                               targets: 2

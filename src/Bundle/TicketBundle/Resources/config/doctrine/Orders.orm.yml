@@ -27,6 +27,14 @@ Bundle\TicketBundle\Entity\Orders:
             options:
                 fixed: false
             column: status
+        total:
+            type: float
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                fixed: false
+            column: total
         name:
             type: string
             nullable: false

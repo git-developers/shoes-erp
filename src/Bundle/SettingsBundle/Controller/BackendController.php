@@ -13,8 +13,39 @@ use Bundle\ResourceBundle\ResourceBundle;
 use JMS\Serializer\SerializationContext;
 use Bundle\SettingsBundle\Entity\Settings;
 
+use Bundle\TicketBundle\Services\Escpos\Printer;
+use Bundle\TicketBundle\Services\Escpos\PrintConnectors\FilePrintConnector;
+
 class BackendController extends BaseController
 {
+	
+	
+	/**
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function printReceiptAction(Request $request): Response
+	{
+		
+		//SETTINGS SALES_UNIT
+		$printerFilename = $this->get('tianos.repository.settings')->findByClassName(Settings::PRINTER_FILENAME);
+		
+		
+//		localhost:631
+//		php://stdout
+		
+		$connector = new FilePrintConnector($printerFilename);
+		$printer = new Printer($connector);
+		
+		$printer->text("Hello World - POLLAZO!\n");
+		$printer->cut();
+		
+		$printer->close();
+		
+		
+		
+		return new Response(1);
+	}
 	
 	
 	/**
@@ -78,6 +109,11 @@ class BackendController extends BaseController
 					$o = new $entity();
 					$o->setClassName(Settings::SALES_QUANTITY_PRICE_X);
 					$o->setClassValue((string) $entity->getSalesQuantityPriceX());
+					$this->persist($o);
+					
+					$o = new $entity();
+					$o->setClassName(Settings::PRINTER_FILENAME);
+					$o->setClassValue((string) $entity->getPrinterFilename());
 					$this->persist($o);
 					
 				} else {

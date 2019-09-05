@@ -16,7 +16,7 @@
 
             {% for product in productSession %}
 
-                {% set subTotal = product.price * product.quantity %}
+                {% set subTotal = product.price * product.quantity * salesQuantityPriceX %}
 
                 <tr>
                     <td>
@@ -54,7 +54,73 @@
                 </tr>
             {% endfor %}
 
+
+            <tr class="bg-gray">
+                <td colspan="5"></td>
+            </tr>
+
+            <tr>
+                <td colspan="3" class="text-left">
+                    <i class="fa fa-fw fa-th"></i> Importe total
+                </td>
+
+                <td class="subtotal text-right text-bold bg-gray-1 fontsize-18">
+                    {{ totalPrice }}
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-left">
+                    <i class="fa fa-fw fa-th-list"></i> Descuento
+                </td>
+                <td class="discount text-right bg-gray-1">
+                    <input
+                        type="text"
+                        name="discount"
+                        autocomplete="off"
+                        class="form-control text-right fontsize-18"
+                        placeholder="##.##"
+                        onkeyup="this.value = this.value.replace(/[^0-9\.]/g,'');" >
+                </td>
+                <td></td>
+            </tr>
+            <tr class="bg-gray-1">
+                <td colspan="3" class="text-left">
+                    <i class="fa fa-fw fa-th-large"></i> Total a pagar
+                </td>
+                <td class="total text-right bg-light-blue-active text-bold fontsize-18">
+                    {#{{ totalPrice }}#}
+                </td>
+                <td></td>
+            </tr>
         </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-left">
+                    <i class="fa fa-fw fa-money"></i> Pago del cliente
+                </td>
+                <td class="text-right bg-gray-1">
+                    <input
+                        type="text"
+                        name="payment"
+                        autocomplete="off"
+                        class="form-control text-right fontsize-18"
+                        placeholder="##.##"
+                        onkeyup="this.value = this.value.replace(/[^0-9\.]/g,'');" >
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-left">
+                    <i class="fa fa-fw fa-money"></i> Vuelto
+                </td>
+                <td class="change text-right bg-gray-1 text-bold fontsize-18">
+                    0.0
+                </td>
+                <td></td>
+            </tr>
+        </tfoot>
 
     </table>
 {% endspaceless %}

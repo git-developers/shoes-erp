@@ -47,10 +47,10 @@ backend_product_index:
                 modal:
                     create:
                         title: Crear producto
-                        size: modal-lg
+                        size: modal-xl
                     edit:
                         title: Editar producto
-                        size: modal-lg
+                        size: modal-xl
                     view:
                         title: Info de producto
                         size: modal-lg

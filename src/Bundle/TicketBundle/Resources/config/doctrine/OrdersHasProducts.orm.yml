@@ -27,7 +27,7 @@ Bundle\TicketBundle\Entity\OrdersHasProducts:
                 fixed: false
             column: pdv_hash
         quantity:
-            type: integer
+            type: float
             nullable: false
             options:
                 unsigned: false

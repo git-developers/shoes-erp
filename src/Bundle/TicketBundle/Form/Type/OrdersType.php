@@ -73,23 +73,45 @@ class OrdersType extends AbstractType
 			        'placeholder' => '',
 		        ],
 	        ))
-//	        ->add('pointOfSale', EntityType::class, array(
-//		        'class' => Pointofsale::class,
-//		        'query_builder' => function(EntityRepository $er) {
-//			        return $er->findAllObjects();
-//		        },
-//		        'placeholder' => '[ Escoge un pdv ]',
-//		        'empty_data' => null,
-//		        'required' => false,
-//		        'label' => false,
-//		        'label_attr' => [
-//			        'class' => ''
-//		        ],
-//		        'attr' => [
-//			        'class' => 'form-control hide',
-//			        'placeholder' => '',
-//		        ],
-//	        ))
+	        ->add('discount', HiddenType::class, [
+		        'label' => false,
+		        'required' => false,
+		        'label_attr' => [
+			        'class' => ''
+		        ],
+		        'attr' => [
+			        'class' => '',
+			        'placeholder' => '',
+		        ],
+	        ])
+	        ->add('payment', HiddenType::class, [
+		        'label' => false,
+		        'required' => false,
+		        'label_attr' => [
+			        'class' => ''
+		        ],
+		        'attr' => [
+			        'class' => '',
+			        'placeholder' => '',
+		        ],
+	        ])
+	        ->add('paymentType', EntityType::class, array(
+		        'class' => PaymentType::class,
+		        'query_builder' => function(EntityRepository $er) {
+			        return $er->findAllObjects();
+		        },
+		        'placeholder' => '[ Escoge forma de pago ]',
+		        'empty_data' => null,
+		        'required' => false,
+		        'label' => 'Forma de pago',
+		        'label_attr' => [
+			        'class' => ''
+		        ],
+		        'attr' => [
+			        'class' => 'form-control hide',
+			        'placeholder' => '',
+		        ],
+	        ))
 	        ->add('submit', SubmitType::class, [
 		        'label' => 'Generar pedido',
 		        'attr' => [

@@ -47,17 +47,36 @@ class DoctrineListenerService extends BaseDoctrineListenerService implements Eve
     /**
      * This method will called on Doctrine postPersist event
      */
+    public function postPersist(LifecycleEventArgs $args)
+    {
+	    $entity = $args->getEntity();
+	    $em = $args->getEntityManager();
+	
+	    if ($entity instanceof Product) {
+	    	
+		
+		    $entity->setBarcode(strval(Product::BARCODE + $entity->getId()));
+		    $em->persist($entity);
+		
+		    return;
+		
+	    }
+    }
+
+    /**
+     * This method will called on Doctrine prePersist event
+     */
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 //        $entityManager = $args->getEntityManager();
 //        $className = $entityManager->getClassMetadata(get_class($entity))->getName();
 
-        if ($entity instanceof Product){
+        if ($entity instanceof Product) {
             $name = $entity->getName();
             $entity->setSlug($this->slugify($name));
             $entity->setCreatedAt($this->setupCreatedAt($entity));
-
+            
             return;
         } elseif ($entity instanceof Unit) {
 	        $name = $entity->getName();

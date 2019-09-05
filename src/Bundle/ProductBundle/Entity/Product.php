@@ -25,6 +25,7 @@ class Product
 	const ROLE_PRODUCT_CREATE = 'ROLE_PRODUCT_CREATE';
 	const ROLE_PRODUCT_EDIT = 'ROLE_PRODUCT_EDIT';
 	const ROLE_PRODUCT_DELETE = 'ROLE_PRODUCT_DELETE';
+	const BARCODE = 99887766;
 	
     /**
      * @var integer

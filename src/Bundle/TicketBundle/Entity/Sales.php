@@ -21,9 +21,9 @@ class Sales
 	
 	const STATUS_OPEN = 1;
 	const STATUS_IN_PROGRESS = 2;
-//	const STATUS_COMPLETED = 3;
 	const STATUS_CANCELED = 4;
 	const STATUS_VOIDED = 5;
+	const STATUS_READY_FOR_SALE = 6;
 	
 	const INCREMENT = 'INCREMENT';
 	const DECREMENT = 'DECREMENT';

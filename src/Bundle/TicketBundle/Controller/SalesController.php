@@ -20,6 +20,9 @@ use Bundle\TicketBundle\Entity\SalesHasProducts;
 use Bundle\PointofsaleBundle\Entity\Pointofsale;
 use Bundle\SettingsBundle\Entity\Settings;
 
+use Bundle\TicketBundle\Services\Escpos\Printer;
+use Bundle\TicketBundle\Services\Escpos\PrintConnectors\FilePrintConnector;
+
 
 class SalesController extends GridController
 {
@@ -81,7 +84,7 @@ class SalesController extends GridController
 		
 		
 		//SETTINGS SALES_UNIT
-		$salesQuantityPriceX = $this->get('tianos.repository.settings')->findValueByClassName(Settings::SALES_QUANTITY_PRICE_X);
+		$salesQuantityPriceX = $this->get('tianos.repository.settings')->findByClassName(Settings::SALES_QUANTITY_PRICE_X);
 		
 		if ($form->isSubmitted()) {
 			
@@ -108,16 +111,17 @@ class SalesController extends GridController
 				$entity->addEmployee($employee);
 				$pdv = $this->get('tianos.repository.pointofsale')->find($user->getPointOfSaleActiveId());
 				$entity->setPointOfSale($pdv);
+				$entity->setStatus(Sales::STATUS_OPEN);
 				$this->persist($entity);
 				
 				
 				/**
-				 * SAVE TICKET
+				 * SAVE -> SALES HAS PRODUCTS
 				 */
 				$subTotal = 0;
 				foreach ($request->getSession()->get('products') as $key => $productSave) {
 					
-					//SALES HAS PRODUCT
+					//SALES HAS PRODUCTS
 					$product = $this->get('tianos.repository.product')->find($productSave['idItem']);
 					
 					$o = new SalesHasProducts();
@@ -200,6 +204,13 @@ class SalesController extends GridController
 				 * REMOVE SESSION
 				 */
 				$request->getSession()->remove('products');
+				
+				
+				/**
+				 * Print Receipt
+				 */
+				$this->printReceipt();
+				
 				
 				return $this->json([
 					'status' => true
@@ -366,7 +377,7 @@ class SalesController extends GridController
 		$salesHasProducts = $this->get('tianos.repository.sales.has.products')->findAllBySales($id);
 		
 		//SETTINGS SALES_UNIT
-		$salesQuantityPriceX = $this->get('tianos.repository.settings')->findValueByClassName(Settings::SALES_QUANTITY_PRICE_X);
+		$salesQuantityPriceX = $this->get('tianos.repository.settings')->findByClassName(Settings::SALES_QUANTITY_PRICE_X);
 		
 		return $this->render(
 			$template,
@@ -503,8 +514,8 @@ class SalesController extends GridController
 		
 		
 		//SETTINGS SALES_UNIT
-		$salesQuantity = $this->get('tianos.repository.settings')->findValueByClassName(Settings::SALES_QUANTITY);
-		$salesQuantityPriceX = $this->get('tianos.repository.settings')->findValueByClassName(Settings::SALES_QUANTITY_PRICE_X);
+		$salesQuantity = $this->get('tianos.repository.settings')->findByClassName(Settings::SALES_QUANTITY);
+		$salesQuantityPriceX = $this->get('tianos.repository.settings')->findByClassName(Settings::SALES_QUANTITY_PRICE_X);
 		
 		if (!is_null($request->get('idItem'))) {
 			//GUARDAR SESSION PRODUCTS
@@ -668,7 +679,7 @@ class SalesController extends GridController
 		$subTotal = 0;
 		
 		//SETTINGS SALES_UNIT
-		$salesQuantityPriceX = $this->get('tianos.repository.settings')->findValueByClassName(Settings::SALES_QUANTITY_PRICE_X);
+		$salesQuantityPriceX = $this->get('tianos.repository.settings')->findByClassName(Settings::SALES_QUANTITY_PRICE_X);
 		
 		foreach ($request->getSession()->get('products') as $key => $productSave) {
 			$product = $this->get('tianos.repository.product')->find($productSave['idItem']);
@@ -676,6 +687,22 @@ class SalesController extends GridController
 		}
 		
 		return $subTotal;
+	}
+	
+	private function printReceipt()
+	{
+//		$printer = $this->get('tianos.printer');
+//		$printer->text("Hello World!\n");
+//		$printer->cut();
+//		$printer->close();
+		
+		$connector = new FilePrintConnector("localhost:631");
+		$printer = new Printer($connector);
+		
+		$printer->text("Hello World - POLLAZO!\n");
+		$printer->cut();
+		
+		$printer->close();
 	}
 	
 	private function formValidation(Request $request, $groupName)
@@ -695,7 +722,7 @@ class SalesController extends GridController
 		}
 		
 		if ($salesForm->payment < 0) {
-			throw new \Exception("Ingrese pago del cliente. wwww");
+			throw new \Exception("Ingrese pago del cliente.");
 		}
 		
 		if (empty($request->getSession()->get('products'))) {

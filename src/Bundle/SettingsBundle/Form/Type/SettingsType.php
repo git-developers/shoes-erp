@@ -97,6 +97,18 @@ class SettingsType extends AbstractType
 			        'class' => 'btn btn-success',
 		        ],
 	        ])
+	        ->add('printerFilename', TextType::class, [
+		        'label' => 'Printer Filename',
+		        'required' => true,
+		        'data' => $this->getClassValue(3),
+		        'label_attr' => [
+			        'class' => ''
+		        ],
+		        'attr' => [
+			        'class' => 'form-control',
+			        'placeholder' => 'filename',
+		        ],
+	        ])
         ;
     }
     

@@ -30,7 +30,7 @@ class OrdersHasProducts
 	private $pdvHash;
 
     /**
-     * @var integer
+     * @var float
      *
      * @JMSS\Groups({
      *     "crud",
@@ -81,30 +81,22 @@ class OrdersHasProducts
     {
         return $this->id;
     }
-
-    /**
-     * Set quantity
-     *
-     * @param integer $quantity
-     *
-     * @return OrdersHasProducts
-     */
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    /**
-     * Get quantity
-     *
-     * @return integer
-     */
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
+	
+	/**
+	 * @return float
+	 */
+	public function getQuantity() //: float
+	{
+		return $this->quantity;
+	}
+	
+	/**
+	 * @param float $quantity
+	 */
+	public function setQuantity(float $quantity)
+	{
+		$this->quantity = $quantity;
+	}
 	
 	/**
 	 * @return float

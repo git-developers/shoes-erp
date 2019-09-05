@@ -349,20 +349,10 @@ class BackendController extends GridController
 					
 					foreach ($pdvHasProducts as $key => $pdvHasProduct) {
 						
-						
-						
-						
-						
 						$pdvId = isset($pdvHasProduct['pdv']) ? $pdvHasProduct['pdv'] : null;
 						$stock = isset($pdvHasProduct['stock']) ? (float) $pdvHasProduct['stock'] : 0;
 						$pdv = $this->get('tianos.repository.pointofsale')->find($pdvId);
-						
-						
-						
-						
-						
-						
-						
+
 						if (!$pdv) {
 							continue;
 						}
@@ -407,6 +397,7 @@ class BackendController extends GridController
 			[
 				'id' => $id,
 				'action' => $action,
+				'entity' => $entity,
 				'form' => $form->createView(),
 				'pdvHasproductIds' => $pdvHasproductIds,
 			]

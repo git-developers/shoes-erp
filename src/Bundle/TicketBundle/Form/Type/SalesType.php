@@ -67,7 +67,7 @@ class SalesType extends AbstractType
 			        'placeholder' => '',
 		        ],
 	        ])
-	        ->add('payment', HiddenType::class, [ //HiddenType
+	        ->add('payment', HiddenType::class, [
 		        'label' => false,
 		        'required' => false,
 		        'label_attr' => [

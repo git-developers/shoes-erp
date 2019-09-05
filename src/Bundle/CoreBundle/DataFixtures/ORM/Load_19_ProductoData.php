@@ -46,7 +46,8 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setUnit($unit_1);
 	    $entity->setColor($color_1);
 	    $entity->setCategory($category_1);
-        $manager->persist($entity);
+	    $entity->setBarcode(strval(rand()));
+	    $manager->persist($entity);
         $this->addReference('product-1', $entity);
 
         $entity = new Product();
@@ -57,6 +58,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setColor($color_2);
 	    $entity->setUnit($unit_1);
 	    $entity->setCategory($category_1);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-2', $entity);
         
@@ -68,6 +70,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setUnit($unit_1);
 	    $entity->setColor($color_3);
 	    $entity->setCategory($category_1);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-3', $entity);
         
@@ -79,6 +82,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setColor($color_4);
 	    $entity->setUnit($unit_1);
 	    $entity->setCategory($category_1);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-4', $entity);
         
@@ -90,6 +94,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setUnit($unit_1);
 	    $entity->setColor($color_1);
 	    $entity->setCategory($category_1);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-5', $entity);
 
@@ -106,6 +111,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setUnit($unit_1);
 	    $entity->setColor($color_2);
 	    $entity->setCategory($category_2);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-6', $entity);
 
@@ -117,6 +123,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setUnit($unit_1);
 	    $entity->setColor($color_3);
 	    $entity->setCategory($category_2);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-7', $entity);
         
@@ -128,6 +135,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setUnit($unit_1);
 	    $entity->setColor($color_4);
 	    $entity->setCategory($category_2);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-8', $entity);
         
@@ -139,6 +147,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setUnit($unit_1);
 	    $entity->setColor($color_1);
 	    $entity->setCategory($category_2);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-9', $entity);
 	
@@ -154,6 +163,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setUnit($unit_1);
 	    $entity->setColor($color_2);
 	    $entity->setCategory($category_3);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-10', $entity);
         
@@ -165,6 +175,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setUnit($unit_1);
 	    $entity->setColor($color_3);
 	    $entity->setCategory($category_3);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-11', $entity);
         
@@ -176,6 +187,7 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setUnit($unit_1);
 	    $entity->setColor($color_4);
 	    $entity->setCategory($category_3);
+	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
         $this->addReference('product-12', $entity);
 

@@ -37,6 +37,11 @@ class Load_22_SettingsData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setClassName(Settings::SALES_QUANTITY_PRICE_X);
 	    $entity->setClassValue("12");
         $manager->persist($entity);
+        
+        $entity = new Settings();
+	    $entity->setClassName(Settings::PRINTER_FILENAME);
+	    $entity->setClassValue("localhost:631");
+        $manager->persist($entity);
 
         
         $manager->flush();

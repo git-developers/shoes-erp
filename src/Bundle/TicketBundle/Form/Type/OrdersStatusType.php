@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Bundle\TicketBundle\Entity\Sales;
+use Bundle\TicketBundle\Entity\Orders;
 
 class OrdersStatusType extends AbstractType
 {
@@ -23,8 +23,8 @@ class OrdersStatusType extends AbstractType
             ->add('status', ChoiceType::class, [
                 'label' => false,
 	            'choices' => [
-		            Sales::STATUS_COMPLETED => Sales::STATUS_COMPLETED,
-		            Sales::STATUS_CANCELED => Sales::STATUS_CANCELED,
+		            Orders::STATUS_VOIDED => Orders::STATUS_VOIDED,
+		            Orders::STATUS_COMPLETED => Orders::STATUS_COMPLETED,
 	            ],
 	            'empty_data' => false,
 	            'placeholder' => 'esta seguro',

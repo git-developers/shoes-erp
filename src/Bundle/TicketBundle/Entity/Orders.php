@@ -22,7 +22,7 @@ class Orders
 	const STATUS_OPEN = 1;
 	const STATUS_IN_PROGRESS = 2;
 	const STATUS_COMPLETED = 3;
-	const STATUS_CANCELED = 4;
+	const STATUS_VOIDED = 5;
 	
 	const INCREMENT = 'INCREMENT';
 	const DECREMENT = 'DECREMENT';
@@ -40,7 +40,36 @@ class Orders
      * @JMSS\Groups({"orders"})
      */
     private $code;
-    
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
+	 *     "orders"
+	 * })
+	 *
+	 */
+	private $discount = 0;
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
+	 *     "orders"
+	 * })
+	 *
+	 */
+	private $payment = 0;
+	
+	/**
+	 * @var float
+	 *
+	 * @JMSS\Groups({
+	 *     "sales"
+	 * })
+	 */
+	private $total = 0;
+	
     /**
      * @var string
      *
@@ -136,6 +165,13 @@ class Orders
 	 * @JMSS\Groups({"orders"})
 	 */
 	private $pointOfSale;
+	
+	/**
+	 * @var \Bundle\TicketBundle\Entity\PaymentType
+	 *
+	 * @JMSS\Groups({"orders"})
+	 */
+	private $paymentType;
 	
 	/**
 	 * Constructor
@@ -466,6 +502,71 @@ class Orders
 	{
 		$this->status = $status;
 	}
+	
+	/**
+	 * @return float
+	 */
+	public function getDiscount() //: float
+	{
+		return $this->discount;
+	}
+	
+	/**
+	 * @param float $discount
+	 */
+	public function setDiscount(float $discount)
+	{
+		$this->discount = $discount;
+	}
+	
+	/**
+	 * @return float
+	 */
+	public function getPayment() //: float
+	{
+		return $this->payment;
+	}
+	
+	/**
+	 * @param float $payment
+	 */
+	public function setPayment(float $payment)
+	{
+		$this->payment = $payment;
+	}
+	
+	/**
+	 * @return PaymentType
+	 */
+	public function getPaymentType() //: PaymentType
+	{
+		return $this->paymentType;
+	}
+	
+	/**
+	 * @param PaymentType $paymentType
+	 */
+	public function setPaymentType(PaymentType $paymentType)
+	{
+		$this->paymentType = $paymentType;
+	}
+	
+	/**
+	 * @return float
+	 */
+	public function getTotal() //: float
+	{
+		return $this->total;
+	}
+	
+	/**
+	 * @param float $total
+	 */
+	public function setTotal(float $total)
+	{
+		$this->total = $total;
+	}
+	
 	
 	
 }

@@ -17,6 +17,7 @@ class Settings
 	const SYSTEM_EMAIL = "SYSTEM_EMAIL";
 	const SALES_QUANTITY = "SALES_QUANTITY";
 	const SALES_QUANTITY_PRICE_X = "SALES_QUANTITY_PRICE_X";
+	const PRINTER_FILENAME = "PRINTER_FILENAME";
 
     /**
      * @var integer
@@ -59,6 +60,12 @@ class Settings
 	 *
 	 */
 	private $systemEmail;
+	
+	/**
+	 * @var string
+	 *
+	 */
+	private $printerFilename;
 	
 	/**
 	 * @var float
@@ -383,6 +390,23 @@ class Settings
 	{
 		$this->salesQuantityPriceX = $salesQuantityPriceX;
 	}
+	
+	/**
+	 * @return string
+	 */
+	public function getPrinterFilename() //: string
+	{
+		return $this->printerFilename;
+	}
+	
+	/**
+	 * @param string $printerFilename
+	 */
+	public function setPrinterFilename(string $printerFilename)
+	{
+		$this->printerFilename = $printerFilename;
+	}
  
+	
 }
 

@@ -25,45 +25,7 @@
                         </span>
                         {{ product.name }}
 
-                        <table class="series table table-bordered 18-21">
-                            <tr class="bg-light-blue-active">
-                                <th class="text-center">18</th>
-                                <th class="text-center">19</th>
-                                <th class="text-center">20</th>
-                                <th class="text-center">21</th>
-                            </tr>
-                            <tr class="text-center bg-light-blue">
-                                <td>2</td>
-                                <td>4</td>
-                                <td>4</td>
-                                <td>2</td>
-                            </tr>
-                        </table>
-
-
-                        <table class="series table table-bordered 33-39" style="display: none">
-                            <tr class="bg-light-blue-active">
-                                <th class="text-center">33</th>
-                                <th class="text-center">34</th>
-                                <th class="text-center">35</th>
-                                <th class="text-center">36</th>
-                                <th class="text-center">37</th>
-                                <th class="text-center">38</th>
-                                <th class="text-center">39</th>
-                            </tr>
-                            <tr class="text-center">
-                                <td>1</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>2</td>
-                                <td>1</td>
-                            </tr>
-                        </table>
-
-
-
+                        {{ include('TicketBundle:Sales/Grid/Box:series_table.html.twig') }}
                     </td>
                     <td class="text-center text-bold bg-gray-1 fontsize-18 {{ product.out_of_stock ? 'bg-orange' : '' }}">
                         {{ product.quantity }}

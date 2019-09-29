@@ -43,6 +43,12 @@ table.products tbody
     height: 100%;
 }
 
+table.products tbody tr td:nth-child(1),
+table.products thead tr th:nth-child(1)
+{
+    width: 8%;
+}
+
 .table-client tbody tr td:nth-child(1),
 .table-client thead tr th:nth-child(1)
 {

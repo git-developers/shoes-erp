@@ -31,6 +31,13 @@ Bundle\ProductBundle\Entity\Product:
             length: 7
             options:
                 fixed: false
+        gender:
+            type: integer
+            nullable: true
+            length: 1
+            options:
+                fixed: false
+            column: gender
         name:
             type: string
             nullable: false

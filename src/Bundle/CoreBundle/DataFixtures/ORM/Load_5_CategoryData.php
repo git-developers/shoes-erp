@@ -34,8 +34,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($entity2);
         $manager->persist($pointofsale_3);
         
-	
-        
         
 	    $child = new Category();
 	    $child->setName('J-505');
@@ -44,27 +42,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $manager->persist($child);
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
-	    $this->addReference('category-3', $child);
-	    
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-	    $this->addReference('category-1', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-	    $this->addReference('category-5', $o);
-	
+	    $this->addReference('category-1', $child);
 	
 	    
 	    
@@ -75,27 +53,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $manager->persist($child);
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-	    $this->addReference('category-4', $o);
-	
-	    $a = new Category();
-	    $a->setName('19 - 21');
-	    $a->setType(Category::TYPE_PRODUCT);
-	    $a->setCategory($child);
-	    $manager->persist($a);
-	    $pointofsale_3->addCategory($a);
-	    $manager->persist($pointofsale_3);
-	    $this->addReference('category-2', $a);
-	    
-	    
+	    $this->addReference('category-2', $child);
 	    
 	    
 		
@@ -106,27 +64,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $manager->persist($child);
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-8', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-9', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-10', $o);
-	    
-	    
+	    $this->addReference('category-3', $child);
 	    
 	    
 	
@@ -137,28 +75,9 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $manager->persist($child);
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-11', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-12', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-13', $o);
+	    $this->addReference('category-4', $child);
 	    
 	    
-	
 	    
 	    
 	    $child = new Category();
@@ -168,26 +87,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $manager->persist($child);
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-14', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-15', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-16', $o);
-	    
+	    $this->addReference('category-5', $child);
 	    
 	    
 	    
@@ -200,27 +100,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-17', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-18', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-19', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -231,26 +110,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-20', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-21', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-22', $o);
-	    
-	    
 	    
 	    
 	
@@ -263,27 +122,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-23', $child);
 	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-24', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-25', $o);
-	    
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -294,31 +132,8 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-26', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-27', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-28', $o);
 	    
 	    
-	    
-	    
-	    
-	    
-	
 	    $child = new Category();
 	    $child->setName('J-533');
 	    $child->setType(Category::TYPE_PRODUCT);
@@ -327,27 +142,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-29', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-30', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-31', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -358,27 +152,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-32', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-33', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-34', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -389,27 +162,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-35', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-36', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-37', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -420,28 +172,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-38', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-39', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
-	    
+
 	
 	    $child = new Category();
 	    $child->setName('J-543');
@@ -451,26 +182,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -481,27 +192,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	    
 	
@@ -513,27 +203,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	    
 	
@@ -545,26 +214,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -575,26 +224,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -605,27 +234,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
+
 	    
 	
 	    $child = new Category();
@@ -636,26 +245,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
 	    
 	    
 	
@@ -667,27 +256,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
+
 	
 	    $child = new Category();
 	    $child->setName('J-559');
@@ -697,27 +266,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -728,26 +276,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -758,26 +286,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -788,27 +296,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -819,27 +306,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -850,27 +316,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -881,27 +326,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -912,27 +336,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -943,26 +346,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -973,27 +356,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -1004,27 +366,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -1035,27 +376,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -1066,28 +386,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
-	    
+
 	
 	    $child = new Category();
 	    $child->setName('J-578');
@@ -1097,26 +396,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -1127,26 +406,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -1157,27 +416,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -1188,27 +426,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -1219,28 +436,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
-	    
+
 	
 	    $child = new Category();
 	    $child->setName('J-586');
@@ -1250,27 +446,6 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
 	    
 	
 	    $child = new Category();
@@ -1281,27 +456,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	    
-	    
-	    
+
 	
 	    $child = new Category();
 	    $child->setName('J-588');
@@ -1311,36 +466,12 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($child);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-2', $child);
-	    
-	    $o = new Category();
-	    $o->setName('18 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
-	
-	    $o = new Category();
-	    $o->setName('19 - 21');
-	    $o->setType(Category::TYPE_PRODUCT);
-	    $o->setCategory($child);
-	    $manager->persist($o);
-	    $pointofsale_3->addCategory($o);
-	    $manager->persist($pointofsale_3);
-//	    $this->addReference('category-2', $o);
+
      
      
      
      
-     
-     
-     
-     
-     
-     
-     
-	
+  
 	
 	    /**
 	     * CATEGORY PARENT
@@ -1628,88 +759,7 @@ class Load_5_CategoryData extends AbstractFixture implements OrderedFixtureInter
 	    $pointofsale_3->addCategory($entity1);
 	    $manager->persist($pointofsale_3);
 //	    $this->addReference('category-25', $entity1);
-
 	    
-	
-	
-
-        
-        /*
-        $entity3 = new Category();
-	    $entity3->setCode('002');
-	    $entity3->setName('J-505');
-	    $entity3->setType(Category::TYPE_PRODUCT);
-	    $entity3->setCategory($entity2);
-        $manager->persist($entity3);
-	    $pointofsale_3->addCategory($entity3);
-	    $manager->persist($pointofsale_3);
-        $this->addReference('category-2', $entity3);
-        
-        //CHILDREN
-	    $entity = new Category();
-	    $entity->setCode('0044');
-	    $entity->setName('18 - 21');
-	    $entity->setType(Category::TYPE_PRODUCT);
-	    $entity->setCategory($entity3);
-	    $manager->persist($entity);
-	    $pointofsale_3->addCategory($entity);
-	    $manager->persist($pointofsale_3);
-	    $this->addReference('category-3', $entity);
-	
-	    //CHILDREN
-	    $entity = new Category();
-	    $entity->setCode('0055');
-	    $entity->setName('19 - 21');
-	    $entity->setType(Category::TYPE_PRODUCT);
-	    $entity->setCategory($entity3);
-	    $manager->persist($entity);
-	    $pointofsale_3->addCategory($entity);
-	    $manager->persist($pointofsale_3);
-	    $this->addReference('category-4', $entity);
-        
-        
-
-        $entity4 = new Category();
-        $entity4->setCode('003');
-        $entity4->setName('J-512');
-        $entity4->setType(Category::TYPE_PRODUCT);
-        $entity4->setCategory($entity2);
-        $manager->persist($entity4);
-	    $pointofsale_3->addCategory($entity4);
-	    $manager->persist($pointofsale_3);
-        $this->addReference('category-5', $entity4);
-	
-	    //CHILDREN
-	    $entity = new Category();
-	    $entity->setCode('004');
-	    $entity->setName('18 - 21');
-	    $entity->setType(Category::TYPE_PRODUCT);
-	    $entity->setCategory($entity4);
-	    $manager->persist($entity);
-	    $pointofsale_3->addCategory($entity);
-	    $manager->persist($pointofsale_3);
-	    $this->addReference('category-6', $entity);
-	
-	    //CHILDREN
-	    $entity = new Category();
-	    $entity->setCode('005');
-	    $entity->setName('19 - 21');
-	    $entity->setType(Category::TYPE_PRODUCT);
-	    $entity->setCategory($entity4);
-	    $manager->persist($entity);
-	    $pointofsale_3->addCategory($entity);
-	    $manager->persist($pointofsale_3);
-	    $this->addReference('category-7', $entity);
-        
-        */
-        
-        
-
-
-
-
-
-        
 
         $manager->flush();
 

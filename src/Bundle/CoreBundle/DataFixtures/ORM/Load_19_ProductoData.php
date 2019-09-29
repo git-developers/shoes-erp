@@ -44,7 +44,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(25.33);
 	    $entity->setName('Producto 1');
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_1821);
 	    $entity->setColor($color_1);
+	    $entity->setGender(Product::GENDER_MALE);
 	    $entity->setCategory($category_1);
 	    $entity->setBarcode(strval(rand()));
 	    $manager->persist($entity);
@@ -56,7 +58,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(67.77);
 	    $entity->setName('Producto 2');
 	    $entity->setColor($color_2);
+	    $entity->setGender(Product::GENDER_FEMALE);
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_1821);
 	    $entity->setCategory($category_1);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
@@ -68,7 +72,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(15.33);
 	    $entity->setName('Producto 3');
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_1821);
 	    $entity->setColor($color_3);
+	    $entity->setGender(Product::GENDER_MALE);
 	    $entity->setCategory($category_1);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
@@ -80,7 +86,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(12.33);
 	    $entity->setName('Producto 4');
 	    $entity->setColor($color_4);
+	    $entity->setGender(Product::GENDER_FEMALE);
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_1821);
 	    $entity->setCategory($category_1);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
@@ -92,7 +100,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(43.33);
 	    $entity->setName('Producto 5');
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_1821);
 	    $entity->setColor($color_1);
+	    $entity->setGender(Product::GENDER_MALE);
 	    $entity->setCategory($category_1);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
@@ -109,7 +119,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(23.44);
 	    $entity->setName('Producto 6');
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_2226);
 	    $entity->setColor($color_2);
+	    $entity->setGender(Product::GENDER_FEMALE);
 	    $entity->setCategory($category_2);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
@@ -121,7 +133,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(99.22);
 	    $entity->setName('Producto 7');
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_2226);
 	    $entity->setColor($color_3);
+	    $entity->setGender(Product::GENDER_MALE);
 	    $entity->setCategory($category_2);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
@@ -133,7 +147,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(77.88);
 	    $entity->setName('Producto 8');
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_2226);
 	    $entity->setColor($color_4);
+	    $entity->setGender(Product::GENDER_FEMALE);
 	    $entity->setCategory($category_2);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
@@ -145,7 +161,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(41.66);
 	    $entity->setName('Producto 9');
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_2226);
 	    $entity->setColor($color_1);
+	    $entity->setGender(Product::GENDER_MALE);
 	    $entity->setCategory($category_2);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
@@ -161,7 +179,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(67.55);
 	    $entity->setName('Producto 10');
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_2732);
 	    $entity->setColor($color_2);
+	    $entity->setGender(Product::GENDER_FEMALE);
 	    $entity->setCategory($category_3);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
@@ -173,7 +193,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(45.22);
 	    $entity->setName('Producto 11');
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_2732);
 	    $entity->setColor($color_3);
+	    $entity->setGender(Product::GENDER_MALE);
 	    $entity->setCategory($category_3);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);
@@ -185,7 +207,9 @@ class Load_19_ProductoData extends AbstractFixture implements OrderedFixtureInte
 	    $entity->setPrice(14.33);
 	    $entity->setName('Producto 12');
 	    $entity->setUnit($unit_1);
+	    $entity->setSizeRange(Product::SIZERANGE_2732);
 	    $entity->setColor($color_4);
+	    $entity->setGender(Product::GENDER_FEMALE);
 	    $entity->setCategory($category_3);
 	    $entity->setBarcode(strval(rand()));
         $manager->persist($entity);

@@ -27,6 +27,7 @@
             </div>
 
             <div class="row">
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <i class="fa fa-fw fa-code-fork"></i>
@@ -43,6 +44,30 @@
                             <option value="">[ Seleccionar ]</option>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <i class="fa fa-fw fa-code-fork"></i>
+                        <label class="" for="product_size">Genero</label>
+                        <div class="row">
+                            {% for key, val in form.gender.vars.choices %}
+                                <div class="col-md-6">
+                                    <input
+                                        type="radio"
+                                        id="product_gender_{{ key }}"
+                                        name="product[gender]"
+                                        required="required"
+
+                                        {% if form.gender.vars.data == val.value %}
+                                            checked="checked"
+                                        {% endif %}
+
+                                        value="{{ val.value }}">
+                                    <label for="product_gender_{{ key }}" class="required x-hand" style="margin-left: 5px">{{ val.label }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="col-md-6">
@@ -254,8 +279,6 @@
                                     </div>
                                 {% endif %}
 
-
-
                                 {#
                                 <div class="row">
                                     <div class="col-md-4">
@@ -323,7 +346,6 @@
                                         {{ val.vars.label }}
                                     </td>
 
-
                                     <td>
                                         <input
                                             type="text"
@@ -387,6 +409,21 @@
 
     <script type="text/javascript">
 
+        $(document).ready(function() {
+
+            {% if form.gender.vars.data <= 0 %}
+                $("input[name='{{ form.gender.vars.full_name }}']").attr('disabled', true);
+            {% elseif form.gender.vars.data > 0 %}
+
+                var gender = $("input[name='{{ form.gender.vars.full_name }}']").val().trim();
+                var sizeRange = $("select[name='{{ form.sizeRange.vars.full_name }}']").find("option:selected").val().trim();
+
+                $("table.series").hide();
+                $("table." + sizeRange + "-" + gender).show();
+            {% endif %}
+
+        });
+
         $("button.print-barcode").click(function() {
             $("div.print-barcode").show();
             window.print();
@@ -421,11 +458,50 @@
 
         $("select[name='{{ form.unit.vars.full_name }}']").change(function() {
             size($(this).find("option:selected").val().trim());
+            $("input[name='{{ form.gender.vars.full_name }}']").prop('checked', false);
+
+            $("table.series").hide();
+            $("table.default-serie").show();
+            $("input[name='{{ form.gender.vars.full_name }}']").attr('disabled', true);
+        });
+
+        $("select[name='{{ form.size.vars.full_name }}']").change(function() {
+
+            $("table.series").hide();
+            $("table.default-serie").show();
+            $("input[name='{{ form.gender.vars.full_name }}']").prop('checked', false);
+
+            var size = $(this).find("option:selected").val().trim();
+
+            if (size == "") {
+                $("input[name='{{ form.gender.vars.full_name }}']").attr('disabled', true);
+            } else {
+                $("input[name='{{ form.gender.vars.full_name }}']").attr('disabled', false);
+            }
         });
 
         $("select[name='{{ form.sizeRange.vars.full_name }}']").change(function() {
+
             $("table.series").hide();
-            $("table." + $(this).find("option:selected").val().trim()).show();
+            $("table.default-serie").show();
+            $("input[name='{{ form.gender.vars.full_name }}']").prop('checked', false);
+
+            var sizeRange = $(this).find("option:selected").val().trim();
+
+            if (sizeRange == "") {
+                $("input[name='{{ form.gender.vars.full_name }}']").attr('disabled', true);
+            } else {
+                $("input[name='{{ form.gender.vars.full_name }}']").attr('disabled', false);
+            }
+        });
+
+        $("input[name='{{ form.gender.vars.full_name }}']").change(function() {
+
+            var gender = $(this).val();
+            var sizeRange = $("select[name='{{ form.sizeRange.vars.full_name }}']").find("option:selected").val().trim();
+
+            $("table.series").hide();
+            $("table." + sizeRange + "-" + gender).show();
         });
 
         function size(text) {

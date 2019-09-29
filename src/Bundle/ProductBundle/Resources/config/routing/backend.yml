@@ -107,12 +107,12 @@ backend_product_index:
                               title: '<i class="fa fa-fw fa-adjust"></i> Color'
                               className: padding-0 text-center
                               filter: 0
-                        - obj: obj.product.code
+                        - obj: obj.stock
                           defs:
                               targets: 3
                               orderable: 1
                               sorting: 1
-                              title: Codigo
+                              title: Stock
                               filter: 0
                               className: text-center
                         - obj: obj.product.name
@@ -139,14 +139,6 @@ backend_product_index:
 #                              title: '<i class="fa fa-fw fa-arrows-h"></i> Talla'
 #                              className: text-center
 #                              filter: 0
-#                        - obj: obj.stock
-#                          defs:
-#                              targets: 5
-#                              orderable: 1
-#                              sorting: 1
-#                              title: Stock
-#                              filter: 0
-#                              className: text-center
                         - obj: " '<button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-fw fa-trash\"></i></button>' "
                           defs:
                               targets: 6

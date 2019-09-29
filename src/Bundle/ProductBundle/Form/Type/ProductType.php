@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Bundle\ProductBundle\Entity\Product;
 
 class ProductType extends AbstractType
 {
@@ -67,12 +68,12 @@ class ProductType extends AbstractType
     public function getSizeRange() {
         return [
 	        "[ Seleccionar ]" => "",
-        	"18 - 21" => "18-21",
-        	"22 - 26" => "22-26",
-        	"27 - 32" => "27-32",
-        	"33 - 36" => "33-36",
-        	"33 - 37" => "33-37",
-        	"33 - 39" => "33-39",
+        	"18 - 21" => Product::SIZERANGE_1821,
+        	"22 - 26" => Product::SIZERANGE_2226,
+        	"27 - 32" => Product::SIZERANGE_2732,
+        	"33 - 36" => Product::SIZERANGE_3336,
+        	"33 - 37" => Product::SIZERANGE_3337,
+        	"33 - 39" => Product::SIZERANGE_3339,
         ];
     }
 
@@ -180,6 +181,21 @@ class ProductType extends AbstractType
 		            'class' => 'form-control ',
 		            'placeholder' => '',
 	            ],
+            ])
+            ->add('gender', ChoiceType::class, [
+                'label' => 'Genero',
+	            'choices' => [
+	            	'Niño' => Product::GENDER_MALE,
+	            	'Niña' => Product::GENDER_FEMALE
+	            ],
+	            'expanded' => true,
+	            'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control random',
+                    'placeholder' => 'gender',
+                ],
             ])
             ->add('code', TextType::class, [
                 'label' => 'code',

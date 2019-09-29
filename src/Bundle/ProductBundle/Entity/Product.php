@@ -27,6 +27,16 @@ class Product
 	const ROLE_PRODUCT_DELETE = 'ROLE_PRODUCT_DELETE';
 	const BARCODE = 99887766;
 	
+	const GENDER_MALE = 1;
+	const GENDER_FEMALE = 2;
+	
+	const SIZERANGE_1821 = "18-21";
+	const SIZERANGE_2226 = "22-26";
+	const SIZERANGE_2732 = "27-32";
+	const SIZERANGE_3336 = "33-36";
+	const SIZERANGE_3337 = "33-37";
+	const SIZERANGE_3339 = "33-39";
+	
     /**
      * @var integer
      *
@@ -53,6 +63,18 @@ class Product
      * })
      */
     private $code;
+	
+	/**
+	 * @var integer
+	 *
+	 * @JMSS\Groups({
+	 *     "crud",
+	 *     "sales",
+	 * })
+	 *
+	 * @Assert\NotBlank(message="Seleccione el genero")
+	 */
+	private $gender;
 	
 	/**
 	 * @var float
@@ -191,6 +213,8 @@ class Product
 	 * @JMSS\Groups({
 	 *     "sales"
 	 * })
+	 *
+	 * @Assert\NotBlank(message="Seleccione un Tipo de uso")
 	 */
 	private $unit;
 	
@@ -641,7 +665,7 @@ class Product
 	/**
 	 * @param string $barcode
 	 */
-	public function setBarcode(string $barcode)
+	public function setBarcode($barcode)
 	{
 		$this->barcode = $barcode;
 	}
@@ -686,6 +710,22 @@ class Product
 	public function setOutOfStock(bool $outOfStock)
 	{
 		$this->outOfStock = $outOfStock;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getGender() //: int
+	{
+		return $this->gender;
+	}
+	
+	/**
+	 * @param int $gender
+	 */
+	public function setGender(int $gender) //: void
+	{
+		$this->gender = $gender;
 	}
 	
 	

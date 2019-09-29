@@ -19,9 +19,9 @@ div.info-box-pdv select {
     border: 0px solid #3c8dbc;
 }
 
-input[type=checkbox] {
-    height: 20px;
-    width: 20px;
+input[type=checkbox], input[type=radio] {
+    height: 20px !important;
+    width: 20px !important;
 }
 
 div.box-pdv > .box-body {
